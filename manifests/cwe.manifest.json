@@ -1,14 +1,18 @@
 {
   "content_type": "cwe_catalog_xml",
+  "content_types_without_entity_id": [],
   "counts": {
     "bytes": 2021351,
     "entity_id_missing": 0,
     "entity_id_present": 2476,
     "files": 1,
-    "records": 2476
+    "identifiable_records": 2476,
+    "records": 2476,
+    "records_without_expected_entity_id": 0
   },
   "determinism": "This manifest contains no wall-clock field. All timestamps derive from the committed pin, so re-running the ingester against the same pin reproduces this file byte for byte. Run time is recorded in reports/ingest.md.",
   "entity_id_coverage": 1.0,
+  "entity_id_coverage_identifiable": 1.0,
   "entity_id_samples": [
     "CWE-1004",
     "CWE-1007",

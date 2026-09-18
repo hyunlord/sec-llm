@@ -42,6 +42,7 @@ class ManifestBuilder:
         license_block: dict,
         source_timestamp: str,
         notes: list | None = None,
+        no_entity_id_types: list | None = None,
     ):
         self.source_id = source_id
         self.source_name = source_name
@@ -51,14 +52,22 @@ class ManifestBuilder:
         self.license_block = license_block
         self.source_timestamp = source_timestamp
         self.notes = list(notes or [])
+        # Content types the source genuinely does not give an identifier. Kept
+        # explicit so the headline coverage number can be read honestly: a STIX
+        # bundle is 80% relationship objects, and counting those as "missing"
+        # makes a complete ingest look like a broken one.
+        self.no_entity_id_types = set(no_entity_id_types or ())
         self._hashes: list[str] = []
         self._entity_present = 0
         self._entity_missing = 0
         self._files: list[dict] = []
         self._entity_samples: list[str] = []
+        self._not_identifiable = 0
 
-    def add_record(self, content_sha256: str, entity_id: str | None) -> None:
+    def add_record(self, content_sha256: str, entity_id: str | None, content_type: str | None = None) -> None:
         self._hashes.append(content_sha256)
+        if content_type in self.no_entity_id_types:
+            self._not_identifiable += 1
         if entity_id:
             self._entity_present += 1
             if len(self._entity_samples) < 5:
@@ -98,6 +107,8 @@ class ManifestBuilder:
     def build(self) -> dict:
         total = self.record_count
         coverage = (self._entity_present / total) if total else 0.0
+        identifiable = total - self._not_identifiable
+        coverage_identifiable = (self._entity_present / identifiable) if identifiable else 0.0
         return {
             "schema_version": SCHEMA_VERSION,
             "source_id": self.source_id,
@@ -111,10 +122,14 @@ class ManifestBuilder:
                 "records": total,
                 "entity_id_present": self._entity_present,
                 "entity_id_missing": self._entity_missing,
+                "records_without_expected_entity_id": max(0, identifiable - self._entity_present),
+                "identifiable_records": identifiable,
                 "files": len(self._files),
                 "bytes": sum(f["bytes"] for f in self._files),
             },
             "entity_id_coverage": round(coverage, 6),
+            "entity_id_coverage_identifiable": round(coverage_identifiable, 6),
+            "content_types_without_entity_id": sorted(self.no_entity_id_types),
             "records_digest": self.records_digest(),
             "files": sorted(self._files, key=lambda f: f["path"]),
             "entity_id_samples": self._entity_samples,

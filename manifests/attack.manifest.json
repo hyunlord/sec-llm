@@ -1,0 +1,116 @@
+{
+  "content_type": "stix_2_1_bundle_json",
+  "content_types_without_entity_id": [
+    "stix_identity",
+    "stix_marking-definition",
+    "stix_relationship",
+    "stix_x-mitre-collection"
+  ],
+  "counts": {
+    "bytes": 63643853,
+    "entity_id_missing": 24827,
+    "entity_id_present": 6067,
+    "files": 3,
+    "identifiable_records": 6067,
+    "records": 30894,
+    "records_without_expected_entity_id": 0
+  },
+  "determinism": "This manifest contains no wall-clock field. All timestamps derive from the committed pin, so re-running the ingester against the same pin reproduces this file byte for byte. Run time is recorded in reports/ingest.md.",
+  "entity_id_coverage": 0.196381,
+  "entity_id_coverage_identifiable": 1.0,
+  "entity_id_samples": [
+    "C0022",
+    "C0035",
+    "C0041",
+    "C0058",
+    "C0001"
+  ],
+  "files": [
+    {
+      "bytes": 53835637,
+      "path": "data/raw/attack/v19.2/enterprise-attack-19.2.json",
+      "sha256": "dc1639caa5501d720e280cf1cbd8fbe009884a0c9b3e6e9ed9d0c25166c3d8f4"
+    },
+    {
+      "bytes": 4057891,
+      "path": "data/raw/attack/v19.2/ics-attack-19.2.json",
+      "sha256": "08b83d2cea6b6d6752468ef0e62e2ab2a53c9443ef72c439ecccb07ab9e89da9"
+    },
+    {
+      "bytes": 5750325,
+      "path": "data/raw/attack/v19.2/mobile-attack-19.2.json",
+      "sha256": "acfa5ca2d93484476f79bf38590e2b55bb675fc0ce85e76bffa0af2c82dada64"
+    }
+  ],
+  "license": {
+    "commercial_status": "permitted_with_attribution",
+    "contains_third_party_content": true,
+    "pii_policy": "no_intentional_pii; free-text description/credit/reference fields may carry researcher or reporter names -- P2 secret/PII scanning is required",
+    "redistribution_status": "permitted_with_attribution",
+    "source_license": "MITRE ATT&CK License (LICENSE.txt in attack-stix-data)",
+    "upstream_license": "Same MITRE ATT&CK License; individual STIX objects carry external_references to third-party vendor threat reports, which are cited but not redistributed"
+  },
+  "lineage_fields": [
+    "source_id",
+    "source_name",
+    "source_url",
+    "source_pin",
+    "retrieved_at",
+    "record_id",
+    "entity_id",
+    "content_type",
+    "source_license",
+    "upstream_license",
+    "redistribution_status",
+    "commercial_status",
+    "contains_third_party_content",
+    "pii_policy",
+    "transform_history",
+    "content_sha256"
+  ],
+  "notes": [
+    "STIX object structure preserved; not flattened to a technique list. Relationship, mitigation, group, software, campaign and data-component objects are all retained.",
+    "Attribution required by the ATT&CK license: © 2026 The MITRE Corporation. This work is reproduced and distributed with the permission of The MITRE Corporation.",
+    "STIX object counts: relationship=24818, x-mitre-analytic=2066, attack-pattern=1166, x-mitre-detection-strategy=920, malware=888, course-of-action=335, intrusion-set=229, x-mitre-data-component=174, tool=97, campaign=68, x-mitre-data-source=61, x-mitre-tactic=41, x-mitre-asset=18, x-mitre-matrix=4, x-mitre-collection=3, identity=3, marking-definition=3",
+    "objects by domain: enterprise-attack=26086, ics-attack=2173, mobile-attack=2635",
+    "entity_id absent for 24827 of 30894 objects. STIX relationship, marking-definition, identity and collection objects carry no ATT&CK external_id by design and are excluded from the identifiable denominator; among object types that should have one, coverage is 1.0000. Missing ids are counted, never synthesised."
+  ],
+  "pin": {
+    "commit_sha": "6cda5ad8462c79e14fbb872f4e09059b18e0cfc4",
+    "files": [
+      {
+        "bytes": 53835637,
+        "git_blob_sha": "8b8a9c8cc9e553f96f963b91265f50ee0854636d",
+        "path": "enterprise-attack/enterprise-attack-19.2.json",
+        "raw_url": "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/6cda5ad8462c79e14fbb872f4e09059b18e0cfc4/enterprise-attack/enterprise-attack-19.2.json"
+      },
+      {
+        "bytes": 5750325,
+        "git_blob_sha": "ca8318bb89ff459abb5aff5a62454418840ebea9",
+        "path": "mobile-attack/mobile-attack-19.2.json",
+        "raw_url": "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/6cda5ad8462c79e14fbb872f4e09059b18e0cfc4/mobile-attack/mobile-attack-19.2.json"
+      },
+      {
+        "bytes": 4057891,
+        "git_blob_sha": "2effafcbd2a672d1e2f7ca1ae403fc7a30730c5d",
+        "path": "ics-attack/ics-attack-19.2.json",
+        "raw_url": "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/6cda5ad8462c79e14fbb872f4e09059b18e0cfc4/ics-attack/ics-attack-19.2.json"
+      }
+    ],
+    "immutability": "Release tag pinned to a commit SHA; raw URLs are commit-addressed.",
+    "pin_type": "git_tag_release",
+    "pinned_at_utc": "2026-09-18T04:37:32Z",
+    "published_at": "2026-08-05T22:58:54Z",
+    "repo": "mitre-attack/attack-stix-data",
+    "source_id": "attack",
+    "source_name": "MITRE ATT&CK STIX 2.1 bundles (mitre-attack/attack-stix-data)",
+    "tag": "v19.2",
+    "version": "19.2"
+  },
+  "records_digest": "317b7f7e0ae3b6ed708bd7dc8e7a181df939cf0713038627b59a60ec1599bfbd",
+  "schema_version": 1,
+  "source_id": "attack",
+  "source_name": "MITRE ATT&CK STIX 2.1 bundles (mitre-attack/attack-stix-data)",
+  "source_timestamp": "2026-08-05T22:58:54Z",
+  "source_url": "https://github.com/mitre-attack/attack-stix-data"
+}

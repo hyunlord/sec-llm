@@ -151,7 +151,7 @@ def ingest(pin: dict, *, force: bool = False) -> Path:
                     **lic,
                 )
                 w.write(lin, obj)
-                mb.add_record(csha, entity_id)
+                mb.add_record(csha, entity_id, content_type)
                 counts[content_type] = counts.get(content_type, 0) + 1
 
     for k, v in sorted(counts.items()):
