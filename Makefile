@@ -8,7 +8,7 @@ PYTHON ?= .venv/bin/python
 CHECKS := scripts/env_check
 
 .DEFAULT_GOAL := help
-.PHONY: help env-check report lock pack clean-artifacts pin ingest ingest-verify
+.PHONY: help env-check report lock pack clean-artifacts pin ingest ingest-verify sources-doc
 
 help:
 	@echo "targets:"
@@ -20,6 +20,7 @@ help:
 	@echo "  pin           resolve every source to an immutable reference -> ingest/sources.lock.json"
 	@echo "  ingest        ingest every pinned source -> manifests/<source>.manifest.json"
 	@echo "  ingest-verify re-run ingest and prove the manifests are byte-identical"
+	@echo "  sources-doc   regenerate docs/data-sources.md from ingest/sources.py"
 
 env-check:
 	@mkdir -p env/checks logs reports
@@ -94,3 +95,6 @@ ingest-verify:
 	else \
 	  echo "ERROR: manifests changed across runs against the same pins"; exit 1; \
 	fi
+
+sources-doc:
+	$(INGEST_PY) ingest/render_sources_doc.py
