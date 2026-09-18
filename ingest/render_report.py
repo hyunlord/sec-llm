@@ -60,6 +60,36 @@ def pin_headline(pin: dict) -> str:
     return f"`{t}`"
 
 
+class ReportConsistencyError(RuntimeError):
+    """The run record and the manifests disagree about what happened."""
+
+
+def check_consistency(runs: dict, mans: dict) -> None:
+    """Refuse to render a document that contradicts itself.
+
+    A source marked failed while a valid manifest for it sits on disk is not a
+    state to render -- it means the run record is stale or polluted. A
+    self-contradicting report is worse than a missing one, and these reports are
+    the deliverable.
+    """
+    contradictions = []
+    for sid, r in (runs or {}).items():
+        if r.get("status") != "ok" and sid in mans:
+            m = mans[sid]
+            contradictions.append(
+                f"{sid}: run record says '{r.get('status')}' "
+                f"({str(r.get('error'))[:120]}) but manifests/{sid}.manifest.json exists "
+                f"with {m['counts']['records']} records"
+            )
+    if contradictions:
+        raise ReportConsistencyError(
+            "refusing to render a self-contradicting report:\n  "
+            + "\n  ".join(contradictions)
+            + "\n\nThe run record is stale or was polluted by a test. Re-run `make ingest`, "
+              "or point gate tests at SEC_LLM_DATA_DIR so they never write here."
+        )
+
+
 def render() -> Path:
     lock = json.loads(LOCK.read_text()) if LOCK.exists() else {"sources": {}}
     pins = lock.get("sources", {})
@@ -71,6 +101,8 @@ def render() -> Path:
         p = MANIFESTS / f"{sid}.manifest.json"
         if p.exists():
             mans[sid] = json.loads(p.read_text())
+
+    check_consistency(runs, mans)
 
     L = []
     L.append("# P1 수집 보고서 — 출처 수집과 계보(lineage)\n")

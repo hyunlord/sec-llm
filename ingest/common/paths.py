@@ -2,10 +2,15 @@
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
-DATA = REPO / "data"
+
+# Overridable so a gate test that deliberately induces a failure writes its run
+# record somewhere the report renderer never reads. Sharing one store is how
+# reports/ingest.md came to show cwe as both failed and successfully manifested.
+DATA = Path(os.environ.get("SEC_LLM_DATA_DIR") or (REPO / "data"))
 RAW = DATA / "raw"          # exactly what the source served
 INGESTED = DATA / "ingested"  # lineage-wrapped records, JSONL, one file per source
 STATE = DATA / "state"      # resume checkpoints
