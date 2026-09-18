@@ -18,6 +18,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import subprocess
 from pathlib import Path
 
 from .lineage import LINEAGE_FIELDS, canonical_json, file_sha256
@@ -259,10 +260,36 @@ def validate_manifest_files(manifest: dict, repo_root: Path) -> list[str]:
         if kind == "directory":
             if "sha256" in e:
                 problems.append(f"{path}: directory entry carries a sha256, which cannot be meaningful")
-            if "git_commit_sha" in e and not re.fullmatch(r"[0-9a-f]{40}", e["git_commit_sha"]):
-                problems.append(f"{path}: git_commit_sha is not 40 lowercase hex characters")
             if "bytes" in e:
                 problems.append(f"{path}: directory entry uses 'bytes'; expected 'bytes_on_disk'")
+            recorded = e.get("git_commit_sha")
+            if recorded is None:
+                problems.append(f"{path}: directory entry has no git_commit_sha")
+                continue
+            if not re.fullmatch(r"[0-9a-f]{40}", recorded):
+                problems.append(f"{path}: git_commit_sha is not 40 lowercase hex characters")
+                continue
+            # Shape-checking a commit id proves nothing about the tree on disk.
+            # This source is ~48% of all records and was the only one outside the
+            # verification loop, so ask git what it actually has checked out.
+            target = repo_root / path
+            if not (target / ".git").exists():
+                problems.append(f"{path}: no git checkout present; cannot verify the pinned commit")
+                continue
+            try:
+                head = subprocess.run(
+                    ["git", "-C", str(target), "rev-parse", "HEAD"],
+                    capture_output=True, text=True, timeout=120,
+                )
+                if head.returncode != 0:
+                    problems.append(f"{path}: git rev-parse HEAD failed: {head.stderr.strip()[:200]}")
+                elif head.stdout.strip() != recorded:
+                    problems.append(
+                        f"{path}: checkout is at the wrong commit\n"
+                        f"    manifest {recorded}\n    checkout {head.stdout.strip()}"
+                    )
+            except Exception as exc:
+                problems.append(f"{path}: could not run git rev-parse: {exc!r}")
             continue
 
         digest = e.get("sha256")

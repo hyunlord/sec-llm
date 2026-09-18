@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import ssl
 import sys
 import time
@@ -26,6 +27,28 @@ DEFAULT_TIMEOUT = 120
 
 class FetchError(RuntimeError):
     pass
+
+
+class OfflineError(FetchError):
+    """A network call was attempted while SEC_LLM_OFFLINE=1.
+
+    The point of offline mode is to prove that manifests reproduce from retained
+    local artifacts alone. A run that quietly refetches proves nothing, so any
+    attempted network access is a hard failure rather than a fallback.
+    """
+
+
+def offline() -> bool:
+    return os.environ.get("SEC_LLM_OFFLINE", "").strip() not in ("", "0", "false", "False")
+
+
+def _forbid_network(url: str) -> None:
+    if offline():
+        raise OfflineError(
+            f"SEC_LLM_OFFLINE=1 but a network request was attempted: {url}\n"
+            "The retained local artifact is missing or its digest does not match, so this "
+            "run cannot prove offline reproducibility."
+        )
 
 
 class RateLimiter:
@@ -89,6 +112,7 @@ def http_get(
     hdrs = {"User-Agent": USER_AGENT}
     hdrs.update(headers or {})
 
+    _forbid_network(url)
     last_exc = None
     for attempt in range(1, retries + 1):
         if limiter:
@@ -123,6 +147,7 @@ def get_json(url: str, **kw) -> dict:
 
 def head(url: str, timeout: int = 60) -> dict:
     """HEAD for a size estimate before committing to a download."""
+    _forbid_network(url)
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT}, method="HEAD")
     try:
         with _opener().open(req, timeout=timeout) as resp:
@@ -154,14 +179,38 @@ def download(
     dest = Path(dest)
     dest.parent.mkdir(parents=True, exist_ok=True)
     part = dest.with_suffix(dest.suffix + ".part")
+    # Sidecar recording the digest observed when this artifact was fetched. It is
+    # what lets a later run trust the local copy without asking the network --
+    # which is the difference between "the manifests reproduced" and "the
+    # manifests reproduced offline".
+    sidecar = dest.with_suffix(dest.suffix + ".sha256")
 
-    if dest.exists() and expected_sha256:
+    known = expected_sha256
+    if known is None and sidecar.exists():
+        cand = sidecar.read_text().split()[0].strip()
+        if re.fullmatch(r"[0-9a-f]{64}", cand):
+            known = cand
+
+    if dest.exists() and known:
         got = file_sha256(dest)
-        if got == expected_sha256:
+        if got == known:
             return {"path": str(dest), "bytes": dest.stat().st_size, "sha256": got, "cached": True}
-        print(f"    existing {dest.name} hash mismatch; refetching", flush=True)
+        msg = f"existing {dest.name} hash mismatch (have {got[:12]}, want {known[:12]})"
+        if offline():
+            raise OfflineError(f"SEC_LLM_OFFLINE=1 and {msg}; cannot refetch")
+        print(f"    {msg}; refetching", flush=True)
         dest.unlink()
 
+    if dest.exists() and not known:
+        # No digest to check against. Offline mode cannot verify it, and silently
+        # trusting an unverified file would make the offline claim hollow.
+        if offline():
+            raise OfflineError(
+                f"SEC_LLM_OFFLINE=1 and {dest.name} exists but has no recorded digest "
+                f"({sidecar.name} missing); run once online to record it"
+            )
+
+    _forbid_network(url)
     meta = head(url)
     total = meta.get("content_length") or 0
 
@@ -218,6 +267,7 @@ def download(
     part.replace(dest)
     got = file_sha256(dest)
     size = dest.stat().st_size
+    sidecar.write_text(got + "\n")
     if expected_sha256 and got != expected_sha256:
         raise FetchError(
             f"checksum mismatch for {url}\n  expected {expected_sha256}\n  got      {got}"

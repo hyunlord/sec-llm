@@ -8,7 +8,7 @@ PYTHON ?= .venv/bin/python
 CHECKS := scripts/env_check
 
 .DEFAULT_GOAL := help
-.PHONY: help env-check report lock pack clean-artifacts pin ingest ingest-verify sources-doc ingest-report
+.PHONY: help env-check report lock pack clean-artifacts pin ingest ingest-offline ingest-verify sources-doc ingest-report
 
 help:
 	@echo "targets:"
@@ -20,6 +20,7 @@ help:
 	@echo "  pin           resolve every source to an immutable reference -> ingest/sources.lock.json"
 	@echo "  ingest        ingest every pinned source -> manifests/<source>.manifest.json"
 	@echo "  ingest-verify re-run ingest and prove the manifests are byte-identical"
+	@echo "  ingest-offline re-run ingest with the network forbidden; proves offline reproducibility"
 	@echo "  sources-doc   regenerate docs/data-sources.md from ingest/sources.py"
 	@echo "  ingest-report regenerate reports/ingest.md from the manifests"
 
@@ -83,6 +84,21 @@ pin:
 
 ingest:
 	$(INGEST_PY) ingest/run.py $(INGEST_ARGS)
+
+# Gate 2 condition 8. SEC_LLM_OFFLINE makes any attempted network call raise, so
+# a manifest that reproduces here reproduced from retained local artifacts and
+# nothing else. "It reproduced" and "it reproduced without touching the network"
+# are different claims and only the second one is worth much.
+ingest-offline:
+	@mkdir -p manifests
+	@shasum -a 256 manifests/*.json > /tmp/sec-llm-off1.txt
+	SEC_LLM_OFFLINE=1 $(INGEST_PY) ingest/run.py $(INGEST_ARGS)
+	@shasum -a 256 manifests/*.json > /tmp/sec-llm-off2.txt
+	@if diff -u /tmp/sec-llm-off1.txt /tmp/sec-llm-off2.txt; then \
+	  echo "MANIFESTS REPRODUCIBLE OFFLINE"; \
+	else \
+	  echo "ERROR: manifests changed when re-derived offline"; exit 1; \
+	fi
 
 # Gate 1 requirement 2: re-running against the same pins must reproduce the
 # manifests byte for byte. Hash, re-run, hash, diff -- and fail if they differ.
