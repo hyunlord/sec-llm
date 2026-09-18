@@ -8,7 +8,10 @@ venv/
 
 # Raw corpus -- never committed. Manifests, pins and reports are.
 data/
-!data/.gitkeep
+# The hand-labelled calibration sample is evidence, not corpus: it is small, it
+# is what lets anyone re-derive the threshold choice, and it is committed.
+!data/labels/
+!data/labels/**
 
 # Model weights, datasets, checkpoints -- never committed
 *.safetensors
