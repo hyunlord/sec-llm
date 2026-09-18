@@ -134,9 +134,9 @@ P2는 **표시**만 한다. 물리적 삭제는 P3에서 데이터셋을 실제�
 
 > Fixed MinHash seed and permutations, sorted iteration at every point where order could leak into the result, and a union-find whose representative is the lexicographically smallest key. No wall-clock field is recorded here, so re-running against the same index reproduces this file byte for byte.
 
-- 전체 벽시계 시간: **130.5초**
-- 최대 RSS: **1.9 GiB**
-  - `identity`: 23.8초
-  - `near`: 1.5초
+- 전체 벽시계 시간: **97.2초**
+- 최대 RSS: **2.1 GiB**
+  - `identity`: 18.0초
+  - `near`: 1.2초
 - 30분을 초과한 단계는 없다.
 
