@@ -23,53 +23,53 @@ VLLM_BIN = VENV_BIN / "vllm"
 # Deliberately conservative for a 128 GiB unified-memory part shared with the
 # desktop session: enough for a 7B in bf16 plus KV cache, not enough to wedge
 # the machine.
+# --disable-log-requests was removed in vLLM 0.29 and is only noise-reduction
+# anyway, so it is gone rather than being worked around.
 BASE_ARGS = [
     "--max-model-len", "8192",
     "--gpu-memory-utilization", "0.45",
     "--max-num-seqs", "16",
-    "--disable-log-requests",
     "--seed", "1234",
 ]
 
 
-@functools.lru_cache(maxsize=1)
-def supported_flags() -> frozenset:
-    """Flags this vLLM build actually accepts, read from `vllm serve --help`.
+UNRECOGNISED_RE = re.compile(r"unrecognized arguments?:\s*(.+)")
 
-    vLLM's CLI surface moves between releases -- 0.29 dropped
-    --disable-log-requests -- and an unrecognised flag makes the server exit
-    before it starts. Without this the check reports "no vLLM configuration
-    reached ready state", which reads as a platform finding about CUDA graph
-    capture on aarch64 when it is nothing of the sort. A harness bug must not be
-    allowed to masquerade as failure mode (3).
+
+def unrecognised_flags(log_text: str) -> list:
+    """Flags this vLLM build rejected, read from its own error message.
+
+    An earlier attempt filtered against `vllm serve --help`. That was worse than
+    the bug it fixed: 0.29's help does not enumerate the server options, so the
+    parse found one flag and dropped all the rest -- including
+    --gpu-memory-utilization, which silently let vLLM fall back to its 0.92
+    default and fail on a machine that had 83 GiB free. A filter that can discard
+    valid flags is more dangerous than one missing flag.
+
+    So nothing is guessed. The server is asked, and it answers precisely.
     """
-    try:
-        p = subprocess.run([str(VLLM_BIN), "serve", "--help"],
-                           capture_output=True, text=True, timeout=180)
-        text = (p.stdout or "") + (p.stderr or "")
-    except Exception:
-        return frozenset()
-    return frozenset(re.findall(r"(--[a-z0-9][a-z0-9-]*)", text))
+    out = []
+    for m in UNRECOGNISED_RE.finditer(log_text or ""):
+        for tok in m.group(1).split():
+            tok = tok.strip().strip(",")
+            if tok.startswith("--"):
+                out.append(tok)
+    return sorted(set(out))
 
 
-def filter_args(args: list) -> tuple[list, list]:
-    """Drop flags this build does not accept. Returns (kept, dropped)."""
-    known = supported_flags()
-    if not known:
-        return list(args), []
-    kept, dropped, i = [], [], 0
+def drop_flags(args: list, unwanted: list) -> list:
+    """Remove `unwanted` flags and any values that belong to them."""
+    kept, i = [], 0
     while i < len(args):
         a = args[i]
-        if a.startswith("--") and a not in known:
-            dropped.append(a)
-            # Drop its value too, if it takes one.
+        if a in unwanted:
             if i + 1 < len(args) and not args[i + 1].startswith("--"):
                 i += 1
             i += 1
             continue
         kept.append(a)
         i += 1
-    return kept, dropped
+    return kept
 
 
 class VLLMServer:
@@ -86,12 +86,10 @@ class VLLMServer:
 
     @property
     def cmd(self):
-        wanted = BASE_ARGS + self.extra_args
-        kept, dropped = filter_args(wanted)
-        self.dropped_args = dropped
-        return [str(VLLM_BIN), "serve", self.model, "--port", str(self.port)] + kept
+        args = drop_flags(BASE_ARGS + self.extra_args, self.dropped_args)
+        return [str(VLLM_BIN), "serve", self.model, "--port", str(self.port)] + args
 
-    def start(self, timeout=1200):
+    def start(self, timeout=1200, _retry=True):
         C.LOG_DIR.mkdir(parents=True, exist_ok=True)
         env = os.environ.copy()
         env.update(self.env_extra)
@@ -113,6 +111,15 @@ class VLLMServer:
         t0 = time.time()
         while time.time() - t0 < timeout:
             if self.proc.poll() is not None:
+                tail = self.log_tail(200)
+                bad = unrecognised_flags(tail)
+                if bad and _retry:
+                    # The build told us exactly which flags it does not know.
+                    # Drop those and only those, then try once more.
+                    print(f"[vllm:{self.tag}] build rejected {bad}; retrying without them", flush=True)
+                    self.dropped_args = sorted(set(self.dropped_args) | set(bad))
+                    self.stop()
+                    return self.start(timeout=timeout, _retry=False)
                 return False, round(time.time() - t0, 1), "process exited"
             try:
                 with urllib.request.urlopen(self.base + "/health", timeout=3) as r:

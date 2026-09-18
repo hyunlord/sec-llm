@@ -31,7 +31,6 @@ def run():
     data = {
         "model": C.MODEL_ID,
         "base_args": _vllm.BASE_ARGS,
-        "vllm_supported_flag_count": len(_vllm.supported_flags()),
         "attempts": [],
     }
 
