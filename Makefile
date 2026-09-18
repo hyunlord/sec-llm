@@ -28,6 +28,13 @@ help:
 	@echo "  calibrate     re-run the near-duplicate threshold sweep against the labelled sample"
 	@echo "  process-report regenerate the three P2 Korean reports"
 
+# Rule 1 is enforced by the environment, not by intent. PIP_ONLY_BINARY makes
+# pip refuse a source distribution at resolution time rather than starting a
+# compile on a machine where a compile can take the whole host down.
+export PIP_ONLY_BINARY := :all:
+export UV_NO_BUILD := 1
+export PIP_CONFIG_FILE := $(CURDIR)/pip.conf
+
 env-check:
 	@mkdir -p env/checks logs reports
 	$(PYTHON) $(CHECKS)/run_all.py

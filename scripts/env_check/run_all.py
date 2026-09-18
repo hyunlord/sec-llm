@@ -146,6 +146,36 @@ def build_summary(results):
         }
     # 06 is special: WARN (a cell that could not be measured but was explained)
     # still satisfies "reported with an explicit verdict".
+    # Safeguard probes are gate results in their own right, not log lines: a
+    # ceiling that was configured but not enforced would make every other
+    # memory claim in this report false.
+    c1data = by_id.get("01", {}).get("data", {})
+    a1 = c1data.get("memory_ceiling_probe") or {}
+    a2 = c1data.get("cgroup_coverage_probe") or {}
+    nb = c1data.get("no_build_enforcement") or {}
+    summary["safeguards"] = {
+        "memory_ceiling": {
+            "verdict": a1.get("verdict", "not_run"),
+            "enforced": a1.get("enforced"),
+            "evidence": {
+                "scope_returncode": a1.get("scope_returncode"),
+                "control_succeeded": a1.get("control_succeeded"),
+                "memory_max_inside_scope": a1.get("memory_max_inside_scope"),
+            },
+            "interpretation": a1.get("interpretation"),
+        },
+        "cgroup_coverage": {
+            "verdict": a2.get("verdict", "not_run"),
+            "covers_device_memory": a2.get("covers_device_memory"),
+            "interpretation": a2.get("interpretation"),
+        },
+        "no_source_build": {
+            "PIP_ONLY_BINARY": nb.get("PIP_ONLY_BINARY"),
+            "active": nb.get("active"),
+            "repo_pip_conf_present": nb.get("repo_pip_conf_present"),
+        },
+        "oom_protection": c1data.get("oom_protection"),
+    }
     summary["gate_requirements"] = reqs
     summary["gate_passed"] = all(v["met"] for v in reqs.values())
 

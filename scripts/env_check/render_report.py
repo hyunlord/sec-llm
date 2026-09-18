@@ -263,6 +263,33 @@ def render(gate, out_path=None):
         L.append(f"| {cid} | {v['requirement']} | {MARK.get(v['status'], v['status'])} | {'✅' if v['met'] else '❌'} |")
     L.append("")
 
+    # --- safeguards ------------------------------------------------------
+    sg = s.get("safeguards") or {}
+    if sg:
+        L.append("## 0.5. 안전장치가 실제로 작동하는가 — 측정 결과\n")
+        L.append("설정만 되어 있고 강제되지 않는 안전장치는 없는 것보다 나쁘다. "
+                 "보호 장치처럼 읽히는 가정 위에 하네스 전체가 세워지기 때문이다. 그래서 측정했다.\n")
+        mc = sg.get("memory_ceiling", {})
+        ev = mc.get("evidence", {})
+        L.append(f"### 메모리 상한이 살아 있는가: **{'예 — 강제됨' if mc.get('enforced') else '아니오'}** (`{mc.get('verdict')}`)\n")
+        L.append(f"- 1 GiB 스코프 안에서 2 GiB 할당 → 종료 코드 `{ev.get('scope_returncode')}` (137 = SIGKILL)")
+        L.append(f"- 대조군(스코프 없이 동일 할당) 성공: **{_yn(ev.get('control_succeeded'))}**")
+        L.append(f"- 스코프 내부 `memory.max` 실측값: `{ev.get('memory_max_inside_scope')}`")
+        L.append(f"- 해석: {mc.get('interpretation')}\n")
+        cc = sg.get("cgroup_coverage", {})
+        L.append(f"### 이 상한이 무엇을 덮는가: **`{cc.get('verdict')}`**\n")
+        L.append(f"- CUDA 디바이스 할당도 cgroup에 계상되는가: **{_yn(cc.get('covers_device_memory'))}**")
+        L.append(f"- 해석: {cc.get('interpretation')}\n")
+        nb = sg.get("no_source_build", {})
+        L.append(f"### 소스 빌드 금지 강제: **{_yn(nb.get('active'))}**\n")
+        L.append(f"- `PIP_ONLY_BINARY={nb.get('PIP_ONLY_BINARY')!r}`, 저장소 `pip.conf` 존재: {_yn(nb.get('repo_pip_conf_present'))}")
+        L.append("- grep으로는 이것을 증명할 수 없다. pip는 소스 배포본을 만나면 빌드하고, 우리 코드의 "
+                 "어떤 문자열도 그 사실을 말해주지 않는다. 그래서 환경에서 강제한다.\n")
+        oom = sg.get("oom_protection") or {}
+        L.append(f"### 사용자 공간 OOM 데몬: **{_yn(oom.get('userspace_oom_daemon'))}**\n")
+        L.append(f"- `systemd-oomd`: `{oom.get('systemd_oomd_active')}`, `earlyoom` 설치됨: {_yn(oom.get('earlyoom_present'))}")
+        L.append("")
+
     L.extend(_failure_modes_section(s.get("known_failure_modes", {})))
 
     L.append("## 2. 체크별 상세\n")
