@@ -122,10 +122,19 @@ def _guard_memory(torch):
     # The orchestrator wraps this process in a systemd scope; surface which
     # cgroup limit we are actually running under so the two ceilings can be
     # told apart in the report.
+    # Read memory.max from THIS process's own cgroup, not the root one. The
+    # root cgroup always reads "max", which would make the ceiling look absent
+    # even when the systemd scope applied it -- reporting None here was
+    # misleading evidence about whether the guard was in force.
     cgroup_max = None
+    cgroup_path = None
     try:
-        for path in ("/sys/fs/cgroup/memory.max",):
-            pth = Path(path)
+        for line in Path("/proc/self/cgroup").read_text().splitlines():
+            if line.startswith("0::"):
+                cgroup_path = line.split("::", 1)[1].strip()
+                break
+        if cgroup_path:
+            pth = Path("/sys/fs/cgroup") / cgroup_path.lstrip("/") / "memory.max"
             if pth.exists():
                 cgroup_max = pth.read_text().strip()
     except Exception:
@@ -140,6 +149,7 @@ def _guard_memory(torch):
         "cuda_allocator_cap_fraction": MEMORY_FRACTION,
         "cuda_allocator_cap_applied": applied,
         "host_cgroup_memory_max": cgroup_max,
+        "host_cgroup_path": cgroup_path,
         "scope": (
             "the CUDA cap bounds device allocations so the step-down ladder can catch "
             "an over-large config; host-RAM exhaustion is bounded separately by the "
