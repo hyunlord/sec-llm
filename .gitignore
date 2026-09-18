@@ -7,11 +7,13 @@ venv/
 .uv/
 
 # Raw corpus -- never committed. Manifests, pins and reports are.
-data/
+# Raw corpus is excluded, but git cannot re-include a path inside an excluded
+# DIRECTORY -- so exclude the contents (data/*) rather than the directory itself,
+# which is what lets the negation below actually take effect.
+data/*
 # The hand-labelled calibration sample is evidence, not corpus: it is small, it
 # is what lets anyone re-derive the threshold choice, and it is committed.
 !data/labels/
-!data/labels/**
 
 # Model weights, datasets, checkpoints -- never committed
 *.safetensors
@@ -23,7 +25,8 @@ data/
 models/
 checkpoints/
 outputs/
-data/
+# (raw corpus already handled by `data/*` above, which permits the
+#  data/labels negation; a bare `data/` here would re-block it)
 datasets/
 runs/
 *.arrow
