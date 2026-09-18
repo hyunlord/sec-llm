@@ -37,7 +37,11 @@ SOURCES = {
                 "irrevocable copyright license)"
             ),
             "redistribution_status": "permitted_with_attribution",
-            "commercial_status": "permitted_with_attribution",
+            # not_addressed, not permitted_with_attribution. The evidence quoted
+            # below says in as many words that "commercial" does not appear in
+            # the CVE Terms of Use. A machine-readable field that asserts more
+            # than the prose beside it is the defect, whichever one is wrong.
+            "commercial_status": "not_addressed",
             "contains_third_party_content": True,
             "pii_policy": PII_POLICY_COMMON,
             "license_evidence": (
@@ -51,7 +55,7 @@ SOURCES = {
                 "restriction, but note that -- unlike CWE and ATT&CK -- the word "
                 "\"commercial\" does not appear in the CVE Terms of Use."
             ),
-            "weights_release": "unknown",
+            "weights_release": "not_addressed",
             "weights_release_evidence": (
                 "The Terms of Use grant the right to prepare derivative works and to "
                 "distribute them, and impose an attribution condition. They do not "
@@ -59,6 +63,7 @@ SOURCES = {
                 "Whether a trained weight is a derivative work of the training corpus "
                 "is not settled by this document. Legal review required."
             ),
+            "model_publication_status": "not_addressed",
             "checked_on": LICENSE_CHECK_DATE,
         },
         "repo": "CVEProject/cvelistV5",
@@ -97,7 +102,7 @@ SOURCES = {
                 "commercial or otherwise.\" Commercial use is therefore contemplated; only "
                 "use of the NVD *name* to imply endorsement is restricted."
             ),
-            "weights_release": "unknown",
+            "weights_release": "not_addressed",
             "weights_release_evidence": (
                 "NVD's own analysis being public domain places no restriction on weight "
                 "release. The embedded CVE content is a different matter and inherits the "
@@ -108,6 +113,7 @@ SOURCES = {
                 "This product uses data from the NVD API but is not endorsed or certified "
                 "by the NVD."
             ),
+            "model_publication_status": "not_addressed",
             "checked_on": LICENSE_CHECK_DATE,
         },
         # Documented at https://nvd.nist.gov/developers/start-here, read 2026-09-18:
@@ -153,12 +159,13 @@ SOURCES = {
                 "condition that you reproduce MITRE's copyright designation and this "
                 "license in any such copy.\""
             ),
-            "weights_release": "unknown",
+            "weights_release": "not_addressed",
             "weights_release_evidence": (
                 "Commercial use is granted explicitly, but the Terms of Use do not mention "
                 "training or model weights. The contributor grant does include the right to "
                 "\"prepare derivative works\". Legal review required."
             ),
+            "model_publication_status": "not_addressed",
             "checked_on": LICENSE_CHECK_DATE,
         },
         "version_probe_url": "https://cwe.mitre.org/data/xml/cwec_latest.xml.zip",
@@ -191,11 +198,12 @@ SOURCES = {
                 "Corporation. This work is reproduced and distributed with the permission "
                 "of The MITRE Corporation.\""
             ),
-            "weights_release": "unknown",
+            "weights_release": "not_addressed",
             "weights_release_evidence": (
                 "Commercial use is granted explicitly. The license is silent on machine "
                 "learning, training corpora, and model weights. Legal review required."
             ),
+            "model_publication_status": "not_addressed",
             "checked_on": LICENSE_CHECK_DATE,
         },
         "repo": "mitre-attack/attack-stix-data",
@@ -214,6 +222,7 @@ def license_block(source_id: str) -> dict:
         "upstream_license": lic["upstream_license"],
         "redistribution_status": lic["redistribution_status"],
         "commercial_status": lic["commercial_status"],
+        "model_publication_status": lic["model_publication_status"],
         "contains_third_party_content": lic["contains_third_party_content"],
         "pii_policy": lic["pii_policy"],
     }

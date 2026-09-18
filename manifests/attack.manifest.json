@@ -51,6 +51,7 @@
   "license": {
     "commercial_status": "permitted_with_attribution",
     "contains_third_party_content": true,
+    "model_publication_status": "not_addressed",
     "pii_policy": "no_intentional_pii; free-text description/credit/reference fields may carry researcher or reporter names -- P2 secret/PII scanning is required",
     "redistribution_status": "permitted_with_attribution",
     "source_license": "MITRE ATT&CK License (LICENSE.txt in attack-stix-data)",
@@ -71,6 +72,7 @@
     "commercial_status",
     "contains_third_party_content",
     "pii_policy",
+    "model_publication_status",
     "transform_history",
     "content_sha256"
   ],

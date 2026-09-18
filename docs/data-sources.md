@@ -8,12 +8,15 @@
 
 | 출처 | 원본 재배포 가능 여부 | 이 데이터로 학습한 가중치 공개 가능 여부 | 상업적 이용 가능 여부 | 제3자 콘텐츠 포함 | 출처 URL | 라이선스 문서 | 확인 일자 |
 |---|---|---|---|---|---|---|---|
-| **CVE List V5 (CVEProject/cvelistV5)** | 가능 (출처 표기 조건) | 확인 불가 | 가능 (출처 표기 조건) | 예 | [https://github.com/CVEProject/cvelistV5](https://github.com/CVEProject/cvelistV5) | [CVE Program Terms of Use (The MITRE Corporation)](https://www.cve.org/Legal/TermsOfUse) | 2026-09-18 |
-| **NVD CVE API 2.0 (NIST National Vulnerability Database)** | 가능 (출처 표기 조건) | 확인 불가 | 가능 (출처 표기 조건) | 예 | [https://services.nvd.nist.gov/rest/json/cves/2.0](https://services.nvd.nist.gov/rest/json/cves/2.0) | [US Government work, public domain under 17 U.S.C. (NIST publication); NVD requests a source-attribution notice](https://nvd.nist.gov/developers/start-here) | 2026-09-18 |
-| **CWE (Common Weakness Enumeration) versioned XML catalog** | 가능 (출처 표기 조건) | 확인 불가 | 가능 (출처 표기 조건) | 예 | [https://cwe.mitre.org/data/downloads.html](https://cwe.mitre.org/data/downloads.html) | [CWE Terms of Use (The MITRE Corporation)](https://cwe.mitre.org/about/termsofuse.html) | 2026-09-18 |
-| **MITRE ATT&CK STIX 2.1 bundles (mitre-attack/attack-stix-data)** | 가능 (출처 표기 조건) | 확인 불가 | 가능 (출처 표기 조건) | 예 | [https://github.com/mitre-attack/attack-stix-data](https://github.com/mitre-attack/attack-stix-data) | [MITRE ATT&CK License (LICENSE.txt in attack-stix-data)](https://github.com/mitre-attack/attack-stix-data/blob/master/LICENSE.txt) | 2026-09-18 |
+| **CVE List V5 (CVEProject/cvelistV5)** | 가능 (출처 표기 조건) | 문서에 언급 없음 | 문서에 언급 없음 | 예 | [https://github.com/CVEProject/cvelistV5](https://github.com/CVEProject/cvelistV5) | [CVE Program Terms of Use (The MITRE Corporation)](https://www.cve.org/Legal/TermsOfUse) | 2026-09-18 |
+| **NVD CVE API 2.0 (NIST National Vulnerability Database)** | 가능 (출처 표기 조건) | 문서에 언급 없음 | 가능 (출처 표기 조건) | 예 | [https://services.nvd.nist.gov/rest/json/cves/2.0](https://services.nvd.nist.gov/rest/json/cves/2.0) | [US Government work, public domain under 17 U.S.C. (NIST publication); NVD requests a source-attribution notice](https://nvd.nist.gov/developers/start-here) | 2026-09-18 |
+| **CWE (Common Weakness Enumeration) versioned XML catalog** | 가능 (출처 표기 조건) | 문서에 언급 없음 | 가능 (출처 표기 조건) | 예 | [https://cwe.mitre.org/data/downloads.html](https://cwe.mitre.org/data/downloads.html) | [CWE Terms of Use (The MITRE Corporation)](https://cwe.mitre.org/about/termsofuse.html) | 2026-09-18 |
+| **MITRE ATT&CK STIX 2.1 bundles (mitre-attack/attack-stix-data)** | 가능 (출처 표기 조건) | 문서에 언급 없음 | 가능 (출처 표기 조건) | 예 | [https://github.com/mitre-attack/attack-stix-data](https://github.com/mitre-attack/attack-stix-data) | [MITRE ATT&CK License (LICENSE.txt in attack-stix-data)](https://github.com/mitre-attack/attack-stix-data/blob/master/LICENSE.txt) | 2026-09-18 |
 
-> 빈 칸은 없다. **확인 불가**는 유효한 값이고 공란은 아니다.
+> 빈 칸은 없다. 아래 두 값은 서로 다른 의미이며 섞어 쓰지 않는다.
+>
+> - **문서에 언급 없음** (`not_addressed`) — 해당 라이선스 문서를 읽었고, 그 문서가 이 질문을 다루지 않는다. **부재 자체가 확인된 사실**이다.
+> - **확인 불가** (`unknown`) — 문서가 무엇을 말하는지 아직 확정하지 못했다.
 
 ## 컨테이너 라이선스와 콘텐츠 라이선스는 다르다
 
@@ -33,11 +36,11 @@
 ### CVE List V5 (CVEProject/cvelistV5)
 
 - 라이선스 문서: <https://www.cve.org/Legal/TermsOfUse> (확인 일자 2026-09-18)
-- 재배포: **가능 (출처 표기 조건)** / 상업적 이용: **가능 (출처 표기 조건)**
+- 재배포: **가능 (출처 표기 조건)** / 상업적 이용: **문서에 언급 없음**
 - 근거 인용:
   > CVE Usage: "MITRE hereby grants you a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, prepare derivative works of, publicly display, publicly perform, sublicense, and distribute Common Vulnerabilities and Exposures (CVE). Any copy you make for such purposes is authorized provided that you reproduce MITRE's copyright designation and this license in any such copy." The grant carries no field-of-use restriction, but note that -- unlike CWE and ATT&CK -- the word "commercial" does not appear in the CVE Terms of Use.
 
-- **학습 가중치 공개: 확인 불가**
+- **학습 가중치 공개(`model_publication_status`): 문서에 언급 없음**
   - 확인한 내용: The Terms of Use grant the right to prepare derivative works and to distribute them, and impose an attribution condition. They do not mention machine learning, training, or model weights in any form. Whether a trained weight is a derivative work of the training corpus is not settled by this document. Legal review required.
 - PII 정책: no_intentional_pii; free-text description/credit/reference fields may carry researcher or reporter names -- P2 secret/PII scanning is required
 - 현재 핀: `git_commit` → `9d4f632aa6e148754e1f27bdfb69f4635792f69a`
@@ -49,7 +52,7 @@
 - 근거 인용:
   > "All NIST publications are available in the public domain according to Title 17 of the United States Code, however services which utilize or access the NVD are asked to display the following notice prominently within the application: 'This product uses data from the NVD API but is not endorsed or certified by the NVD.' You may use the NVD name to identify the source of the data. You may not use the NVD name, to imply endorsement of any product, service, or entity, not-for-profit, commercial or otherwise." Commercial use is therefore contemplated; only use of the NVD *name* to imply endorsement is restricted.
 
-- **학습 가중치 공개: 확인 불가**
+- **학습 가중치 공개(`model_publication_status`): 문서에 언급 없음**
   - 확인한 내용: NVD's own analysis being public domain places no restriction on weight release. The embedded CVE content is a different matter and inherits the CVE Terms of Use, which do not address model weights. This is precisely why source_license and upstream_license are separate fields.
 - **필수 표기 문구**: `This product uses data from the NVD API but is not endorsed or certified by the NVD.`
 - PII 정책: no_intentional_pii; free-text description/credit/reference fields may carry researcher or reporter names -- P2 secret/PII scanning is required
@@ -62,7 +65,7 @@
 - 근거 인용:
   > "CWE is free to use by any organization or individual for any research, development, and/or commercial purposes, per these CWE Terms of Use. Accordingly, The MITRE Corporation hereby grants you a non-exclusive, royalty-free license to use CWE for research, development, and commercial purposes. Any copy you make for such purposes is authorized on the condition that you reproduce MITRE's copyright designation and this license in any such copy."
 
-- **학습 가중치 공개: 확인 불가**
+- **학습 가중치 공개(`model_publication_status`): 문서에 언급 없음**
   - 확인한 내용: Commercial use is granted explicitly, but the Terms of Use do not mention training or model weights. The contributor grant does include the right to "prepare derivative works". Legal review required.
 - PII 정책: no_intentional_pii; free-text description/credit/reference fields may carry researcher or reporter names -- P2 secret/PII scanning is required
 - 현재 핀: `versioned_release` → `4.20`
@@ -74,27 +77,27 @@
 - 근거 인용:
   > "The MITRE Corporation (MITRE) hereby grants you a non-exclusive, royalty-free license to use ATT&CK for research, development, and commercial purposes. Any copy you make for such purposes is authorized provided that you reproduce MITRE's copyright designation and this license in any such copy." Required designation: "(c) 2026 The MITRE Corporation. This work is reproduced and distributed with the permission of The MITRE Corporation."
 
-- **학습 가중치 공개: 확인 불가**
+- **학습 가중치 공개(`model_publication_status`): 문서에 언급 없음**
   - 확인한 내용: Commercial use is granted explicitly. The license is silent on machine learning, training corpora, and model weights. Legal review required.
 - PII 정책: no_intentional_pii; free-text description/credit/reference fields may carry researcher or reporter names -- P2 secret/PII scanning is required
 - 현재 핀: `git_tag_release` → `6cda5ad8462c79e14fbb872f4e09059b18e0cfc4`
 
 ## 네 출처 모두 답하지 않는 질문 — 학습 가중치
 
-**네 출처 중 어느 것도 머신러닝 학습이나 모델 가중치를 언급하지 않는다.** 따라서 표의 해당 칸은 전부 **확인 불가**다.
+**네 출처 중 어느 것도 머신러닝 학습이나 모델 가중치를 언급하지 않는다.** 따라서 표의 해당 칸은 전부 **문서에 언급 없음**(`not_addressed`)이다 — 확인을 못 한 것이 아니라, 확인한 결과 문서가 침묵한다는 뜻이다.
 
 확인한 내용은 다음과 같다:
 
 - CWE와 ATT&CK는 "research, development, and commercial purposes"를 **명시적으로** 허용한다.
-- CVE 이용 약관은 사용 목적 제한 없는 저작권 라이선스를 부여하지만 "commercial"이라는 단어 자체는 등장하지 않는다.
+- CVE 이용 약관은 사용 목적 제한 없는 저작권 라이선스를 부여하지만 "commercial"이라는 단어 자체는 등장하지 않는다. 그래서 `cve_list.commercial_status`는 `permitted_with_attribution`이 아니라 **`not_addressed`**다 — 근거가 말하지 않는 것을 필드가 주장하면 안 된다.
 - 네 출처 모두 "prepare derivative works"(파생물 작성) 권리를 부여한다.
 - 그러나 **학습된 가중치가 학습 코퍼스의 파생물에 해당하는지**는 이 문서들이 답하지 않는다. 이것은 라이선스 해석이 아니라 법률 판단의 영역이다.
 
-> **법무 검토가 필요하다.** 이 표의 '확인 불가'를 '가능'으로 바꾸려면 근거가 될 문서나 법률 자문이 있어야 하며, 유사 프로젝트가 그렇게 하고 있다는 사실은 근거가 아니다.
+> **법무 검토가 필요하다.** 이 표의 '문서에 언급 없음'을 '가능'으로 바꾸려면 근거가 될 문서나 법률 자문이 있어야 하며, 유사 프로젝트가 그렇게 하고 있다는 사실은 근거가 아니다.
 
 ## 배포 시 지켜야 할 표기 의무
 
-재배포와 상업적 이용이 모두 **출처 표기 조건부**이므로, 산출물을 공개할 때 아래를 포함해야 한다.
+재배포가 **출처 표기 조건부**이므로, 산출물을 공개할 때 아래를 포함해야 한다. 상업적 이용은 출처마다 상태가 다르므로 위 매트릭스를 함께 볼 것 — 특히 `cve_list`는 **문서에 언급 없음**이다.
 
 - **NVD**: `This product uses data from the NVD API but is not endorsed or certified by the NVD.`
 - **ATT&CK**: `© 2026 The MITRE Corporation. This work is reproduced and distributed with the permission of The MITRE Corporation.`

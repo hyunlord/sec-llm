@@ -244,6 +244,63 @@ def render() -> Path:
     L.append("")
     L.append("```bash\ngit ls-files | xargs du -ch 2>/dev/null | tail -1\n```\n")
 
+    # --- P1.1 corrections ------------------------------------------------
+    L.append("## P1.1 — 발견하여 수정한 결함 4건\n")
+    L.append("스스로의 수정 이력을 남기는 파이프라인이, 결함이 없었던 것처럼 보이는 파이프라인보다 신뢰할 만하다. "
+             "아래 4건은 P1 통과 이후 감사에서 발견되어 P1.1에서 수정되었다.\n")
+    L.append("### 1. `sha256` 필드에 위조된 다이제스트\n")
+    L.append("`manifests/cve_list.manifest.json`이 `\"sha256\": \"9d4f632a…f69a000000000000000000000000\"`를 "
+             "담고 있었다. **git 커밋 SHA-1을 0으로 패딩해 64자로 만든 값**이며 그 무엇의 SHA-256도 아니다. "
+             "검증기가 모양(64자 소문자 hex)만 확인했기 때문에 통과했다.\n")
+    L.append("- 30만 개 파일에 개별 다이제스트를 넣지 않는다는 **판단 자체는 옳았고 유지**한다. 실행 방식만 틀렸다.")
+    L.append("- 이제 체크아웃은 `kind=\"directory\"`, 커밋 id는 이름이 맞는 키(`git_commit_sha`, 40자 무패딩)에 기록한다.")
+    L.append("- `add_file_entry`가 **디스크의 바이트로부터 다시 계산해서 대조**한다. 모양 검사로는 이 위조를 잡을 수 없다.")
+    L.append("- `python -m ingest.verify_digests`가 커밋된 매니페스트를 독립적으로 재검증한다 (203 entries, 0 problems).\n")
+    L.append("### 2. 자기모순인 보고서\n")
+    L.append("`reports/ingest.md`가 `cwe`를 '실패한 출처'로 올리면서 동시에 요약 표에서 ✅로 표시했다. "
+             "Gate 1 조건 5 테스트(잘못된 핀은 큰 소리로 실패해야 함)의 잔재가 렌더러가 읽는 실행 기록에 남은 것이다.\n")
+    L.append("- 테스트 상태와 실행 상태를 분리했다 (`SEC_LLM_DATA_DIR`).")
+    L.append("- 렌더러가 **모순 상태를 렌더링하지 않고 예외를 던진다**. 실패로 기록된 출처에 유효한 매니페스트가 "
+             "있다면 그것은 렌더링할 상태가 아니라 렌더러 오류다.")
+    L.append("- 자기모순 보고서는 없는 보고서보다 나쁘다 — 독자에게 어느 쪽을 믿을지 고르게 만든다.\n")
+    L.append("### 3. 요구된 측정이 수행되지 않음\n")
+    L.append("모든 소요 시간 칸이 `— 초`였고 요청 수는 4개 중 3개가 비어 있었다. P1이 요구한 항목이다.\n")
+    L.append("- 각 인제스터가 시작·종료·경과·HTTP 요청 수·전송 바이트를 기록한다.")
+    L.append("- **캐시 재생성 시간을 수집 비용으로 제시하지 않는다.** NVD 재생성은 50초, 최초 수집은 약 1시간이다 — "
+             "70배 차이다. 두 값을 각각 `elapsed_seconds_cached` / `elapsed_seconds_network`로 구분하고 "
+             "`ingest/acquisition_costs.json`에 최초 수집 실측을 따로 보관한다.\n")
+    L.append("### 4. 근거보다 많은 것을 주장하던 라이선스 필드\n")
+    L.append("`cve_list.commercial_status`가 `permitted_with_attribution`이었는데, 바로 아래 근거는 "
+             "**\"commercial이라는 단어가 CVE 이용 약관에 등장하지 않는다\"**고 적고 있었다. 산문은 정직했고 "
+             "기계 판독 필드는 그렇지 않았다.\n")
+    L.append("- `not_addressed`를 도입하고 `cve_list.commercial_status`를 그 값으로 정정했다.")
+    L.append("- `python -m ingest.audit_licenses`가 **주장된 권한이 그 필드 자신의 인용 근거에 실제로 등장하는지** 감사한다.")
+    L.append("- 이 감사의 첫 버전은 키워드만 찾아서 정작 이 결함을 놓쳤다 — CVE 근거 문장 안에 "
+             "\"commercial\"이라는 단어가 (부정문으로) 들어 있었기 때문이다. 부정 표현 탐지를 추가해 "
+             "**회귀를 실제로 잡는 것까지 확인**했다.\n")
+    L.append("### 스키마 추가 — `model_publication_status`\n")
+    L.append("학습된 가중치를 공개할 수 있는지가 이 프로젝트의 최종 산출물의 존재 가능 여부를 결정한다. "
+             "문서 속 산문이 아니라 **레코드별 기계 판독 필드**여야 P7이 문서를 다시 읽지 않고 질의로 답할 수 있다.\n")
+    L.append(f"- `LINEAGE_FIELDS`가 16 → 17개가 되었고, **823,285개 레코드 전부**에 값이 있다.")
+    L.append("- 네 출처 모두 현재 `not_addressed`다 — 어느 라이선스 문서도 머신러닝·학습·모델 가중치를 언급하지 않는다. "
+             "그것이 정직한 현재 상태이고, 그것을 필드로 기록하는 것이 요점이다.")
+    L.append("- 보존된 원시 스냅숏에서 **재파생**했다. 네트워크 재수집은 하지 않았다.")
+    L.append("- `records_digest`는 **변하지 않았다** — `content_sha256`이 lineage 봉투가 아니라 출처 콘텐츠만 "
+             "해싱하기 때문이며, 스키마 변경이 콘텐츠 다이제스트를 흔들지 않는다는 설계가 검증된 것이다.\n")
+
+    # --- P3 flag ----------------------------------------------------------
+    cl = mans.get("cve_list")
+    if cl:
+        state_note = next((n for n in cl.get("notes", []) if "state counts" in n), "")
+        L.append("## P3를 위한 플래그 — REJECTED CVE 레코드\n")
+        L.append(f"- {state_note}")
+        L.append("- REJECTED 레코드는 취약점 설명 대신 placeholder 텍스트를 담고 있으며 의미 있는 CWE 매핑이 없다.")
+        L.append("- 플래그만 세우고 **여기서 걸러내지 않는다.** 무엇을 제외할지는 P3가 결정하고, "
+                 "P1의 역할은 그 결정이 가능하도록 만드는 것이다.")
+        L.append("- 상태 값은 레코드 페이로드의 `cveMetadata.state`에 그대로 있다 (계보가 아니라 **콘텐츠**다). "
+                 "매니페스트가 집계를 보고한다.")
+        L.append("- 플래그하지 않으면 CVE→CWE 과제에서 약 1만 8천 건의 **답할 수 없는 문항**이 된다.\n")
+
     L.append("## 이 작업지시서가 하지 않은 것\n")
     L.append("- 중복 제거, 정규화, 시크릿 스캐닝을 하지 않았다. 다음 작업지시서(P2)의 몫이다.")
     L.append("- `transform_history`는 모든 레코드에서 **빈 리스트**다. 이후 처리 단계가 여기에 append한다.")

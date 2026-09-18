@@ -37,6 +37,7 @@ LINEAGE_FIELDS = (
     "commercial_status",
     "contains_third_party_content",
     "pii_policy",
+    "model_publication_status",
     "transform_history",
     "content_sha256",
 )
@@ -44,11 +45,25 @@ LINEAGE_FIELDS = (
 # Only entity_id may be None, and only where the source provides no identifier.
 NULLABLE_FIELDS = frozenset({"entity_id"})
 
+# `not_addressed` and `unknown` are deliberately different answers:
+#   not_addressed -- we read the source's licence and it does not speak to this
+#                    question at all. The absence is the finding.
+#   unknown       -- we have not established what the document says.
+# Collapsing them would let "the licence is silent" masquerade as "we have not
+# checked", or worse, let either masquerade as a permission.
 REDISTRIBUTION_STATUS = frozenset(
-    {"permitted", "permitted_with_attribution", "prohibited", "unknown"}
+    {"permitted", "permitted_with_attribution", "prohibited", "not_addressed", "unknown"}
 )
 COMMERCIAL_STATUS = frozenset(
-    {"permitted", "permitted_with_attribution", "prohibited", "unknown"}
+    {"permitted", "permitted_with_attribution", "prohibited", "not_addressed", "unknown"}
+)
+
+# Whether a weight trained on this data may be published. This is the licence
+# question that decides whether this project's final artifact can exist at all,
+# so it is machine-readable per record rather than prose in a document -- P7
+# has to answer it by query.
+MODEL_PUBLICATION_STATUS = frozenset(
+    {"permitted", "prohibited", "not_addressed", "unknown"}
 )
 
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
@@ -99,6 +114,7 @@ def make_lineage(
     commercial_status: str,
     contains_third_party_content: bool,
     pii_policy: str,
+    model_publication_status: str,
     content_sha256: str,
     transform_history: list | None = None,
 ) -> dict:
@@ -123,6 +139,7 @@ def make_lineage(
         "commercial_status": commercial_status,
         "contains_third_party_content": bool(contains_third_party_content),
         "pii_policy": pii_policy,
+        "model_publication_status": model_publication_status,
         "transform_history": list(transform_history or []),
         "content_sha256": content_sha256,
     }
@@ -161,6 +178,11 @@ def validate_lineage(lin: dict, *, where: str = "") -> None:
         raise LineageError(f"redistribution_status '{lin['redistribution_status']}' not in {sorted(REDISTRIBUTION_STATUS)}{ctx}")
     if lin["commercial_status"] not in COMMERCIAL_STATUS:
         raise LineageError(f"commercial_status '{lin['commercial_status']}' not in {sorted(COMMERCIAL_STATUS)}{ctx}")
+    if lin["model_publication_status"] not in MODEL_PUBLICATION_STATUS:
+        raise LineageError(
+            f"model_publication_status '{lin['model_publication_status']}' not in "
+            f"{sorted(MODEL_PUBLICATION_STATUS)}{ctx}"
+        )
     if not _SHA256_RE.match(lin["content_sha256"] or ""):
         raise LineageError(f"content_sha256 is not a lowercase hex sha256{ctx}: {lin['content_sha256']!r}")
     if lin["entity_id"] is not None and not str(lin["entity_id"]).strip():

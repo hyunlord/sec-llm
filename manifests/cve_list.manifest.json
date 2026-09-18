@@ -32,8 +32,9 @@
   ],
   "integrity": "This source carries no per-file sha256: per-file digests for the record count here would bloat the manifest past usefulness. Content integrity is instead anchored to two real digests -- the git commit SHA, which is itself a Merkle root over the entire tree, and records_digest, a SHA-256 over every record's content hash. Neither is synthesised, and no field claims to be a SHA-256 of something it is not.",
   "license": {
-    "commercial_status": "permitted_with_attribution",
+    "commercial_status": "not_addressed",
     "contains_third_party_content": true,
+    "model_publication_status": "not_addressed",
     "pii_policy": "no_intentional_pii; free-text description/credit/reference fields may carry researcher or reporter names -- P2 secret/PII scanning is required",
     "redistribution_status": "permitted_with_attribution",
     "source_license": "CVE Program Terms of Use (The MITRE Corporation)",
@@ -54,6 +55,7 @@
     "commercial_status",
     "contains_third_party_content",
     "pii_policy",
+    "model_publication_status",
     "transform_history",
     "content_sha256"
   ],
