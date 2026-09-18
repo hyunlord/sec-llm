@@ -1,0 +1,646 @@
+{
+  "chosen_near_duplicate_threshold": 0.75,
+  "determinism": "Fixed MinHash seed and permutations, sorted iteration at every point where order could leak into the result, and a union-find whose representative is the lexicographically smallest key. No wall-clock field is recorded here, so re-running against the same index reproduces this file byte for byte.",
+  "phase": "P2",
+  "policy": "P2 marks; it does not delete. Every input record appears in the output with a decision attached. Physical removal happens in P3 when a dataset is materialized.",
+  "schema_version": 1,
+  "stages": {
+    "calibration": {
+      "annotation": {
+        "annotator": "Claude Opus 5 (agent), acting as annotator for this work order",
+        "annotator_is_human_domain_expert": false,
+        "caveat": "The annotator is a language model, not a human security analyst. These labels are evidence about how the threshold was chosen, not a gold standard. A human review of the same committed sample would strengthen the claim and is the obvious next improvement.",
+        "instruction": "For each pair, answer one question: would a training set containing BOTH of these records be meaningfully redundant? Label 1 (redundant) when the two records describe the same kind of vulnerability and differ only in entities (product name, version, component, file, parameter) -- a model sees the same fact twice. Label 0 (not redundant) when the records describe different vulnerability classes, so that keeping both teaches a distinction rather than repeating a fact.",
+        "labelled_on": "2026-09-18",
+        "method": "All 210 pairs were read. A keyword scan over vulnerability-class terms (out-of-bounds read/write, use-after-free, stack/heap buffer overflow, XSS subtype, SQLi, command injection, race, integer overflow, privilege escalation, authorization bypass) was then run across the whole sample to catch class differences missed by eye. It flagged 4 pairs; 3 matched the manual negatives and 1 (#81) was a false flag where one side mentioned both DOM-based and stored XSS within the same CWE-79 family."
+      },
+      "chosen_threshold": 0.75,
+      "labelled_pairs": 210,
+      "limits": [
+        "Recall is measured against labelled CANDIDATE pairs at or above 0.70. Pairs LSH never proposed cannot appear in the denominator, so this is not recall against all truly redundant pairs in the corpus.",
+        "The label set is imbalanced (206 redundant / 4 not), so the precision confidence intervals are wide at the lower bound and the sample cannot discriminate between thresholds on precision.",
+        "The annotator is a language model, not a human security analyst."
+      ],
+      "rationale": "Precision is flat within its 95% bootstrap interval across all four tested thresholds while recall nearly triples from 0.90 to 0.75, so the higher thresholds buy no measurable precision and pay for it in redundancy left behind.",
+      "table": [
+        {
+          "bootstrap_n": 2000,
+          "clusters": 24947,
+          "f1": 0.9028871391076115,
+          "fn": 34,
+          "fp": 3,
+          "labelled": 210,
+          "precision": 0.9828571428571429,
+          "precision_ci95": [
+            0.96,
+            1.0
+          ],
+          "recall": 0.8349514563106796,
+          "recall_ci95": [
+            0.7804878048780488,
+            0.8851674641148325
+          ],
+          "records_marked_near_duplicate": 78893,
+          "threshold": 0.75,
+          "tn": 1,
+          "tp": 172
+        },
+        {
+          "bootstrap_n": 2000,
+          "clusters": 22458,
+          "f1": 0.791907514450867,
+          "fn": 69,
+          "fp": 3,
+          "labelled": 210,
+          "precision": 0.9785714285714285,
+          "precision_ci95": [
+            0.9507042253521126,
+            1.0
+          ],
+          "recall": 0.6650485436893204,
+          "recall_ci95": [
+            0.5980861244019139,
+            0.7268292682926829
+          ],
+          "records_marked_near_duplicate": 67303,
+          "threshold": 0.8,
+          "tn": 1,
+          "tp": 137
+        },
+        {
+          "bootstrap_n": 2000,
+          "clusters": 19717,
+          "f1": 0.6559485530546625,
+          "fn": 104,
+          "fp": 3,
+          "labelled": 210,
+          "precision": 0.9714285714285714,
+          "precision_ci95": [
+            0.9333333333333333,
+            1.0
+          ],
+          "recall": 0.49514563106796117,
+          "recall_ci95": [
+            0.42718446601941745,
+            0.5637254901960784
+          ],
+          "records_marked_near_duplicate": 55153,
+          "threshold": 0.85,
+          "tn": 1,
+          "tp": 102
+        },
+        {
+          "bootstrap_n": 2000,
+          "clusters": 17470,
+          "f1": 0.5,
+          "fn": 137,
+          "fp": 1,
+          "labelled": 210,
+          "precision": 0.9857142857142858,
+          "precision_ci95": [
+            0.95,
+            1.0
+          ],
+          "recall": 0.33495145631067963,
+          "recall_ci95": [
+            0.27053140096618356,
+            0.4
+          ],
+          "records_marked_near_duplicate": 45986,
+          "threshold": 0.9,
+          "tn": 3,
+          "tp": 69
+        }
+      ]
+    },
+    "canonical": {
+      "index_bytes": 521692837,
+      "per_content_type": {
+        "cve_record_v5_json": 394958,
+        "cwe_category": 422,
+        "cwe_external_reference": 1026,
+        "cwe_view": 59,
+        "cwe_weakness": 969,
+        "nvd_cve_api_2_0_json": 394957,
+        "stix_attack-pattern": 1166,
+        "stix_campaign": 68,
+        "stix_course-of-action": 335,
+        "stix_identity": 3,
+        "stix_intrusion-set": 229,
+        "stix_malware": 888,
+        "stix_marking-definition": 3,
+        "stix_relationship": 24818,
+        "stix_tool": 97,
+        "stix_x-mitre-analytic": 2066,
+        "stix_x-mitre-asset": 18,
+        "stix_x-mitre-collection": 3,
+        "stix_x-mitre-data-component": 174,
+        "stix_x-mitre-data-source": 61,
+        "stix_x-mitre-detection-strategy": 920,
+        "stix_x-mitre-matrix": 4,
+        "stix_x-mitre-tactic": 41
+      },
+      "per_source": {
+        "attack": 30894,
+        "cve_list": 394958,
+        "cwe": 2476,
+        "nvd": 394957
+      },
+      "records_indexed": 823285,
+      "records_with_empty_text": {
+        "attack": 2535,
+        "cve_list": 18358,
+        "cwe": 1026
+      },
+      "transform_names": [
+        "nfc",
+        "crlf_to_lf",
+        "control_chars_removed",
+        "zero_width_removed",
+        "nbsp_normalized",
+        "trailing_ws_stripped",
+        "blank_lines_collapsed",
+        "inner_spaces_collapsed",
+        "edges_trimmed"
+      ],
+      "transforms_applied_counts": {
+        "attack": {
+          "blank_lines_collapsed": 33,
+          "edges_trimmed": 775,
+          "inner_spaces_collapsed": 559,
+          "nbsp_normalized": 76,
+          "trailing_ws_stripped": 2619
+        },
+        "cve_list": {
+          "blank_lines_collapsed": 2881,
+          "control_chars_removed": 1,
+          "crlf_to_lf": 1724,
+          "edges_trimmed": 4318,
+          "inner_spaces_collapsed": 23630,
+          "nbsp_normalized": 7549,
+          "trailing_ws_stripped": 3857,
+          "zero_width_removed": 64
+        },
+        "cwe": {
+          "inner_spaces_collapsed": 153,
+          "trailing_ws_stripped": 7
+        },
+        "nvd": {
+          "blank_lines_collapsed": 2880,
+          "control_chars_removed": 1,
+          "crlf_to_lf": 1727,
+          "edges_trimmed": 4383,
+          "inner_spaces_collapsed": 25996,
+          "nbsp_normalized": 7515,
+          "trailing_ws_stripped": 3622,
+          "zero_width_removed": 62
+        }
+      }
+    },
+    "exact": {
+      "duplicates_by_content_type": {
+        "cve_record_v5_json": 15347,
+        "nvd_cve_api_2_0_json": 32778,
+        "stix_attack-pattern": 3,
+        "stix_campaign": 8,
+        "stix_course-of-action": 1,
+        "stix_identity": 2,
+        "stix_intrusion-set": 34,
+        "stix_malware": 21,
+        "stix_relationship": 1322,
+        "stix_x-mitre-data-component": 51,
+        "stix_x-mitre-data-source": 19,
+        "stix_x-mitre-detection-strategy": 29
+      },
+      "exact_clusters": 12325,
+      "records_marked_duplicate": 49615,
+      "records_skipped_empty_text": 21919
+    },
+    "identity": {
+      "conflicts_by_field": {
+        "cvss_base_score": 30003,
+        "cvss_base_score_one_sided": 209315,
+        "cwe_ids": 13562,
+        "cwe_ids_one_sided": 160826
+      },
+      "entities": 394958,
+      "entities_in_multiple_sources": 394957,
+      "entities_in_one_source_only": 1,
+      "entities_with_field_conflicts": 201104,
+      "note": "Identity grouping is NOT deduplication. Records grouped here keep dedup_stage='identity' and dedup_keep=true on every member: two sources describing one entity are not redundant, and the disagreement between them is the information this stage exists to surface."
+    },
+    "near": {
+      "by_content_type": {
+        "cve_record_v5_json": {
+          "bands": 16,
+          "candidate_pairs": 967395,
+          "clusters": 11683,
+          "hashed": 375901,
+          "records": 376600,
+          "records_marked_near_duplicate": 35981,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 7
+        },
+        "cwe_category": {
+          "bands": 16,
+          "candidate_pairs": 3,
+          "clusters": 0,
+          "hashed": 178,
+          "records": 422,
+          "records_marked_near_duplicate": 0,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        },
+        "cwe_view": {
+          "bands": 16,
+          "candidate_pairs": 0,
+          "clusters": 0,
+          "hashed": 20,
+          "records": 59,
+          "records_marked_near_duplicate": 0,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        },
+        "cwe_weakness": {
+          "bands": 16,
+          "candidate_pairs": 28,
+          "clusters": 1,
+          "hashed": 969,
+          "records": 969,
+          "records_marked_near_duplicate": 1,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        },
+        "nvd_cve_api_2_0_json": {
+          "bands": 16,
+          "candidate_pairs": 1488624,
+          "clusters": 12650,
+          "hashed": 390102,
+          "records": 394957,
+          "records_marked_near_duplicate": 41730,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 269
+        },
+        "stix_attack-pattern": {
+          "bands": 16,
+          "candidate_pairs": 71,
+          "clusters": 40,
+          "hashed": 1151,
+          "records": 1166,
+          "records_marked_near_duplicate": 40,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        },
+        "stix_campaign": {
+          "bands": 16,
+          "candidate_pairs": 0,
+          "clusters": 0,
+          "hashed": 60,
+          "records": 68,
+          "records_marked_near_duplicate": 0,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        },
+        "stix_course-of-action": {
+          "bands": 16,
+          "candidate_pairs": 149,
+          "clusters": 11,
+          "hashed": 334,
+          "records": 335,
+          "records_marked_near_duplicate": 22,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        },
+        "stix_identity": {
+          "bands": 16,
+          "candidate_pairs": 0,
+          "clusters": 0,
+          "hashed": 0,
+          "records": 3,
+          "records_marked_near_duplicate": 0,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        },
+        "stix_intrusion-set": {
+          "bands": 16,
+          "candidate_pairs": 0,
+          "clusters": 0,
+          "hashed": 193,
+          "records": 229,
+          "records_marked_near_duplicate": 0,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        },
+        "stix_malware": {
+          "bands": 16,
+          "candidate_pairs": 15,
+          "clusters": 2,
+          "hashed": 860,
+          "records": 888,
+          "records_marked_near_duplicate": 6,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        },
+        "stix_relationship": {
+          "bands": 16,
+          "candidate_pairs": 4099,
+          "clusters": 521,
+          "hashed": 21262,
+          "records": 22286,
+          "records_marked_near_duplicate": 1019,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        },
+        "stix_tool": {
+          "bands": 16,
+          "candidate_pairs": 0,
+          "clusters": 0,
+          "hashed": 97,
+          "records": 97,
+          "records_marked_near_duplicate": 0,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        },
+        "stix_x-mitre-analytic": {
+          "bands": 16,
+          "candidate_pairs": 507,
+          "clusters": 39,
+          "hashed": 2066,
+          "records": 2066,
+          "records_marked_near_duplicate": 94,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        },
+        "stix_x-mitre-asset": {
+          "bands": 16,
+          "candidate_pairs": 0,
+          "clusters": 0,
+          "hashed": 18,
+          "records": 18,
+          "records_marked_near_duplicate": 0,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        },
+        "stix_x-mitre-collection": {
+          "bands": 16,
+          "candidate_pairs": 0,
+          "clusters": 0,
+          "hashed": 3,
+          "records": 3,
+          "records_marked_near_duplicate": 0,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        },
+        "stix_x-mitre-data-component": {
+          "bands": 16,
+          "candidate_pairs": 0,
+          "clusters": 0,
+          "hashed": 123,
+          "records": 174,
+          "records_marked_near_duplicate": 0,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        },
+        "stix_x-mitre-data-source": {
+          "bands": 16,
+          "candidate_pairs": 0,
+          "clusters": 0,
+          "hashed": 42,
+          "records": 61,
+          "records_marked_near_duplicate": 0,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        },
+        "stix_x-mitre-detection-strategy": {
+          "bands": 16,
+          "candidate_pairs": 0,
+          "clusters": 0,
+          "hashed": 375,
+          "records": 920,
+          "records_marked_near_duplicate": 0,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        },
+        "stix_x-mitre-matrix": {
+          "bands": 16,
+          "candidate_pairs": 0,
+          "clusters": 0,
+          "hashed": 4,
+          "records": 4,
+          "records_marked_near_duplicate": 0,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        },
+        "stix_x-mitre-tactic": {
+          "bands": 16,
+          "candidate_pairs": 0,
+          "clusters": 0,
+          "hashed": 41,
+          "records": 41,
+          "records_marked_near_duplicate": 0,
+          "rows_per_band": 8,
+          "saturated_buckets_skipped": 0
+        }
+      },
+      "params": {
+        "band_threshold": 0.72,
+        "max_bucket_size": 300,
+        "min_tokens": 8,
+        "num_perm": 128,
+        "seed": 1234,
+        "shingle_size": 5
+      },
+      "threshold": 0.75,
+      "total_clusters": 24947,
+      "total_marked": 78893
+    },
+    "secrets": {
+      "findings_by_category": {
+        "pii": 10191,
+        "secret": 22
+      },
+      "findings_by_source": {
+        "attack": 37,
+        "cve_list": 5146,
+        "cwe": 4,
+        "nvd": 5026
+      },
+      "findings_by_source_and_type": {
+        "attack": {
+          "email": 1,
+          "internal_hostname": 16,
+          "private_ip": 20
+        },
+        "cve_list": {
+          "credentials_in_url": 11,
+          "email": 486,
+          "internal_hostname": 91,
+          "private_ip": 4558
+        },
+        "cwe": {
+          "private_ip": 4
+        },
+        "nvd": {
+          "credentials_in_url": 11,
+          "email": 487,
+          "internal_hostname": 90,
+          "private_ip": 4438
+        }
+      },
+      "findings_by_type": {
+        "credentials_in_url": 22,
+        "email": 974,
+        "internal_hostname": 197,
+        "private_ip": 9020
+      },
+      "findings_total": 10213,
+      "policy": {
+        "pii": "replaced with a stable pseudonym so co-occurrence structure survives",
+        "public_iocs": "NOT masked -- routable IPs, C2 domains and file hashes are the IOC content of this corpus",
+        "secrets": "replaced with an unrecoverable marker",
+        "values_recorded": "never; counts and one-way digests only"
+      },
+      "records_scanned": 823285,
+      "records_with_findings": {
+        "attack": 29,
+        "cve_list": 3323,
+        "cwe": 3,
+        "nvd": 3319
+      },
+      "unique_values_by_type": {
+        "credentials_in_url": 7,
+        "email": 395,
+        "internal_hostname": 52,
+        "private_ip": 910
+      }
+    }
+  },
+  "summary": {
+    "by_content_type": {
+      "cve_record_v5_json": {
+        "exact": 20776,
+        "identity": 347272,
+        "near": 26909,
+        "unique": 1
+      },
+      "cwe_category": {
+        "unique": 422
+      },
+      "cwe_external_reference": {
+        "unique": 1026
+      },
+      "cwe_view": {
+        "unique": 59
+      },
+      "cwe_weakness": {
+        "near": 2,
+        "unique": 967
+      },
+      "nvd_cve_api_2_0_json": {
+        "exact": 38874,
+        "identity": 326057,
+        "near": 30026
+      },
+      "stix_attack-pattern": {
+        "exact": 6,
+        "near": 74,
+        "unique": 1086
+      },
+      "stix_campaign": {
+        "exact": 16,
+        "unique": 52
+      },
+      "stix_course-of-action": {
+        "exact": 2,
+        "near": 33,
+        "unique": 300
+      },
+      "stix_identity": {
+        "exact": 3
+      },
+      "stix_intrusion-set": {
+        "exact": 67,
+        "unique": 162
+      },
+      "stix_malware": {
+        "exact": 42,
+        "near": 8,
+        "unique": 838
+      },
+      "stix_marking-definition": {
+        "unique": 3
+      },
+      "stix_relationship": {
+        "exact": 1977,
+        "near": 172,
+        "unique": 22669
+      },
+      "stix_tool": {
+        "unique": 97
+      },
+      "stix_x-mitre-analytic": {
+        "near": 133,
+        "unique": 1933
+      },
+      "stix_x-mitre-asset": {
+        "unique": 18
+      },
+      "stix_x-mitre-collection": {
+        "unique": 3
+      },
+      "stix_x-mitre-data-component": {
+        "exact": 85,
+        "unique": 89
+      },
+      "stix_x-mitre-data-source": {
+        "exact": 35,
+        "unique": 26
+      },
+      "stix_x-mitre-detection-strategy": {
+        "exact": 57,
+        "unique": 863
+      },
+      "stix_x-mitre-matrix": {
+        "unique": 4
+      },
+      "stix_x-mitre-tactic": {
+        "unique": 41
+      }
+    },
+    "by_source": {
+      "attack": {
+        "exact": 2290,
+        "near": 420,
+        "unique": 28184
+      },
+      "cve_list": {
+        "exact": 20776,
+        "identity": 347272,
+        "near": 26909,
+        "unique": 1
+      },
+      "cwe": {
+        "near": 2,
+        "unique": 2474
+      },
+      "nvd": {
+        "exact": 38874,
+        "identity": 326057,
+        "near": 30026
+      }
+    },
+    "decisions_by_stage": {
+      "exact": 61940,
+      "identity": 673329,
+      "near": 57357,
+      "unique": 30659
+    },
+    "records_deleted": 0,
+    "records_in": 823285,
+    "records_kept": 732010,
+    "records_marked_not_kept": 91275,
+    "records_out": 823285,
+    "removal_rate": 0.110867
+  },
+  "threshold_rationale": "Precision is flat within its 95% bootstrap interval across all four tested thresholds while recall nearly triples from 0.90 to 0.75, so the higher thresholds buy no measurable precision and pay for it in redundancy left behind."
+}

@@ -27,8 +27,15 @@ def main(argv=None) -> int:
         return 2
 
     total_entries = total_problems = 0
+    skipped = []
     for mp in files:
         m = json.loads(mp.read_text())
+        # Only ingest manifests make per-file integrity claims. The P2 process
+        # manifest lives in the same directory and asserts none, so it is
+        # reported as skipped rather than silently counted as verified.
+        if "source_id" not in m:
+            skipped.append(f"{mp.name} (phase={m.get('phase','?')}, no per-file digests)")
+            continue
         entries = m.get("files", [])
         problems = validate_manifest_files(m, REPO)
         total_entries += len(entries)
@@ -40,7 +47,10 @@ def main(argv=None) -> int:
         for prob in problems:
             print(f"    {prob}")
 
-    print(f"\n{total_entries} entries checked across {len(files)} manifests, {total_problems} problems")
+    checked = len(files) - len(skipped)
+    print(f"\n{total_entries} entries checked across {checked} ingest manifest(s), {total_problems} problems")
+    for sk in skipped:
+        print(f"  skipped: {sk}")
     if total_problems:
         print("FAILED: at least one manifest asserts a digest it cannot back up")
         return 1

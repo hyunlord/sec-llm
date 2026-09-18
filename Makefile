@@ -8,7 +8,7 @@ PYTHON ?= .venv/bin/python
 CHECKS := scripts/env_check
 
 .DEFAULT_GOAL := help
-.PHONY: help env-check report lock pack clean-artifacts pin ingest ingest-offline ingest-verify sources-doc ingest-report
+.PHONY: help env-check report lock pack clean-artifacts pin ingest ingest-offline ingest-verify sources-doc ingest-report process calibrate process-report
 
 help:
 	@echo "targets:"
@@ -23,6 +23,10 @@ help:
 	@echo "  ingest-offline re-run ingest with the network forbidden; proves offline reproducibility"
 	@echo "  sources-doc   regenerate docs/data-sources.md from ingest/sources.py"
 	@echo "  ingest-report regenerate reports/ingest.md from the manifests"
+	@echo ""
+	@echo "  process       run P2: canonicalize, dedup, identity, secrets -> process.manifest.json"
+	@echo "  calibrate     re-run the near-duplicate threshold sweep against the labelled sample"
+	@echo "  process-report regenerate the three P2 Korean reports"
 
 env-check:
 	@mkdir -p env/checks logs reports
@@ -118,3 +122,13 @@ sources-doc:
 
 ingest-report:
 	$(INGEST_PY) ingest/render_report.py
+
+process:
+	$(INGEST_PY) -m process.run
+	$(INGEST_PY) -m process.render_reports
+
+calibrate:
+	$(INGEST_PY) -m process.calibrate
+
+process-report:
+	$(INGEST_PY) -m process.render_reports
