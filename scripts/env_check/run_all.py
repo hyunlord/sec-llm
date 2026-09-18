@@ -254,6 +254,7 @@ def build_summary(results):
                     for d in (c2.get("dtypes") or [])
                 ],
                 "first_call": c2.get("first_call"),
+                "first_call_explanation": c2.get("first_call_explanation"),
                 "first_op_warnings": c2.get("first_op_warnings"),
                 "throughput": c2.get("throughput"),
             },

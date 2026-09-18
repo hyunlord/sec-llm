@@ -116,9 +116,41 @@ def _first_call_latency(torch):
 
     fm, sm = out["first_matmul_sec"], out["second_matmul_sec"]
     out["first_call_overhead_x"] = round(fm / sm, 1) if sm > 0 else None
-    # A JIT compile is hundreds of milliseconds, not microseconds.
-    out["suggests_jit_compile"] = fm > 0.25
+    # A large first-call cost is real, but naming it is a separate question from
+    # measuring it -- see _explain_first_call, which needs the PTX verdict.
+    out["first_call_is_slow"] = fm > 0.25
     return out
+
+
+def _explain_first_call(first_call: dict, has_ptx: bool) -> dict:
+    """Attribute the first-call cost without over-claiming.
+
+    A slow first kernel launch looks like a PTX JIT compile, and on a build that
+    ships PTX it usually is one. On a build with NO PTX entry it cannot be: there
+    is no PTX to compile. Calling it "PTX JIT" anyway would put a contradiction in
+    the report -- has_ptx=False next to suggests_jit_compile=True -- so the cause
+    is named from what the binary actually contains.
+    """
+    slow = bool(first_call.get("first_call_is_slow"))
+    if not slow:
+        return {"slow_first_call": False,
+                "attribution": "first launch is not materially slower than steady state"}
+    if has_ptx:
+        return {
+            "slow_first_call": True,
+            "attribution": "ptx_jit_compile",
+            "detail": "arch_list carries a PTX entry, so the driver JIT-compiles it on "
+                      "first launch; a one-off cost, correct results thereafter.",
+        }
+    return {
+        "slow_first_call": True,
+        "attribution": "lazy_module_load_or_kernel_autotune",
+        "detail": "arch_list carries NO PTX entry, so this cannot be a PTX JIT compile -- "
+                  "there is no PTX in the binary to compile. The cost is consistent with "
+                  "CUDA lazy module loading and cuBLAS heuristic/autotune initialisation on "
+                  "first use. Recorded as a measured one-off cost with its cause stated "
+                  "rather than assumed.",
+    }
 
 
 def _numeric_smoke(torch, dtype, name, rel_tol, abs_tol):
@@ -369,11 +401,14 @@ def run():
             "check 02 before it is trusted -- family-level binary compatibility is not a "
             "guarantee the way a native cubin or a PTX entry is."
         )
-    if data.get("first_call", {}).get("suggests_jit_compile"):
+    data["first_call_explanation"] = _explain_first_call(data.get("first_call", {}), data["has_ptx"])
+    if data["first_call_explanation"].get("slow_first_call"):
+        fc = data["first_call"]
         notes.append(
-            f"first kernel launch took {data['first_call']['first_matmul_sec']}s vs "
-            f"{data['first_call']['second_matmul_sec']}s for the second "
-            f"({data['first_call']['first_call_overhead_x']}x) -- consistent with a PTX JIT compile"
+            f"first kernel launch took {fc['first_matmul_sec']}s vs {fc['second_matmul_sec']}s "
+            f"for the second ({fc['first_call_overhead_x']}x). Attributed to "
+            f"{data['first_call_explanation']['attribution']}: "
+            f"{data['first_call_explanation']['detail']}"
         )
     if data["first_op_warnings"]:
         notes.append("CUDA emitted kernel/PTX diagnostics on the first device op: "

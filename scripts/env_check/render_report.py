@@ -100,8 +100,10 @@ def _failure_modes_section(fm):
         if fc and not fc.get("error"):
             L.append(f"- **첫 커널 호출 지연**: 컨텍스트 생성 {fc.get('context_init_sec')}초, "
                      f"첫 matmul {fc.get('first_matmul_sec')}초, 두 번째 matmul {fc.get('second_matmul_sec')}초 "
-                     f"({fc.get('first_call_overhead_x')}배). "
-                     f"PTX JIT 컴파일 정황: **{_yn(fc.get('suggests_jit_compile'))}**")
+                     f"({fc.get('first_call_overhead_x')}배)")
+            fx = ev.get("first_call_explanation") or {}
+            if fx:
+                L.append(f"  - 원인 귀속: **`{fx.get('attribution')}`** — {fx.get('detail','')}")
         tp = ev.get("throughput") or {}
         if tp.get("achieved_tflops_bf16"):
             L.append(f"- **실측 bf16 GEMM 처리량: {tp['achieved_tflops_bf16']} TFLOPS** "
