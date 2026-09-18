@@ -15,11 +15,15 @@
    빌드를 유발하는 `pip install` 금지, `setup.py build_ext` 금지, `nvcc` 직접 호출 금지.
    **휠(wheel)만 쓴다.** 어떤 패키지에 이 플랫폼용 휠이 없다면, **그 부재 자체가 발견 사항**이다.
    기록하고 넘어간다. 빌드해서 뚫으려 하지 않는다.
+   grep으로 확인하지 말고 **환경에서 강제할 것**: `PIP_ONLY_BINARY=:all:`, `UV_NO_BUILD=1`,
+   저장소 `pip.conf`. pip는 소스 배포본을 만나면 빌드하며, 우리 코드의 어떤 문자열도
+   그 사실을 말해주지 않는다.
 
 2. **모든 서브프로세스는 하드 메모리 상한 아래에서 돈다.**
    가능하면 `systemd-run --scope -p MemoryMax=32G -p MemorySwapMax=0`,
    불가능하면 `ulimit -v`. **OOM killer가 해당 작업을 죽여야지, 호스트를 죽이면 안 된다.**
    `MemorySwapMax=0`이 핵심이다. RSS만 제한하면 스왑 스래싱으로 여전히 장비가 멎는다.
+   **상한을 걸었다고 가정하지 말고 측정할 것** — 위임이 없으면 조용히 무시된다 (아래 A1).
 
 3. **백그라운드 작업 금지.**
    모든 것은 오케스트레이터의 포그라운드에서 돈다. `nohup`은 오케스트레이터 자신에게만 허용된다.
@@ -62,6 +66,57 @@ GB10 Grace-Blackwell에서 **호스트 RAM과 GPU 메모리는 물리적으로 �
 killer를 부르는 대신 스왑 스래싱에 들어갔고, 그 상태에서는 sshd와 tailscaled조차
 스케줄링을 받지 못한다.
 
+### 측정 결과 — 상한이 살아 있는가, 무엇을 덮는가
+
+**설정된 상한과 강제되는 상한은 다르다.** `systemd-run --user`는 user slice에
+메모리 위임(delegation)이 없으면 명령은 성공하고 제한은 조용히 무시된다.
+그래서 가정하지 않고 측정했다 (체크 01, `env/gate0.json`의 `summary.safeguards`).
+
+**A1 — 상한이 살아 있는가: 예, 강제된다.**
+
+| 증거 | 값 |
+|---|---|
+| 1 GiB 스코프 안에서 2 GiB 할당 | 종료 코드 **-9 / 137 (SIGKILL)** |
+| 대조군: 스코프 없이 동일 할당 | **성공** (rc=0) |
+| 스코프 내부 `memory.max` 실측 | **1073741824** (정확히 1 GiB) |
+
+세 가지가 모두 일치해야 '강제됨'으로 판정한다. 프로세스가 죽었다는 사실 하나만으로는
+아무것도 증명하지 못한다 — 다른 이유로 죽었을 수 있기 때문이다.
+
+**A2 — 이 상한이 무엇을 덮는가: 호스트 RAM만 덮는다.**
+
+8 GiB 상한 스코프 안에서 **16 GiB를 GPU에 할당했더니 살아남았다.** 즉 CUDA 디바이스
+할당은 프로세스 cgroup에 계상되지 **않는다.**
+
+이것이 왜 중요한가: 2026-09-18 사건은 **호스트 측 컴파일러**가 일으켰다. 따라서
+정작 필요한 보호는 이미 걸려 있다. 그러나 **GPU 쪽 과다 할당은 이 상한이 막지 못하며**,
+그 보호는 체크 07의 CUDA allocator 상한이 따로 담당한다. 두 상한이 둘 다 필요하고
+서로 다른 것을 막는다.
+
+> 문서가 '상한이 둘 다 덮는다'고 적혀 있는데 실제로는 하나만 덮는 상황이 가장 위험하다.
+> 그래서 이 절의 값은 전부 측정값이며, `env/gate0.json`에서 자동으로 확인할 수 있다.
+
+### 이 장비에는 사용자 공간 OOM 데몬이 없다 — 미해결
+
+| 항목 | 상태 |
+|---|---|
+| `systemd-oomd` | **inactive** (패키지 미설치, `apt` 후보 255.4-1ubuntu8.17) |
+| `earlyoom` | **미설치** |
+| 커널 OOM killer | 동작함 — 사건 당시 4시간 창에서 **155건**의 oom-kill 기록 |
+
+커널 OOM killer는 **발동했지만 호스트가 이미 응답 불능이 된 뒤였다.** 사건 로그에
+`cicc invoked oom-killer`(CUDA 컴파일러 프론트엔드)와 NVIDIA 드라이버의
+`NV_ERR_NO_MEMORY` 할당 실패가 함께 남아 있는데, 이는 **GPU와 호스트가 같은 풀을
+쓴다는 사실의 직접 증거**이기도 하다.
+
+**이 계정에는 passwordless sudo가 없어 데몬을 설치하지 못했다.** root 권한으로 아래를
+실행해야 한다. Phase 5는 이 게이트보다 훨씬 오래 도는 작업이므로, 그 전에 처리할 것.
+
+```bash
+sudo apt-get install -y systemd-oomd   # 또는 earlyoom
+sudo systemctl enable --now systemd-oomd
+```
+
 ### 오해하기 쉬운 지점 — 두 상한은 다른 것을 막는다
 
 `torch.cuda.set_per_process_memory_fraction()`을 걸어 두는 것은 의미가 있지만,
@@ -70,7 +125,7 @@ killer를 부르는 대신 스왑 스래싱에 들어갔고, 그 상태에서는
 | 상한 | 무엇을 막나 | 이 사건을 막았나 |
 |---|---|---|
 | `torch.cuda.set_per_process_memory_fraction` | **CUDA allocator**의 디바이스 할당. 과도한 학습 설정이 깔끔하게 `OutOfMemoryError`를 내도록 해서 단계적 하향 사다리가 작동하게 한다 | **아니오.** 컴파일러는 CUDA를 거치지 않는다 |
-| `systemd-run --scope -p MemoryMax=… -p MemorySwapMax=0` | **호스트 RSS**. cgroup 안에서 OOM killer가 먼저 발동한다 | 예 — 다만 근본 해법은 애초에 컴파일하지 않는 것 |
+| `systemd-run --scope -p MemoryMax=… -p MemorySwapMax=0` | **호스트 RSS만** (A2에서 측정 확인). cgroup 안에서 OOM killer가 먼저 발동한다 | 예 — 다만 근본 해법은 애초에 컴파일하지 않는 것 |
 
 체크 07에는 두 상한이 모두 적용되어 있다. CUDA 쪽은 스크립트 안에서,
 호스트 쪽은 `scripts/env_check/_limits.py`가 오케스트레이터에서 감싸 준다.
