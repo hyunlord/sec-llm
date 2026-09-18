@@ -220,7 +220,7 @@ def ingest(pin: dict, *, force: bool = False) -> Path:
 
     with RecordWriter(out, SOURCE_ID) as w:
         for p in pages:
-            mb.add_file_entry(str(p.relative_to(paths.REPO)), file_sha256(p), p.stat().st_size)
+            mb.add_file_entry(str(p.relative_to(paths.REPO)), file_sha256(p), "sha256", p.stat().st_size)
             body = json.loads(p.read_text())
             for item in body.get("vulnerabilities") or []:
                 cve = item.get("cve") or {}

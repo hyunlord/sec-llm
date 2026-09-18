@@ -2,10 +2,12 @@
   "content_type": "cve_record_v5_json",
   "content_types_without_entity_id": [],
   "counts": {
-    "bytes": 4056614729,
+    "bytes": 0,
+    "bytes_on_disk": 4056614729,
+    "directories": 1,
     "entity_id_missing": 0,
     "entity_id_present": 394958,
-    "files": 1,
+    "files": 0,
     "identifiable_records": 394958,
     "records": 394958,
     "records_without_expected_entity_id": 0
@@ -22,11 +24,13 @@
   ],
   "files": [
     {
-      "bytes": 4056614729,
-      "path": "data/raw/cve_list/cvelistV5@9d4f632aa6e148754e1f27bdfb69f4635792f69a",
-      "sha256": "9d4f632aa6e148754e1f27bdfb69f4635792f69a000000000000000000000000"
+      "bytes_on_disk": 4056614729,
+      "git_commit_sha": "9d4f632aa6e148754e1f27bdfb69f4635792f69a",
+      "kind": "directory",
+      "path": "data/raw/cve_list/cvelistV5"
     }
   ],
+  "integrity": "This source carries no per-file sha256: per-file digests for the record count here would bloat the manifest past usefulness. Content integrity is instead anchored to two real digests -- the git commit SHA, which is itself a Merkle root over the entire tree, and records_digest, a SHA-256 over every record's content hash. Neither is synthesised, and no field claims to be a SHA-256 of something it is not.",
   "license": {
     "commercial_status": "permitted_with_attribution",
     "contains_third_party_content": true,
@@ -54,6 +58,7 @@
     "content_sha256"
   ],
   "notes": [
+    "INTEGRITY: this source carries no per-file sha256 -- ~300k files would bloat the manifest past usefulness. Content integrity is anchored to two real digests instead: the git commit SHA (a Merkle root over the entire tree) and records_digest (SHA-256 over every record's content hash). Neither is synthesised.",
     "clone strategy: partial_clone_blob_none then checkout of the pinned commit; history depth 77380 commits, so the pin is verifiable by ancestry and not only by object hash.",
     "Attribution required by the CVE Program Terms of Use: reproduce MITRE's copyright designation and the license in any copy.",
     "records=394958, malformed JSON skipped=0, records with no cveMetadata.cveId=0",
@@ -74,7 +79,7 @@
     "source_name": "CVE List V5 (CVEProject/cvelistV5)"
   },
   "records_digest": "29ac54daf15be05a7c104faca2f4c11631933a022f63b163ca226ca67073912a",
-  "schema_version": 1,
+  "schema_version": 2,
   "source_id": "cve_list",
   "source_name": "CVE List V5 (CVEProject/cvelistV5)",
   "source_timestamp": "2026-09-18T04:34:36Z",

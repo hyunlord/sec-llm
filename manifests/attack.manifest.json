@@ -8,6 +8,8 @@
   ],
   "counts": {
     "bytes": 63643853,
+    "bytes_on_disk": 0,
+    "directories": 0,
     "entity_id_missing": 24827,
     "entity_id_present": 6067,
     "files": 3,
@@ -28,20 +30,24 @@
   "files": [
     {
       "bytes": 53835637,
+      "kind": "file",
       "path": "data/raw/attack/v19.2/enterprise-attack-19.2.json",
       "sha256": "dc1639caa5501d720e280cf1cbd8fbe009884a0c9b3e6e9ed9d0c25166c3d8f4"
     },
     {
       "bytes": 4057891,
+      "kind": "file",
       "path": "data/raw/attack/v19.2/ics-attack-19.2.json",
       "sha256": "08b83d2cea6b6d6752468ef0e62e2ab2a53c9443ef72c439ecccb07ab9e89da9"
     },
     {
       "bytes": 5750325,
+      "kind": "file",
       "path": "data/raw/attack/v19.2/mobile-attack-19.2.json",
       "sha256": "acfa5ca2d93484476f79bf38590e2b55bb675fc0ce85e76bffa0af2c82dada64"
     }
   ],
+  "integrity": "Every entry with kind='file' carries a sha256 that is the actual SHA-256 of that one file; `python -m ingest.verify_digests` recomputes them from disk. A digest is never padded, widened, or synthesised to fit a field.",
   "license": {
     "commercial_status": "permitted_with_attribution",
     "contains_third_party_content": true,
@@ -108,7 +114,7 @@
     "version": "19.2"
   },
   "records_digest": "317b7f7e0ae3b6ed708bd7dc8e7a181df939cf0713038627b59a60ec1599bfbd",
-  "schema_version": 1,
+  "schema_version": 2,
   "source_id": "attack",
   "source_name": "MITRE ATT&CK STIX 2.1 bundles (mitre-attack/attack-stix-data)",
   "source_timestamp": "2026-08-05T22:58:54Z",

@@ -96,7 +96,7 @@ def ingest(pin: dict, *, force: bool = False) -> Path:
             print(f"  downloading {rel} ({human_bytes(finfo['bytes'])})")
             dl = download(finfo["raw_url"], dest, stats=stats)
             print(f"    {'cached' if dl['cached'] else 'fetched'} sha256={dl['sha256'][:16]}...")
-            mb.add_file_entry(str(dest.relative_to(paths.REPO)), dl["sha256"], dl["bytes"])
+            mb.add_file_entry(str(dest.relative_to(paths.REPO)), dl["sha256"], "sha256", dl["bytes"])
 
             bundle = json.loads(dest.read_text(encoding="utf-8"))
             objects = bundle.get("objects") or []

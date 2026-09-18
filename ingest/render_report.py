@@ -100,7 +100,8 @@ def render() -> Path:
                 reqs = n.split(",")[0].replace("pages=", "") + " 페이지"
         L.append(
             f"| `{sid}` | {pin_headline(pin)} | {m['counts']['records']:,} | "
-            f"{human(m['counts']['bytes'])} | {r.get('wall_seconds','—')} 초 | {reqs} | "
+            f"{human(m['counts'].get('bytes') or m['counts'].get('bytes_on_disk'))} | "
+            f"{r.get('wall_seconds','—')} 초 | {reqs} | "
             f"{cov_txt} | {'✅ 성공' if r.get('status')=='ok' else '✅ 매니페스트 존재'} |"
         )
     L.append("")
@@ -131,7 +132,11 @@ def render() -> Path:
         L.append(f"- 사용한 핀: {pin_headline(pin)}")
         L.append(f"- 불변성: {pin.get('immutability', '커밋/태그/버전 주소 지정으로 불변')}")
         L.append(f"- 레코드 수: **{m['counts']['records']:,}**")
-        L.append(f"- 디스크 사용량: **{human(m['counts']['bytes'])}** (파일 {m['counts']['files']:,}개)")
+        nbytes = m["counts"].get("bytes") or m["counts"].get("bytes_on_disk")
+        nfiles = m["counts"].get("files", 0)
+        ndirs = m["counts"].get("directories", 0)
+        what = f"파일 {nfiles:,}개" if nfiles else f"디렉터리 {ndirs}개(체크아웃 전체)"
+        L.append(f"- 디스크 사용량: **{human(nbytes)}** ({what})")
         L.append(f"- 소요 시간: **{r.get('wall_seconds','—')} 초**")
         L.append(f"- entity_id 커버리지: **{m['entity_id_coverage']:.4f}**"
                  + (f" (식별 가능한 타입만 기준 **{m['entity_id_coverage_identifiable']:.4f}**)"

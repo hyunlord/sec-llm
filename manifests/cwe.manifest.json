@@ -3,6 +3,8 @@
   "content_types_without_entity_id": [],
   "counts": {
     "bytes": 2021351,
+    "bytes_on_disk": 0,
+    "directories": 0,
     "entity_id_missing": 0,
     "entity_id_present": 2476,
     "files": 1,
@@ -23,10 +25,12 @@
   "files": [
     {
       "bytes": 2021351,
+      "kind": "file",
       "path": "data/raw/cwe/4.20/cwec_v4.20.xml.zip",
       "sha256": "3976f599e5e5200219a3108bb896d06e2a88fbb293369e1883cb423a5e9d7d50"
     }
   ],
+  "integrity": "Every entry with kind='file' carries a sha256 that is the actual SHA-256 of that one file; `python -m ingest.verify_digests` recomputes them from disk. A digest is never padded, widened, or synthesised to fit a field.",
   "license": {
     "commercial_status": "permitted_with_attribution",
     "contains_third_party_content": true,
@@ -72,7 +76,7 @@
     "version": "4.20"
   },
   "records_digest": "76e4bb9a78dde5a3fbb483352263136702c8f24a6effcba628a10ba5ebd702fa",
-  "schema_version": 1,
+  "schema_version": 2,
   "source_id": "cwe",
   "source_name": "CWE (Common Weakness Enumeration) versioned XML catalog",
   "source_timestamp": "2026-04-30",

@@ -146,6 +146,11 @@ def ingest(pin: dict, *, force: bool = False) -> Path:
         license_block=lic,
         source_timestamp=pin["commit_date"],
         notes=[
+            "INTEGRITY: this source carries no per-file sha256 -- ~300k files would bloat "
+            "the manifest past usefulness. Content integrity is anchored to two real "
+            "digests instead: the git commit SHA (a Merkle root over the entire tree) and "
+            "records_digest (SHA-256 over every record's content hash). Neither is "
+            "synthesised.",
             f"clone strategy: {clone_info['strategy']} then checkout of the pinned commit; "
             f"history depth {clone_info['history_depth']} commits, so the pin is verifiable "
             "by ancestry and not only by object hash.",
@@ -153,13 +158,18 @@ def ingest(pin: dict, *, force: bool = False) -> Path:
             "copyright designation and the license in any copy.",
         ],
     )
-    # The repo itself is the artifact; per-file digests for ~300k files would
-    # bloat the manifest past usefulness, so the commit SHA is the file-level
-    # integrity claim and records_digest covers the content.
+    # Per-file digests for ~300k files would bloat the manifest past usefulness,
+    # so this source's integrity is anchored to two real values rather than a
+    # synthesised per-file one: the git commit SHA (which is itself a Merkle
+    # root over the whole tree) and records_digest (a SHA-256 over every
+    # record's content hash). The checkout is recorded as a directory, with the
+    # commit id under a key that says what it is.
     mb.add_file_entry(
-        str(work.relative_to(paths.REPO)) + f"@{pin['commit_sha']}",
-        pin["commit_sha"] + "0" * (64 - len(pin["commit_sha"])),
+        str(work.relative_to(paths.REPO)),
+        pin["commit_sha"],
+        "git_commit_sha",
         on_disk,
+        kind="directory",
     )
 
     cves_dir = work / "cves"

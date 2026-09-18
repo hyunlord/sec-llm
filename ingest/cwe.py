@@ -114,7 +114,7 @@ def ingest(pin: dict, *, force: bool = False) -> Path:
             f"catalog declares Version={catalog_version} Date={catalog_date}",
         ],
     )
-    mb.add_file_entry(str(zip_path.relative_to(paths.REPO)), dl["sha256"], dl["bytes"])
+    mb.add_file_entry(str(zip_path.relative_to(paths.REPO)), dl["sha256"], "sha256", dl["bytes"])
 
     out = paths.INGESTED / f"{SOURCE_ID}.jsonl"
     kinds = {
