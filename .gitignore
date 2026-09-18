@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.uv/
+
+# Model weights, datasets, checkpoints -- never committed
+*.safetensors
+*.bin
+*.gguf
+*.pt
+*.pth
+*.ckpt
+models/
+checkpoints/
+outputs/
+data/
+datasets/
+runs/
+*.arrow
+
+# Logs -- raw stdout of env checks is packed by `make pack`, not committed
+logs/
+*.log
+
+# Artifacts
+p0-artifacts.zip
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# OMC / tooling scratch
+.omc/
+.omx/
+.codegraph

@@ -1,0 +1,26 @@
+[project]
+name = "sec-llm"
+version = "0.0.0"
+description = "Security-domain LLM. P0: environment verification gate on DGX Spark (GB10, aarch64, CUDA 13)."
+requires-python = ">=3.12"
+
+# Pinned to what Gate 0 actually verified on sm_121 / CUDA 13.0.
+# torch MUST come from the PyTorch cu130 wheel index, not PyPI:
+#   UV_TORCH_BACKEND=cu130 uv pip install -r requirements.txt
+# Installing torch from the default index pulls a CUDA 12 build, which is
+# known failure mode (1) in reports/env-report.md.
+dependencies = [
+  "torch==2.13.0",
+  "vllm==0.29.0",
+  "transformers>=5.17.0",
+  "peft>=0.21.0",
+  "trl>=1.13.0",
+  "accelerate",
+  "datasets",
+  "sentencepiece",
+  "protobuf",
+]
+
+[tool.uv]
+# Reproduce the verified environment.
+torch-backend = "cu130"

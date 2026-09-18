@@ -1,0 +1,19 @@
+# Reproduce the Gate 0 environment.
+#
+#   uv venv --python 3.12 .venv
+#   UV_TORCH_BACKEND=cu130 uv pip install --python .venv/bin/python -r requirements.txt
+#
+# The cu130 backend is not optional. torch from the default PyPI index is a
+# CUDA 12 build; see known failure mode (1) in reports/env-report.md.
+# Exact resolved versions of the verified environment are in env/versions.lock.
+--extra-index-url https://download.pytorch.org/whl/cu130
+
+torch==2.13.0
+vllm==0.29.0
+transformers>=5.17.0
+peft>=0.21.0
+trl>=1.13.0
+accelerate
+datasets
+sentencepiece
+protobuf
