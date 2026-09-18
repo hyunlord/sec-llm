@@ -83,6 +83,7 @@ class VLLMServer:
         self.dropped_args: list = []
         self.log_path = C.LOG_DIR / f"vllm_{tag}.log"
         self.base = f"http://127.0.0.1:{port}"
+        self.env_applied: dict = {}
 
     @property
     def cmd(self):
@@ -92,8 +93,20 @@ class VLLMServer:
     def start(self, timeout=1200, _retry=True):
         C.LOG_DIR.mkdir(parents=True, exist_ok=True)
         env = os.environ.copy()
+        # vLLM 0.29 JIT-compiles its FlashInfer sampling kernels at engine
+        # startup, shelling out to ninja. On this project that is a rule-1
+        # violation -- no source compilation on the training host -- and on this
+        # machine it simply fails, because ninja is deliberately not installed.
+        # Turning the FlashInfer sampler off keeps the PyTorch-native path, which
+        # needs no compiler. This is a real platform finding, recorded in the
+        # report rather than worked around by installing a build toolchain.
+        env.setdefault("VLLM_USE_FLASHINFER_SAMPLER", "0")
         env.update(self.env_extra)
         env.setdefault("VLLM_LOGGING_LEVEL", "INFO")
+        self.env_applied = {
+            k: env[k] for k in ("VLLM_USE_FLASHINFER_SAMPLER", "VLLM_BATCH_INVARIANT",
+                                "VLLM_LOGGING_LEVEL") if k in env
+        }
         cmd = self.cmd
         if self.dropped_args:
             print(f"[vllm:{self.tag}] dropped flags unsupported by this build: {self.dropped_args}")

@@ -42,6 +42,7 @@ def run():
         entry["dropped_unsupported_flags"] = list(srv.dropped_args)
         try:
             ready, secs, why = srv.start()
+            entry["env_applied"] = dict(srv.env_applied)
             entry["ready"] = ready
             entry["startup_seconds"] = secs
             entry["startup_result"] = why
