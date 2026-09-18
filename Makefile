@@ -13,7 +13,7 @@ CHECKS := scripts/env_check
 help:
 	@echo "targets:"
 	@echo "  env-check  run checks 01..08, write env/gate0.json, regenerate reports/env-report.md"
-	@echo "  report     regenerate reports/env-report.md from the existing env/gate0.json"
+	@echo "  report     regenerate reports/env-report.md and docs/determinism.md from env/gate0.json"
 	@echo "  lock       write env/versions.lock from the current environment"
 	@echo "  pack       build p0-artifacts.zip (env/, reports/, docs/, raw check logs)"
 
@@ -25,6 +25,7 @@ env-check:
 
 report:
 	$(PYTHON) $(CHECKS)/render_report.py
+	$(PYTHON) $(CHECKS)/render_determinism.py
 
 # Full freeze of the environment the checks actually ran in. uv is the
 # installer here, so it is the primary source; pip is the fallback for an

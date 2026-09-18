@@ -19,6 +19,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import _common as C  # noqa: E402
+import render_determinism  # noqa: E402
 import render_report  # noqa: E402
 
 CHECKS = [
@@ -226,7 +227,9 @@ def main():
     print(f"\nwrote {out.relative_to(C.REPO)}")
 
     render_report.render(gate)
-    print(f"wrote reports/env-report.md")
+    print("wrote reports/env-report.md")
+    render_determinism.render(gate)
+    print("wrote docs/determinism.md")
 
     print("\n" + json.dumps(summary["gate_requirements"], indent=2, ensure_ascii=False))
     print(f"\nGATE 0 PASSED: {summary['gate_passed']}")
