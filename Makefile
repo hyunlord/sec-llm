@@ -27,25 +27,35 @@ report:
 	$(PYTHON) $(CHECKS)/render_report.py
 	$(PYTHON) $(CHECKS)/render_determinism.py
 
-# Full freeze of the environment the checks actually ran in. uv is the
-# installer here, so it is the primary source; pip is the fallback for an
-# environment built some other way. An empty result is an error, not a lock
-# file -- silently shipping one would make `make env-check` unreproducible.
+# Full freeze of the environment the checks actually ran in.
+#
+# A silently empty lock file is worse than no lock file: the reproducibility
+# claim in the report becomes false and nothing surfaces it. So the result is
+# staged, then validated -- it must contain torch and more than 10 entries --
+# and the target fails loudly if it does not.
 lock:
 	@mkdir -p env
 	@( uv pip freeze --python $(PYTHON) 2>/dev/null \
-	   || $(PYTHON) -m pip freeze --all 2>/dev/null ) > env/versions.lock.tmp
-	@if [ ! -s env/versions.lock.tmp ]; then \
-	  rm -f env/versions.lock.tmp; \
-	  echo "ERROR: could not freeze $(PYTHON) -- no packages listed"; exit 1; \
-	fi
-	@mv env/versions.lock.tmp env/versions.lock
-	@echo "wrote env/versions.lock ($$(wc -l < env/versions.lock) packages)"
+	   || $(PYTHON) -m pip freeze --all 2>/dev/null ) > env/versions.lock.tmp || true
+	@lines=$$(wc -l < env/versions.lock.tmp | tr -d ' '); \
+	 if [ "$$lines" -lt 10 ]; then \
+	   echo "ERROR: freeze of $(PYTHON) produced $$lines entries (need > 10)"; \
+	   rm -f env/versions.lock.tmp; exit 1; \
+	 fi; \
+	 if ! grep -qiE '^torch([=@ ]|$$)' env/versions.lock.tmp; then \
+	   echo "ERROR: freeze does not contain torch -- wrong interpreter?"; \
+	   rm -f env/versions.lock.tmp; exit 1; \
+	 fi; \
+	 mv env/versions.lock.tmp env/versions.lock; \
+	 echo "wrote env/versions.lock ($$lines packages, torch present)"
 
+# docs/ and logs/ are created first so zip does not warn on a fresh checkout
+# where no check has run yet.
 pack: clean-artifacts
-	@zip -q -r p0-artifacts.zip env reports docs \
-	   logs/*.log \
-	   -x 'env/checks/.*' '*/__pycache__/*'
+	@mkdir -p env reports docs logs
+	@touch logs/.keep
+	@zip -q -r p0-artifacts.zip env reports docs logs \
+	   -x '*/__pycache__/*' '*.pyc'
 	@echo "wrote p0-artifacts.zip"
 	@unzip -l p0-artifacts.zip | tail -3
 

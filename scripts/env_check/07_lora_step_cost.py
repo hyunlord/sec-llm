@@ -91,25 +91,61 @@ def synth_dataset(tok, n, seq_len, seed=7):
     return ds.map(tokenize, batched=True, remove_columns=["text"])
 
 
-# On Grace-Blackwell the GPU shares the host's unified memory, so an
-# uncaught allocation does not produce a clean CUDA OOM -- it takes the whole
-# machine into swap thrash and the box stops responding. Capping the process
-# fraction makes torch raise OutOfMemoryError while the host still has room to
-# breathe, which is what the step-down ladder needs in order to work at all.
+# Two different ceilings guard two different failures. Keeping them straight
+# matters, because conflating them is how the host went down the first time:
+#
+#   * This one -- set_per_process_memory_fraction -- bounds the *CUDA
+#     allocator*. It makes an over-large training config raise
+#     OutOfMemoryError so the step-down ladder below can catch it and try the
+#     next rung. That is all it does.
+#
+#   * It does NOT prevent a host-RAM exhaustion. The incident on 2026-09-18
+#     was a host-side compiler, which never allocates through CUDA, so this
+#     cap would have done nothing about it. That failure is handled upstream
+#     by the systemd scope in scripts/env_check/_limits.py (MemoryMax +
+#     MemorySwapMax=0) and, more fundamentally, by not compiling on this host
+#     at all.
 MEMORY_FRACTION = float(os.environ.get("GATE0_MEM_FRACTION", "0.72"))
 
 
 def _guard_memory(torch):
-    """Cap this process and refuse to start if the host is already loaded."""
+    """Cap the CUDA allocator and record the host-side ceiling we inherited."""
     avail = C.host_meminfo_gb().get("MemAvailable")
     total = C.host_meminfo_gb().get("MemTotal")
+    applied = True
     try:
         torch.cuda.set_per_process_memory_fraction(MEMORY_FRACTION, 0)
     except Exception as exc:
+        applied = False
         print(f"could not set per-process memory fraction: {exc!r}")
-    print(f"host memory: {avail} GiB available of {total} GiB; "
-          f"per-process cap {MEMORY_FRACTION:.0%}")
-    return {"mem_available_gib": avail, "mem_total_gib": total, "cap_fraction": MEMORY_FRACTION}
+
+    # The orchestrator wraps this process in a systemd scope; surface which
+    # cgroup limit we are actually running under so the two ceilings can be
+    # told apart in the report.
+    cgroup_max = None
+    try:
+        for path in ("/sys/fs/cgroup/memory.max",):
+            pth = Path(path)
+            if pth.exists():
+                cgroup_max = pth.read_text().strip()
+    except Exception:
+        pass
+
+    print(f"host memory: {avail} GiB available of {total} GiB")
+    print(f"CUDA allocator cap: {MEMORY_FRACTION:.0%} (applied={applied})")
+    print(f"host cgroup memory.max: {cgroup_max}")
+    return {
+        "mem_available_gib": avail,
+        "mem_total_gib": total,
+        "cuda_allocator_cap_fraction": MEMORY_FRACTION,
+        "cuda_allocator_cap_applied": applied,
+        "host_cgroup_memory_max": cgroup_max,
+        "scope": (
+            "the CUDA cap bounds device allocations so the step-down ladder can catch "
+            "an over-large config; host-RAM exhaustion is bounded separately by the "
+            "systemd scope applied by run_all.py"
+        ),
+    }
 
 
 def attempt(cfg):
