@@ -28,13 +28,19 @@ CONFIGS = [
 
 def run():
     notes = []
-    data = {"model": C.MODEL_ID, "base_args": _vllm.BASE_ARGS, "attempts": []}
+    data = {
+        "model": C.MODEL_ID,
+        "base_args": _vllm.BASE_ARGS,
+        "vllm_supported_flag_count": len(_vllm.supported_flags()),
+        "attempts": [],
+    }
 
     for cfg in CONFIGS:
         print(f"\n=== vLLM attempt: {cfg['name']} ({cfg['note']}) ===")
         entry = {"name": cfg["name"], "extra_args": cfg["args"], "note": cfg["note"]}
         srv = _vllm.VLLMServer(C.MODEL_ID, cfg["port"], cfg["args"], tag=cfg["name"])
         entry["command"] = " ".join(srv.cmd)
+        entry["dropped_unsupported_flags"] = list(srv.dropped_args)
         try:
             ready, secs, why = srv.start()
             entry["ready"] = ready

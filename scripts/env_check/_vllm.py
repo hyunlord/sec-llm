@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import functools
 import json
 import os
+import re
 import signal
 import subprocess
 import sys
@@ -30,6 +32,46 @@ BASE_ARGS = [
 ]
 
 
+@functools.lru_cache(maxsize=1)
+def supported_flags() -> frozenset:
+    """Flags this vLLM build actually accepts, read from `vllm serve --help`.
+
+    vLLM's CLI surface moves between releases -- 0.29 dropped
+    --disable-log-requests -- and an unrecognised flag makes the server exit
+    before it starts. Without this the check reports "no vLLM configuration
+    reached ready state", which reads as a platform finding about CUDA graph
+    capture on aarch64 when it is nothing of the sort. A harness bug must not be
+    allowed to masquerade as failure mode (3).
+    """
+    try:
+        p = subprocess.run([str(VLLM_BIN), "serve", "--help"],
+                           capture_output=True, text=True, timeout=180)
+        text = (p.stdout or "") + (p.stderr or "")
+    except Exception:
+        return frozenset()
+    return frozenset(re.findall(r"(--[a-z0-9][a-z0-9-]*)", text))
+
+
+def filter_args(args: list) -> tuple[list, list]:
+    """Drop flags this build does not accept. Returns (kept, dropped)."""
+    known = supported_flags()
+    if not known:
+        return list(args), []
+    kept, dropped, i = [], [], 0
+    while i < len(args):
+        a = args[i]
+        if a.startswith("--") and a not in known:
+            dropped.append(a)
+            # Drop its value too, if it takes one.
+            if i + 1 < len(args) and not args[i + 1].startswith("--"):
+                i += 1
+            i += 1
+            continue
+        kept.append(a)
+        i += 1
+    return kept, dropped
+
+
 class VLLMServer:
     def __init__(self, model, port, extra_args=(), env_extra=None, tag="default"):
         self.model = model
@@ -38,15 +80,16 @@ class VLLMServer:
         self.env_extra = dict(env_extra or {})
         self.tag = tag
         self.proc = None
+        self.dropped_args: list = []
         self.log_path = C.LOG_DIR / f"vllm_{tag}.log"
         self.base = f"http://127.0.0.1:{port}"
 
     @property
     def cmd(self):
-        args = [str(VLLM_BIN), "serve", self.model, "--port", str(self.port)]
-        args += BASE_ARGS + self.extra_args
-        # --disable-log-requests was removed in some versions; drop it if unknown.
-        return args
+        wanted = BASE_ARGS + self.extra_args
+        kept, dropped = filter_args(wanted)
+        self.dropped_args = dropped
+        return [str(VLLM_BIN), "serve", self.model, "--port", str(self.port)] + kept
 
     def start(self, timeout=1200):
         C.LOG_DIR.mkdir(parents=True, exist_ok=True)
@@ -54,6 +97,8 @@ class VLLMServer:
         env.update(self.env_extra)
         env.setdefault("VLLM_LOGGING_LEVEL", "INFO")
         cmd = self.cmd
+        if self.dropped_args:
+            print(f"[vllm:{self.tag}] dropped flags unsupported by this build: {self.dropped_args}")
         print(f"[vllm:{self.tag}] launching: {' '.join(cmd)}")
         if self.env_extra:
             print(f"[vllm:{self.tag}] env: {self.env_extra}")
