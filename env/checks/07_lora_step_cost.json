@@ -1,0 +1,225 @@
+{
+  "check_id": "07",
+  "name": "lora_step_cost",
+  "status": "pass",
+  "started_at": "2026-09-18T21:49:14+0900",
+  "finished_at": "2026-09-18T22:33:52+0900",
+  "duration_sec": 2677.1,
+  "notes": [
+    "first configuration that fits: batch=4 x grad_accum=4 (effective 16), seq_len=4096, LoRA r=64 alpha=128",
+    "129.5145s per optimizer step, 506.0 tokens/s, peak allocated 47.85 GiB / reserved 54.85 GiB",
+    "one epoch over 10,000 examples: 625.0 steps, ~22.49 h",
+    "one epoch over 30,000 examples: 1875.0 steps, ~67.46 h",
+    "one epoch over 60,000 examples: 3750.0 steps, ~134.91 h",
+    "training checkpoint deleted; this smoke produces no usable adapter"
+  ],
+  "data": {
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "fixed": {
+      "dtype": "bfloat16",
+      "attn_implementation": "sdpa",
+      "optimizer": "adamw_torch",
+      "learning_rate": 0.0001,
+      "gradient_checkpointing": true,
+      "lora_alpha_rule": "2 * r",
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ]
+    },
+    "ladder": [
+      {
+        "batch": 4,
+        "grad_accum": 4,
+        "seq_len": 4096,
+        "lora_r": 64
+      },
+      {
+        "batch": 2,
+        "grad_accum": 8,
+        "seq_len": 4096,
+        "lora_r": 64
+      },
+      {
+        "batch": 2,
+        "grad_accum": 8,
+        "seq_len": 2048,
+        "lora_r": 64
+      },
+      {
+        "batch": 2,
+        "grad_accum": 8,
+        "seq_len": 2048,
+        "lora_r": 32
+      }
+    ],
+    "attempts": [
+      {
+        "config": {
+          "batch": 4,
+          "grad_accum": 4,
+          "seq_len": 4096,
+          "lora_r": 64
+        },
+        "lora_alpha": 128,
+        "target_modules": [
+          "q_proj",
+          "k_proj",
+          "v_proj",
+          "o_proj",
+          "gate_proj",
+          "up_proj",
+          "down_proj"
+        ],
+        "steps": 20,
+        "warmup_steps_excluded": 3,
+        "trainable_params": 161480704,
+        "total_params": 7777097216,
+        "wall_seconds": 2593.93,
+        "sec_per_optimizer_step": 129.5145,
+        "all_step_seconds": [
+          131.8574,
+          129.508,
+          129.4642,
+          129.5955,
+          129.5169,
+          129.3646,
+          129.9111,
+          129.3681,
+          129.4516,
+          129.5449,
+          129.5377,
+          129.3555,
+          129.4063,
+          129.4842,
+          129.5366,
+          129.5029,
+          129.4155,
+          129.4864,
+          129.5554,
+          129.7136
+        ],
+        "examples_per_optimizer_step": 16,
+        "tokens_per_optimizer_step": 65536,
+        "tokens_per_second": 506.0,
+        "examples_per_second": 0.124,
+        "final_train_loss": 0.808847261662595,
+        "peak_allocated_gib": 47.85,
+        "peak_reserved_gib": 54.85,
+        "memory_guard": {
+          "mem_available_gib": 105.57,
+          "mem_total_gib": 119.7,
+          "cuda_allocator_cap_fraction": 0.72,
+          "cuda_allocator_cap_applied": true,
+          "host_cgroup_memory_max": null,
+          "scope": "the CUDA cap bounds device allocations so the step-down ladder can catch an over-large config; host-RAM exhaustion is bounded separately by the systemd scope applied by run_all.py"
+        },
+        "epoch_extrapolation": {
+          "10000": {
+            "optimizer_steps": 625.0,
+            "hours": 22.49
+          },
+          "30000": {
+            "optimizer_steps": 1875.0,
+            "hours": 67.46
+          },
+          "60000": {
+            "optimizer_steps": 3750.0,
+            "hours": 134.91
+          }
+        },
+        "ok": true
+      }
+    ],
+    "chosen": {
+      "config": {
+        "batch": 4,
+        "grad_accum": 4,
+        "seq_len": 4096,
+        "lora_r": 64
+      },
+      "lora_alpha": 128,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "steps": 20,
+      "warmup_steps_excluded": 3,
+      "trainable_params": 161480704,
+      "total_params": 7777097216,
+      "wall_seconds": 2593.93,
+      "sec_per_optimizer_step": 129.5145,
+      "all_step_seconds": [
+        131.8574,
+        129.508,
+        129.4642,
+        129.5955,
+        129.5169,
+        129.3646,
+        129.9111,
+        129.3681,
+        129.4516,
+        129.5449,
+        129.5377,
+        129.3555,
+        129.4063,
+        129.4842,
+        129.5366,
+        129.5029,
+        129.4155,
+        129.4864,
+        129.5554,
+        129.7136
+      ],
+      "examples_per_optimizer_step": 16,
+      "tokens_per_optimizer_step": 65536,
+      "tokens_per_second": 506.0,
+      "examples_per_second": 0.124,
+      "final_train_loss": 0.808847261662595,
+      "peak_allocated_gib": 47.85,
+      "peak_reserved_gib": 54.85,
+      "memory_guard": {
+        "mem_available_gib": 105.57,
+        "mem_total_gib": 119.7,
+        "cuda_allocator_cap_fraction": 0.72,
+        "cuda_allocator_cap_applied": true,
+        "host_cgroup_memory_max": null,
+        "scope": "the CUDA cap bounds device allocations so the step-down ladder can catch an over-large config; host-RAM exhaustion is bounded separately by the systemd scope applied by run_all.py"
+      },
+      "epoch_extrapolation": {
+        "10000": {
+          "optimizer_steps": 625.0,
+          "hours": 22.49
+        },
+        "30000": {
+          "optimizer_steps": 1875.0,
+          "hours": 67.46
+        },
+        "60000": {
+          "optimizer_steps": 3750.0,
+          "hours": 134.91
+        }
+      },
+      "ok": true
+    }
+  },
+  "exit_code": 0,
+  "runner_duration_sec": 2678.1,
+  "log": "logs/07_lora_step_cost.log",
+  "memory_ceiling": {
+    "mechanism": "systemd-run --user --scope",
+    "memory_max": "80G",
+    "memory_swap_max": "0",
+    "applied": true
+  }
+}

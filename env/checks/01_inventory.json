@@ -1,0 +1,127 @@
+{
+  "check_id": "01",
+  "name": "inventory",
+  "status": "pass",
+  "started_at": "2026-09-18T22:35:08+0900",
+  "finished_at": "2026-09-18T22:35:12+0900",
+  "duration_sec": 3.71,
+  "notes": [
+    "torch was not compiled with a cubin for sm_121; it ships ['sm_80', 'sm_90', 'sm_100', 'sm_110', 'sm_120'] and must rely on Blackwell family-level binary compatibility (sm_120 -> sm_121). Check 02 proves whether that actually works.",
+    "memory ceiling probe: live -- The 2 GiB allocation was killed inside a 1 GiB scope, the same allocation succeeded unscoped, and memory.max inside the scope reads 1073741824. The ceiling is enforced.",
+    "cgroup coverage probe: host_ram_only -- A 16 GiB device allocation survived inside a 8G scope, so CUDA device memory is NOT charged to the process cgroup. The ceiling bounds host RAM only. That is the failure the 2026-09-18 incident actually was -- a host-side compiler -- so the protection that matters is in place; GPU-side over-allocation is bounded separately by the CUDA allocator cap in check 07.",
+    "NO userspace OOM daemon on this host: systemd-oomd is 'inactive' and earlyoom is absent. Installing one requires root and passwordless sudo is not available to this account, so it could not be enabled here. The kernel OOM killer does fire (the 2026-09-18 incident log shows 155 oom-kill events) but only after the host has already become unresponsive. Phase 5 runs far longer than this gate and should not start until this is addressed."
+  ],
+  "data": {
+    "host": {
+      "hostname": "aitopatom-d6bb",
+      "machine": "aarch64",
+      "kernel": "6.14.0-1015-nvidia",
+      "system": "Linux",
+      "platform": "Linux-6.14.0-1015-nvidia-aarch64-with-glibc2.39",
+      "cpu_count": 20
+    },
+    "nvidia_smi": "Fri Sep 18 22:35:08 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GB10                    On  |   0000000F:01:00.0 Off |                  N/A |\n| N/A   59C    P0             13W /  N/A  | Not Supported          |      0%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A          637282      G   /usr/lib/xorg/Xorg                       18MiB |\n|    0   N/A  N/A          637459      G   /usr/bin/gnome-shell                      6MiB |\n|    0   N/A  N/A         3290964      C   ...sys-revision/.venv/bin/python        699MiB |\n+-----------------------------------------------------------------------------------------+",
+    "gpu_query": "NVIDIA GB10, 580.126.09, 12.1, [N/A], [N/A]",
+    "nvcc": null,
+    "python": {
+      "version": "3.12.3",
+      "executable": "/home/hyunlord/sec-llm/.venv/bin/python",
+      "implementation": "CPython"
+    },
+    "torch": {
+      "version": "2.13.0+cu130",
+      "cuda_runtime_linked": "13.0",
+      "cudnn": 92000,
+      "is_available": true,
+      "arch_list": [
+        "sm_80",
+        "sm_90",
+        "sm_100",
+        "sm_110",
+        "sm_120"
+      ],
+      "device_count": 1,
+      "device_name": "NVIDIA GB10",
+      "compute_capability": "sm_121",
+      "memory": {
+        "free_gib": 88.19,
+        "total_gib": 119.7
+      },
+      "arch_list_contains_device_sm": false
+    },
+    "host_memory_gib": {
+      "MemTotal": 119.7,
+      "MemFree": 88.19,
+      "MemAvailable": 105.52
+    },
+    "disk": {
+      "repo": {
+        "path": "/home/hyunlord/sec-llm",
+        "total_gib": 3753.98,
+        "used_gib": 2465.54,
+        "free_gib": 1097.67
+      },
+      "home": {
+        "path": "/home/hyunlord",
+        "total_gib": 3753.98,
+        "used_gib": 2465.54,
+        "free_gib": 1097.67
+      },
+      "hf_cache": {
+        "path": "/home/hyunlord/.cache/huggingface",
+        "total_gib": 3753.98,
+        "used_gib": 2465.54,
+        "free_gib": 1097.67
+      }
+    },
+    "disk_headroom_ok": true,
+    "docker_version": "Docker version 29.1.3, build f52814d",
+    "no_build_enforcement": {
+      "PIP_ONLY_BINARY": ":all:",
+      "UV_NO_BUILD": "1",
+      "PIP_CONFIG_FILE": "/home/hyunlord/sec-llm/pip.conf",
+      "repo_pip_conf_present": true,
+      "repo_pip_conf": "# Repository-wide pip configuration.\n#\n# Rule 1 for this project: no source compilation on the training host. On GB10\n# the GPU and the host share one physical memory pool, so a parallel build can\n# exhaust it and take the machine down -- which is exactly what happened on\n# 2026-09-18 (see docs/hardware-notes.md).\n#\n# only-binary = :all: makes pip refuse a source distribution at resolution time\n# instead of starting a compile. Activate with:\n#     export PIP_CONFIG_FILE=$PWD/pip.conf\n# or rely on PIP_ONLY_BINARY=:all:, which the Makefile exports.\n[install]\nonly-binary = :all:\n\n[global]\nno-build-isolation = false\n",
+      "active": true
+    },
+    "memory_ceiling_probe": {
+      "probe": "memory_ceiling_live",
+      "question": "Does systemd-run --user --scope actually enforce MemoryMax on this host?",
+      "scope_returncode": -9,
+      "scope_stdout": "",
+      "scope_stderr": "",
+      "control_returncode": 0,
+      "control_succeeded": true,
+      "memory_max_inside_scope": "1073741824",
+      "enforced": true,
+      "verdict": "live",
+      "interpretation": "The 2 GiB allocation was killed inside a 1 GiB scope, the same allocation succeeded unscoped, and memory.max inside the scope reads 1073741824. The ceiling is enforced."
+    },
+    "cgroup_coverage_probe": {
+      "probe": "cgroup_covers_device_memory",
+      "question": "Are CUDA device allocations charged to the process cgroup on this host?",
+      "device_alloc_gib": 16,
+      "scope_ceiling": "8G",
+      "returncode": 0,
+      "stdout": "free=86.4 total=119.7\nSURVIVED",
+      "stderr": "",
+      "verdict": "host_ram_only",
+      "covers_device_memory": false,
+      "interpretation": "A 16 GiB device allocation survived inside a 8G scope, so CUDA device memory is NOT charged to the process cgroup. The ceiling bounds host RAM only. That is the failure the 2026-09-18 incident actually was -- a host-side compiler -- so the protection that matters is in place; GPU-side over-allocation is bounded separately by the CUDA allocator cap in check 07."
+    },
+    "oom_protection": {
+      "systemd_oomd_active": "inactive",
+      "earlyoom_present": false,
+      "userspace_oom_daemon": false
+    }
+  },
+  "exit_code": 0,
+  "runner_duration_sec": 4.1,
+  "log": "logs/01_inventory.log",
+  "memory_ceiling": {
+    "mechanism": "systemd-run --user --scope",
+    "memory_max": "32G",
+    "memory_swap_max": "0",
+    "applied": true
+  }
+}

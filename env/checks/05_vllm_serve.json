@@ -1,0 +1,92 @@
+{
+  "check_id": "05",
+  "name": "vllm_serve",
+  "status": "pass",
+  "started_at": "2026-09-18T22:56:48+0900",
+  "finished_at": "2026-09-18T23:00:46+0900",
+  "duration_sec": 238.11,
+  "notes": [
+    "vLLM project default: default (extra args: none), startup 111.0s, 128-token completion 4.837s"
+  ],
+  "data": {
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "base_args": [
+      "--max-model-len",
+      "8192",
+      "--gpu-memory-utilization",
+      "0.45",
+      "--max-num-seqs",
+      "16",
+      "--seed",
+      "1234"
+    ],
+    "attempts": [
+      {
+        "name": "default",
+        "extra_args": [],
+        "note": "CUDA graph capture enabled (vLLM default)",
+        "command": "/home/hyunlord/sec-llm/.venv/bin/vllm serve Qwen/Qwen2.5-7B-Instruct --port 8131 --max-model-len 8192 --gpu-memory-utilization 0.45 --max-num-seqs 16 --seed 1234",
+        "dropped_unsupported_flags": [],
+        "env_applied": {
+          "VLLM_USE_FLASHINFER_SAMPLER": "0",
+          "VLLM_LOGGING_LEVEL": "INFO"
+        },
+        "ready": true,
+        "startup_seconds": 111.0,
+        "startup_result": "ready",
+        "completion_latency_sec": 4.837,
+        "completion_text": " A buffer overflow occurs when more data is written to a buffer than it can hold, causing the excess data to overwrite adjacent memory locations. This can lead to program crashes or security vulnerabilities that allow an attacker to execute arbitrary code. Buffer overflows are typically prevented by using safer programming practices and language features that enforce proper memory management.",
+        "metrics": {
+          "length": 395,
+          "ratio_bad": 0.0,
+          "max_repeat_ngram": 0,
+          "repeat_unit": ""
+        },
+        "corrupted": false
+      },
+      {
+        "name": "enforce_eager",
+        "extra_args": [
+          "--enforce-eager"
+        ],
+        "note": "CUDA graph capture disabled",
+        "command": "/home/hyunlord/sec-llm/.venv/bin/vllm serve Qwen/Qwen2.5-7B-Instruct --port 8132 --max-model-len 8192 --gpu-memory-utilization 0.45 --max-num-seqs 16 --seed 1234 --enforce-eager",
+        "dropped_unsupported_flags": [],
+        "env_applied": {
+          "VLLM_USE_FLASHINFER_SAMPLER": "0",
+          "VLLM_LOGGING_LEVEL": "INFO"
+        },
+        "ready": true,
+        "startup_seconds": 99.0,
+        "startup_result": "ready",
+        "completion_latency_sec": 5.179,
+        "completion_text": " A buffer overflow occurs when more data is written to a buffer than it can hold, causing the excess data to overwrite adjacent memory locations. This can lead to program crashes or security vulnerabilities that allow an attacker to execute arbitrary code. Buffer overflows are typically prevented by using safer programming practices and language features that limit buffer sizes or check for overflow conditions.",
+        "metrics": {
+          "length": 414,
+          "ratio_bad": 0.0,
+          "max_repeat_ngram": 0,
+          "repeat_unit": ""
+        },
+        "corrupted": false
+      }
+    ],
+    "usable_configs": [
+      "default",
+      "enforce_eager"
+    ],
+    "project_default": {
+      "name": "default",
+      "extra_args": [],
+      "port": 8131
+    }
+  },
+  "exit_code": 0,
+  "runner_duration_sec": 238.2,
+  "log": "logs/05_vllm_serve.log",
+  "memory_ceiling": {
+    "mechanism": "systemd-run --user --scope",
+    "memory_max": "80G",
+    "memory_swap_max": "0",
+    "applied": true
+  }
+}

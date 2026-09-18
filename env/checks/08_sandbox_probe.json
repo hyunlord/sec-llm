@@ -1,0 +1,61 @@
+{
+  "check_id": "08",
+  "name": "sandbox_probe",
+  "status": "pass",
+  "started_at": "2026-09-18T21:49:09+0900",
+  "finished_at": "2026-09-18T21:49:14+0900",
+  "duration_sec": 4.9,
+  "notes": [
+    "docker 29.1.3 on linux/arm64",
+    "isolation flags verified: started=True, read_only=True, tmpfs=True, outbound_network_blocked=True, destroyed=True",
+    "probe only -- the Phase 4 sandbox harness is out of scope for this work order"
+  ],
+  "data": {
+    "image": "docker.io/library/alpine:3.20",
+    "isolation_flags": [
+      "--network=none",
+      "--memory=512m",
+      "--pids-limit=128",
+      "--read-only",
+      "--tmpfs",
+      "/tmp",
+      "--security-opt",
+      "no-new-privileges:true"
+    ],
+    "docker_available": true,
+    "docker": {
+      "client_version": "29.1.3",
+      "server_version": "29.1.3",
+      "server_arch": "arm64",
+      "server_os": "linux"
+    },
+    "image_pull_rc": 0,
+    "image_pull_output": "docker.io/library/alpine:3.20",
+    "container_name": "gate0-probe-992d0809",
+    "run": {
+      "rc": 0,
+      "stdout": "STARTED\n0\naarch64\nTMPFS_WRITABLE\nROOTFS_READONLY",
+      "stderr": ""
+    },
+    "container_started": true,
+    "read_only_enforced": true,
+    "tmpfs_writable": true,
+    "network_probe": {
+      "rc": 0,
+      "stdout": "2\nNET_BLOCKED\nPING_BLOCKED",
+      "stderr": ""
+    },
+    "network_blocked": true,
+    "ping_blocked": true,
+    "container_destroyed": true
+  },
+  "exit_code": 0,
+  "runner_duration_sec": 5.0,
+  "log": "logs/08_sandbox_probe.log",
+  "memory_ceiling": {
+    "mechanism": "systemd-run --user --scope",
+    "memory_max": "32G",
+    "memory_swap_max": "0",
+    "applied": true
+  }
+}

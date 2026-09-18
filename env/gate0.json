@@ -1,0 +1,1259 @@
+{
+  "summary": {
+    "gate": "P0",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "generated_at": "2026-09-18T23:26:00+0900",
+    "host": "aitopatom-d6bb",
+    "checks": {
+      "01": {
+        "name": "inventory",
+        "status": "pass",
+        "duration_sec": 4.1
+      },
+      "02": {
+        "name": "torch_abi",
+        "status": "pass",
+        "duration_sec": 4.0
+      },
+      "03": {
+        "name": "attention_backend",
+        "status": "pass",
+        "duration_sec": null
+      },
+      "04": {
+        "name": "generation_sanity",
+        "status": "pass",
+        "duration_sec": 103.3
+      },
+      "05": {
+        "name": "vllm_serve",
+        "status": "pass",
+        "duration_sec": 238.2
+      },
+      "06": {
+        "name": "determinism",
+        "status": "pass",
+        "duration_sec": 578.8
+      },
+      "07": {
+        "name": "lora_step_cost",
+        "status": "pass",
+        "duration_sec": 2678.1
+      },
+      "08": {
+        "name": "sandbox_probe",
+        "status": "pass",
+        "duration_sec": 5.0
+      }
+    },
+    "safeguards": {
+      "memory_ceiling": {
+        "verdict": "live",
+        "enforced": true,
+        "evidence": {
+          "scope_returncode": -9,
+          "control_succeeded": true,
+          "memory_max_inside_scope": "1073741824"
+        },
+        "interpretation": "The 2 GiB allocation was killed inside a 1 GiB scope, the same allocation succeeded unscoped, and memory.max inside the scope reads 1073741824. The ceiling is enforced."
+      },
+      "cgroup_coverage": {
+        "verdict": "host_ram_only",
+        "covers_device_memory": false,
+        "interpretation": "A 16 GiB device allocation survived inside a 8G scope, so CUDA device memory is NOT charged to the process cgroup. The ceiling bounds host RAM only. That is the failure the 2026-09-18 incident actually was -- a host-side compiler -- so the protection that matters is in place; GPU-side over-allocation is bounded separately by the CUDA allocator cap in check 07."
+      },
+      "no_source_build": {
+        "PIP_ONLY_BINARY": ":all:",
+        "active": true,
+        "repo_pip_conf_present": true
+      },
+      "oom_protection": {
+        "systemd_oomd_active": "inactive",
+        "earlyoom_present": false,
+        "userspace_oom_daemon": false
+      }
+    },
+    "gate_requirements": {
+      "02": {
+        "requirement": "device tensor ops succeed in fp32 and bf16",
+        "status": "pass",
+        "met": true
+      },
+      "04": {
+        "requirement": "three non-corrupted generations on the sdpa path",
+        "status": "pass",
+        "met": true
+      },
+      "05": {
+        "requirement": "at least one vLLM configuration reaches ready state and serves a completion",
+        "status": "pass",
+        "met": true
+      },
+      "06": {
+        "requirement": "all four determinism cells reported with an explicit verdict",
+        "status": "pass",
+        "met": true
+      },
+      "07": {
+        "requirement": "seconds per step and three epoch extrapolations, no OOM at the chosen config",
+        "status": "pass",
+        "met": true
+      }
+    },
+    "gate_passed": true,
+    "headline": {
+      "gpu": "NVIDIA GB10",
+      "compute_capability": "sm_121",
+      "torch": "2.13.0+cu130",
+      "cuda_runtime": "13.0",
+      "free_disk_gib": 1097.67,
+      "compat_mode": "family_binary_compat",
+      "has_ptx": false,
+      "achieved_tflops_bf16": 95.95,
+      "first_matmul_sec": 0.1514,
+      "vllm_default_config": "default",
+      "determinism_matrix": [
+        {
+          "batch_invariant": false,
+          "mode": "sequential",
+          "byte_identical": false,
+          "distinct_outputs": 2,
+          "samples": 15
+        },
+        {
+          "batch_invariant": false,
+          "mode": "concurrent",
+          "byte_identical": false,
+          "distinct_outputs": 2,
+          "samples": 15
+        },
+        {
+          "batch_invariant": true,
+          "mode": "sequential",
+          "byte_identical": true,
+          "distinct_outputs": 1,
+          "samples": 15
+        },
+        {
+          "batch_invariant": true,
+          "mode": "concurrent",
+          "byte_identical": true,
+          "distinct_outputs": 1,
+          "samples": 15
+        }
+      ],
+      "sec_per_optimizer_step": 129.5145,
+      "tokens_per_second": 506.0,
+      "peak_allocated_gib": 47.85,
+      "lora_config": {
+        "batch": 4,
+        "grad_accum": 4,
+        "seq_len": 4096,
+        "lora_r": 64
+      },
+      "epoch_hours": {
+        "10000": 22.49,
+        "30000": 67.46,
+        "60000": 134.91
+      }
+    },
+    "known_failure_modes": {
+      "cuda12_wheel_on_cuda13_runtime": {
+        "verdict": "did_not_occur",
+        "occurred": false,
+        "evidence": {
+          "torch": "2.13.0+cu130",
+          "cuda_runtime_linked": "13.0",
+          "driver": "580.126.09",
+          "arch_list": [
+            "sm_80",
+            "sm_90",
+            "sm_100",
+            "sm_110",
+            "sm_120"
+          ],
+          "device_sm": "sm_121",
+          "device_sm_in_arch_list": false,
+          "ptx_entries": [],
+          "has_ptx": false,
+          "compat_mode": "family_binary_compat",
+          "compat_explanation": "no cubin for sm_121 and no PTX entry in arch_list -- the stack is relying on CUDA 13 Blackwell family-level binary compatibility (sm_120 cubins loaded onto an sm_121 part)",
+          "numeric": [
+            {
+              "dtype": "float32",
+              "ok": true,
+              "max_abs_err": 0.0010407496757238732,
+              "max_rel_err": 3.005042176151767e-06,
+              "rel_tolerance": 0.0001,
+              "error": null
+            },
+            {
+              "dtype": "bfloat16",
+              "ok": true,
+              "max_abs_err": 1.3102601087729795,
+              "max_rel_err": 0.0037832218259913767,
+              "rel_tolerance": 0.05,
+              "error": null
+            }
+          ],
+          "first_call": {
+            "context_init_sec": 0.1739,
+            "first_matmul_sec": 0.1514,
+            "second_matmul_sec": 9.7e-05,
+            "first_call_overhead_x": 1560.8,
+            "first_call_is_slow": false
+          },
+          "first_call_explanation": {
+            "slow_first_call": false,
+            "attribution": "first launch is not materially slower than steady state"
+          },
+          "first_op_warnings": [],
+          "throughput": {
+            "matrix_size": 8192,
+            "iterations": 20,
+            "warmup": 5,
+            "sec_per_matmul": 0.01146,
+            "achieved_tflops_bf16": 95.95,
+            "reference_tflops_bf16_dense": 125.0,
+            "reference_basis": "derived from NVIDIA's headline 1 PFLOP FP4-with-sparsity figure (1000 / 2 sparsity / 2 FP4->FP8 / 2 FP8->BF16); a reference point for spotting a generic-kernel fallback, not a datasheet quote",
+            "fraction_of_reference": 0.768,
+            "large_shortfall": false,
+            "shortfall_threshold": 0.25
+          }
+        }
+      },
+      "flash_attn_no_sm121_kernel": {
+        "verdict": "unavailable_no_wheel",
+        "occurred": null,
+        "claim": "flash_attention_2 is unusable here because no prebuilt wheel exists and this project does not compile on the training host. Whether its kernels would work on sm_121 was NOT tested -- no verdict on the kernel itself.",
+        "evidence": {
+          "installed": false,
+          "wheel_probe": {
+            "method": "uv pip install --dry-run --only-binary=:all: flash-attn",
+            "downloaded": false,
+            "built": false,
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "× No solution found when resolving dependencies:\n  ╰─▶ Because all versions of flash-attn have no usable wheels and you require\n      flash-attn, we can conclude that your requirements are unsatisfiable.\n\n      hint: Wheels are required for `flash-attn` because building from source\n      is disabled for all packages (i.e., with `--no-build`)",
+            "wheel_available": false,
+            "verdict": "no prebuilt wheel for this platform (aarch64 / CUDA 13 / cp312 / sm_121); the index offers source distributions only"
+          },
+          "failure_class": "not_installed",
+          "error": "FlashAttention2 has been toggled on, but it cannot be used due to the following error: the package for FlashAttention2 doesn't seem to be installed.",
+          "corrupted": null,
+          "output_sample": null,
+          "compiled_anything": false,
+          "source_build_incident": {
+            "date": "2026-09-18",
+            "what": "A flash-attn source build (flash-attn==2.8.3.post1, MAX_JOBS=16, --no-build-isolation) was started on the DGX Spark while the gate was being prepared.",
+            "outcome": "The parallel nvcc jobs exhausted the shared 128 GiB unified memory pool. The host stopped responding to SSH and ICMP within roughly two minutes, stayed down for over an hour, and required a physical power cycle. No check result survived.",
+            "why_it_matters": "On Grace-Blackwell the GPU and the host share one physical memory pool, so a host-side compile is not isolated from GPU work the way it is on a discrete-GPU x86 server. A CUDA allocator ceiling does not help, because the compiler never allocates through CUDA.",
+            "rule_adopted": "No source compilation on the training host. Wheels only. If a package has no wheel for this platform, the absence is the finding."
+          }
+        }
+      },
+      "vllm_cuda_graph_capture_fails": {
+        "verdict": "did_not_occur",
+        "occurred": false,
+        "evidence": {
+          "default_ready": true,
+          "default_startup_result": "ready",
+          "enforce_eager_ready": true,
+          "default_log_tail": null
+        }
+      },
+      "greedy_not_byte_reproducible_under_concurrency": {
+        "verdict": "occurred",
+        "occurred": true,
+        "reason": null,
+        "evidence": {
+          "concurrent_byte_identical_bi_off": false,
+          "concurrent_byte_identical_bi_on": true,
+          "concurrent_bi_on_unmeasured_reason": null,
+          "sequential_byte_identical_bi_off": false,
+          "throughput_cost": {
+            "concurrent_round_wall_off_sec": 9.797,
+            "concurrent_round_wall_on_sec": 10.512,
+            "slowdown_x": 1.073,
+            "sequential_latency_off_sec": 9.448,
+            "sequential_latency_on_sec": 8.463
+          }
+        }
+      }
+    },
+    "versions_lock_present": true
+  },
+  "checks": {
+    "01": {
+      "check_id": "01",
+      "name": "inventory",
+      "status": "pass",
+      "started_at": "2026-09-18T22:35:08+0900",
+      "finished_at": "2026-09-18T22:35:12+0900",
+      "duration_sec": 3.71,
+      "notes": [
+        "torch was not compiled with a cubin for sm_121; it ships ['sm_80', 'sm_90', 'sm_100', 'sm_110', 'sm_120'] and must rely on Blackwell family-level binary compatibility (sm_120 -> sm_121). Check 02 proves whether that actually works.",
+        "memory ceiling probe: live -- The 2 GiB allocation was killed inside a 1 GiB scope, the same allocation succeeded unscoped, and memory.max inside the scope reads 1073741824. The ceiling is enforced.",
+        "cgroup coverage probe: host_ram_only -- A 16 GiB device allocation survived inside a 8G scope, so CUDA device memory is NOT charged to the process cgroup. The ceiling bounds host RAM only. That is the failure the 2026-09-18 incident actually was -- a host-side compiler -- so the protection that matters is in place; GPU-side over-allocation is bounded separately by the CUDA allocator cap in check 07.",
+        "NO userspace OOM daemon on this host: systemd-oomd is 'inactive' and earlyoom is absent. Installing one requires root and passwordless sudo is not available to this account, so it could not be enabled here. The kernel OOM killer does fire (the 2026-09-18 incident log shows 155 oom-kill events) but only after the host has already become unresponsive. Phase 5 runs far longer than this gate and should not start until this is addressed."
+      ],
+      "data": {
+        "host": {
+          "hostname": "aitopatom-d6bb",
+          "machine": "aarch64",
+          "kernel": "6.14.0-1015-nvidia",
+          "system": "Linux",
+          "platform": "Linux-6.14.0-1015-nvidia-aarch64-with-glibc2.39",
+          "cpu_count": 20
+        },
+        "nvidia_smi": "Fri Sep 18 22:35:08 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GB10                    On  |   0000000F:01:00.0 Off |                  N/A |\n| N/A   59C    P0             13W /  N/A  | Not Supported          |      0%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A          637282      G   /usr/lib/xorg/Xorg                       18MiB |\n|    0   N/A  N/A          637459      G   /usr/bin/gnome-shell                      6MiB |\n|    0   N/A  N/A         3290964      C   ...sys-revision/.venv/bin/python        699MiB |\n+-----------------------------------------------------------------------------------------+",
+        "gpu_query": "NVIDIA GB10, 580.126.09, 12.1, [N/A], [N/A]",
+        "nvcc": null,
+        "python": {
+          "version": "3.12.3",
+          "executable": "/home/hyunlord/sec-llm/.venv/bin/python",
+          "implementation": "CPython"
+        },
+        "torch": {
+          "version": "2.13.0+cu130",
+          "cuda_runtime_linked": "13.0",
+          "cudnn": 92000,
+          "is_available": true,
+          "arch_list": [
+            "sm_80",
+            "sm_90",
+            "sm_100",
+            "sm_110",
+            "sm_120"
+          ],
+          "device_count": 1,
+          "device_name": "NVIDIA GB10",
+          "compute_capability": "sm_121",
+          "memory": {
+            "free_gib": 88.19,
+            "total_gib": 119.7
+          },
+          "arch_list_contains_device_sm": false
+        },
+        "host_memory_gib": {
+          "MemTotal": 119.7,
+          "MemFree": 88.19,
+          "MemAvailable": 105.52
+        },
+        "disk": {
+          "repo": {
+            "path": "/home/hyunlord/sec-llm",
+            "total_gib": 3753.98,
+            "used_gib": 2465.54,
+            "free_gib": 1097.67
+          },
+          "home": {
+            "path": "/home/hyunlord",
+            "total_gib": 3753.98,
+            "used_gib": 2465.54,
+            "free_gib": 1097.67
+          },
+          "hf_cache": {
+            "path": "/home/hyunlord/.cache/huggingface",
+            "total_gib": 3753.98,
+            "used_gib": 2465.54,
+            "free_gib": 1097.67
+          }
+        },
+        "disk_headroom_ok": true,
+        "docker_version": "Docker version 29.1.3, build f52814d",
+        "no_build_enforcement": {
+          "PIP_ONLY_BINARY": ":all:",
+          "UV_NO_BUILD": "1",
+          "PIP_CONFIG_FILE": "/home/hyunlord/sec-llm/pip.conf",
+          "repo_pip_conf_present": true,
+          "repo_pip_conf": "# Repository-wide pip configuration.\n#\n# Rule 1 for this project: no source compilation on the training host. On GB10\n# the GPU and the host share one physical memory pool, so a parallel build can\n# exhaust it and take the machine down -- which is exactly what happened on\n# 2026-09-18 (see docs/hardware-notes.md).\n#\n# only-binary = :all: makes pip refuse a source distribution at resolution time\n# instead of starting a compile. Activate with:\n#     export PIP_CONFIG_FILE=$PWD/pip.conf\n# or rely on PIP_ONLY_BINARY=:all:, which the Makefile exports.\n[install]\nonly-binary = :all:\n\n[global]\nno-build-isolation = false\n",
+          "active": true
+        },
+        "memory_ceiling_probe": {
+          "probe": "memory_ceiling_live",
+          "question": "Does systemd-run --user --scope actually enforce MemoryMax on this host?",
+          "scope_returncode": -9,
+          "scope_stdout": "",
+          "scope_stderr": "",
+          "control_returncode": 0,
+          "control_succeeded": true,
+          "memory_max_inside_scope": "1073741824",
+          "enforced": true,
+          "verdict": "live",
+          "interpretation": "The 2 GiB allocation was killed inside a 1 GiB scope, the same allocation succeeded unscoped, and memory.max inside the scope reads 1073741824. The ceiling is enforced."
+        },
+        "cgroup_coverage_probe": {
+          "probe": "cgroup_covers_device_memory",
+          "question": "Are CUDA device allocations charged to the process cgroup on this host?",
+          "device_alloc_gib": 16,
+          "scope_ceiling": "8G",
+          "returncode": 0,
+          "stdout": "free=86.4 total=119.7\nSURVIVED",
+          "stderr": "",
+          "verdict": "host_ram_only",
+          "covers_device_memory": false,
+          "interpretation": "A 16 GiB device allocation survived inside a 8G scope, so CUDA device memory is NOT charged to the process cgroup. The ceiling bounds host RAM only. That is the failure the 2026-09-18 incident actually was -- a host-side compiler -- so the protection that matters is in place; GPU-side over-allocation is bounded separately by the CUDA allocator cap in check 07."
+        },
+        "oom_protection": {
+          "systemd_oomd_active": "inactive",
+          "earlyoom_present": false,
+          "userspace_oom_daemon": false
+        }
+      },
+      "exit_code": 0,
+      "runner_duration_sec": 4.1,
+      "log": "logs/01_inventory.log",
+      "memory_ceiling": {
+        "mechanism": "systemd-run --user --scope",
+        "memory_max": "32G",
+        "memory_swap_max": "0",
+        "applied": true
+      }
+    },
+    "02": {
+      "check_id": "02",
+      "name": "torch_abi",
+      "status": "pass",
+      "started_at": "2026-09-18T23:25:56+0900",
+      "finished_at": "2026-09-18T23:25:59+0900",
+      "duration_sec": 3.63,
+      "notes": [
+        "failure mode (1) verdict: DID NOT OCCUR. Device ops in fp32 and bf16 both ran and matched an fp64 CPU reference within tolerance on sm_121.",
+        "architecture compatibility: family_binary_compat -- no cubin for sm_121 and no PTX entry in arch_list -- the stack is relying on CUDA 13 Blackwell family-level binary compatibility (sm_120 cubins loaded onto an sm_121 part)",
+        "no PTX fallback exists in this build, so every torch/CUDA upgrade must re-run check 02 before it is trusted -- family-level binary compatibility is not a guarantee the way a native cubin or a PTX entry is.",
+        "achieved bf16 GEMM throughput 95.95 TFLOPS, 76.8% of the derived 125.0 TFLOPS reference",
+        "installation route: torch from the PyTorch cu130 wheel index (UV_TORCH_BACKEND=cu130), matching the CUDA 13.0 runtime. No NGC container fallback and no source build were used."
+      ],
+      "data": {
+        "correctness_matrix_size": 4096,
+        "torch_version": "2.13.0+cu130",
+        "cuda_runtime_linked": "13.0",
+        "arch_list": [
+          "sm_80",
+          "sm_90",
+          "sm_100",
+          "sm_110",
+          "sm_120"
+        ],
+        "driver_version": "580.126.09",
+        "device_sm": "sm_121",
+        "device_name": "NVIDIA GB10",
+        "device_sm_in_arch_list": false,
+        "ptx_entries": [],
+        "has_ptx": false,
+        "compat_mode": "family_binary_compat",
+        "compat_explanation": "no cubin for sm_121 and no PTX entry in arch_list -- the stack is relying on CUDA 13 Blackwell family-level binary compatibility (sm_120 cubins loaded onto an sm_121 part)",
+        "first_call": {
+          "context_init_sec": 0.1739,
+          "first_matmul_sec": 0.1514,
+          "second_matmul_sec": 9.7e-05,
+          "first_call_overhead_x": 1560.8,
+          "first_call_is_slow": false
+        },
+        "first_op_stderr": null,
+        "first_op_warnings": [],
+        "dtypes": [
+          {
+            "dtype": "float32",
+            "rel_tolerance": 0.0001,
+            "abs_tolerance": 0.01,
+            "cpu_reference_sec": 0.344,
+            "device_matmul_sec": 0.01,
+            "max_abs_err": 0.0010407496757238732,
+            "max_rel_err": 3.005042176151767e-06,
+            "reference_max_magnitude": 346.3344654472201,
+            "all_finite": true,
+            "ok": true,
+            "aux_ops": {
+              "softmax_rowsum_err": 0.0,
+              "layer_norm_std": 0.9999949932098389,
+              "reduction_finite": true,
+              "d2h_roundtrip_ok": true,
+              "ok": true
+            }
+          },
+          {
+            "dtype": "bfloat16",
+            "rel_tolerance": 0.05,
+            "abs_tolerance": 5.0,
+            "cpu_reference_sec": 0.377,
+            "device_matmul_sec": 0.1918,
+            "max_abs_err": 1.3102601087729795,
+            "max_rel_err": 0.0037832218259913767,
+            "reference_max_magnitude": 346.3344654472201,
+            "all_finite": true,
+            "ok": true,
+            "aux_ops": {
+              "softmax_rowsum_err": 0.0,
+              "layer_norm_std": 0.9999949932098389,
+              "reduction_finite": true,
+              "d2h_roundtrip_ok": true,
+              "ok": true
+            }
+          }
+        ],
+        "throughput": {
+          "matrix_size": 8192,
+          "iterations": 20,
+          "warmup": 5,
+          "sec_per_matmul": 0.01146,
+          "achieved_tflops_bf16": 95.95,
+          "reference_tflops_bf16_dense": 125.0,
+          "reference_basis": "derived from NVIDIA's headline 1 PFLOP FP4-with-sparsity figure (1000 / 2 sparsity / 2 FP4->FP8 / 2 FP8->BF16); a reference point for spotting a generic-kernel fallback, not a datasheet quote",
+          "fraction_of_reference": 0.768,
+          "large_shortfall": false,
+          "shortfall_threshold": 0.25
+        },
+        "peak_allocated_gib": 0.406,
+        "failure_mode_1_verdict": "did_not_occur",
+        "first_call_explanation": {
+          "slow_first_call": false,
+          "attribution": "first launch is not materially slower than steady state"
+        }
+      },
+      "exit_code": 0,
+      "runner_duration_sec": 4.0,
+      "log": "logs/02_torch_abi.log",
+      "memory_ceiling": {
+        "mechanism": "systemd-run --user --scope",
+        "memory_max": "80G",
+        "memory_swap_max": "0",
+        "applied": true
+      }
+    },
+    "03": {
+      "check_id": "03",
+      "name": "attention_backend",
+      "status": "pass",
+      "started_at": "2026-09-18T22:35:16+0900",
+      "finished_at": "2026-09-18T22:36:36+0900",
+      "duration_sec": 80.04,
+      "notes": [
+        "flash_attention_2 is unavailable on this platform because no prebuilt wheel exists for it, and this project does not build CUDA extensions on the training host. transformers raised: FlashAttention2 has been toggled on, but it cannot be used due to the following error: the package for FlashAttention2 doesn't seem to be installed.",
+        "note the limit of this evidence: this is an availability finding, not a direct observation of sm_121 kernel behaviour. Whether flash-attn 2.x would produce correct output on sm_121 was NOT tested and no verdict is claimed.",
+        "prebuilt wheel probe: no prebuilt wheel for this platform (aarch64 / CUDA 13 / cp312 / sm_121); the index offers source distributions only",
+        "project default for training and HF inference: attn_implementation='sdpa'",
+        "this check compiled nothing. A source build was attempted once on 2026-09-18 and took the host down; see docs/hardware-notes.md."
+      ],
+      "data": {
+        "model": "Qwen/Qwen2.5-7B-Instruct",
+        "prompt": "List three common categories of software vulnerability, one per line.",
+        "max_new_tokens": 48,
+        "compiled_anything": false,
+        "source_build_incident": {
+          "date": "2026-09-18",
+          "what": "A flash-attn source build (flash-attn==2.8.3.post1, MAX_JOBS=16, --no-build-isolation) was started on the DGX Spark while the gate was being prepared.",
+          "outcome": "The parallel nvcc jobs exhausted the shared 128 GiB unified memory pool. The host stopped responding to SSH and ICMP within roughly two minutes, stayed down for over an hour, and required a physical power cycle. No check result survived.",
+          "why_it_matters": "On Grace-Blackwell the GPU and the host share one physical memory pool, so a host-side compile is not isolated from GPU work the way it is on a discrete-GPU x86 server. A CUDA allocator ceiling does not help, because the compiler never allocates through CUDA.",
+          "rule_adopted": "No source compilation on the training host. Wheels only. If a package has no wheel for this platform, the absence is the finding."
+        },
+        "flash_attn_installed": false,
+        "flash_attn_import_error": "ModuleNotFoundError(\"No module named 'flash_attn'\")",
+        "wheel_probe": {
+          "method": "uv pip install --dry-run --only-binary=:all: flash-attn",
+          "downloaded": false,
+          "built": false,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "× No solution found when resolving dependencies:\n  ╰─▶ Because all versions of flash-attn have no usable wheels and you require\n      flash-attn, we can conclude that your requirements are unsatisfiable.\n\n      hint: Wheels are required for `flash-attn` because building from source\n      is disabled for all packages (i.e., with `--no-build`)",
+          "wheel_available": false,
+          "verdict": "no prebuilt wheel for this platform (aarch64 / CUDA 13 / cp312 / sm_121); the index offers source distributions only"
+        },
+        "sdpa": {
+          "attn_implementation": "sdpa",
+          "loaded": true,
+          "resolved_impl": "sdpa",
+          "generated": true,
+          "output": "Injection vulnerabilities\nAuthentication vulnerabilities\nConfiguration errors",
+          "metrics": {
+            "length": 77,
+            "ratio_bad": 0.0,
+            "max_repeat_ngram": 0,
+            "repeat_unit": ""
+          },
+          "corrupted": false,
+          "corruption_reason": "",
+          "error": null,
+          "failure_class": "none"
+        },
+        "flash_attention_2": {
+          "attn_implementation": "flash_attention_2",
+          "loaded": false,
+          "generated": false,
+          "output": null,
+          "error": "ImportError(\"FlashAttention2 has been toggled on, but it cannot be used due to the following error: the package for FlashAttention2 doesn't seem to be installed.\")",
+          "error_message": "FlashAttention2 has been toggled on, but it cannot be used due to the following error: the package for FlashAttention2 doesn't seem to be installed.",
+          "traceback": "Traceback (most recent call last):\n  File \"/home/hyunlord/sec-llm/scripts/env_check/03_attention_backend.py\", line 109, in _attempt\n    model = _load(model_id, impl, torch)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hyunlord/sec-llm/scripts/env_check/03_attention_backend.py\", line 68, in _load\n    return AutoModelForCausalLM.from_pretrained(model_id, dtype=torch.bfloat16, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hyunlord/sec-llm/.venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py\", line 402, in from_pretrained\n    return model_class.from_pretrained(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hyunlord/sec-llm/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py\", line 4267, in from_pretrained\n    model = cls(config, *model_args, **model_kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hyunlord/sec-llm/.venv/lib/python3.12/site-packages/transformers/models/qwen2/modeling_qwen2.py\", line 413, in __init__\n    super().__init__(config)\n  File \"/home/hyunlord/sec-llm/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py\", line 1263, in __init__\n    self.config._attn_implementation_internal = self._check_and_adjust_attn_implementation(\n                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hyunlord/sec-llm/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py\", line 1821, in _check_and_adjust_attn_implementation\n    applicable_attn_implementation = self.get_correct_attn_implementation(\n                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hyunlord/sec-llm/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py\", line 1868, in get_correct_attn_implementation\n    self._flash_attn_can_dispatch(flash_attn_version=fa_version, is_init_check=is_init_check)\n  File \"/home/hyunlord/sec-llm/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py\", line 1607, in _flash_attn_can_dispatch\n    self._flash_attn_import_error(**FLASH_ATTENTION_COMPATIBILITY_MATRIX[flash_attn_version])\n  File \"/home/hyunlord/sec-llm/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py\", line 1562, in _flash_attn_import_error\n    raise ImportError(\nImportError: FlashAttention2 has been toggled on, but it cannot be used due to the following error: the package for FlashAttention2 doesn't seem to be installed.\n",
+          "corrupted": null,
+          "failure_class": "not_installed"
+        },
+        "flash_attn_verdict": "unavailable_no_wheel"
+      }
+    },
+    "04": {
+      "check_id": "04",
+      "name": "generation_sanity",
+      "status": "pass",
+      "started_at": "2026-09-18T21:46:55+0900",
+      "finished_at": "2026-09-18T21:48:37+0900",
+      "duration_sec": 102.5,
+      "notes": [
+        "JSON-output prompt parsed as valid JSON: True keys=['cwe_id', 'severity', 'summary']",
+        "heuristics are a tripwire, not a verdict -- full raw outputs are in logs/04_generation_sanity.log for human review"
+      ],
+      "data": {
+        "model": "Qwen/Qwen2.5-7B-Instruct",
+        "attn_implementation": "sdpa",
+        "max_new_tokens": 128,
+        "generations": [
+          {
+            "id": "en_prose",
+            "lang": "en",
+            "prompt": "Explain in a short paragraph why input validation matters in web applications.",
+            "output": "Input validation is crucial in web applications because it helps protect against a variety of security threats, such as cross-site scripting (XSS), SQL injection, and command injection attacks. By validating user inputs, developers can ensure that the data conforms to expected formats and constraints, thereby preventing malicious data from being processed or stored. This not only enhances the security of the application but also improves its reliability and performance. Proper validation also helps in maintaining data integrity and can prevent unexpected behavior or errors in the application logic.",
+            "new_tokens": 101,
+            "metrics": {
+              "length": 605,
+              "ratio_bad": 0.0,
+              "max_repeat_ngram": 0,
+              "repeat_unit": ""
+            },
+            "corrupted": false,
+            "corruption_reason": ""
+          },
+          {
+            "id": "ko_prose",
+            "lang": "ko",
+            "prompt": "SQL 인젝션 취약점이 무엇인지 한국어로 간단히 설명해 주세요.",
+            "output": "SQL 인젝션 취약점은 웹 애플리케이션이 사용자 입력을 SQL 쿼리에 직접 포함하여 처리하는 경우 발생할 수 있는 보안 문제입니다. 간단히 말해, 악의적인 사용자는 웹 폼이나 URL에서 특별히 설계된 입력을 제공하여 서버의 데이터베이스를 조작하거나 정보를 훔칠 수 있습니다.\n\n예를 들어, 사용자가 로그인 페이지에서 아이디와 비밀번호를 입력해야 하는데, 악의적인 사용자는 다음과 같은 입력을 제공",
+            "new_tokens": 128,
+            "metrics": {
+              "length": 221,
+              "ratio_bad": 0.0,
+              "max_repeat_ngram": 0,
+              "repeat_unit": ""
+            },
+            "corrupted": false,
+            "corruption_reason": ""
+          },
+          {
+            "id": "json_schema",
+            "lang": "en",
+            "prompt": "Return ONLY a JSON object, no prose, with exactly these keys: \"cwe_id\" (string), \"severity\" (one of low/medium/high/critical), \"summary\" (string). Describe a stack-based buffer overflow.",
+            "output": "{\n  \"cwe_id\": \"CWE-787\",\n  \"severity\": \"high\",\n  \"summary\": \"A stack-based buffer overflow occurs when a program writes beyond the bounds of a buffer allocated on the stack, overwriting adjacent memory locations, which can lead to code execution or program crashes.\"\n}",
+            "new_tokens": 66,
+            "metrics": {
+              "length": 268,
+              "ratio_bad": 0.0,
+              "max_repeat_ngram": 0,
+              "repeat_unit": ""
+            },
+            "corrupted": false,
+            "corruption_reason": "",
+            "json_parsed": true,
+            "json_keys": [
+              "cwe_id",
+              "severity",
+              "summary"
+            ]
+          }
+        ],
+        "clean_count": 3,
+        "total_count": 3
+      },
+      "exit_code": 0,
+      "runner_duration_sec": 103.3,
+      "log": "logs/04_generation_sanity.log",
+      "memory_ceiling": {
+        "mechanism": "systemd-run --user --scope",
+        "memory_max": "80G",
+        "memory_swap_max": "0",
+        "applied": true
+      }
+    },
+    "05": {
+      "check_id": "05",
+      "name": "vllm_serve",
+      "status": "pass",
+      "started_at": "2026-09-18T22:56:48+0900",
+      "finished_at": "2026-09-18T23:00:46+0900",
+      "duration_sec": 238.11,
+      "notes": [
+        "vLLM project default: default (extra args: none), startup 111.0s, 128-token completion 4.837s"
+      ],
+      "data": {
+        "model": "Qwen/Qwen2.5-7B-Instruct",
+        "base_args": [
+          "--max-model-len",
+          "8192",
+          "--gpu-memory-utilization",
+          "0.45",
+          "--max-num-seqs",
+          "16",
+          "--seed",
+          "1234"
+        ],
+        "attempts": [
+          {
+            "name": "default",
+            "extra_args": [],
+            "note": "CUDA graph capture enabled (vLLM default)",
+            "command": "/home/hyunlord/sec-llm/.venv/bin/vllm serve Qwen/Qwen2.5-7B-Instruct --port 8131 --max-model-len 8192 --gpu-memory-utilization 0.45 --max-num-seqs 16 --seed 1234",
+            "dropped_unsupported_flags": [],
+            "env_applied": {
+              "VLLM_USE_FLASHINFER_SAMPLER": "0",
+              "VLLM_LOGGING_LEVEL": "INFO"
+            },
+            "ready": true,
+            "startup_seconds": 111.0,
+            "startup_result": "ready",
+            "completion_latency_sec": 4.837,
+            "completion_text": " A buffer overflow occurs when more data is written to a buffer than it can hold, causing the excess data to overwrite adjacent memory locations. This can lead to program crashes or security vulnerabilities that allow an attacker to execute arbitrary code. Buffer overflows are typically prevented by using safer programming practices and language features that enforce proper memory management.",
+            "metrics": {
+              "length": 395,
+              "ratio_bad": 0.0,
+              "max_repeat_ngram": 0,
+              "repeat_unit": ""
+            },
+            "corrupted": false
+          },
+          {
+            "name": "enforce_eager",
+            "extra_args": [
+              "--enforce-eager"
+            ],
+            "note": "CUDA graph capture disabled",
+            "command": "/home/hyunlord/sec-llm/.venv/bin/vllm serve Qwen/Qwen2.5-7B-Instruct --port 8132 --max-model-len 8192 --gpu-memory-utilization 0.45 --max-num-seqs 16 --seed 1234 --enforce-eager",
+            "dropped_unsupported_flags": [],
+            "env_applied": {
+              "VLLM_USE_FLASHINFER_SAMPLER": "0",
+              "VLLM_LOGGING_LEVEL": "INFO"
+            },
+            "ready": true,
+            "startup_seconds": 99.0,
+            "startup_result": "ready",
+            "completion_latency_sec": 5.179,
+            "completion_text": " A buffer overflow occurs when more data is written to a buffer than it can hold, causing the excess data to overwrite adjacent memory locations. This can lead to program crashes or security vulnerabilities that allow an attacker to execute arbitrary code. Buffer overflows are typically prevented by using safer programming practices and language features that limit buffer sizes or check for overflow conditions.",
+            "metrics": {
+              "length": 414,
+              "ratio_bad": 0.0,
+              "max_repeat_ngram": 0,
+              "repeat_unit": ""
+            },
+            "corrupted": false
+          }
+        ],
+        "usable_configs": [
+          "default",
+          "enforce_eager"
+        ],
+        "project_default": {
+          "name": "default",
+          "extra_args": [],
+          "port": 8131
+        }
+      },
+      "exit_code": 0,
+      "runner_duration_sec": 238.2,
+      "log": "logs/05_vllm_serve.log",
+      "memory_ceiling": {
+        "mechanism": "systemd-run --user --scope",
+        "memory_max": "80G",
+        "memory_swap_max": "0",
+        "applied": true
+      }
+    },
+    "06": {
+      "check_id": "06",
+      "name": "determinism",
+      "status": "pass",
+      "started_at": "2026-09-18T23:00:46+0900",
+      "finished_at": "2026-09-18T23:10:25+0900",
+      "duration_sec": 578.7,
+      "notes": [
+        "BI=0 / sequential: byte_identical=False (2 distinct over 15 samples)",
+        "BI=0 / concurrent: byte_identical=False (2 distinct over 15 samples)",
+        "BI=1 / sequential: byte_identical=True (1 distinct over 15 samples)",
+        "BI=1 / concurrent: byte_identical=True (1 distinct over 15 samples)",
+        "batch-invariant kernels cost 1.073x on concurrent round wall time (9.797s -> 10.512s)"
+      ],
+      "data": {
+        "model": "Qwen/Qwen2.5-7B-Instruct",
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "seed": 1234,
+          "max_tokens": 128
+        },
+        "repeats_per_round": 5,
+        "rounds": 3,
+        "target_prompt": "Describe, in exactly five sentences, how an attacker exploits an unauthenticated deserialization endpoint and how a defender detects it.",
+        "matrix": {
+          "batch_invariant_off": {
+            "env": {},
+            "extra_args": [],
+            "server_ready": true,
+            "startup_seconds": 102.0,
+            "sequential": {
+              "samples": 15,
+              "distinct_outputs": 2,
+              "byte_identical": false,
+              "hashes": [
+                "cd492adf9031aa1f",
+                "37bfb1cce65c6627",
+                "37bfb1cce65c6627",
+                "37bfb1cce65c6627",
+                "37bfb1cce65c6627",
+                "37bfb1cce65c6627",
+                "37bfb1cce65c6627",
+                "37bfb1cce65c6627",
+                "37bfb1cce65c6627",
+                "37bfb1cce65c6627",
+                "37bfb1cce65c6627",
+                "37bfb1cce65c6627",
+                "37bfb1cce65c6627",
+                "37bfb1cce65c6627",
+                "37bfb1cce65c6627"
+              ],
+              "mean_latency_sec": 9.448,
+              "sample_output": " An attacker exploits an unauthenticated deserialization endpoint by sending malicious serialized data to the server, which the server then deserializes without proper validation or authentication. This can lead to arbitrary code execution if the deserialization process is vulnerable to attacks like Remote Code Execution (RCE). The attacker may use techniques such as crafting custom payloads or leveraging known vulnerabilities in the deserialization library to gain unauthorized access or control over the system. A defender detects this vulnerability through various means, including conducting security assessments, using automated tools to scan for deserialization flaws, and monitoring network traffic for unusual patterns indicative of deserialization attacks. Regular code reviews and staying updated with"
+            },
+            "concurrent": {
+              "samples": 15,
+              "distinct_outputs": 2,
+              "byte_identical": false,
+              "hashes": [
+                "e1f8916b3649882e",
+                "e1f8916b3649882e",
+                "15228ee40047d32c",
+                "e1f8916b3649882e",
+                "e1f8916b3649882e",
+                "15228ee40047d32c",
+                "e1f8916b3649882e",
+                "e1f8916b3649882e",
+                "e1f8916b3649882e",
+                "e1f8916b3649882e",
+                "15228ee40047d32c",
+                "e1f8916b3649882e",
+                "e1f8916b3649882e",
+                "e1f8916b3649882e",
+                "e1f8916b3649882e"
+              ],
+              "mean_latency_sec": 7.341,
+              "mean_round_wall_sec": 9.797,
+              "filler_prompts": [
+                "Write a haiku about network latency.",
+                "List the OSI model layers in order.",
+                "What is the difference between symmetric and asymmetric encryption?"
+              ],
+              "sample_output": " An attacker exploits an unauthenticated deserialization endpoint by sending malicious serialized data to the server, which the server then deserializes without proper validation or authentication. This can lead to arbitrary code execution if the deserialized object contains harmful instructions. To detect this vulnerability, defenders should monitor network traffic for unusual serialized payloads and implement input validation checks on deserialization processes. Additionally, employing security tools like static application security testing (SAST) and dynamic application security testing (DAST) can help identify deserialization flaws. Regular security audits and staying updated with the latest security patches are also crucial preventive measures."
+            },
+            "sequential_matches_concurrent": false
+          },
+          "batch_invariant_on": {
+            "env": {
+              "VLLM_BATCH_INVARIANT": "1"
+            },
+            "extra_args": [],
+            "server_ready": true,
+            "startup_seconds": 129.0,
+            "sequential": {
+              "samples": 15,
+              "distinct_outputs": 1,
+              "byte_identical": true,
+              "hashes": [
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19"
+              ],
+              "mean_latency_sec": 8.463,
+              "sample_output": " An attacker exploits an unauthenticated deserialization endpoint by sending malicious serialized data to the server, which the server then deserializes without proper validation or authentication. This can lead to arbitrary code execution if the deserialized object contains harmful instructions. To detect this vulnerability, defenders should monitor network traffic for unusual serialized payloads and implement input validation checks on deserialization processes. Additionally, employing security tools like static application security testing (SAST) and dynamic application security testing (DAST) can help identify deserialization flaws. Regular security audits and staying updated with the latest security patches are also crucial preventive measures.\n\n(Note: The original request was for exactly five sentences"
+            },
+            "concurrent": {
+              "samples": 15,
+              "distinct_outputs": 1,
+              "byte_identical": true,
+              "hashes": [
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19",
+                "057538a2282a4c19"
+              ],
+              "mean_latency_sec": 8.629,
+              "mean_round_wall_sec": 10.512,
+              "filler_prompts": [
+                "Write a haiku about network latency.",
+                "List the OSI model layers in order.",
+                "What is the difference between symmetric and asymmetric encryption?"
+              ],
+              "sample_output": " An attacker exploits an unauthenticated deserialization endpoint by sending malicious serialized data to the server, which the server then deserializes without proper validation or authentication. This can lead to arbitrary code execution if the deserialized object contains harmful instructions. To detect this vulnerability, defenders should monitor network traffic for unusual serialized payloads and implement input validation checks on deserialization processes. Additionally, employing security tools like static application security testing (SAST) and dynamic application security testing (DAST) can help identify deserialization flaws. Regular security audits and staying updated with the latest security patches are also crucial preventive measures.\n\n(Note: The original request was for exactly five sentences"
+            },
+            "sequential_matches_concurrent": true
+          }
+        },
+        "vllm_config": {
+          "name": "default",
+          "extra_args": [],
+          "port": 8131
+        },
+        "batch_invariant_throughput_cost": {
+          "concurrent_round_wall_off_sec": 9.797,
+          "concurrent_round_wall_on_sec": 10.512,
+          "slowdown_x": 1.073,
+          "sequential_latency_off_sec": 9.448,
+          "sequential_latency_on_sec": 8.463
+        },
+        "summary_rows": [
+          {
+            "batch_invariant": false,
+            "mode": "sequential",
+            "byte_identical": false,
+            "distinct_outputs": 2,
+            "samples": 15
+          },
+          {
+            "batch_invariant": false,
+            "mode": "concurrent",
+            "byte_identical": false,
+            "distinct_outputs": 2,
+            "samples": 15
+          },
+          {
+            "batch_invariant": true,
+            "mode": "sequential",
+            "byte_identical": true,
+            "distinct_outputs": 1,
+            "samples": 15
+          },
+          {
+            "batch_invariant": true,
+            "mode": "concurrent",
+            "byte_identical": true,
+            "distinct_outputs": 1,
+            "samples": 15
+          }
+        ],
+        "cells_measured": 4
+      },
+      "exit_code": 0,
+      "runner_duration_sec": 578.8,
+      "log": "logs/06_determinism.log",
+      "memory_ceiling": {
+        "mechanism": "systemd-run --user --scope",
+        "memory_max": "80G",
+        "memory_swap_max": "0",
+        "applied": true
+      }
+    },
+    "07": {
+      "check_id": "07",
+      "name": "lora_step_cost",
+      "status": "pass",
+      "started_at": "2026-09-18T21:49:14+0900",
+      "finished_at": "2026-09-18T22:33:52+0900",
+      "duration_sec": 2677.1,
+      "notes": [
+        "first configuration that fits: batch=4 x grad_accum=4 (effective 16), seq_len=4096, LoRA r=64 alpha=128",
+        "129.5145s per optimizer step, 506.0 tokens/s, peak allocated 47.85 GiB / reserved 54.85 GiB",
+        "one epoch over 10,000 examples: 625.0 steps, ~22.49 h",
+        "one epoch over 30,000 examples: 1875.0 steps, ~67.46 h",
+        "one epoch over 60,000 examples: 3750.0 steps, ~134.91 h",
+        "training checkpoint deleted; this smoke produces no usable adapter"
+      ],
+      "data": {
+        "model": "Qwen/Qwen2.5-7B-Instruct",
+        "fixed": {
+          "dtype": "bfloat16",
+          "attn_implementation": "sdpa",
+          "optimizer": "adamw_torch",
+          "learning_rate": 0.0001,
+          "gradient_checkpointing": true,
+          "lora_alpha_rule": "2 * r",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ]
+        },
+        "ladder": [
+          {
+            "batch": 4,
+            "grad_accum": 4,
+            "seq_len": 4096,
+            "lora_r": 64
+          },
+          {
+            "batch": 2,
+            "grad_accum": 8,
+            "seq_len": 4096,
+            "lora_r": 64
+          },
+          {
+            "batch": 2,
+            "grad_accum": 8,
+            "seq_len": 2048,
+            "lora_r": 64
+          },
+          {
+            "batch": 2,
+            "grad_accum": 8,
+            "seq_len": 2048,
+            "lora_r": 32
+          }
+        ],
+        "attempts": [
+          {
+            "config": {
+              "batch": 4,
+              "grad_accum": 4,
+              "seq_len": 4096,
+              "lora_r": 64
+            },
+            "lora_alpha": 128,
+            "target_modules": [
+              "q_proj",
+              "k_proj",
+              "v_proj",
+              "o_proj",
+              "gate_proj",
+              "up_proj",
+              "down_proj"
+            ],
+            "steps": 20,
+            "warmup_steps_excluded": 3,
+            "trainable_params": 161480704,
+            "total_params": 7777097216,
+            "wall_seconds": 2593.93,
+            "sec_per_optimizer_step": 129.5145,
+            "all_step_seconds": [
+              131.8574,
+              129.508,
+              129.4642,
+              129.5955,
+              129.5169,
+              129.3646,
+              129.9111,
+              129.3681,
+              129.4516,
+              129.5449,
+              129.5377,
+              129.3555,
+              129.4063,
+              129.4842,
+              129.5366,
+              129.5029,
+              129.4155,
+              129.4864,
+              129.5554,
+              129.7136
+            ],
+            "examples_per_optimizer_step": 16,
+            "tokens_per_optimizer_step": 65536,
+            "tokens_per_second": 506.0,
+            "examples_per_second": 0.124,
+            "final_train_loss": 0.808847261662595,
+            "peak_allocated_gib": 47.85,
+            "peak_reserved_gib": 54.85,
+            "memory_guard": {
+              "mem_available_gib": 105.57,
+              "mem_total_gib": 119.7,
+              "cuda_allocator_cap_fraction": 0.72,
+              "cuda_allocator_cap_applied": true,
+              "host_cgroup_memory_max": null,
+              "scope": "the CUDA cap bounds device allocations so the step-down ladder can catch an over-large config; host-RAM exhaustion is bounded separately by the systemd scope applied by run_all.py"
+            },
+            "epoch_extrapolation": {
+              "10000": {
+                "optimizer_steps": 625.0,
+                "hours": 22.49
+              },
+              "30000": {
+                "optimizer_steps": 1875.0,
+                "hours": 67.46
+              },
+              "60000": {
+                "optimizer_steps": 3750.0,
+                "hours": 134.91
+              }
+            },
+            "ok": true
+          }
+        ],
+        "chosen": {
+          "config": {
+            "batch": 4,
+            "grad_accum": 4,
+            "seq_len": 4096,
+            "lora_r": 64
+          },
+          "lora_alpha": 128,
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "steps": 20,
+          "warmup_steps_excluded": 3,
+          "trainable_params": 161480704,
+          "total_params": 7777097216,
+          "wall_seconds": 2593.93,
+          "sec_per_optimizer_step": 129.5145,
+          "all_step_seconds": [
+            131.8574,
+            129.508,
+            129.4642,
+            129.5955,
+            129.5169,
+            129.3646,
+            129.9111,
+            129.3681,
+            129.4516,
+            129.5449,
+            129.5377,
+            129.3555,
+            129.4063,
+            129.4842,
+            129.5366,
+            129.5029,
+            129.4155,
+            129.4864,
+            129.5554,
+            129.7136
+          ],
+          "examples_per_optimizer_step": 16,
+          "tokens_per_optimizer_step": 65536,
+          "tokens_per_second": 506.0,
+          "examples_per_second": 0.124,
+          "final_train_loss": 0.808847261662595,
+          "peak_allocated_gib": 47.85,
+          "peak_reserved_gib": 54.85,
+          "memory_guard": {
+            "mem_available_gib": 105.57,
+            "mem_total_gib": 119.7,
+            "cuda_allocator_cap_fraction": 0.72,
+            "cuda_allocator_cap_applied": true,
+            "host_cgroup_memory_max": null,
+            "scope": "the CUDA cap bounds device allocations so the step-down ladder can catch an over-large config; host-RAM exhaustion is bounded separately by the systemd scope applied by run_all.py"
+          },
+          "epoch_extrapolation": {
+            "10000": {
+              "optimizer_steps": 625.0,
+              "hours": 22.49
+            },
+            "30000": {
+              "optimizer_steps": 1875.0,
+              "hours": 67.46
+            },
+            "60000": {
+              "optimizer_steps": 3750.0,
+              "hours": 134.91
+            }
+          },
+          "ok": true
+        }
+      },
+      "exit_code": 0,
+      "runner_duration_sec": 2678.1,
+      "log": "logs/07_lora_step_cost.log",
+      "memory_ceiling": {
+        "mechanism": "systemd-run --user --scope",
+        "memory_max": "80G",
+        "memory_swap_max": "0",
+        "applied": true
+      }
+    },
+    "08": {
+      "check_id": "08",
+      "name": "sandbox_probe",
+      "status": "pass",
+      "started_at": "2026-09-18T21:49:09+0900",
+      "finished_at": "2026-09-18T21:49:14+0900",
+      "duration_sec": 4.9,
+      "notes": [
+        "docker 29.1.3 on linux/arm64",
+        "isolation flags verified: started=True, read_only=True, tmpfs=True, outbound_network_blocked=True, destroyed=True",
+        "probe only -- the Phase 4 sandbox harness is out of scope for this work order"
+      ],
+      "data": {
+        "image": "docker.io/library/alpine:3.20",
+        "isolation_flags": [
+          "--network=none",
+          "--memory=512m",
+          "--pids-limit=128",
+          "--read-only",
+          "--tmpfs",
+          "/tmp",
+          "--security-opt",
+          "no-new-privileges:true"
+        ],
+        "docker_available": true,
+        "docker": {
+          "client_version": "29.1.3",
+          "server_version": "29.1.3",
+          "server_arch": "arm64",
+          "server_os": "linux"
+        },
+        "image_pull_rc": 0,
+        "image_pull_output": "docker.io/library/alpine:3.20",
+        "container_name": "gate0-probe-992d0809",
+        "run": {
+          "rc": 0,
+          "stdout": "STARTED\n0\naarch64\nTMPFS_WRITABLE\nROOTFS_READONLY",
+          "stderr": ""
+        },
+        "container_started": true,
+        "read_only_enforced": true,
+        "tmpfs_writable": true,
+        "network_probe": {
+          "rc": 0,
+          "stdout": "2\nNET_BLOCKED\nPING_BLOCKED",
+          "stderr": ""
+        },
+        "network_blocked": true,
+        "ping_blocked": true,
+        "container_destroyed": true
+      },
+      "exit_code": 0,
+      "runner_duration_sec": 5.0,
+      "log": "logs/08_sandbox_probe.log",
+      "memory_ceiling": {
+        "mechanism": "systemd-run --user --scope",
+        "memory_max": "32G",
+        "memory_swap_max": "0",
+        "applied": true
+      }
+    }
+  }
+}

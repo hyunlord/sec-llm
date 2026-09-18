@@ -1,0 +1,205 @@
+{
+  "check_id": "06",
+  "name": "determinism",
+  "status": "pass",
+  "started_at": "2026-09-18T23:00:46+0900",
+  "finished_at": "2026-09-18T23:10:25+0900",
+  "duration_sec": 578.7,
+  "notes": [
+    "BI=0 / sequential: byte_identical=False (2 distinct over 15 samples)",
+    "BI=0 / concurrent: byte_identical=False (2 distinct over 15 samples)",
+    "BI=1 / sequential: byte_identical=True (1 distinct over 15 samples)",
+    "BI=1 / concurrent: byte_identical=True (1 distinct over 15 samples)",
+    "batch-invariant kernels cost 1.073x on concurrent round wall time (9.797s -> 10.512s)"
+  ],
+  "data": {
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "sampling": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "seed": 1234,
+      "max_tokens": 128
+    },
+    "repeats_per_round": 5,
+    "rounds": 3,
+    "target_prompt": "Describe, in exactly five sentences, how an attacker exploits an unauthenticated deserialization endpoint and how a defender detects it.",
+    "matrix": {
+      "batch_invariant_off": {
+        "env": {},
+        "extra_args": [],
+        "server_ready": true,
+        "startup_seconds": 102.0,
+        "sequential": {
+          "samples": 15,
+          "distinct_outputs": 2,
+          "byte_identical": false,
+          "hashes": [
+            "cd492adf9031aa1f",
+            "37bfb1cce65c6627",
+            "37bfb1cce65c6627",
+            "37bfb1cce65c6627",
+            "37bfb1cce65c6627",
+            "37bfb1cce65c6627",
+            "37bfb1cce65c6627",
+            "37bfb1cce65c6627",
+            "37bfb1cce65c6627",
+            "37bfb1cce65c6627",
+            "37bfb1cce65c6627",
+            "37bfb1cce65c6627",
+            "37bfb1cce65c6627",
+            "37bfb1cce65c6627",
+            "37bfb1cce65c6627"
+          ],
+          "mean_latency_sec": 9.448,
+          "sample_output": " An attacker exploits an unauthenticated deserialization endpoint by sending malicious serialized data to the server, which the server then deserializes without proper validation or authentication. This can lead to arbitrary code execution if the deserialization process is vulnerable to attacks like Remote Code Execution (RCE). The attacker may use techniques such as crafting custom payloads or leveraging known vulnerabilities in the deserialization library to gain unauthorized access or control over the system. A defender detects this vulnerability through various means, including conducting security assessments, using automated tools to scan for deserialization flaws, and monitoring network traffic for unusual patterns indicative of deserialization attacks. Regular code reviews and staying updated with"
+        },
+        "concurrent": {
+          "samples": 15,
+          "distinct_outputs": 2,
+          "byte_identical": false,
+          "hashes": [
+            "e1f8916b3649882e",
+            "e1f8916b3649882e",
+            "15228ee40047d32c",
+            "e1f8916b3649882e",
+            "e1f8916b3649882e",
+            "15228ee40047d32c",
+            "e1f8916b3649882e",
+            "e1f8916b3649882e",
+            "e1f8916b3649882e",
+            "e1f8916b3649882e",
+            "15228ee40047d32c",
+            "e1f8916b3649882e",
+            "e1f8916b3649882e",
+            "e1f8916b3649882e",
+            "e1f8916b3649882e"
+          ],
+          "mean_latency_sec": 7.341,
+          "mean_round_wall_sec": 9.797,
+          "filler_prompts": [
+            "Write a haiku about network latency.",
+            "List the OSI model layers in order.",
+            "What is the difference between symmetric and asymmetric encryption?"
+          ],
+          "sample_output": " An attacker exploits an unauthenticated deserialization endpoint by sending malicious serialized data to the server, which the server then deserializes without proper validation or authentication. This can lead to arbitrary code execution if the deserialized object contains harmful instructions. To detect this vulnerability, defenders should monitor network traffic for unusual serialized payloads and implement input validation checks on deserialization processes. Additionally, employing security tools like static application security testing (SAST) and dynamic application security testing (DAST) can help identify deserialization flaws. Regular security audits and staying updated with the latest security patches are also crucial preventive measures."
+        },
+        "sequential_matches_concurrent": false
+      },
+      "batch_invariant_on": {
+        "env": {
+          "VLLM_BATCH_INVARIANT": "1"
+        },
+        "extra_args": [],
+        "server_ready": true,
+        "startup_seconds": 129.0,
+        "sequential": {
+          "samples": 15,
+          "distinct_outputs": 1,
+          "byte_identical": true,
+          "hashes": [
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19"
+          ],
+          "mean_latency_sec": 8.463,
+          "sample_output": " An attacker exploits an unauthenticated deserialization endpoint by sending malicious serialized data to the server, which the server then deserializes without proper validation or authentication. This can lead to arbitrary code execution if the deserialized object contains harmful instructions. To detect this vulnerability, defenders should monitor network traffic for unusual serialized payloads and implement input validation checks on deserialization processes. Additionally, employing security tools like static application security testing (SAST) and dynamic application security testing (DAST) can help identify deserialization flaws. Regular security audits and staying updated with the latest security patches are also crucial preventive measures.\n\n(Note: The original request was for exactly five sentences"
+        },
+        "concurrent": {
+          "samples": 15,
+          "distinct_outputs": 1,
+          "byte_identical": true,
+          "hashes": [
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19",
+            "057538a2282a4c19"
+          ],
+          "mean_latency_sec": 8.629,
+          "mean_round_wall_sec": 10.512,
+          "filler_prompts": [
+            "Write a haiku about network latency.",
+            "List the OSI model layers in order.",
+            "What is the difference between symmetric and asymmetric encryption?"
+          ],
+          "sample_output": " An attacker exploits an unauthenticated deserialization endpoint by sending malicious serialized data to the server, which the server then deserializes without proper validation or authentication. This can lead to arbitrary code execution if the deserialized object contains harmful instructions. To detect this vulnerability, defenders should monitor network traffic for unusual serialized payloads and implement input validation checks on deserialization processes. Additionally, employing security tools like static application security testing (SAST) and dynamic application security testing (DAST) can help identify deserialization flaws. Regular security audits and staying updated with the latest security patches are also crucial preventive measures.\n\n(Note: The original request was for exactly five sentences"
+        },
+        "sequential_matches_concurrent": true
+      }
+    },
+    "vllm_config": {
+      "name": "default",
+      "extra_args": [],
+      "port": 8131
+    },
+    "batch_invariant_throughput_cost": {
+      "concurrent_round_wall_off_sec": 9.797,
+      "concurrent_round_wall_on_sec": 10.512,
+      "slowdown_x": 1.073,
+      "sequential_latency_off_sec": 9.448,
+      "sequential_latency_on_sec": 8.463
+    },
+    "summary_rows": [
+      {
+        "batch_invariant": false,
+        "mode": "sequential",
+        "byte_identical": false,
+        "distinct_outputs": 2,
+        "samples": 15
+      },
+      {
+        "batch_invariant": false,
+        "mode": "concurrent",
+        "byte_identical": false,
+        "distinct_outputs": 2,
+        "samples": 15
+      },
+      {
+        "batch_invariant": true,
+        "mode": "sequential",
+        "byte_identical": true,
+        "distinct_outputs": 1,
+        "samples": 15
+      },
+      {
+        "batch_invariant": true,
+        "mode": "concurrent",
+        "byte_identical": true,
+        "distinct_outputs": 1,
+        "samples": 15
+      }
+    ],
+    "cells_measured": 4
+  },
+  "exit_code": 0,
+  "runner_duration_sec": 578.8,
+  "log": "logs/06_determinism.log",
+  "memory_ceiling": {
+    "mechanism": "systemd-run --user --scope",
+    "memory_max": "80G",
+    "memory_swap_max": "0",
+    "applied": true
+  }
+}

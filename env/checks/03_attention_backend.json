@@ -1,0 +1,69 @@
+{
+  "check_id": "03",
+  "name": "attention_backend",
+  "status": "pass",
+  "started_at": "2026-09-18T22:35:16+0900",
+  "finished_at": "2026-09-18T22:36:36+0900",
+  "duration_sec": 80.04,
+  "notes": [
+    "flash_attention_2 is unavailable on this platform because no prebuilt wheel exists for it, and this project does not build CUDA extensions on the training host. transformers raised: FlashAttention2 has been toggled on, but it cannot be used due to the following error: the package for FlashAttention2 doesn't seem to be installed.",
+    "note the limit of this evidence: this is an availability finding, not a direct observation of sm_121 kernel behaviour. Whether flash-attn 2.x would produce correct output on sm_121 was NOT tested and no verdict is claimed.",
+    "prebuilt wheel probe: no prebuilt wheel for this platform (aarch64 / CUDA 13 / cp312 / sm_121); the index offers source distributions only",
+    "project default for training and HF inference: attn_implementation='sdpa'",
+    "this check compiled nothing. A source build was attempted once on 2026-09-18 and took the host down; see docs/hardware-notes.md."
+  ],
+  "data": {
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "prompt": "List three common categories of software vulnerability, one per line.",
+    "max_new_tokens": 48,
+    "compiled_anything": false,
+    "source_build_incident": {
+      "date": "2026-09-18",
+      "what": "A flash-attn source build (flash-attn==2.8.3.post1, MAX_JOBS=16, --no-build-isolation) was started on the DGX Spark while the gate was being prepared.",
+      "outcome": "The parallel nvcc jobs exhausted the shared 128 GiB unified memory pool. The host stopped responding to SSH and ICMP within roughly two minutes, stayed down for over an hour, and required a physical power cycle. No check result survived.",
+      "why_it_matters": "On Grace-Blackwell the GPU and the host share one physical memory pool, so a host-side compile is not isolated from GPU work the way it is on a discrete-GPU x86 server. A CUDA allocator ceiling does not help, because the compiler never allocates through CUDA.",
+      "rule_adopted": "No source compilation on the training host. Wheels only. If a package has no wheel for this platform, the absence is the finding."
+    },
+    "flash_attn_installed": false,
+    "flash_attn_import_error": "ModuleNotFoundError(\"No module named 'flash_attn'\")",
+    "wheel_probe": {
+      "method": "uv pip install --dry-run --only-binary=:all: flash-attn",
+      "downloaded": false,
+      "built": false,
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "× No solution found when resolving dependencies:\n  ╰─▶ Because all versions of flash-attn have no usable wheels and you require\n      flash-attn, we can conclude that your requirements are unsatisfiable.\n\n      hint: Wheels are required for `flash-attn` because building from source\n      is disabled for all packages (i.e., with `--no-build`)",
+      "wheel_available": false,
+      "verdict": "no prebuilt wheel for this platform (aarch64 / CUDA 13 / cp312 / sm_121); the index offers source distributions only"
+    },
+    "sdpa": {
+      "attn_implementation": "sdpa",
+      "loaded": true,
+      "resolved_impl": "sdpa",
+      "generated": true,
+      "output": "Injection vulnerabilities\nAuthentication vulnerabilities\nConfiguration errors",
+      "metrics": {
+        "length": 77,
+        "ratio_bad": 0.0,
+        "max_repeat_ngram": 0,
+        "repeat_unit": ""
+      },
+      "corrupted": false,
+      "corruption_reason": "",
+      "error": null,
+      "failure_class": "none"
+    },
+    "flash_attention_2": {
+      "attn_implementation": "flash_attention_2",
+      "loaded": false,
+      "generated": false,
+      "output": null,
+      "error": "ImportError(\"FlashAttention2 has been toggled on, but it cannot be used due to the following error: the package for FlashAttention2 doesn't seem to be installed.\")",
+      "error_message": "FlashAttention2 has been toggled on, but it cannot be used due to the following error: the package for FlashAttention2 doesn't seem to be installed.",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/hyunlord/sec-llm/scripts/env_check/03_attention_backend.py\", line 109, in _attempt\n    model = _load(model_id, impl, torch)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hyunlord/sec-llm/scripts/env_check/03_attention_backend.py\", line 68, in _load\n    return AutoModelForCausalLM.from_pretrained(model_id, dtype=torch.bfloat16, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hyunlord/sec-llm/.venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py\", line 402, in from_pretrained\n    return model_class.from_pretrained(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hyunlord/sec-llm/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py\", line 4267, in from_pretrained\n    model = cls(config, *model_args, **model_kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hyunlord/sec-llm/.venv/lib/python3.12/site-packages/transformers/models/qwen2/modeling_qwen2.py\", line 413, in __init__\n    super().__init__(config)\n  File \"/home/hyunlord/sec-llm/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py\", line 1263, in __init__\n    self.config._attn_implementation_internal = self._check_and_adjust_attn_implementation(\n                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hyunlord/sec-llm/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py\", line 1821, in _check_and_adjust_attn_implementation\n    applicable_attn_implementation = self.get_correct_attn_implementation(\n                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hyunlord/sec-llm/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py\", line 1868, in get_correct_attn_implementation\n    self._flash_attn_can_dispatch(flash_attn_version=fa_version, is_init_check=is_init_check)\n  File \"/home/hyunlord/sec-llm/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py\", line 1607, in _flash_attn_can_dispatch\n    self._flash_attn_import_error(**FLASH_ATTENTION_COMPATIBILITY_MATRIX[flash_attn_version])\n  File \"/home/hyunlord/sec-llm/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py\", line 1562, in _flash_attn_import_error\n    raise ImportError(\nImportError: FlashAttention2 has been toggled on, but it cannot be used due to the following error: the package for FlashAttention2 doesn't seem to be installed.\n",
+      "corrupted": null,
+      "failure_class": "not_installed"
+    },
+    "flash_attn_verdict": "unavailable_no_wheel"
+  }
+}

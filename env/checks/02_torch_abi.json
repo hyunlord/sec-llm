@@ -1,0 +1,111 @@
+{
+  "check_id": "02",
+  "name": "torch_abi",
+  "status": "pass",
+  "started_at": "2026-09-18T23:25:56+0900",
+  "finished_at": "2026-09-18T23:25:59+0900",
+  "duration_sec": 3.63,
+  "notes": [
+    "failure mode (1) verdict: DID NOT OCCUR. Device ops in fp32 and bf16 both ran and matched an fp64 CPU reference within tolerance on sm_121.",
+    "architecture compatibility: family_binary_compat -- no cubin for sm_121 and no PTX entry in arch_list -- the stack is relying on CUDA 13 Blackwell family-level binary compatibility (sm_120 cubins loaded onto an sm_121 part)",
+    "no PTX fallback exists in this build, so every torch/CUDA upgrade must re-run check 02 before it is trusted -- family-level binary compatibility is not a guarantee the way a native cubin or a PTX entry is.",
+    "achieved bf16 GEMM throughput 95.95 TFLOPS, 76.8% of the derived 125.0 TFLOPS reference",
+    "installation route: torch from the PyTorch cu130 wheel index (UV_TORCH_BACKEND=cu130), matching the CUDA 13.0 runtime. No NGC container fallback and no source build were used."
+  ],
+  "data": {
+    "correctness_matrix_size": 4096,
+    "torch_version": "2.13.0+cu130",
+    "cuda_runtime_linked": "13.0",
+    "arch_list": [
+      "sm_80",
+      "sm_90",
+      "sm_100",
+      "sm_110",
+      "sm_120"
+    ],
+    "driver_version": "580.126.09",
+    "device_sm": "sm_121",
+    "device_name": "NVIDIA GB10",
+    "device_sm_in_arch_list": false,
+    "ptx_entries": [],
+    "has_ptx": false,
+    "compat_mode": "family_binary_compat",
+    "compat_explanation": "no cubin for sm_121 and no PTX entry in arch_list -- the stack is relying on CUDA 13 Blackwell family-level binary compatibility (sm_120 cubins loaded onto an sm_121 part)",
+    "first_call": {
+      "context_init_sec": 0.1739,
+      "first_matmul_sec": 0.1514,
+      "second_matmul_sec": 9.7e-05,
+      "first_call_overhead_x": 1560.8,
+      "first_call_is_slow": false
+    },
+    "first_op_stderr": null,
+    "first_op_warnings": [],
+    "dtypes": [
+      {
+        "dtype": "float32",
+        "rel_tolerance": 0.0001,
+        "abs_tolerance": 0.01,
+        "cpu_reference_sec": 0.344,
+        "device_matmul_sec": 0.01,
+        "max_abs_err": 0.0010407496757238732,
+        "max_rel_err": 3.005042176151767e-06,
+        "reference_max_magnitude": 346.3344654472201,
+        "all_finite": true,
+        "ok": true,
+        "aux_ops": {
+          "softmax_rowsum_err": 0.0,
+          "layer_norm_std": 0.9999949932098389,
+          "reduction_finite": true,
+          "d2h_roundtrip_ok": true,
+          "ok": true
+        }
+      },
+      {
+        "dtype": "bfloat16",
+        "rel_tolerance": 0.05,
+        "abs_tolerance": 5.0,
+        "cpu_reference_sec": 0.377,
+        "device_matmul_sec": 0.1918,
+        "max_abs_err": 1.3102601087729795,
+        "max_rel_err": 0.0037832218259913767,
+        "reference_max_magnitude": 346.3344654472201,
+        "all_finite": true,
+        "ok": true,
+        "aux_ops": {
+          "softmax_rowsum_err": 0.0,
+          "layer_norm_std": 0.9999949932098389,
+          "reduction_finite": true,
+          "d2h_roundtrip_ok": true,
+          "ok": true
+        }
+      }
+    ],
+    "throughput": {
+      "matrix_size": 8192,
+      "iterations": 20,
+      "warmup": 5,
+      "sec_per_matmul": 0.01146,
+      "achieved_tflops_bf16": 95.95,
+      "reference_tflops_bf16_dense": 125.0,
+      "reference_basis": "derived from NVIDIA's headline 1 PFLOP FP4-with-sparsity figure (1000 / 2 sparsity / 2 FP4->FP8 / 2 FP8->BF16); a reference point for spotting a generic-kernel fallback, not a datasheet quote",
+      "fraction_of_reference": 0.768,
+      "large_shortfall": false,
+      "shortfall_threshold": 0.25
+    },
+    "peak_allocated_gib": 0.406,
+    "failure_mode_1_verdict": "did_not_occur",
+    "first_call_explanation": {
+      "slow_first_call": false,
+      "attribution": "first launch is not materially slower than steady state"
+    }
+  },
+  "exit_code": 0,
+  "runner_duration_sec": 4.0,
+  "log": "logs/02_torch_abi.log",
+  "memory_ceiling": {
+    "mechanism": "systemd-run --user --scope",
+    "memory_max": "80G",
+    "memory_swap_max": "0",
+    "applied": true
+  }
+}

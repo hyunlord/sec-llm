@@ -1,0 +1,81 @@
+{
+  "check_id": "04",
+  "name": "generation_sanity",
+  "status": "pass",
+  "started_at": "2026-09-18T21:46:55+0900",
+  "finished_at": "2026-09-18T21:48:37+0900",
+  "duration_sec": 102.5,
+  "notes": [
+    "JSON-output prompt parsed as valid JSON: True keys=['cwe_id', 'severity', 'summary']",
+    "heuristics are a tripwire, not a verdict -- full raw outputs are in logs/04_generation_sanity.log for human review"
+  ],
+  "data": {
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "attn_implementation": "sdpa",
+    "max_new_tokens": 128,
+    "generations": [
+      {
+        "id": "en_prose",
+        "lang": "en",
+        "prompt": "Explain in a short paragraph why input validation matters in web applications.",
+        "output": "Input validation is crucial in web applications because it helps protect against a variety of security threats, such as cross-site scripting (XSS), SQL injection, and command injection attacks. By validating user inputs, developers can ensure that the data conforms to expected formats and constraints, thereby preventing malicious data from being processed or stored. This not only enhances the security of the application but also improves its reliability and performance. Proper validation also helps in maintaining data integrity and can prevent unexpected behavior or errors in the application logic.",
+        "new_tokens": 101,
+        "metrics": {
+          "length": 605,
+          "ratio_bad": 0.0,
+          "max_repeat_ngram": 0,
+          "repeat_unit": ""
+        },
+        "corrupted": false,
+        "corruption_reason": ""
+      },
+      {
+        "id": "ko_prose",
+        "lang": "ko",
+        "prompt": "SQL 인젝션 취약점이 무엇인지 한국어로 간단히 설명해 주세요.",
+        "output": "SQL 인젝션 취약점은 웹 애플리케이션이 사용자 입력을 SQL 쿼리에 직접 포함하여 처리하는 경우 발생할 수 있는 보안 문제입니다. 간단히 말해, 악의적인 사용자는 웹 폼이나 URL에서 특별히 설계된 입력을 제공하여 서버의 데이터베이스를 조작하거나 정보를 훔칠 수 있습니다.\n\n예를 들어, 사용자가 로그인 페이지에서 아이디와 비밀번호를 입력해야 하는데, 악의적인 사용자는 다음과 같은 입력을 제공",
+        "new_tokens": 128,
+        "metrics": {
+          "length": 221,
+          "ratio_bad": 0.0,
+          "max_repeat_ngram": 0,
+          "repeat_unit": ""
+        },
+        "corrupted": false,
+        "corruption_reason": ""
+      },
+      {
+        "id": "json_schema",
+        "lang": "en",
+        "prompt": "Return ONLY a JSON object, no prose, with exactly these keys: \"cwe_id\" (string), \"severity\" (one of low/medium/high/critical), \"summary\" (string). Describe a stack-based buffer overflow.",
+        "output": "{\n  \"cwe_id\": \"CWE-787\",\n  \"severity\": \"high\",\n  \"summary\": \"A stack-based buffer overflow occurs when a program writes beyond the bounds of a buffer allocated on the stack, overwriting adjacent memory locations, which can lead to code execution or program crashes.\"\n}",
+        "new_tokens": 66,
+        "metrics": {
+          "length": 268,
+          "ratio_bad": 0.0,
+          "max_repeat_ngram": 0,
+          "repeat_unit": ""
+        },
+        "corrupted": false,
+        "corruption_reason": "",
+        "json_parsed": true,
+        "json_keys": [
+          "cwe_id",
+          "severity",
+          "summary"
+        ]
+      }
+    ],
+    "clean_count": 3,
+    "total_count": 3
+  },
+  "exit_code": 0,
+  "runner_duration_sec": 103.3,
+  "log": "logs/04_generation_sanity.log",
+  "memory_ceiling": {
+    "mechanism": "systemd-run --user --scope",
+    "memory_max": "80G",
+    "memory_swap_max": "0",
+    "applied": true
+  }
+}
