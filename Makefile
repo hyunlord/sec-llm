@@ -8,7 +8,7 @@ PYTHON ?= .venv/bin/python
 CHECKS := scripts/env_check
 
 .DEFAULT_GOAL := help
-.PHONY: help env-check report lock pack clean-artifacts pin ingest ingest-verify sources-doc
+.PHONY: help env-check report lock pack clean-artifacts pin ingest ingest-verify sources-doc ingest-report
 
 help:
 	@echo "targets:"
@@ -21,6 +21,7 @@ help:
 	@echo "  ingest        ingest every pinned source -> manifests/<source>.manifest.json"
 	@echo "  ingest-verify re-run ingest and prove the manifests are byte-identical"
 	@echo "  sources-doc   regenerate docs/data-sources.md from ingest/sources.py"
+	@echo "  ingest-report regenerate reports/ingest.md from the manifests"
 
 env-check:
 	@mkdir -p env/checks logs reports
@@ -98,3 +99,6 @@ ingest-verify:
 
 sources-doc:
 	$(INGEST_PY) ingest/render_sources_doc.py
+
+ingest-report:
+	$(INGEST_PY) ingest/render_report.py

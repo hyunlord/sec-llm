@@ -1,0 +1,82 @@
+{
+  "content_type": "cve_record_v5_json",
+  "content_types_without_entity_id": [],
+  "counts": {
+    "bytes": 4056614729,
+    "entity_id_missing": 0,
+    "entity_id_present": 394958,
+    "files": 1,
+    "identifiable_records": 394958,
+    "records": 394958,
+    "records_without_expected_entity_id": 0
+  },
+  "determinism": "This manifest contains no wall-clock field. All timestamps derive from the committed pin, so re-running the ingester against the same pin reproduces this file byte for byte. Run time is recorded in reports/ingest.md.",
+  "entity_id_coverage": 1.0,
+  "entity_id_coverage_identifiable": 1.0,
+  "entity_id_samples": [
+    "CVE-1999-0001",
+    "CVE-1999-0002",
+    "CVE-1999-0003",
+    "CVE-1999-0004",
+    "CVE-1999-0005"
+  ],
+  "files": [
+    {
+      "bytes": 4056614729,
+      "path": "data/raw/cve_list/cvelistV5@9d4f632aa6e148754e1f27bdfb69f4635792f69a",
+      "sha256": "9d4f632aa6e148754e1f27bdfb69f4635792f69a000000000000000000000000"
+    }
+  ],
+  "license": {
+    "commercial_status": "permitted_with_attribution",
+    "contains_third_party_content": true,
+    "pii_policy": "no_intentional_pii; free-text description/credit/reference fields may carry researcher or reporter names -- P2 secret/PII scanning is required",
+    "redistribution_status": "permitted_with_attribution",
+    "source_license": "CVE Program Terms of Use (The MITRE Corporation)",
+    "upstream_license": "CNA submissions under the CVE Program Terms of Use submitter grant (submitters grant MITRE and all CNAs a perpetual, royalty-free, irrevocable copyright license)"
+  },
+  "lineage_fields": [
+    "source_id",
+    "source_name",
+    "source_url",
+    "source_pin",
+    "retrieved_at",
+    "record_id",
+    "entity_id",
+    "content_type",
+    "source_license",
+    "upstream_license",
+    "redistribution_status",
+    "commercial_status",
+    "contains_third_party_content",
+    "pii_policy",
+    "transform_history",
+    "content_sha256"
+  ],
+  "notes": [
+    "clone strategy: partial_clone_blob_none then checkout of the pinned commit; history depth 77380 commits, so the pin is verifiable by ancestry and not only by object hash.",
+    "Attribution required by the CVE Program Terms of Use: reproduce MITRE's copyright designation and the license in any copy.",
+    "records=394958, malformed JSON skipped=0, records with no cveMetadata.cveId=0",
+    "cveMetadata.state counts: PUBLISHED=376600, REJECTED=18358",
+    "on-disk checkout size: 3.8 GiB"
+  ],
+  "pin": {
+    "clone_url": "https://github.com/CVEProject/cvelistV5.git",
+    "commit_date": "2026-09-18T04:34:36Z",
+    "commit_message_first_line": "1 changes (0 new | 1 updated):",
+    "commit_sha": "9d4f632aa6e148754e1f27bdfb69f4635792f69a",
+    "pin_type": "git_commit",
+    "pinned_at_utc": "2026-09-18T04:37:25Z",
+    "repo": "CVEProject/cvelistV5",
+    "repo_packed_size_kb": 2866369,
+    "resolved_ref": "main",
+    "source_id": "cve_list",
+    "source_name": "CVE List V5 (CVEProject/cvelistV5)"
+  },
+  "records_digest": "29ac54daf15be05a7c104faca2f4c11631933a022f63b163ca226ca67073912a",
+  "schema_version": 1,
+  "source_id": "cve_list",
+  "source_name": "CVE List V5 (CVEProject/cvelistV5)",
+  "source_timestamp": "2026-09-18T04:34:36Z",
+  "source_url": "https://github.com/CVEProject/cvelistV5"
+}

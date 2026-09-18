@@ -195,6 +195,19 @@ def download(
                             print(f"      {dest.name}: {pct} {done/2**20:8.1f} MiB", flush=True)
                             last_print = time.monotonic()
             break
+        except urllib.error.HTTPError as exc:
+            # A 4xx on a *pinned* URL is the pin being wrong, not the network
+            # being flaky. Retrying it with backoff just delays the real answer.
+            if exc.code in (400, 401, 403, 404, 410):
+                raise FetchError(
+                    f"HTTP {exc.code} for {url} -- the pinned artifact is not there. "
+                    "This is a bad or stale pin, not a transient error; re-run `make pin`."
+                ) from exc
+            wait = 4.0 * (2 ** (attempt - 1))
+            print(f"    download attempt {attempt}/{retries} failed: HTTP {exc.code}; sleeping {wait:.0f}s", flush=True)
+            if attempt == retries:
+                raise FetchError(f"download failed after {retries} attempts: {url}") from exc
+            time.sleep(wait)
         except Exception as exc:
             wait = 4.0 * (2 ** (attempt - 1))
             print(f"    download attempt {attempt}/{retries} failed: {exc!r}; sleeping {wait:.0f}s", flush=True)
