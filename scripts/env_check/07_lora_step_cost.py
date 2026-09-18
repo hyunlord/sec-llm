@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import gc
 import json
+import os
 import random
 import shutil
 import sys
@@ -90,6 +91,27 @@ def synth_dataset(tok, n, seq_len, seed=7):
     return ds.map(tokenize, batched=True, remove_columns=["text"])
 
 
+# On Grace-Blackwell the GPU shares the host's unified memory, so an
+# uncaught allocation does not produce a clean CUDA OOM -- it takes the whole
+# machine into swap thrash and the box stops responding. Capping the process
+# fraction makes torch raise OutOfMemoryError while the host still has room to
+# breathe, which is what the step-down ladder needs in order to work at all.
+MEMORY_FRACTION = float(os.environ.get("GATE0_MEM_FRACTION", "0.72"))
+
+
+def _guard_memory(torch):
+    """Cap this process and refuse to start if the host is already loaded."""
+    avail = C.host_meminfo_gb().get("MemAvailable")
+    total = C.host_meminfo_gb().get("MemTotal")
+    try:
+        torch.cuda.set_per_process_memory_fraction(MEMORY_FRACTION, 0)
+    except Exception as exc:
+        print(f"could not set per-process memory fraction: {exc!r}")
+    print(f"host memory: {avail} GiB available of {total} GiB; "
+          f"per-process cap {MEMORY_FRACTION:.0%}")
+    return {"mem_available_gib": avail, "mem_total_gib": total, "cap_fraction": MEMORY_FRACTION}
+
+
 def attempt(cfg):
     import torch
     from peft import LoraConfig, get_peft_model
@@ -103,6 +125,7 @@ def attempt(cfg):
 
     torch.cuda.empty_cache()
     torch.cuda.reset_peak_memory_stats()
+    guard = _guard_memory(torch)
 
     tok = AutoTokenizer.from_pretrained(C.MODEL_ID)
     if tok.pad_token is None:
@@ -201,6 +224,7 @@ def attempt(cfg):
         "final_train_loss": float(train_out.training_loss),
         "peak_allocated_gib": round(torch.cuda.max_memory_allocated() / 2**30, 2),
         "peak_reserved_gib": round(torch.cuda.max_memory_reserved() / 2**30, 2),
+        "memory_guard": guard,
     }
 
     ex_per_step = cfg["batch"] * cfg["grad_accum"]
