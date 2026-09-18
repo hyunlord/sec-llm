@@ -1,0 +1,76 @@
+{
+  "content_type": "cwe_catalog_xml",
+  "counts": {
+    "bytes": 2021351,
+    "entity_id_missing": 0,
+    "entity_id_present": 2476,
+    "files": 1,
+    "records": 2476
+  },
+  "determinism": "This manifest contains no wall-clock field. All timestamps derive from the committed pin, so re-running the ingester against the same pin reproduces this file byte for byte. Run time is recorded in reports/ingest.md.",
+  "entity_id_coverage": 1.0,
+  "entity_id_samples": [
+    "CWE-1004",
+    "CWE-1007",
+    "CWE-102",
+    "CWE-1021",
+    "CWE-1022"
+  ],
+  "files": [
+    {
+      "bytes": 2021351,
+      "path": "data/raw/cwe/4.20/cwec_v4.20.xml.zip",
+      "sha256": "3976f599e5e5200219a3108bb896d06e2a88fbb293369e1883cb423a5e9d7d50"
+    }
+  ],
+  "license": {
+    "commercial_status": "permitted_with_attribution",
+    "contains_third_party_content": true,
+    "pii_policy": "no_intentional_pii; free-text description/credit/reference fields may carry researcher or reporter names -- P2 secret/PII scanning is required",
+    "redistribution_status": "permitted_with_attribution",
+    "source_license": "CWE Terms of Use (The MITRE Corporation)",
+    "upstream_license": "Community contributions under the CWE Terms of Use contributor grant (contributors grant all users a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable license)"
+  },
+  "lineage_fields": [
+    "source_id",
+    "source_name",
+    "source_url",
+    "source_pin",
+    "retrieved_at",
+    "record_id",
+    "entity_id",
+    "content_type",
+    "source_license",
+    "upstream_license",
+    "redistribution_status",
+    "commercial_status",
+    "contains_third_party_content",
+    "pii_policy",
+    "transform_history",
+    "content_sha256"
+  ],
+  "notes": [
+    "Weakness hierarchy preserved: Related_Weaknesses edges, Category members, and View members are carried through structurally rather than flattened.",
+    "catalog declares Version=4.20 Date=2026-04-30",
+    "record counts by type: cwe_category=422, cwe_external_reference=1026, cwe_view=59, cwe_weakness=969"
+  ],
+  "pin": {
+    "catalog_date": "2026-04-30",
+    "content_length": 2021351,
+    "immutability": "Versioned URL; MITRE does not republish a released version in place.",
+    "inner_filename": "cwec_v4.20.xml",
+    "last_modified": "Thu, 30 Apr 2026 09:15:00 GMT",
+    "pin_type": "versioned_release",
+    "pinned_at_utc": "2026-09-18T04:37:30Z",
+    "source_id": "cwe",
+    "source_name": "CWE (Common Weakness Enumeration) versioned XML catalog",
+    "url": "https://cwe.mitre.org/data/xml/cwec_v4.20.xml.zip",
+    "version": "4.20"
+  },
+  "records_digest": "76e4bb9a78dde5a3fbb483352263136702c8f24a6effcba628a10ba5ebd702fa",
+  "schema_version": 1,
+  "source_id": "cwe",
+  "source_name": "CWE (Common Weakness Enumeration) versioned XML catalog",
+  "source_timestamp": "2026-04-30",
+  "source_url": "https://cwe.mitre.org/data/downloads.html"
+}

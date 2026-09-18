@@ -8,7 +8,7 @@ PYTHON ?= .venv/bin/python
 CHECKS := scripts/env_check
 
 .DEFAULT_GOAL := help
-.PHONY: help env-check report lock pack clean-artifacts
+.PHONY: help env-check report lock pack clean-artifacts pin ingest ingest-verify
 
 help:
 	@echo "targets:"
@@ -16,6 +16,10 @@ help:
 	@echo "  report     regenerate reports/env-report.md and docs/determinism.md from env/gate0.json"
 	@echo "  lock       write env/versions.lock from the current environment"
 	@echo "  pack       build p0-artifacts.zip (env/, reports/, docs/, raw check logs)"
+	@echo ""
+	@echo "  pin           resolve every source to an immutable reference -> ingest/sources.lock.json"
+	@echo "  ingest        ingest every pinned source -> manifests/<source>.manifest.json"
+	@echo "  ingest-verify re-run ingest and prove the manifests are byte-identical"
 
 env-check:
 	@mkdir -p env/checks logs reports
@@ -61,3 +65,32 @@ pack: clean-artifacts
 
 clean-artifacts:
 	@rm -f p0-artifacts.zip
+
+# ---------------------------------------------------------------------------
+# P1 -- source ingestion
+#
+# INGEST_PY is separate from PYTHON: ingestion is stdlib-only and runs on the
+# local machine as well as on the DGX, where PYTHON points at the CUDA venv.
+# PIP_ONLY_BINARY is exported per rule 1 carried over from P0.1 -- nothing in
+# this project compiles from source on a machine we care about.
+INGEST_PY ?= python3
+export PIP_ONLY_BINARY := :all:
+
+pin:
+	$(INGEST_PY) ingest/pin.py $(PIN_ARGS)
+
+ingest:
+	$(INGEST_PY) ingest/run.py $(INGEST_ARGS)
+
+# Gate 1 requirement 2: re-running against the same pins must reproduce the
+# manifests byte for byte. Hash, re-run, hash, diff -- and fail if they differ.
+ingest-verify:
+	@mkdir -p manifests
+	@shasum -a 256 manifests/*.json > /tmp/sec-llm-m1.txt
+	$(INGEST_PY) ingest/run.py $(INGEST_ARGS)
+	@shasum -a 256 manifests/*.json > /tmp/sec-llm-m2.txt
+	@if diff -u /tmp/sec-llm-m1.txt /tmp/sec-llm-m2.txt; then \
+	  echo "MANIFESTS REPRODUCIBLE"; \
+	else \
+	  echo "ERROR: manifests changed across runs against the same pins"; exit 1; \
+	fi

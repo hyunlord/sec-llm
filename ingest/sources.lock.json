@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "sources": {
+    "attack": {
+      "commit_sha": "6cda5ad8462c79e14fbb872f4e09059b18e0cfc4",
+      "files": [
+        {
+          "bytes": 53835637,
+          "git_blob_sha": "8b8a9c8cc9e553f96f963b91265f50ee0854636d",
+          "path": "enterprise-attack/enterprise-attack-19.2.json",
+          "raw_url": "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/6cda5ad8462c79e14fbb872f4e09059b18e0cfc4/enterprise-attack/enterprise-attack-19.2.json"
+        },
+        {
+          "bytes": 5750325,
+          "git_blob_sha": "ca8318bb89ff459abb5aff5a62454418840ebea9",
+          "path": "mobile-attack/mobile-attack-19.2.json",
+          "raw_url": "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/6cda5ad8462c79e14fbb872f4e09059b18e0cfc4/mobile-attack/mobile-attack-19.2.json"
+        },
+        {
+          "bytes": 4057891,
+          "git_blob_sha": "2effafcbd2a672d1e2f7ca1ae403fc7a30730c5d",
+          "path": "ics-attack/ics-attack-19.2.json",
+          "raw_url": "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/6cda5ad8462c79e14fbb872f4e09059b18e0cfc4/ics-attack/ics-attack-19.2.json"
+        }
+      ],
+      "immutability": "Release tag pinned to a commit SHA; raw URLs are commit-addressed.",
+      "pin_type": "git_tag_release",
+      "pinned_at_utc": "2026-09-18T04:37:32Z",
+      "published_at": "2026-08-05T22:58:54Z",
+      "repo": "mitre-attack/attack-stix-data",
+      "source_id": "attack",
+      "source_name": "MITRE ATT&CK STIX 2.1 bundles (mitre-attack/attack-stix-data)",
+      "tag": "v19.2",
+      "version": "19.2"
+    },
+    "cve_list": {
+      "clone_url": "https://github.com/CVEProject/cvelistV5.git",
+      "commit_date": "2026-09-18T04:34:36Z",
+      "commit_message_first_line": "1 changes (0 new | 1 updated):",
+      "commit_sha": "9d4f632aa6e148754e1f27bdfb69f4635792f69a",
+      "pin_type": "git_commit",
+      "pinned_at_utc": "2026-09-18T04:37:25Z",
+      "repo": "CVEProject/cvelistV5",
+      "repo_packed_size_kb": 2866369,
+      "resolved_ref": "main",
+      "source_id": "cve_list",
+      "source_name": "CVE List V5 (CVEProject/cvelistV5)"
+    },
+    "cwe": {
+      "catalog_date": "2026-04-30",
+      "content_length": 2021351,
+      "immutability": "Versioned URL; MITRE does not republish a released version in place.",
+      "inner_filename": "cwec_v4.20.xml",
+      "last_modified": "Thu, 30 Apr 2026 09:15:00 GMT",
+      "pin_type": "versioned_release",
+      "pinned_at_utc": "2026-09-18T04:37:30Z",
+      "source_id": "cwe",
+      "source_name": "CWE (Common Weakness Enumeration) versioned XML catalog",
+      "url": "https://cwe.mitre.org/data/xml/cwec_v4.20.xml.zip",
+      "version": "4.20"
+    },
+    "nvd": {
+      "api_base": "https://services.nvd.nist.gov/rest/json/cves/2.0",
+      "api_format": "NVD_CVE",
+      "api_version": "2.0",
+      "cutoff_field": "cve.lastModified",
+      "cutoff_rule": "include record iff lastModified <= snapshot_instant_utc",
+      "immutability": "NOT immutable upstream. NVD serves current data and retired its dated JSON feeds; reproducibility is anchored to the locally retained snapshot whose file digests are recorded in manifests/nvd.manifest.json.",
+      "params": {
+        "resultsPerPage": 2000,
+        "startIndex": "<paged 0..totalResults>"
+      },
+      "pin_type": "api_snapshot",
+      "pinned_at_utc": "2026-09-18T04:37:26Z",
+      "rate_limit": {
+        "api_key_env_var": "NVD_API_KEY",
+        "api_key_requests_per_window": 50,
+        "api_key_required": false,
+        "documentation_read_on": "2026-09-18",
+        "documentation_url": "https://nvd.nist.gov/developers/start-here",
+        "public_requests_per_window": 5,
+        "recommended_sleep_seconds": 6,
+        "window_seconds": 30
+      },
+      "snapshot_instant_utc": "2026-09-18T04:37:25Z",
+      "source_id": "nvd",
+      "source_name": "NVD CVE API 2.0 (NIST National Vulnerability Database)",
+      "total_results_at_pin": 394958
+    }
+  }
+}
