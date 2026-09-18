@@ -77,14 +77,28 @@ def _classify_failure(err_text):
     the second is a direct observation about it.
     """
     low = (err_text or "").lower()
-    if any(k in low for k in ("no module named 'flash_attn'", "flash_attn", "flash-attn")) and any(
-        k in low for k in ("install", "not found", "no module", "requires", "importerror")
-    ):
-        return "not_installed"
-    if any(k in low for k in ("no kernel image", "invalid device function", "unsupported", "sm_", "arch")):
-        return "kernel_unsupported"
     if not err_text:
         return "none"
+
+    # Kernel-level failure is checked FIRST: a message can mention both the
+    # package and the architecture, and "the kernel does not exist for sm_121"
+    # is the stronger, more specific finding.
+    if any(k in low for k in ("no kernel image", "invalid device function",
+                              "unsupported gpu architecture", "not compiled for")):
+        return "kernel_unsupported"
+
+    # transformers says "FlashAttention2 has been toggled on, but ... the package
+    # for FlashAttention2 doesn't seem to be installed" -- no underscore, no
+    # hyphen, so matching only on 'flash_attn'/'flash-attn' missed it and the
+    # verdict came out as 'other'. Match the product name in any spelling.
+    mentions_fa = any(k in low for k in ("flash_attn", "flash-attn", "flashattention", "flash attention"))
+    says_absent = any(k in low for k in (
+        "doesn't seem to be installed", "does not seem to be installed", "not installed",
+        "no module named", "importerror", "could not import", "requires the",
+        "please install", "is not available",
+    ))
+    if mentions_fa and says_absent:
+        return "not_installed"
     return "other"
 
 
