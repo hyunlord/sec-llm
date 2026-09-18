@@ -26,13 +26,20 @@ env-check:
 report:
 	$(PYTHON) $(CHECKS)/render_report.py
 
+# Full freeze of the environment the checks actually ran in. uv is the
+# installer here, so it is the primary source; pip is the fallback for an
+# environment built some other way. An empty result is an error, not a lock
+# file -- silently shipping one would make `make env-check` unreproducible.
 lock:
 	@mkdir -p env
-	@$(PYTHON) -c "import sys,subprocess;\
-	out=subprocess.run([sys.executable,'-m','pip','freeze','--all'],capture_output=True,text=True);\
-	sys.stdout.write(out.stdout)" > env/versions.lock 2>/dev/null \
-	  || uv pip freeze --python $(PYTHON) > env/versions.lock
-	@head -c 0 env/versions.lock; echo "wrote env/versions.lock ($$(wc -l < env/versions.lock) packages)"
+	@( uv pip freeze --python $(PYTHON) 2>/dev/null \
+	   || $(PYTHON) -m pip freeze --all 2>/dev/null ) > env/versions.lock.tmp
+	@if [ ! -s env/versions.lock.tmp ]; then \
+	  rm -f env/versions.lock.tmp; \
+	  echo "ERROR: could not freeze $(PYTHON) -- no packages listed"; exit 1; \
+	fi
+	@mv env/versions.lock.tmp env/versions.lock
+	@echo "wrote env/versions.lock ($$(wc -l < env/versions.lock) packages)"
 
 pack: clean-artifacts
 	@zip -q -r p0-artifacts.zip env reports docs \
