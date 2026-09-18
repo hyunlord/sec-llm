@@ -84,11 +84,18 @@ def main(argv=None):
         for attempt in (1, 2):
             try:
                 t0 = time.time()
-                mpath = mod.ingest(pin, force=args.force)
+                outcome = mod.ingest(pin, force=args.force)
+                # Ingesters return (manifest_path, metrics_dict); the older
+                # bare-path return is still accepted so nothing silently breaks.
+                if isinstance(outcome, tuple):
+                    mpath, metrics = outcome
+                else:
+                    mpath, metrics = outcome, {}
                 results[sid] = {
                     "status": "ok",
                     "manifest": str(Path(mpath).relative_to(REPO)),
                     "wall_seconds": round(time.time() - t0, 1),
+                    **metrics,
                 }
                 last_err = None
                 break

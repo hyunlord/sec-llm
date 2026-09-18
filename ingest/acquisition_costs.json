@@ -1,0 +1,36 @@
+{
+  "_comment": [
+    "Observed cost of acquiring each source from nothing, recorded from the P1 run logs.",
+    "Committed because a re-derive from retained local data is fast and says nothing about",
+    "what this pipeline costs someone starting with an empty disk. reports/ingest.md renders",
+    "both: the measured cost of the current run (cached or network, labelled) and this, the",
+    "first-acquisition cost. Neither is presented as the other."
+  ],
+  "recorded_on": "2026-09-18",
+  "sources": {
+    "cve_list": {
+      "elapsed_seconds_network": 739.8,
+      "detail": "blobless partial clone + checkout of the pinned commit + full record scan",
+      "http_requests": 1,
+      "transfer": "git clone, 4.06 GiB on disk after checkout"
+    },
+    "nvd": {
+      "elapsed_seconds_network": 3600.0,
+      "detail": "198 paged API requests under the public rate limit (5 req / rolling 30s, 6s sleep), across resumable foreground runs",
+      "http_requests": 198,
+      "transfer": "1.81 GiB across 198 page files"
+    },
+    "attack": {
+      "elapsed_seconds_network": 15.0,
+      "detail": "three commit-addressed STIX bundle downloads",
+      "http_requests": 3,
+      "transfer": "60.7 MiB"
+    },
+    "cwe": {
+      "elapsed_seconds_network": 5.5,
+      "detail": "one versioned zip download plus XML parse",
+      "http_requests": 1,
+      "transfer": "1.9 MiB"
+    }
+  }
+}

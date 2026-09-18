@@ -26,6 +26,7 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 from ingest.common import paths  # noqa: E402
+from ingest.common.metrics import RunMetrics  # noqa: E402
 from ingest.common.fetch import human_bytes  # noqa: E402
 from ingest.common.lineage import content_hash, make_lineage  # noqa: E402
 from ingest.common.manifest import ManifestBuilder  # noqa: E402
@@ -116,7 +117,7 @@ def ensure_clone(pin: dict, work: Path) -> dict:
 def ingest(pin: dict, *, force: bool = False) -> Path:
     cfg = SOURCES[SOURCE_ID]
     paths.ensure_dirs()
-    t0 = time.time()
+    m = RunMetrics(SOURCE_ID)
 
     work = paths.RAW / SOURCE_ID / "cvelistV5"
     est = (pin.get("repo_packed_size_kb") or 0) * 1024 * 2  # packed + working tree
@@ -225,5 +226,16 @@ def ingest(pin: dict, *, force: bool = False) -> Path:
     b = mb.build()
     print(f"  {n} records ({malformed} malformed skipped) -> {out.relative_to(paths.REPO)}")
     print(f"  manifest {mpath.relative_to(paths.REPO)} (entity_id coverage {b['entity_id_coverage']:.4f})")
-    print(f"  wall {time.time()-t0:.1f}s")
-    return mpath
+    m.notes.append(f"clone {clone_info['clone_seconds']}s, checkout {clone_info['checkout_seconds']}s")
+    if clone_info["clone_seconds"]:
+        m.network_used = True
+        m.requests += 1  # one git transfer
+    else:
+        m.notes.append("existing clone reused; this is NOT a clone timing")
+    metrics = m.finish()
+    metrics["clone_seconds"] = clone_info["clone_seconds"]
+    metrics["checkout_seconds"] = clone_info["checkout_seconds"]
+    metrics["bytes_transferred"] = on_disk if clone_info["clone_seconds"] else 0
+    print(f"  wall {metrics['elapsed_seconds']}s ({'network' if metrics['used_network'] else 'cached'}), "
+          f"clone {clone_info['clone_seconds']}s, checkout {clone_info['checkout_seconds']}s")
+    return mpath, metrics

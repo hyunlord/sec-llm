@@ -6,12 +6,12 @@
 
 ## 출처별 요약
 
-| 출처 | 핀 | 레코드 수 | 디스크 사용량 | 소요 시간 | 요청 수 | entity_id 커버리지 | 상태 |
-|---|---|---|---|---|---|---|---|
-| `cve_list` | `git_commit` → `9d4f632aa6e148754e1f27bdfb69f4635792f69a` (2026-09-18T04:34:36Z) | 394,958 | 3.8 GiB | 94.7 초 | — | 1.0000 | ✅ 성공 |
-| `nvd` | `api_snapshot` → 스냅숏 기준시각 `2026-09-18T04:37:25Z` | 394,957 | 1.8 GiB | 49.4 초 | 198 페이지 | 1.0000 | ✅ 성공 |
-| `cwe` | `versioned_release` → v4.20 (2026-04-30) | 2,476 | 1.9 MiB | 9.9 초 | — | 1.0000 | ✅ 성공 |
-| `attack` | `git_tag_release` → `v19.2` @ `6cda5ad8462c` (2026-08-05T22:58:54Z) | 30,894 | 60.7 MiB | 11.0 초 | — | 0.1964 (식별가능 타입 1.0000) | ✅ 성공 |
+| 출처 | 핀 | 레코드 수 | 디스크 사용량 | 이번 실행 소요 | 최초 수집 소요 | 요청 수 | entity_id 커버리지 | 상태 |
+|---|---|---|---|---|---|---|---|---|
+| `cve_list` | `git_commit` → `9d4f632aa6e148754e1f27bdfb69f4635792f69a` (2026-09-18T04:34:36Z) | 394,958 | 3.8 GiB | 90.9 초 (캐시) | 739.8 초 (네트워크) | 1 (최초 수집) | 1.0000 | ✅ 성공 |
+| `nvd` | `api_snapshot` → 스냅숏 기준시각 `2026-09-18T04:37:25Z` | 394,957 | 1.8 GiB | 49.9 초 (캐시) | 3,600.0 초 (네트워크) | 198 (최초 수집), 198 페이지 | 1.0000 | ✅ 성공 |
+| `cwe` | `versioned_release` → v4.20 (2026-04-30) | 2,476 | 1.9 MiB | 6.8 초 (네트워크) | 5.5 초 (네트워크) | 1 | 1.0000 | ✅ 성공 |
+| `attack` | `git_tag_release` → `v19.2` @ `6cda5ad8462c` (2026-08-05T22:58:54Z) | 30,894 | 60.7 MiB | 10.9 초 (네트워크) | 15.0 초 (네트워크) | 3 | 0.1964 (식별가능 타입 1.0000) | ✅ 성공 |
 
 실패한 출처는 없다.
 
@@ -23,7 +23,14 @@
 - 불변성: 커밋/태그/버전 주소 지정으로 불변
 - 레코드 수: **394,958**
 - 디스크 사용량: **3.8 GiB** (디렉터리 1개(체크아웃 전체))
-- 소요 시간: **94.7 초**
+- 소요 시간: **90.9 초** (캐시 재생성 — 최초 수집 비용이 아님)
+  - HTTP 요청 수: **0**
+  - 전송 바이트: **0.0 B**
+  - git clone 0.0 초 / checkout 1.1 초
+  - clone 0.0s, checkout 1.1s
+  - existing clone reused; this is NOT a clone timing
+- **최초 수집 실측**: 739.8 초, HTTP 요청 1회, 전송 git clone, 4.06 GiB on disk after checkout
+  - blobless partial clone + checkout of the pinned commit + full record scan
 - entity_id 커버리지: **1.0000**
 - 레코드 다이제스트: `29ac54daf15be05a7c104faca2f4c116...`
 - 컨테이너 라이선스: CVE Program Terms of Use (The MITRE Corporation)
@@ -42,7 +49,13 @@
 - 불변성: NOT immutable upstream. NVD serves current data and retired its dated JSON feeds; reproducibility is anchored to the locally retained snapshot whose file digests are recorded in manifests/nvd.manifest.json.
 - 레코드 수: **394,957**
 - 디스크 사용량: **1.8 GiB** (파일 198개)
-- 소요 시간: **49.4 초**
+- 소요 시간: **49.9 초** (캐시 재생성 — 최초 수집 비용이 아님)
+  - HTTP 요청 수: **0**, 페이지 198
+  - 전송 바이트: **0.0 B**
+  - pages=198
+  - re-derived from the retained snapshot; this is NOT a fetch timing
+- **최초 수집 실측**: 3,600.0 초, HTTP 요청 198회, 전송 1.81 GiB across 198 page files
+  - 198 paged API requests under the public rate limit (5 req / rolling 30s, 6s sleep), across resumable foreground runs
 - entity_id 커버리지: **1.0000**
 - 레코드 다이제스트: `5bedcab2d520c5079339a2372a91e5d3...`
 - 컨테이너 라이선스: US Government work, public domain under 17 U.S.C. (NIST publication); NVD requests a source-attribution notice
@@ -59,7 +72,11 @@
 - 불변성: Versioned URL; MITRE does not republish a released version in place.
 - 레코드 수: **2,476**
 - 디스크 사용량: **1.9 MiB** (파일 1개)
-- 소요 시간: **9.9 초**
+- 소요 시간: **6.8 초** (네트워크 실측)
+  - HTTP 요청 수: **1**
+  - 전송 바이트: **1.9 MiB**
+- **최초 수집 실측**: 5.5 초, HTTP 요청 1회, 전송 1.9 MiB
+  - one versioned zip download plus XML parse
 - entity_id 커버리지: **1.0000**
 - 레코드 다이제스트: `76e4bb9a78dde5a3fbb4833522631367...`
 - 컨테이너 라이선스: CWE Terms of Use (The MITRE Corporation)
@@ -75,7 +92,11 @@
 - 불변성: Release tag pinned to a commit SHA; raw URLs are commit-addressed.
 - 레코드 수: **30,894**
 - 디스크 사용량: **60.7 MiB** (파일 3개)
-- 소요 시간: **11.0 초**
+- 소요 시간: **10.9 초** (네트워크 실측)
+  - HTTP 요청 수: **3**
+  - 전송 바이트: **60.7 MiB**
+- **최초 수집 실측**: 15.0 초, HTTP 요청 3회, 전송 60.7 MiB
+  - three commit-addressed STIX bundle downloads
 - entity_id 커버리지: **0.1964** (식별 가능한 타입만 기준 **1.0000**)
   - 출처가 식별자를 주지 않는 타입(분모에서 제외): `stix_identity, stix_marking-definition, stix_relationship, stix_x-mitre-collection`
 - 레코드 다이제스트: `317b7f7e0ae3b6ed708bd7dc8e7a181d...`
@@ -112,7 +133,7 @@ NVD는 이 작업지시서의 네 출처 중 **유일하게 상류에 불변 참
 
 ## 원시 코퍼스는 git에 들어가지 않는다
 
-- git이 추적하는 파일: **44개, 합계 337.5 KiB**
+- git이 추적하는 파일: **44개, 합계 342.7 KiB**
 - 원시 데이터(`data/`)는 `.gitignore`로 제외된다. 커밋되는 것은 매니페스트, 핀, 보고서뿐이다.
 
 ```bash

@@ -36,6 +36,7 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 from ingest.common import paths  # noqa: E402
+from ingest.common.metrics import RunMetrics  # noqa: E402
 from ingest.common.fetch import RateLimiter, ResumeState, get_json, human_bytes  # noqa: E402
 from ingest.common.lineage import content_hash, file_sha256, make_lineage  # noqa: E402
 from ingest.common.manifest import ManifestBuilder  # noqa: E402
@@ -142,8 +143,8 @@ def fetch_pages(pin: dict, snap_dir: Path, stats: dict) -> list[Path]:
 def ingest(pin: dict, *, force: bool = False) -> Path:
     cfg = SOURCES[SOURCE_ID]
     paths.ensure_dirs()
-    t0 = time.time()
-    stats = {"requests": 0, "bytes": 0}
+    m = RunMetrics(SOURCE_ID)
+    stats = m.new_stats()
 
     snap = pin["snapshot_instant_utc"]
     snap_dir = paths.RAW / SOURCE_ID / snap.replace(":", "")
@@ -257,9 +258,15 @@ def ingest(pin: dict, *, force: bool = False) -> Path:
     )
     mpath = mb.write(paths.MANIFESTS)
     b = mb.build()
-    elapsed = time.time() - t0
     print(f"  {kept} records kept, {skipped_after_cutoff} excluded by cutoff")
     print(f"  -> {out.relative_to(paths.REPO)}")
     print(f"  manifest {mpath.relative_to(paths.REPO)} (entity_id coverage {b['entity_id_coverage']:.4f})")
-    print(f"  wall {elapsed:.1f}s, {stats['requests']} requests, {human_bytes(stats['bytes'])}")
-    return mpath
+    m.absorb(stats)
+    m.notes.append(f"pages={len(pages)}")
+    if not m.network_used:
+        m.notes.append("re-derived from the retained snapshot; this is NOT a fetch timing")
+    metrics = m.finish()
+    metrics["pages"] = len(pages)
+    print(f"  wall {metrics['elapsed_seconds']}s ({'network' if metrics['used_network'] else 'cached'}), "
+          f"{metrics['http_requests']} requests, {human_bytes(metrics['bytes_transferred'])}")
+    return mpath, metrics

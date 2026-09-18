@@ -23,6 +23,7 @@ MANIFESTS = REPO / "manifests"
 RUN = REPO / "data" / "ingest_run.json"
 LOCK = REPO / "ingest" / "sources.lock.json"
 OUT = REPO / "reports" / "ingest.md"
+ACQ = REPO / "ingest" / "acquisition_costs.json"
 
 
 def human(n):
@@ -95,6 +96,7 @@ def render() -> Path:
     pins = lock.get("sources", {})
     run = json.loads(RUN.read_text()) if RUN.exists() else {"sources": {}}
     runs = run.get("sources", {})
+    acq = json.loads(ACQ.read_text()).get("sources", {}) if ACQ.exists() else {}
 
     mans = {}
     for sid in SOURCE_ORDER:
@@ -113,27 +115,41 @@ def render() -> Path:
 
     # --- summary table ----------------------------------------------------
     L.append("## 출처별 요약\n")
-    L.append("| 출처 | 핀 | 레코드 수 | 디스크 사용량 | 소요 시간 | 요청 수 | entity_id 커버리지 | 상태 |")
-    L.append("|---|---|---|---|---|---|---|---|")
+    L.append("| 출처 | 핀 | 레코드 수 | 디스크 사용량 | 이번 실행 소요 | 최초 수집 소요 | 요청 수 | entity_id 커버리지 | 상태 |")
+    L.append("|---|---|---|---|---|---|---|---|---|")
     for sid in SOURCE_ORDER:
         m = mans.get(sid)
         r = runs.get(sid, {})
         pin = pins.get(sid, {})
         if not m:
             status = "❌ 실패" if r.get("status") == "failed" else "⛔ 미실행"
-            L.append(f"| `{sid}` | {pin_headline(pin) if pin else '—'} | — | — | — | — | — | {status} |")
+            L.append(f"| `{sid}` | {pin_headline(pin) if pin else '—'} | — | — | — | — | — | — | {status} |")
             continue
         cov = m["entity_id_coverage"]
         cov_id = m.get("entity_id_coverage_identifiable", cov)
         cov_txt = f"{cov:.4f}" if abs(cov - cov_id) < 1e-9 else f"{cov:.4f} (식별가능 타입 {cov_id:.4f})"
-        reqs = "—"
-        for n in m.get("notes", []):
-            if n.startswith("pages="):
-                reqs = n.split(",")[0].replace("pages=", "") + " 페이지"
+        # When this run re-derived from disk it made no requests; the number
+        # worth showing is what acquiring the source actually cost.
+        live_reqs = int(r.get("http_requests") or 0)
+        if live_reqs:
+            reqs = f"{live_reqs:,}"
+        else:
+            reqs = f"{acq.get(sid, {}).get('http_requests', 0):,} (최초 수집)"
+        if r.get("pages"):
+            reqs += f", {r['pages']} 페이지"
+        elapsed = r.get("elapsed_seconds")
+        if elapsed is None:
+            elapsed_txt = "미측정"
+        else:
+            kind = "네트워크" if r.get("used_network") else "캐시"
+            elapsed_txt = f"{elapsed:,.1f} 초 ({kind})"
+        a = acq.get(sid, {})
+        acq_txt = (f"{a['elapsed_seconds_network']:,.1f} 초 (네트워크)" if a.get("elapsed_seconds_network") else "기록 없음")
+
         L.append(
             f"| `{sid}` | {pin_headline(pin)} | {m['counts']['records']:,} | "
             f"{human(m['counts'].get('bytes') or m['counts'].get('bytes_on_disk'))} | "
-            f"{r.get('wall_seconds','—')} 초 | {reqs} | "
+            f"{elapsed_txt} | {acq_txt} | {reqs} | "
             f"{cov_txt} | {'✅ 성공' if r.get('status')=='ok' else '✅ 매니페스트 존재'} |"
         )
     L.append("")
@@ -169,7 +185,24 @@ def render() -> Path:
         ndirs = m["counts"].get("directories", 0)
         what = f"파일 {nfiles:,}개" if nfiles else f"디렉터리 {ndirs}개(체크아웃 전체)"
         L.append(f"- 디스크 사용량: **{human(nbytes)}** ({what})")
-        L.append(f"- 소요 시간: **{r.get('wall_seconds','—')} 초**")
+        el = r.get("elapsed_seconds")
+        if el is None:
+            L.append("- 소요 시간: **미측정**")
+        else:
+            kind = "네트워크 실측" if r.get("used_network") else "캐시 재생성 — 최초 수집 비용이 아님"
+            L.append(f"- 소요 시간: **{el:,.1f} 초** ({kind})")
+            L.append(f"  - HTTP 요청 수: **{r.get('http_requests', 0):,}**"
+                     + (f", 페이지 {r['pages']}" if r.get("pages") else ""))
+            L.append(f"  - 전송 바이트: **{human(r.get('bytes_transferred', 0))}**")
+            if r.get("clone_seconds") is not None:
+                L.append(f"  - git clone {r['clone_seconds']:,.1f} 초 / checkout {r.get('checkout_seconds',0):,.1f} 초")
+            for n in r.get("notes", []):
+                L.append(f"  - {n}")
+        a = acq.get(sid, {})
+        if a:
+            L.append(f"- **최초 수집 실측**: {a['elapsed_seconds_network']:,.1f} 초, "
+                     f"HTTP 요청 {a.get('http_requests', 0):,}회, 전송 {a.get('transfer','—')}")
+            L.append(f"  - {a.get('detail','')}")
         L.append(f"- entity_id 커버리지: **{m['entity_id_coverage']:.4f}**"
                  + (f" (식별 가능한 타입만 기준 **{m['entity_id_coverage_identifiable']:.4f}**)"
                     if m.get("entity_id_coverage_identifiable") is not None

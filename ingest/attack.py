@@ -18,6 +18,7 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 from ingest.common import paths  # noqa: E402
+from ingest.common.metrics import RunMetrics  # noqa: E402
 from ingest.common.fetch import download, human_bytes  # noqa: E402
 from ingest.common.lineage import content_hash, make_lineage  # noqa: E402
 from ingest.common.manifest import ManifestBuilder  # noqa: E402
@@ -46,8 +47,8 @@ def attack_external_id(obj: dict) -> str | None:
 def ingest(pin: dict, *, force: bool = False) -> Path:
     cfg = SOURCES[SOURCE_ID]
     paths.ensure_dirs()
-    t0 = time.time()
-    stats = {"requests": 0, "bytes": 0}
+    m = RunMetrics(SOURCE_ID)
+    stats = m.new_stats()
 
     tag, version, commit = pin["tag"], pin["version"], pin["commit_sha"]
     est = sum(f["bytes"] for f in pin["files"])
@@ -143,10 +144,12 @@ def ingest(pin: dict, *, force: bool = False) -> Path:
         "counted, never synthesised."
     )
     mpath = mb.write(paths.MANIFESTS)
-    elapsed = time.time() - t0
     print(f"  {mb.record_count} records -> {out.relative_to(paths.REPO)}")
     b = mb.build()
     print(f"  manifest {mpath.relative_to(paths.REPO)} (entity_id coverage "
           f"{b['entity_id_coverage']:.4f} overall, {b['entity_id_coverage_identifiable']:.4f} among identifiable types)")
-    print(f"  wall {elapsed:.1f}s, {stats['requests']} requests, {human_bytes(stats['bytes'])}")
-    return mpath
+    m.absorb(stats)
+    metrics = m.finish()
+    print(f"  wall {metrics['elapsed_seconds']}s ({'network' if metrics['used_network'] else 'cached'}), "
+          f"{metrics['http_requests']} requests, {human_bytes(metrics['bytes_transferred'])}")
+    return mpath, metrics

@@ -20,6 +20,7 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 from ingest.common import paths  # noqa: E402
+from ingest.common.metrics import RunMetrics  # noqa: E402
 from ingest.common.fetch import download, human_bytes  # noqa: E402
 from ingest.common.lineage import content_hash, make_lineage  # noqa: E402
 from ingest.common.manifest import ManifestBuilder  # noqa: E402
@@ -63,8 +64,8 @@ def xml_to_dict(elem: ET.Element) -> dict:
 def ingest(pin: dict, *, force: bool = False) -> Path:
     cfg = SOURCES[SOURCE_ID]
     paths.ensure_dirs()
-    t0 = time.time()
-    stats = {"requests": 0, "bytes": 0}
+    m = RunMetrics(SOURCE_ID)
+    stats = m.new_stats()
 
     version = pin["version"]
     url = pin["url"]
@@ -159,8 +160,12 @@ def ingest(pin: dict, *, force: bool = False) -> Path:
     mb.notes.append("record counts by type: " + ", ".join(f"{k}={v}" for k, v in sorted(counts.items())))
 
     mpath = mb.write(paths.MANIFESTS)
-    elapsed = time.time() - t0
     print(f"  {mb.record_count} records -> {out.relative_to(paths.REPO)}")
     print(f"  manifest {mpath.relative_to(paths.REPO)} (entity_id coverage {mb.build()['entity_id_coverage']:.4f})")
-    print(f"  wall {elapsed:.1f}s, {stats['requests']} requests, {human_bytes(stats['bytes'])}")
-    return mpath
+    m.absorb(stats)
+    if dl.get("cached"):
+        m.notes.append("archive already on disk; re-derived from the retained copy")
+    metrics = m.finish()
+    print(f"  wall {metrics['elapsed_seconds']}s ({'network' if metrics['used_network'] else 'cached'}), "
+          f"{metrics['http_requests']} requests, {human_bytes(metrics['bytes_transferred'])}")
+    return mpath, metrics
