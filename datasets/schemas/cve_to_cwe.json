@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sec-llm/cve_to_cwe/v1",
+  "title": "cve_to_cwe target",
+  "type": "object",
+  "properties": { "cwe_id": { "type": "string", "pattern": "^CWE-[0-9]{1,5}$" } },
+  "required": ["cwe_id"],
+  "additionalProperties": false
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sec-llm/cvss_vector/v1",
+  "title": "cvss_vector target (CVSS v3.1 base metrics, NVD-scored)",
+  "type": "object",
+  "properties": {
+    "attackVector":          { "enum": ["NETWORK", "ADJACENT_NETWORK", "LOCAL", "PHYSICAL"] },
+    "attackComplexity":      { "enum": ["LOW", "HIGH"] },
+    "privilegesRequired":    { "enum": ["NONE", "LOW", "HIGH"] },
+    "userInteraction":       { "enum": ["NONE", "REQUIRED"] },
+    "scope":                 { "enum": ["UNCHANGED", "CHANGED"] },
+    "confidentialityImpact": { "enum": ["NONE", "LOW", "HIGH"] },
+    "integrityImpact":       { "enum": ["NONE", "LOW", "HIGH"] },
+    "availabilityImpact":    { "enum": ["NONE", "LOW", "HIGH"] },
+    "baseScore":             { "type": "number", "minimum": 0, "maximum": 10 },
+    "vectorString":          { "type": "string", "pattern": "^CVSS:3\\.1/AV:[NALP]/AC:[LH]/PR:[NLH]/UI:[NR]/S:[UC]/C:[NLH]/I:[NLH]/A:[NLH]$" }
+  },
+  "required": ["attackVector","attackComplexity","privilegesRequired","userInteraction","scope",
+               "confidentialityImpact","integrityImpact","availabilityImpact","baseScore","vectorString"],
+  "additionalProperties": false
+}

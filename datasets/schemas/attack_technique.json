@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sec-llm/attack_technique/v1",
+  "title": "attack_technique target",
+  "type": "object",
+  "properties": { "technique_id": { "type": "string", "pattern": "^T[0-9]{4}(\\.[0-9]{3})?$" } },
+  "required": ["technique_id"],
+  "additionalProperties": false
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sec-llm/structured_extract/v1",
+  "title": "structured_extract target (from CVE V5 cna.affected and cna.impacts)",
+  "type": "object",
+  "properties": {
+    "vendor":   { "type": "string", "minLength": 1 },
+    "product":  { "type": "string", "minLength": 1 },
+    "versions": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1, "maxItems": 16 },
+    "impact":   { "type": ["string", "null"] }
+  },
+  "required": ["vendor", "product", "versions", "impact"],
+  "additionalProperties": false
+}

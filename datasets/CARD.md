@@ -1,0 +1,48 @@
+# 데이터셋 카드 (초안)
+
+> `manifests/datasets.manifest.json`에서 **자동 생성**된다. 손으로 고치지 말고 `make datasets-docs`로 다시 만들 것.
+
+## 무엇인가
+
+네 가지 과제의 학습·평가 세트. 정답은 전부 기계 검증 가능한 고정 스키마 JSON이고, 모든 정답은 출처가 이미 제공한 구조화 필드에서 나온다. **어떤 지시문도 정답도 언어 모델이 쓰지 않았다.**
+
+| 과제 | 입력 | 정답 | 정답 출처 | 스키마 |
+|---|---|---|---|---|
+| `cve_to_cwe` | CVE 설명 | `{"cwe_id": ...}` | Decision 2 | `datasets/schemas/cve_to_cwe.json` |
+| `cvss_vector` | CVE 설명 | CVSS v3.1 기본 지표 8개 + 점수 + 벡터 문자열 | NVD `cvssMetricV31` (Primary 우선) | `cvss_vector.json` |
+| `attack_technique` | ATT&CK 기법 설명 | `{"technique_id": ...}` | STIX `external_id` | `attack_technique.json` |
+| `structured_extract` | CVE 설명 | vendor / product / versions / impact | CVE V5 `cna.affected`, `cna.impacts` | `structured_extract.json` |
+
+## 과제별 산출 규모
+
+| 과제 | 학습 | 평가(이후) | 평가(이전) |
+|---|---|---|---|
+| `cve_to_cwe` | 170,748 | 2,815 | 2,020 |
+| `cvss_vector` | 123,402 | 3,116 | 2,498 |
+| `attack_technique` | 738 | 72 | 44 |
+| `structured_extract` | 65,429 | 2,177 | 938 |
+| `replay` | 37,100 | — | — |
+
+## 과제별 유의점 — 공정하지만 경계가 있는 과제들
+
+- **`cvss_vector`**: NVD v3.1 지표가 있는 CVE만 쓴다. v2(다른 척도)나 v4(다른 벡터)로 조용히 대체하지 않는다. v3.1이 없어 제외된 CVE 수는 `reports/datasets.md`에 있다.
+- **`structured_extract`**: 정답은 CNA가 이미 채운 구조화 필드에서 나온다. 즉 이 과제는 **CNA가 그 구조로부터 쓴 산문에서 구조를 되찾을 수 있는가**를 잰다. 공정하지만 경계가 있는 과제다. 모호함을 없애기 위해 `affected` 항목이 정확히 하나이고 버전이 1~16개인 CVE만 포함했다. `impact`는 `cna.impacts`가 있을 때만 값이 있고 없으면 `null`이다 — null 비율이 높으므로 P4는 impact 필드를 non-null인 경우에만 채점해야 한다.
+- **`attack_technique`**: 설명문에는 `attack.mitre.org/techniques/T…` 링크가 들어 있어 답을 그대로 노출한다. 링크 텍스트는 남기고 URL과 `(Citation: …)` 표기를 제거했다. 제거 건수는 매니페스트에 있다. 기법 수 자체가 적어(활성 918개) 이 과제는 작다.
+- **`cve_to_cwe`**: 단일 라벨. 다중 CWE CVE는 제외했고 그 수를 보고한다. `cwe_source`가 예제마다 기록되어 평가에서 층화할 수 있다.
+
+## 리플레이 세트 (Decision 3)
+
+- 출처: **OpenAssistant/oasst2**, Apache-2.0 (데이터 카드 선언), 커밋 `179dd21fc551`에 고정.
+- 라이선스는 **다운로드 전에** 읽었다. 저장소에 별도 LICENSE 파일은 없고 카드의 SPDX 필드가 선언이다 — 그대로 기록한다.
+- 사람이 쓴 메시지만 사용한다. `synthetic: true`(모델 생성) 메시지는 제외해 제3 모델의 약관이 개입하지 않게 했다.
+- 선택된 쌍 37,100 / 가용 37,100, 토큰 8,118,286, 전체 학습 토큰 중 **12.0%** (목표 20%). 풀 소진 여부: True.
+- 언어: {'en': 37091, 'ko': 9}. **한국어 리플레이는 사실상 없다** — 필터를 통과한 oasst2 한국어 쌍이 9건뿐이다. P5가 한국어 지시 능력을 지키려면 다른 출처가 필요하다.
+- 목표 20%에 미달한 채 풀이 소진되었다. 더 낮은 순위 답변까지 포함한 뒤의 값이며, 다른 언어를 섞거나 예제를 반복해 채우지 않았다. 20%가 필요하면 라이선스를 이미 읽어 둔 nvidia/HelpSteer2(CC-BY-4.0, 모델 생성 응답)를 두 번째 출처로 추가하거나, P5에서 리플레이를 에폭 단위로 재표집(반복)하는 학습 시점 선택으로 맞춘다.
+- P2 시크릿/PII 정책 적용: 탐지 147건 ({'pii': 141, 'secret': 6}), 값은 어디에도 기록하지 않는다.
+- 기각한 후보와 사유는 `docs/data-sources.md`의 oasst2 행에 있다.
+
+## 하지 않은 것
+
+- 어떤 레코드도 P2에서 삭제되지 않았고, 여기서 처음으로 `dedup_keep=false`가 학습 제외로 **물질화**된다.
+- 평가 하네스(P4)를 만들지 않았다. 이 세트는 P4가 소비한다.
+- 지시문 패러프레이즈를 생성하지 않았다. 과제당 고정 템플릿 3개, 예제마다 `template_id` 기록.
