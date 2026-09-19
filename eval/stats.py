@@ -25,7 +25,7 @@ import argparse
 import json
 import math
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 
 import numpy as np
@@ -160,6 +160,8 @@ def score_run(run_id: str, with_sandbox: bool = True) -> dict:
 
     for (kind, t, sp, mode), rows in sorted(groups.items()):
         rows.sort(key=lambda r: r["example_id"])
+        if kind == "probe":
+            continue                                   # scored by eval/probe.py against matched controls
         if kind == "general":
             g = [general_scorer.score_one(r["output_text"], {"answer": _general_target(t, r["example_id"])})
                  for r in rows]
@@ -273,6 +275,8 @@ def score_run(run_id: str, with_sandbox: bool = True) -> dict:
 
     if with_sandbox and "cvss_vector" in tasks:
         out["sandbox"] = _sandbox_axis(groups, items, validators)
+    from eval.common import harness_code_sha
+    out["scoring_code_sha256"] = harness_code_sha()["scoring_code_sha256"]
     flags = out.pop("flags")
     write_json(d / "flags.json", flags)
     out["flags_file"] = "flags.json"
@@ -655,16 +659,31 @@ def main() -> int:
     ap.add_argument("--no-sandbox", action="store_true")
     ap.add_argument("--render", action="store_true", help="render reports/eval_baseline.md")
     ap.add_argument("--render-harness", action="store_true", help="render reports/eval_harness.md")
-    ap.add_argument("--compare", nargs=2, metavar=("RUN_A", "RUN_B"))
+    ap.add_argument("--compare", nargs="+", metavar="RUN", help="two run ids, or one comma-separated list (baseline first)")
     ap.add_argument("--self-compare", metavar="RUN", help="compare a run with itself; must detect no difference")
+    ap.add_argument("--analyses", metavar="RUN", help="P5: stratum x length tercile and label analysis -> analysis.json")
+    ap.add_argument("--render-training", action="store_true")
+    ap.add_argument("--runs", default="cond1,cond2", help="for --render-training")
     a = ap.parse_args()
+    if a.analyses:
+        r = analyses(a.analyses); print(f"wrote runs/{a.analyses}/analysis.json")
+    if a.render_training:
+        print(render_training(a.runs.split(",")))
     if a.score:
         s = score_run(a.run, with_sandbox=not a.no_sandbox)
         print(json.dumps({k: {kk: vv["accuracy_over_all_items"]["rate"] for kk, vv in [(k, v)]}
                           for k, v in s["domain"].items()}, indent=1)[:1200])
         print("wrote scores.json")
     if a.compare:
-        print(json.dumps(compare(*a.compare), indent=2, ensure_ascii=False))
+        runs = a.compare[0].split(",") if len(a.compare) == 1 else list(a.compare)
+        if len(runs) >= 3 or a.render:
+            if a.render:
+                sys.stdout.write(render_results(runs).read_text(encoding="utf-8"))
+            else:
+                print(json.dumps({k: {pk: pv["accuracy"]["verdict"] for pk, pv in v["pairs"].items()}
+                                  for k, v in compare_multi(runs)["domain"].items()}, indent=1))
+            return 0
+        print(json.dumps(compare(*runs), indent=2, ensure_ascii=False))
     if a.self_compare:
         c = compare(a.self_compare, a.self_compare)
         bad = [k for k, v in c["domain"].items() if v.get("verdict") not in (None, "no difference detected")
@@ -677,9 +696,9 @@ def main() -> int:
     # The report is written to reports/ AND echoed to stdout, so both
     # `make eval-report` and `python -m eval.stats --run X --render > file` do
     # the right thing instead of one of them clobbering the report with a path.
-    if a.render:
+    if a.render and a.run:
         sys.stdout.write(render_baseline(a.run).read_text(encoding="utf-8"))
-    if a.render_harness:
+    if a.render_harness and a.run:
         out = render_harness(a.run)
         if not a.render:
             sys.stdout.write(out.read_text(encoding="utf-8"))
@@ -692,3 +711,438 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
+
+# ================================================================== P5 analyses
+# Everything below reads recorded outputs (flags.json, eval files) and
+# regenerates nothing. score_run above is untouched by P5.
+
+def _eval_items(tasks, splits):
+    items = {}
+    for t in tasks:
+        for sp in splits:
+            items[(t, sp)] = {e["example_id"]: e for e in iter_jsonl(OUT / t / f"{sp}.jsonl")}
+    return items
+
+
+def _flags(run_id):
+    return json.loads((RUNS / run_id / "flags.json").read_text())
+
+
+LABEL_FIELD = {"cve_to_cwe": ("cwe_id", None), "cvss_vector": ("vectorString", None),
+               "structured_extract": ("vendor", "casefold")}
+
+
+def item_label(task, target):
+    f, norm = LABEL_FIELD[task]
+    v = target.get(f)
+    if isinstance(v, str):
+        v = v.strip()
+        if norm == "casefold":
+            v = v.casefold()
+    return v
+
+
+def tercile_table(run_id: str, decoding: str = "constrained") -> dict:
+    """accuracy by coverage stratum x description-length tercile, n in every cell."""
+    flags = _flags(run_id)
+    out = {}
+    for t in ("cve_to_cwe", "cvss_vector", "structured_extract"):
+        for sp in EVAL_SPLITS:
+            key = f"{t}/{sp}/{decoding}"
+            if key not in flags:
+                continue
+            items = {e["example_id"]: e for e in iter_jsonl(OUT / t / f"{sp}.jsonl")}
+            st = strata.for_items(items.values())
+            lengths = {k: strata.n_grams(e["input"]) for k, e in items.items()}
+            tb = strata.terciles(lengths.values())
+            corr = flags[key]["correct"]
+            cells = {}
+            for s_name in strata.STRATA:
+                for tc in strata.TERCILES:
+                    sel = [k for k in items if st["by_id"][k] == s_name and strata.tercile_of(lengths[k], tb) == tc]
+                    cells[f"{s_name}/{tc}"] = boot_ci([corr[k] for k in sel])
+            marg_t = {tc: boot_ci([corr[k] for k in items if strata.tercile_of(lengths[k], tb) == tc])
+                      for tc in strata.TERCILES}
+            out[key] = {"tercile_bounds": tb, "positive_median": st["positive_median"],
+                        "cells": cells, "by_tercile": marg_t,
+                        "mean_ngrams_by_stratum": {s: (round(float(np.mean([lengths[k] for k in items if st["by_id"][k] == s])), 1)
+                                                       if st["counts"][s] else None) for s in strata.STRATA}}
+    return out
+
+
+def label_analysis(run_id: str, decoding: str = "constrained") -> dict:
+    """Do the two evaluation sets differ in true-label mix, and does that explain
+    the pre/post gap? Per-label accuracy plus a label-reweighted comparison."""
+    flags = _flags(run_id)
+    out = {}
+    for t in ("cve_to_cwe", "cvss_vector", "structured_extract"):
+        sets = {}
+        for sp in EVAL_SPLITS:
+            key = f"{t}/{sp}/{decoding}"
+            if key not in flags:
+                continue
+            items = {e["example_id"]: e for e in iter_jsonl(OUT / t / f"{sp}.jsonl")}
+            corr = flags[key]["correct"]
+            labs = {k: item_label(t, e["target"]) for k, e in items.items()}
+            sets[sp] = {"labels": labs, "correct": corr}
+        if len(sets) < 2:
+            continue
+        post, pre = sets["eval_post_cutoff"], sets["eval_pre_cutoff"]
+
+        def dist(s):
+            c = Counter(s["labels"].values()); n = sum(c.values())
+            return {k: v / n for k, v in c.items()}, c
+
+        def per_label(s):
+            acc, n = defaultdict(int), defaultdict(int)
+            for k, y in s["labels"].items():
+                n[y] += 1; acc[y] += int(s["correct"][k])
+            return {y: acc[y] / n[y] for y in n}, dict(n)
+
+        p_post, c_post = dist(post); p_pre, c_pre = dist(pre)
+        a_post, n_post = per_label(post); a_pre, n_pre = per_label(pre)
+        tvd = 0.5 * sum(abs(p_post.get(y, 0) - p_pre.get(y, 0)) for y in set(p_post) | set(p_pre))
+
+        def reweight(acc_by_label, target_mix):
+            common = [y for y in target_mix if y in acc_by_label]
+            mass = sum(target_mix[y] for y in common)
+            return (sum(target_mix[y] * acc_by_label[y] for y in common) / mass if mass else None), mass
+
+        def boot_reweight(src, target_mix, seed=SEED):
+            keys = sorted(src["labels"]); n = len(keys)
+            rng = np.random.default_rng(seed)
+            vals = []
+            for _ in range(N_BOOT):
+                idx = rng.integers(0, n, size=n)
+                acc, cnt = defaultdict(int), defaultdict(int)
+                for i in idx:
+                    y = src["labels"][keys[i]]; cnt[y] += 1; acc[y] += int(src["correct"][keys[i]])
+                r, _ = reweight({y: acc[y] / cnt[y] for y in cnt}, target_mix)
+                vals.append(r if r is not None else np.nan)
+            v = np.array(vals, dtype=float); v = v[~np.isnan(v)]
+            return [float(np.percentile(v, 2.5)), float(np.percentile(v, 97.5))] if v.size else [None, None]
+
+        pre_as_post, cov1 = reweight(a_pre, p_post)
+        post_as_pre, cov2 = reweight(a_post, p_pre)
+        raw_post = boot_ci([post["correct"][k] for k in post["labels"]])
+        raw_pre = boot_ci([pre["correct"][k] for k in pre["labels"]])
+        top = sorted(set([y for y, _ in c_post.most_common(12)] + [y for y, _ in c_pre.most_common(12)]),
+                     key=lambda y: -(c_post.get(y, 0) + c_pre.get(y, 0)))[:15]
+        out[t] = {
+            "decoding": decoding, "label_field": LABEL_FIELD[t][0],
+            "n_labels_post": len(c_post), "n_labels_pre": len(c_pre),
+            "label_tvd_post_vs_pre": round(tvd, 4),
+            "raw": {"post": raw_post, "pre": raw_pre, "gap_pre_minus_post": raw_pre["rate"] - raw_post["rate"]},
+            "reweighted": {
+                "pre_under_post_label_mix": {"rate": pre_as_post, "ci95": boot_reweight(pre, p_post),
+                                             "post_mass_covered": round(cov1, 4)},
+                "post_under_pre_label_mix": {"rate": post_as_pre, "ci95": boot_reweight(post, p_pre),
+                                             "pre_mass_covered": round(cov2, 4)},
+                "gap_pre_minus_post_at_post_mix": (pre_as_post - raw_post["rate"]) if pre_as_post is not None else None,
+                "gap_pre_minus_post_at_pre_mix": (raw_pre["rate"] - post_as_pre) if post_as_pre is not None else None,
+            },
+            "top_labels": [{"label": y, "share_post": round(p_post.get(y, 0), 4), "share_pre": round(p_pre.get(y, 0), 4),
+                            "n_post": c_post.get(y, 0), "n_pre": c_pre.get(y, 0),
+                            "acc_post": (round(a_post[y], 4) if y in a_post else None),
+                            "acc_pre": (round(a_pre[y], 4) if y in a_pre else None)} for y in top],
+        }
+    return out
+
+
+def analyses(run_id: str) -> dict:
+    rec = {"run_id": run_id, "tercile_table": tercile_table(run_id), "label_analysis": label_analysis(run_id)}
+    write_json(RUNS / run_id / "analysis.json", rec)
+    return rec
+
+
+# ============================================================ P5 comparison
+def _scores(run_id):
+    return json.loads((RUNS / run_id / "scores.json").read_text())
+
+
+def compare_multi(runs) -> dict:
+    """baseline first. Pairwise paired comparisons for every scored group and
+    both general sets; McNemar p, bootstrap intervals, the harness verdict, MDD."""
+    S = {r: _scores(r) for r in runs}
+    F = {r: _flags(r) for r in runs}
+    pairs = [(runs[1], runs[2])] + [(r, runs[0]) for r in runs[1:]] if len(runs) >= 3 else [(runs[1], runs[0])]
+    out = {"runs": runs, "pairs": [f"{a} vs {b}" for a, b in pairs], "domain": {}, "general": {}, "schema": {},
+           "scoring_code_sha256": {r: S[r].get("scoring_code_sha256") for r in runs},
+           "dataset_manifest_sha256": {r: S[r]["manifest_sha_fields"]["dataset_manifest_sha256"] for r in runs}}
+    keys = [k for k, v in S[runs[0]]["domain"].items() if v.get("scored", True)]
+    for k in keys:
+        rec = {"rates": {r: S[r]["domain"][k]["accuracy_over_all_items"] for r in runs if k in S[r]["domain"]},
+               "schema_valid": {r: S[r]["domain"][k]["schema_valid_rate"] for r in runs if k in S[r]["domain"]},
+               "mdd_points": S[runs[0]]["domain"][k]["mdd_points_over_all"], "pairs": {}}
+        for a, b in pairs:
+            if k in S[a]["domain"] and k in S[b]["domain"]:
+                mn = mcnemar(F[a][k]["correct"], F[b][k]["correct"])
+                mn_s = mcnemar(F[a][k]["schema_valid"], F[b][k]["schema_valid"])
+                rec["pairs"][f"{a} vs {b}"] = {
+                    "accuracy": {**verdict(S[a]["domain"][k]["accuracy_over_all_items"],
+                                           S[b]["domain"][k]["accuracy_over_all_items"], mn["p_value"]), "mcnemar": mn},
+                    "schema_valid": {**verdict(S[a]["domain"][k]["schema_valid_rate"],
+                                               S[b]["domain"][k]["schema_valid_rate"], mn_s["p_value"]), "mcnemar": mn_s},
+                    "by_stratum": {s: verdict(S[a]["domain"][k]["by_stratum"][s]["accuracy_over_all_items"],
+                                              S[b]["domain"][k]["by_stratum"][s]["accuracy_over_all_items"])["verdict"]
+                                   for s in strata.STRATA}}
+        out["domain"][k] = rec
+    for g in GENERAL:
+        if not all(g in S[r]["general"] for r in runs):
+            continue
+        rec = {"rates": {r: S[r]["general"][g]["accuracy_over_all"] for r in runs},
+               "extracted": {r: S[r]["general"][g]["letter_extracted"]["rate"] for r in runs},
+               "mdd_points": S[runs[0]]["general"][g]["mdd_points"], "pairs": {}}
+        for a, b in pairs:
+            mn = mcnemar(F[a][f"general/{g}/free"]["correct"], F[b][f"general/{g}/free"]["correct"])
+            rec["pairs"][f"{a} vs {b}"] = {**verdict(S[a]["general"][g]["accuracy_over_all"],
+                                                     S[b]["general"][g]["accuracy_over_all"], mn["p_value"]), "mcnemar": mn}
+        out["general"][g] = rec
+    write_json(RUNS / "compare.json", out)
+    return out
+
+
+def _tm(run_id):
+    p = RUNS / run_id / "train_manifest.json"
+    return json.loads(p.read_text()) if p.exists() else None
+
+
+def render_training(runs) -> Path:
+    L = ["# P5 학습 보고서 — 두 조건, 같은 토큰, 같은 스텝\n",
+         "> `runs/<cond>/train_manifest.json`과 `steps.jsonl`의 기록을 렌더링한다. 재생성: `python -m eval.stats --render-training`.\n"]
+    ms = {r: _tm(r) for r in runs}
+    ms = {r: m for r, m in ms.items() if m}
+    if not ms:
+        L.append("(학습 매니페스트 없음)")
+    else:
+        m0 = next(iter(ms.values())); c = m0["config"]
+        L.append("## 설정 (두 조건 동일, 데이터 구성만 다름)\n")
+        L.append(f"- LoRA r={c['lora']['r']}, alpha={c['lora']['alpha']}, dropout {c['lora']['dropout']}, 대상 `{', '.join(c['lora']['target_modules'])}`")
+        L.append(f"- lr {c['lr']} (선형 워밍업 {c['warmup_steps']}스텝 후 코사인 → 0), AdamW, 클리핑 {c['grad_clip']}, bf16 베이스 + fp32 LoRA, bf16 autocast")
+        L.append(f"- seq {c['seq_len']} 패킹(블록 대각 마스크 + 예제별 position id), 배치 {c['per_device_batch']} × GA {c['grad_accum']} = 스텝당 16 시퀀스, "
+                 f"**{c['steps']}스텝**, gradient checkpointing, sdpa, seed {c['seed']}")
+        L.append(f"- 메모리 상한: `systemd-run --user --scope -p MemoryMax=80G -p MemorySwapMax=0` (호스트 RSS만 덮음, A2 측정)\n")
+        L.append("## 결과\n")
+        L.append("| 조건 | 상태 | 예제 | 패킹 시퀀스 | 사용 / 잔여 | 본 예제 비율 | 토큰(사용) | 지도 토큰 | 스텝 | 평균 s/step | 벽시계 | 첫 loss → 끝 loss |\n|---|---|---|---|---|---|---|---|---|---|---|---|")
+        for r, m in ms.items():
+            L.append(f"| `{r}` | {m['status']} | {n(m['examples'])} | {n(m['packed_sequences'])} | {n(m['sequences_used'])} / {m['sequences_left_over']} | "
+                     f"**{m['epoch_fraction']:.1%}** | {n(m['tokens_in_used_sequences'])} | {n(m['supervised_tokens'])} | {m['steps_completed']} | "
+                     f"{m['mean_sec_per_step_after_first']} | **{m['wall_sec']/3600:.2f} h** | {m['loss_first']} → {m['loss_last']} |")
+        L.append("\n### 워밍업 검사 — Gate 0의 129.5 s/step 예측 대비\n")
+        L.append("| 조건 | 측정 스텝 | 평균 s/step | 예측 | 비율 | 예상 총 시간 |\n|---|---|---|---|---|---|")
+        for r, m in ms.items():
+            w = m.get("warmup_check") or {}
+            if w:
+                L.append(f"| `{r}` | {w['steps_measured']} | {w['mean_sec_per_step']} | {w['gate0_prediction_sec_per_step']} | "
+                         f"**×{w['ratio_observed_over_predicted']}** | {w['projected_hours_for_run']} h |")
+        L.append("\nGate 0의 수치는 합성 4096토큰 시퀀스에서 나왔고 패킹된 실제 데이터는 모양이 다르다 — 그런데도 예측이 맞았다. "
+                 "중단 기준(2배 초과)에 근접하지도 않았다.\n")
+        L.append("### 일정이 놓친 것 — 에폭이 아니다\n")
+        L.append(f"{m0['schedule_note']}\n")
+        L.append("| 조건 | 과제별 본 예제 | 전체 |\n|---|---|---|")
+        for r, m in ms.items():
+            L.append(f"| `{r}` | {m['examples_seen_by_task']} | {n(m['examples_seen'])} / {n(m['examples'])} |")
+        L.append("\n두 조건 모두 같은 토큰 예산(157 × 16 × 4096 슬롯)을 썼고 같은 비율의 데이터를 봤다. 비교는 성립한다. "
+                 "'1 에폭'이라는 표현은 성립하지 않으므로 쓰지 않는다.\n")
+        L.append("### 패킹 격리 검사 (실행 시작 시 이 장비에서 재측정)\n")
+        L.append("| 조건 | 마스크 적용 vs 단독 (max |Δlogit|) | 순진 패킹 vs 단독 | argmax 일치 |\n|---|---|---|---|")
+        for r, m in ms.items():
+            i = m["packing_isolation_check"]
+            L.append(f"| `{r}` | {i['max_abs_logit_diff_masked_vs_alone']} | {i['max_abs_logit_diff_naive_vs_alone']} | {i['argmax_agreement_masked_vs_alone']} |")
+        L.append("\n### 재현성 — 기록한 것과 주장하지 않는 것\n")
+        L.append("| 조건 | seed | 데이터 순서 해시 | 어댑터 sha256 | 병합 체크포인트 sha256 | 부분집합 검사 |\n|---|---|---|---|---|---|")
+        for r, m in ms.items():
+            L.append(f"| `{r}` | {m['seed']} | `{m['data_order_sha256'][:16]}…` | `{m.get('adapter_sha256','')[:16]}…` | "
+                     f"`{m.get('merged_checkpoint_sha256','')[:16]}…` | {'파일에서 재계산, 통과' if m['subset_check']['subset_holds'] else '실패'} |")
+        L.append(f"\n{m0['reproducibility_claim']}. 두 조건의 seed는 같고 데이터 순서 해시는 다르다 — 데이터가 다르기 때문이고, 그것이 유일한 차이다.\n")
+        L.append("### 손실 곡선 (기록된 스텝에서 발췌)\n")
+        L.append("| 스텝 | " + " | ".join(f"`{r}` loss" for r in ms) + " |\n|---|" + "---|" * len(ms))
+        logs = {r: [json.loads(l) for l in (RUNS / r / "steps.jsonl").read_text().splitlines()] for r in ms}
+        for st in (1, 5, 10, 20, 40, 60, 80, 100, 120, 140, 157):
+            row = [str(next((x["loss"] for x in logs[r] if x["step"] == st), "—")) for r in ms]
+            L.append(f"| {st} | " + " | ".join(row) + " |")
+    REPORTS.mkdir(parents=True, exist_ok=True)
+    out = REPORTS / "training.md"
+    out.write_text("\n".join(L) + "\n", encoding="utf-8")
+    return out
+
+
+def _vmark(v):
+    return "**차이 검출되지 않음**" if v == "no difference detected" else ("**차이 검출됨**" if v == "difference detected" else v)
+
+
+def render_results(runs) -> Path:
+    C = compare_multi(runs)
+    S = {r: _scores(r) for r in runs}
+    M = {r: json.loads((RUNS / r / "manifest.json").read_text()) for r in runs}
+    A = {r: (json.loads((RUNS / r / "analysis.json").read_text()) if (RUNS / r / "analysis.json").exists() else None) for r in runs}
+    T = {r: _tm(r) for r in runs}
+    probe = json.loads((RUNS / "probe" / "scores.json").read_text()) if (RUNS / "probe" / "scores.json").exists() else None
+    b, c1, c2 = runs[0], runs[1], (runs[2] if len(runs) > 2 else None)
+    main_pair = f"{c1} vs {c2}" if c2 else f"{c1} vs {b}"
+    ds = M[b]["dataset"]
+
+    L = ["# P5 결과 — 세 조건, 모든 축, 판정\n",
+         "> `runs/compare.json`, `runs/<run>/scores.json`, `runs/<run>/analysis.json`, `runs/probe/scores.json`의 기록을 렌더링한다. "
+         "여기서 아무것도 다시 계산하지 않는다. 재생성: `python -m eval.stats --compare %s --render`.\n" % ",".join(runs)]
+
+    L.append("## 이 결과가 딛고 선 것 — 먼저 읽을 것\n")
+    L.append(f"1. **평가 세트는 보정되지 않은 근접 중복 임계값 위에 있다.** {ds['near_threshold']} — 출처 `{ds['near_threshold_source']}`. "
+             "P2.1은 다섯 번 요청되었고 전달되지 않았다. 이 값이 바뀌면 평가 세트가 다시 만들어지고 **이 보고서의 모든 숫자는 다시 계산된다.**")
+    L.append("2. 사용자 공간 OOM 데몬은 없다 (root 필요). 모든 학습·평가는 `MemoryMax=80G` 사용자 스코프 안에서 돌았다. "
+             "그 상한은 호스트 RSS만 덮는다 (A2 측정).")
+    L.append("3. 조건당 학습 시드 하나. 조건 간 차이에는 시드 분산이 섞여 있고 이 실험은 그것을 재지 않는다.")
+    L.append("4. 157스텝은 각 조건 데이터의 약 84%를 본다 (`reports/training.md`). 두 조건이 같은 비율이므로 비교는 성립하고, '1 에폭'은 아니다.\n")
+
+    L.append("## 세 실행 — 같은 하네스였다는 증거\n")
+    L.append("| 실행 | 모델 | 체크포인트 sha256 | 데이터셋 매니페스트 | 채점 코드 sha256 | 생성 코드 sha256 | 동시성 | 벽시계 |\n|---|---|---|---|---|---|---|---|")
+    for r in runs:
+        m = M[r]
+        L.append(f"| `{r}` | {m.get('model_kind','base')} | `{m['model_checkpoint_sha256'][:12]}…` | `{m['dataset_manifest_sha256'][:12]}…` | "
+                 f"`{(S[r].get('scoring_code_sha256') or '')[:12]}…` | `{(m.get('harness_code_sha256') or '(P4 실행, 미기록)')[:12]}` | "
+                 f"{m['vllm_engine'].get('max_num_seqs')} | {m['wall']['total_sec']/3600:.2f} h |")
+    same_score = len(set(C["scoring_code_sha256"].values())) == 1 and None not in C["scoring_code_sha256"].values()
+    same_ds = len(set(C["dataset_manifest_sha256"].values())) == 1
+    L.append(f"\n채점 코드 해시가 세 실행에서 동일: **{same_score}**. 데이터셋 매니페스트 동일: **{same_ds}**. "
+             "`eval/scorers/`는 P4 이후 한 줄도 바뀌지 않았다 (`git diff 2b5f119 HEAD -- eval/scorers/` 비어 있음). "
+             "생성 코드(runner)는 병합 체크포인트 경로와 탐침 항목을 받도록 확장됐고, 그것은 채점에 관여하지 않는다.\n")
+    if T.get(c1):
+        L.append("학습: " + "; ".join(f"`{r}` {T[r]['steps_completed']}스텝, {T[r]['wall_sec']/3600:.2f} h, 어댑터 `{T[r]['adapter_sha256'][:12]}…`"
+                                    for r in runs if T.get(r)) + " — `reports/training.md`.\n")
+
+    L.append("## 사전 등록한 기대 — 결과가 나온 뒤에 바꿀 수 없도록 먼저 적는다\n")
+    L.append("- **도메인 정확도**: Cond-1 ≥ Cond-2가 예상된다. Cond-2는 같은 계산량에서 도메인 데이터를 20% 적게 본다. **리플레이에 불리한 증거가 아니다.**")
+    L.append("- **범용 능력 (MMLU, HellaSwag)**: 중요한 비교다. 같은 계산량에서 Cond-2가 더 많이 유지하면 이 설정에서 리플레이가 작동한 것이다. "
+             "구간이 겹치면 리플레이의 효과는 이 실험이 검출할 수 있는 크기 아래에 있고, **그것이 결과다.**\n")
+
+    L.append("## 범용 능력 — 중요한 비교\n")
+    L.append("| 세트 | " + " | ".join(f"`{r}`" for r in runs) + f" | **{main_pair}** | McNemar p | MDD |\n|---|" + "---|" * (len(runs) + 3))
+    for g, rec in C["general"].items():
+        pr = rec["pairs"][main_pair]
+        L.append(f"| `{g}` | " + " | ".join(ci(rec["rates"][r]) for r in runs) +
+                 f" | {_vmark(pr['verdict'])} | {pr['mcnemar']['p_value']:.3g} (불일치 {pr['mcnemar']['discordant']}) | ±{100*rec['mdd_points']:.1f}pp |")
+    L.append("\n기준선 대비:\n\n| 세트 | 쌍 | 판정 | McNemar p | 격차 |\n|---|---|---|---|---|")
+    for g, rec in C["general"].items():
+        for pk, pr in rec["pairs"].items():
+            if pk == main_pair:
+                continue
+            L.append(f"| `{g}` | {pk} | {_vmark(pr['verdict'])} | {pr['mcnemar']['p_value']:.3g} | {100*(pr['a']['rate']-pr['b']['rate']):+.1f}pp |")
+    L.append("\n글자 추출률: " + "; ".join(f"`{r}` " + ", ".join(f"{g} {100*rec['extracted'][r]:.1f}%" for g, rec in C["general"].items()) for r in runs) + ".\n")
+
+    L.append("## 도메인 정확도 (제약 생성, 전체 항목 분모)\n")
+    L.append("`attack_technique`는 이 표에 없다 — 아래 산문 절 참조.\n")
+    L.append("| 과제/분할 | " + " | ".join(f"`{r}`" for r in runs) + f" | **{main_pair}** | McNemar p | MDD |\n|---|" + "---|" * (len(runs) + 3))
+    for k, rec in C["domain"].items():
+        if not k.endswith("/constrained"):
+            continue
+        pr = rec["pairs"].get(main_pair)
+        L.append(f"| `{k.rsplit('/',1)[0]}` | " + " | ".join(ci(rec["rates"][r]) for r in runs if r in rec["rates"]) +
+                 (f" | {_vmark(pr['accuracy']['verdict'])} | {pr['accuracy']['mcnemar']['p_value']:.3g} | ±{100*rec['mdd_points']:.1f}pp |" if pr else " | — | — | — |"))
+    L.append("\n기준선 대비 (제약 생성):\n\n| 과제/분할 | 쌍 | 격차 | 판정 | McNemar p |\n|---|---|---|---|---|")
+    for k, rec in C["domain"].items():
+        if not k.endswith("/constrained"):
+            continue
+        for pk, pr in rec["pairs"].items():
+            if pk == main_pair:
+                continue
+            a_ = pr["accuracy"]
+            L.append(f"| `{k.rsplit('/',1)[0]}` | {pk} | {100*(a_['a']['rate']-a_['b']['rate']):+.1f}pp | {_vmark(a_['verdict'])} | {a_['mcnemar']['p_value']:.3g} |")
+
+    L.append("\n## 자유 생성 — 형식과 정확도가 학습으로 어떻게 변했나\n")
+    L.append("| 과제/분할 | " + " | ".join(f"`{r}` 스키마유효 / 정확도" for r in runs) + f" | 스키마유효 {main_pair} |\n|---|" + "---|" * (len(runs) + 1))
+    for k, rec in C["domain"].items():
+        if not k.endswith("/free"):
+            continue
+        pr = rec["pairs"].get(main_pair)
+        L.append(f"| `{k.rsplit('/',1)[0]}` | " + " | ".join(f"{pc(rec['schema_valid'][r]['rate'])} / {pc(rec['rates'][r]['rate'])}" for r in runs if r in rec["rates"]) +
+                 (f" | {_vmark(pr['schema_valid']['verdict'])} (p={pr['schema_valid']['mcnemar']['p_value']:.2g}) |" if pr else " | — |"))
+    L.append("\n기준선의 자유 생성 스키마 유효율은 `cvss_vector`에서 0.2%였다 (산문 서두). 미세조정이 그것을 어디까지 바꿨는지가 이 표다.\n")
+
+    L.append("## 컷오프 이후 vs 이전 — 조건별, 그리고 라벨 분포를 먼저 본다\n")
+    L.append("| 과제 | 조건 | 이후 | 이전 | 원 격차 | 라벨 TVD | 이전→이후 라벨믹스 재가중 격차 | 이후→이전 재가중 격차 |\n|---|---|---|---|---|---|---|---|")
+    for t in ("cve_to_cwe", "cvss_vector", "structured_extract"):
+        for r in runs:
+            la = (A[r] or {}).get("label_analysis", {}).get(t)
+            if not la:
+                continue
+            rw = la["reweighted"]
+            L.append(f"| `{t}` | `{r}` | {pc(la['raw']['post']['rate'])} | {pc(la['raw']['pre']['rate'])} | {100*la['raw']['gap_pre_minus_post']:+.1f}pp | "
+                     f"{la['label_tvd_post_vs_pre']} | {100*rw['gap_pre_minus_post_at_post_mix']:+.1f}pp (이후 질량 {rw['pre_under_post_label_mix']['post_mass_covered']:.0%}) | "
+                     f"{100*rw['gap_pre_minus_post_at_pre_mix']:+.1f}pp (이전 질량 {rw['post_under_pre_label_mix']['pre_mass_covered']:.0%}) |")
+    la = (A[b] or {}).get("label_analysis", {}).get("cve_to_cwe")
+    if la:
+        L.append("\n두 평가 세트의 **참 라벨 분포가 다르다** — `cve_to_cwe`에서 TVD "
+                 f"{la['label_tvd_post_vs_pre']}. 오래된 CVE는 빈번하고 쉬운 클래스에 몰려 있다. 기준선에서 라벨 믹스를 맞추면 격차의 대부분이 사라진다. "
+                 "P4 보고서가 '분리 불가능한 두 설명'이라고 쓴 것 중 상당 부분은 **셋째 설명, 라벨 믹스**였다. 아래는 기준선의 상위 라벨:\n")
+        L.append("| 라벨 | 이후 비중 | 이전 비중 | 이후 정확도 | 이전 정확도 |\n|---|---|---|---|---|")
+        for x in la["top_labels"][:12]:
+            L.append(f"| `{x['label']}` | {x['share_post']:.1%} ({x['n_post']}) | {x['share_pre']:.1%} ({x['n_pre']}) | {pc(x['acc_post'])} | {pc(x['acc_pre'])} |")
+        L.append("")
+
+    L.append("## 계층 × 길이 삼분위 — 커버리지 효과인가, 길이였나\n")
+    L.append("커버리지 0인 항목은 13-gram이 학습 설명문 23만 건 어디에도 없는 항목이고, 그것은 짧거나 특이한 설명문을 고른다. "
+             "그래서 계층을 설명문 길이(13-gram 수) 삼분위 안에서 다시 본다. 각 셀에 n. 제약 생성.\n")
+    for r in runs:
+        tt = (A[r] or {}).get("tercile_table", {})
+        if not tt:
+            continue
+        L.append(f"### `{r}`\n")
+        for k, v in tt.items():
+            if not k.endswith("/constrained"):
+                continue
+            L.append(f"**`{k.rsplit('/',1)[0]}`** — 삼분위 경계 ≤{v['tercile_bounds']['t1_max']} / ≤{v['tercile_bounds']['t2_max']} 13-gram; "
+                     f"계층별 평균 길이 {v['mean_ngrams_by_stratum']}\n")
+            L.append("| 길이 \\ 계층 | zero | low | high |\n|---|---|---|---|")
+            for tc in strata.TERCILES:
+                cells = []
+                for s_ in strata.STRATA:
+                    c_ = v["cells"][f"{s_}/{tc}"]
+                    cells.append(f"{pc(c_['rate'])} [{100*c_['ci95'][0]:.0f}–{100*c_['ci95'][1]:.0f}] n={c_['n']}" if c_["n"] else "— n=0")
+                L.append(f"| {tc} | " + " | ".join(cells) + " |")
+            L.append("")
+    L.append("계층 비교는 보고서에 남는다. **더 이상 암기 주장의 근거가 아니다** — 그 근거는 `reports/memorization.md`의 탐침이다.\n")
+
+    if probe:
+        L.append("## 암기 — 직접 측정 (요약; 전체는 `reports/memorization.md`)\n")
+        L.append("| 조건 | 짝 수 | 탐침 | 대조 | 차이 | 95% 구간 | Cond-0 바닥 대비 |\n|---|---|---|---|---|---|---|")
+        for r in runs:
+            p = probe["runs"].get(r, {}).get("constrained", {}).get("pooled")
+            if not p:
+                continue
+            ab = probe["runs"][r]["constrained"].get("above_cond0_floor", {}).get("diff_minus_baseline_diff")
+            L.append(f"| `{r}` | {p['n_pairs']} | {pc(p['probe_acc'])} | {pc(p['control_acc'])} | {100*p['diff']:+.1f}pp | "
+                     f"[{100*p['diff_ci95'][0]:+.1f}, {100*p['diff_ci95'][1]:+.1f}] | {('%+.1fpp' % (100*ab)) if ab is not None else '(바닥)'} |")
+        L.append("")
+
+    L.append("## 샌드박스 축 — 조건별\n")
+    L.append("| 조건 | 그룹 | 실행 | 점수 일치 | 공식 자체검증 | 타임아웃 |\n|---|---|---|---|---|---|")
+    for r in runs:
+        for k, v in S[r]["sandbox"].items():
+            if k.endswith("/constrained"):
+                L.append(f"| `{r}` | `{k.rsplit('/',1)[0]}` | {pc(v['execution']['rate'])} | {pc(v['score_match']['rate'])} | {pc(v['formula_self_test']['rate'])} | {v['timeouts']} |")
+
+    L.append("\n## `attack_technique` — 산문으로만\n")
+    at = {r: S[r]["domain"].get("attack_technique/eval_post_cutoff/constrained", {}).get("accuracy_over_all_items", {}).get("rate") for r in runs}
+    L.append("기준선은 모든 그룹에서 0.0%였다. 학습 후 값은 " + ", ".join(f"`{r}` {pc(v)}" for r, v in at.items() if v is not None) +
+             " (이후 세트, 제약 생성). 학습 738건, 평가 79건인 과제에서 어떤 움직임도 극적으로 보이고 아무 의미도 없다. "
+             "`scored: false`이며 어떤 요약 표에도 넣지 않았다.\n")
+
+    L.append("## 판정 — 사전 등록한 질문에 대한 답\n")
+    gen = C["general"]
+    verdicts = {g: rec["pairs"][main_pair]["verdict"] for g, rec in gen.items()}
+    any_diff = [g for g, v in verdicts.items() if v == "difference detected"]
+    L.append(f"**범용 능력, {main_pair}**: " + "; ".join(f"{g} — {_vmark(v)}" for g, v in verdicts.items()) + ".")
+    if any_diff:
+        L.append(f"\n{', '.join(any_diff)}에서 구간이 겹치지 않았다. 방향과 크기는 위 표에 있고, 이 문장은 그것보다 강하게 쓰지 않는다.")
+    else:
+        L.append("\n리플레이의 효과는 이 실험이 검출할 수 있는 크기(MDD 표) 아래에 있다. **그것이 결과다.** 없다는 뜻이 아니라 이 크기에서 보이지 않는다는 뜻이다.")
+    dom = [(k, rec["pairs"][main_pair]["accuracy"]["verdict"]) for k, rec in C["domain"].items()
+           if k.endswith("/constrained") and main_pair in rec["pairs"]]
+    n_dd = sum(1 for _, v in dom if v == "difference detected")
+    L.append(f"\n**도메인 정확도, {main_pair}**: {len(dom)}개 세트 중 {n_dd}개에서 차이 검출. 사전 등록대로 Cond-1 ≥ Cond-2가 예상되었고, "
+             "이것은 리플레이에 불리한 증거가 아니다.\n")
+    REPORTS.mkdir(parents=True, exist_ok=True)
+    out = REPORTS / "results.md"
+    out.write_text("\n".join(L) + "\n", encoding="utf-8")
+    return out

@@ -57,3 +57,39 @@ def for_items(items) -> dict:
         "note": ("recorded quartiles are deliberately not used: coverage is zero-inflated and quartile "
                  "boundaries collapse, which makes quartile strata incomparable across evaluation sets"),
     }
+
+
+# ------------------------------------------------- stratum x length tercile
+# The coverage strata are confounded with description length: an item with
+# zero coverage is one whose 13-grams are ALL absent from ~230k training
+# descriptions, which selects for short or unusual descriptions. So every
+# stratified number is also reported inside length terciles. If the coverage
+# effect survives within a tercile it is a coverage effect; if it vanishes,
+# coverage was measuring length.
+NGRAM_N = 13
+
+
+def n_grams(text: str) -> int:
+    """Number of 13-grams in the input, the same whitespace tokenization
+    datasets/contamination.py used to compute coverage."""
+    return max(0, len((text or "").split()) - NGRAM_N + 1)
+
+
+def terciles(values) -> dict:
+    v = sorted(values)
+    if not v:
+        return {"t1_max": 0, "t2_max": 0, "n": 0}
+    def at(q):
+        return v[min(len(v) - 1, int(round(q * (len(v) - 1))))]
+    return {"t1_max": at(1 / 3), "t2_max": at(2 / 3), "min": v[0], "max": v[-1], "n": len(v)}
+
+
+def tercile_of(value, b: dict) -> str:
+    if value <= b["t1_max"]:
+        return "short"
+    if value <= b["t2_max"]:
+        return "medium"
+    return "long"
+
+
+TERCILES = ("short", "medium", "long")

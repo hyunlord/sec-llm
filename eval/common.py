@@ -262,3 +262,19 @@ def load_run(run_id: str) -> tuple[dict, Path]:
     manifest = json.loads(mp.read_text())
     check_manifest_settings(manifest)
     return manifest, d
+
+
+def harness_code_sha() -> dict:
+    """Digest of the harness source, recorded in every run manifest so 'the
+    harness was unchanged between conditions' is a checkable claim rather than a
+    sentence. Two digests: the whole of eval/, and the SCORING subset -- the files
+    that turn outputs into numbers -- which is the one that must be identical
+    across every run being compared."""
+    root = REPO / "eval"
+    files = sorted(p for p in root.rglob("*.py") if "__pycache__" not in p.parts)
+    per = {str(p.relative_to(REPO)): sha256_file(p) for p in files}
+    scoring = {k: v for k, v in per.items()
+               if k.startswith("eval/scorers/") or k in ("eval/sandbox.py", "eval/strata.py")}
+    return {"harness_code_sha256": sha256_text("\n".join(f"{k} {v}" for k, v in per.items())),
+            "scoring_code_sha256": sha256_text("\n".join(f"{k} {v}" for k, v in scoring.items())),
+            "files": per}

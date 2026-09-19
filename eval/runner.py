@@ -88,6 +88,9 @@ def main() -> int:
     ap.add_argument("--general", default="both", choices=["both", "none"] + list(GENERAL))
     ap.add_argument("--limit", type=int, default=0, help="items per (task, split); a smoke run, marked partial")
     ap.add_argument("--no-network", action="store_true", help="general-ability sets must already be pinned")
+    ap.add_argument("--extra-items", default="", help="jsonl of extra items (the memorization probe); "
+                    "generated in both decoding modes under kind='probe'")
+    ap.add_argument("--only-extra", action="store_true", help="skip the evaluation sets; extra items only")
     ap.add_argument("--max-num-seqs", type=int, default=0,
                     help="override the engine's concurrent-sequence cap; recorded in the manifest. "
                          "Batch invariance is what makes this safe, and Gate 4 proves it at the value used.")
@@ -103,13 +106,28 @@ def main() -> int:
     print("[1/6] verifying dataset manifest against disk", flush=True)
     ds = verify_dataset(eval_file_keys(tasks, splits))
 
-    print("[2/6] hashing the pinned checkpoint", flush=True)
+    print("[2/6] hashing the checkpoint", flush=True)
     commit = pinned_model_commit()
-    snap = model_snapshot(commit)
+    if a.model == "base":
+        snap, model_kind = model_snapshot(commit), "base"
+    else:
+        # A merged checkpoint produced by train/run.py. Same vLLM path as the
+        # base model, so Gate 4's determinism proof carries over unchanged.
+        snap, model_kind = Path(a.model).resolve(), "merged_checkpoint"
+        if not (snap / "config.json").exists():
+            raise HarnessError(f"--model {a.model}: no config.json at {snap}")
     ck = checkpoint_digest(snap)
+    code_sha = harness_code_sha()
 
     print("[3/6] loading evaluation items", flush=True)
-    domain = load_domain_items(tasks, splits, a.limit or None)
+    domain = {} if a.only_extra else load_domain_items(tasks, splits, a.limit or None)
+    extra = {}
+    if a.extra_items:
+        for it in iter_jsonl(Path(a.extra_items)):
+            extra.setdefault(it["task"], []).append(it)
+        for t in extra:
+            extra[t].sort(key=lambda e: e["example_id"])
+        print(f"      extra items: { {t: len(v) for t, v in extra.items()} }", flush=True)
     strata_rec, strat_by_id = {}, {}
     for (t, sp), rows in domain.items():
         st = strata.for_items(rows)
@@ -123,7 +141,7 @@ def main() -> int:
         gen_pins[g] = prep["pin"]
         print(f"      {g}: {len(prep['items'])} items, revision {prep['pin']['revision'][:12]}", flush=True)
 
-    schemas = {t: json.loads((SCHEMAS / f"{t}.json").read_text()) for t in tasks}
+    schemas = {t: json.loads((SCHEMAS / f"{t}.json").read_text()) for t in set(tasks) | set(extra)}
 
     print("[4/6] loading the model into vLLM", flush=True)
     from transformers import AutoTokenizer
@@ -152,23 +170,26 @@ def main() -> int:
     print(f"      model ready in {load_sec}s", flush=True)
 
     groups, rows_out, timings = [], [], []
-    for t in tasks:
+    for t in (() if a.only_extra else tasks):
         for sp in splits:
             for mode in modes:
                 groups.append(("domain", t, sp, mode))
+    for t in sorted(extra):
+        for mode in modes:
+            groups.append(("probe", t, "probe", mode))
     for g in gsets:
         groups.append(("general", g, gen_pins[g]["split"], "free"))
 
     constrained_failures = []
     for kind, t, sp, mode in groups:
-        items = domain[(t, sp)] if kind == "domain" else gen_items[t]
+        items = domain[(t, sp)] if kind == "domain" else (extra[t] if kind == "probe" else gen_items[t])
         if not items:
             continue
         prompts = [wrap(i["prompt"]) for i in items]
         kw = dict(temperature=REQUIRED_SAMPLING["temperature"], top_p=REQUIRED_SAMPLING["top_p"], seed=SEED)
         if mode == "constrained":
             kw["structured_outputs"] = StructuredOutputsParams(json=schemas[t])
-        if kind == "domain":
+        if kind in ("domain", "probe"):
             n_prompt = [len(x) for x in tok(prompts, add_special_tokens=False)["input_ids"]]
             caps = remaining_context(n_prompt, engine["max_model_len"])
             sparams = [SamplingParams(**kw, max_tokens=c) for c in caps]
@@ -209,7 +230,9 @@ def main() -> int:
     n, out_sha = write_jsonl(d / "outputs.jsonl", rows_out)
 
     manifest = {
-        "run_id": a.run_id, "model_arg": a.model, "model_repo": MODEL_REPO,
+        "run_id": a.run_id, "model_arg": a.model, "model_kind": model_kind, "model_repo": MODEL_REPO,
+        "harness_code_sha256": code_sha["harness_code_sha256"], "harness_files": code_sha["files"],
+        "extra_items_file": a.extra_items or None, "only_extra": a.only_extra,
         "model_commit": commit, "model_snapshot": str(snap),
         "model_checkpoint_sha256": ck["model_checkpoint_sha256"],
         "tokenizer_sha256": ck["tokenizer_sha256"],
