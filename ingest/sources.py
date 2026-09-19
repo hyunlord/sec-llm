@@ -211,7 +211,66 @@ SOURCES = {
     },
 }
 
-SOURCE_ORDER = ["cve_list", "nvd", "cwe", "attack"]
+# Replay set for P3. Not ingested by ingest/run.py (no MODULES entry); consumed
+# by datasets/replay.py. Listed here so the license matrix and the claim audit
+# hold it to the same evidence standard as the four security sources.
+SOURCES["replay_oasst2"] = {
+    "source_id": "replay_oasst2",
+    "source_name": "OpenAssistant/oasst2 (general-instruction replay set)",
+    "source_url": "https://huggingface.co/datasets/OpenAssistant/oasst2",
+    "content_type": "instruction_response_pair",
+    "entity_id_field": "message_id",
+    "phase": "P3",
+    "license": {
+        "source_license": "Apache License 2.0 (declared in the dataset card: `license: apache-2.0`)",
+        "source_license_url": "https://huggingface.co/datasets/OpenAssistant/oasst2/blob/main/README.md",
+        "upstream_license": (
+            "Human volunteer contributions to the Open Assistant project, released by the "
+            "project under the same Apache-2.0 declaration; model-generated messages "
+            "(`synthetic: true`, with the generating model named) exist in the raw data "
+            "and are EXCLUDED from the replay set so no third model's terms apply"
+        ),
+        "redistribution_status": "permitted_with_attribution",
+        "commercial_status": "not_addressed",
+        "contains_third_party_content": True,
+        "pii_policy": (
+            "crowd-written conversations may contain names, emails and personal details; "
+            "the P2 secret/PII scan is applied to every selected pair and counts are reported"
+        ),
+        "license_evidence": (
+            "Dataset card frontmatter, read 2026-09-19 at commit 179dd21f: "
+            "`license: apache-2.0`. The repository ships NO separate LICENSE file; the "
+            "declaration is the card's SPDX field. Apache License 2.0 section 2 grants "
+            "\"a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable "
+            "copyright license to reproduce, prepare Derivative Works of, publicly display, "
+            "publicly perform, sublicense, and distribute the Work and such Derivative Works "
+            "in Source or Object form\"; section 4 conditions redistribution on retaining "
+            "attribution and NOTICE. The word \"commercial\" does not appear in the Apache "
+            "License 2.0 text; the grant carries no field-of-use restriction. Held to the "
+            "same standard as cve_list, that is not_addressed rather than permitted."
+        ),
+        "weights_release": "not_addressed",
+        "weights_release_evidence": (
+            "Apache-2.0 grants the right to prepare and distribute Derivative Works broadly, "
+            "but does not mention machine learning, training, or model weights. Whether a "
+            "trained weight is a Derivative Work of the training corpus is not settled by the "
+            "license text. Same open question as the four security sources; legal review "
+            "required."
+        ),
+        "model_publication_status": "not_addressed",
+        "checked_on": "2026-09-19",
+        "candidates_rejected": {
+            "databricks/databricks-dolly-15k": "cc-by-sa-3.0 -- ShareAlike imposes a copyleft condition on derivatives; mixed obligations",
+            "HuggingFaceH4/no_robots": "cc-by-nc-4.0 -- NonCommercial",
+            "allenai/tulu-3-sft-mixture": "odc-by, but a MIXTURE of sources with differing underlying licenses; unclear/mixed",
+            "GAIR/lima": "license 'other' (CC-BY-NC-SA on inspection); NonCommercial + ShareAlike",
+            "nvidia/HelpSteer2": "cc-by-4.0 -- acceptable license, NOT rejected on license; not chosen because responses are model-generated, which brings a generating model's terms into scope. Recorded as the fallback.",
+        },
+    },
+}
+
+SOURCE_ORDER = ["cve_list", "nvd", "cwe", "attack"]          # ingested by ingest/run.py
+DOC_ORDER = SOURCE_ORDER + ["replay_oasst2"]                  # appears in the license matrix
 
 
 def license_block(source_id: str) -> dict:

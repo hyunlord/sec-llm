@@ -19,7 +19,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
-from ingest.sources import SOURCE_ORDER, SOURCES  # noqa: E402
+from ingest.sources import DOC_ORDER as SOURCE_ORDER, SOURCES  # noqa: E402
 
 # A status that asserts a permission must be backed by evidence containing at
 # least one of these. `not_addressed`/`unknown`/`prohibited` assert no

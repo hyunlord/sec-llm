@@ -12,6 +12,7 @@
 | **NVD CVE API 2.0 (NIST National Vulnerability Database)** | 가능 (출처 표기 조건) | 문서에 언급 없음 | 가능 (출처 표기 조건) | 예 | [https://services.nvd.nist.gov/rest/json/cves/2.0](https://services.nvd.nist.gov/rest/json/cves/2.0) | [US Government work, public domain under 17 U.S.C. (NIST publication); NVD requests a source-attribution notice](https://nvd.nist.gov/developers/start-here) | 2026-09-18 |
 | **CWE (Common Weakness Enumeration) versioned XML catalog** | 가능 (출처 표기 조건) | 문서에 언급 없음 | 가능 (출처 표기 조건) | 예 | [https://cwe.mitre.org/data/downloads.html](https://cwe.mitre.org/data/downloads.html) | [CWE Terms of Use (The MITRE Corporation)](https://cwe.mitre.org/about/termsofuse.html) | 2026-09-18 |
 | **MITRE ATT&CK STIX 2.1 bundles (mitre-attack/attack-stix-data)** | 가능 (출처 표기 조건) | 문서에 언급 없음 | 가능 (출처 표기 조건) | 예 | [https://github.com/mitre-attack/attack-stix-data](https://github.com/mitre-attack/attack-stix-data) | [MITRE ATT&CK License (LICENSE.txt in attack-stix-data)](https://github.com/mitre-attack/attack-stix-data/blob/master/LICENSE.txt) | 2026-09-18 |
+| **OpenAssistant/oasst2 (general-instruction replay set)** | 가능 (출처 표기 조건) | 문서에 언급 없음 | 문서에 언급 없음 | 예 | [https://huggingface.co/datasets/OpenAssistant/oasst2](https://huggingface.co/datasets/OpenAssistant/oasst2) | [Apache License 2.0 (declared in the dataset card: `license: apache-2.0`)](https://huggingface.co/datasets/OpenAssistant/oasst2/blob/main/README.md) | 2026-09-19 |
 
 > 빈 칸은 없다. 아래 두 값은 서로 다른 의미이며 섞어 쓰지 않는다.
 >
@@ -28,6 +29,7 @@
 | `nvd` | US Government work, public domain under 17 U.S.C. (NIST publication); NVD requests a source-attribution notice | CVE Program Terms of Use (The MITRE Corporation) -- the CVE records embedded in every NVD response originate from the CVE Program and are NOT a US Government work; only NVD's own analysis (CVSS scoring, CPE applicability, CWE mapping) is public domain |
 | `cwe` | CWE Terms of Use (The MITRE Corporation) | Community contributions under the CWE Terms of Use contributor grant (contributors grant all users a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable license) |
 | `attack` | MITRE ATT&CK License (LICENSE.txt in attack-stix-data) | Same MITRE ATT&CK License; individual STIX objects carry external_references to third-party vendor threat reports, which are cited but not redistributed |
+| `replay_oasst2` | Apache License 2.0 (declared in the dataset card: `license: apache-2.0`) | Human volunteer contributions to the Open Assistant project, released by the project under the same Apache-2.0 declaration; model-generated messages (`synthetic: true`, with the generating model named) exist in the raw data and are EXCLUDED from the replay set so no third model's terms apply |
 
 가장 분명한 사례가 **NVD**다. NVD 자체 분석(CVSS 점수, CPE 적용범위, CWE 매핑)은 미국 정부 저작물로 퍼블릭 도메인이지만, **같은 JSON 객체 안에 들어 있는 CVE 설명은** CVE 프로그램에서 온 것이고 MITRE의 이용 약관을 따른다. 두 개를 하나로 합쳐 적으면 이 차이가 지워진다.
 
@@ -81,6 +83,18 @@
   - 확인한 내용: Commercial use is granted explicitly. The license is silent on machine learning, training corpora, and model weights. Legal review required.
 - PII 정책: no_intentional_pii; free-text description/credit/reference fields may carry researcher or reporter names -- P2 secret/PII scanning is required
 - 현재 핀: `git_tag_release` → `6cda5ad8462c79e14fbb872f4e09059b18e0cfc4`
+
+### OpenAssistant/oasst2 (general-instruction replay set)
+
+- 라이선스 문서: <https://huggingface.co/datasets/OpenAssistant/oasst2/blob/main/README.md> (확인 일자 2026-09-19)
+- 재배포: **가능 (출처 표기 조건)** / 상업적 이용: **문서에 언급 없음**
+- 근거 인용:
+  > Dataset card frontmatter, read 2026-09-19 at commit 179dd21f: `license: apache-2.0`. The repository ships NO separate LICENSE file; the declaration is the card's SPDX field. Apache License 2.0 section 2 grants "a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, prepare Derivative Works of, publicly display, publicly perform, sublicense, and distribute the Work and such Derivative Works in Source or Object form"; section 4 conditions redistribution on retaining attribution and NOTICE. The word "commercial" does not appear in the Apache License 2.0 text; the grant carries no field-of-use restriction. Held to the same standard as cve_list, that is not_addressed rather than permitted.
+
+- **학습 가중치 공개(`model_publication_status`): 문서에 언급 없음**
+  - 확인한 내용: Apache-2.0 grants the right to prepare and distribute Derivative Works broadly, but does not mention machine learning, training, or model weights. Whether a trained weight is a Derivative Work of the training corpus is not settled by the license text. Same open question as the four security sources; legal review required.
+- PII 정책: crowd-written conversations may contain names, emails and personal details; the P2 secret/PII scan is applied to every selected pair and counts are reported
+- 현재 핀: `hf_dataset_commit` → `179dd21fc55192153d94adb0e0ce8f69e222bf75`
 
 ## 네 출처 모두 답하지 않는 질문 — 학습 가중치
 

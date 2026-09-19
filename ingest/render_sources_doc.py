@@ -16,7 +16,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
-from ingest.sources import SOURCE_ORDER, SOURCES  # noqa: E402
+from ingest.sources import DOC_ORDER as SOURCE_ORDER, SOURCES  # noqa: E402
 
 LOCK = REPO / "ingest" / "sources.lock.json"
 OUT = REPO / "docs" / "data-sources.md"

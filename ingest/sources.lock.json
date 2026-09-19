@@ -86,6 +86,67 @@
       "source_id": "nvd",
       "source_name": "NVD CVE API 2.0 (NIST National Vulnerability Database)",
       "total_results_at_pin": 394958
+    },
+    "replay_oasst2": {
+      "commit_sha": "179dd21fc55192153d94adb0e0ce8f69e222bf75",
+      "files": [
+        {
+          "bytes": 54301900,
+          "path": "2023-11-05_oasst2_ready.messages.jsonl.gz",
+          "sha256": "a9f240c4c77aa1378364f70d37e753c07ba284e247b019d700e1947a0e5da751",
+          "url": "https://huggingface.co/datasets/OpenAssistant/oasst2/resolve/179dd21fc55192153d94adb0e0ce8f69e222bf75/2023-11-05_oasst2_ready.messages.jsonl.gz"
+        },
+        {
+          "bytes": 10606,
+          "path": "README.md",
+          "sha256": "52bd472cf3cae04a4b21ecd5316f929741c47d991d4763b041c3a94de072dc31",
+          "url": "https://huggingface.co/datasets/OpenAssistant/oasst2/resolve/179dd21fc55192153d94adb0e0ce8f69e222bf75/README.md"
+        }
+      ],
+      "immutability": "Hugging Face dataset repo commit SHA; resolve URLs are commit-addressed.",
+      "license_declared": "apache-2.0",
+      "license_verified_before_download": true,
+      "pin_type": "hf_dataset_commit",
+      "pinned_at_utc": "2026-09-19T00:30:43Z",
+      "repo": "OpenAssistant/oasst2",
+      "source_id": "replay_oasst2",
+      "source_name": "OpenAssistant/oasst2 (human-written assistant conversations)"
+    },
+    "tokenizer_qwen25": {
+      "commit_sha": "a09a35458c702b33eeacc393d103063234e8bc28",
+      "files": [
+        {
+          "bytes": 7031645,
+          "path": "tokenizer.json",
+          "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+          "url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/resolve/a09a35458c702b33eeacc393d103063234e8bc28/tokenizer.json"
+        },
+        {
+          "bytes": 7305,
+          "path": "tokenizer_config.json",
+          "sha256": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+          "url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/resolve/a09a35458c702b33eeacc393d103063234e8bc28/tokenizer_config.json"
+        },
+        {
+          "bytes": 2776833,
+          "path": "vocab.json",
+          "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+          "url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/resolve/a09a35458c702b33eeacc393d103063234e8bc28/vocab.json"
+        },
+        {
+          "bytes": 1671839,
+          "path": "merges.txt",
+          "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+          "url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/resolve/a09a35458c702b33eeacc393d103063234e8bc28/merges.txt"
+        }
+      ],
+      "immutability": "Hugging Face model repo commit SHA; resolve URLs are commit-addressed.",
+      "note": "Same commit the DGX gate loaded (env/gate0.json). Used for token-length statistics only.",
+      "pin_type": "hf_model_commit",
+      "pinned_at_utc": "2026-09-19T00:30:44Z",
+      "repo": "Qwen/Qwen2.5-7B-Instruct",
+      "source_id": "tokenizer_qwen25",
+      "source_name": "Qwen/Qwen2.5-7B-Instruct tokenizer (files only, no weights)"
     }
   }
 }

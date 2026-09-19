@@ -60,7 +60,8 @@ def main(argv=None):
 
     lock = load_lock()
     sources = lock["sources"]
-    todo = [s for s in SOURCE_ORDER if s in sources and (not args.only or s in args.only)]
+    # Lock entries without an ingester (replay set, tokenizer) belong to P3.
+    todo = [s for s in SOURCE_ORDER if s in sources and s in MODULES and (not args.only or s in args.only)]
     if args.only:
         unknown = set(args.only) - set(MODULES)
         if unknown:
