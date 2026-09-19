@@ -266,49 +266,72 @@ def main() -> int:
     cna_dist = {}
     cross = {}
     cov_all, jac_all = [], []
+    recon = Counter()
     for t in TASKS:
         train_cna = Counter(e["meta"].get("assigner") or "?" for e in examples[t][temporal.TRAIN]) if t != "attack_technique" else None
         for sp in (temporal.EVAL_POST, temporal.EVAL_PRE):
             rows = examples[t][sp]
             keep, rem = [], []
-            n_near = n_cov = n_both = n_old = 0
+            n_old = n_p31 = n_restored = 0
             for e in rows:
                 v = verdicts[e["entity_id"]]
                 cov_all.append(v["coverage_13"]["fraction"]); jac_all.append(v["near_match"]["jaccard"])
                 if v["diag_any_13gram"]:
                     n_old += 1
+                if v["removed"] or v["diag_p31_coverage"]:
+                    n_p31 += 1                       # P3.1 would have removed this
                 if v["removed"]:
-                    c = v["criteria"]
-                    if c == ["near_duplicate"]: n_near += 1
-                    elif c == ["coverage"]: n_cov += 1
-                    else: n_both += 1
                     rem.append(e)
                     removal_record.append({
                         "task": t, "split": sp, "example_id": e["example_id"], "entity_id": e["entity_id"],
-                        "assigner": e["meta"].get("assigner"), "criteria": c,
+                        "assigner": e["meta"].get("assigner"), "criteria": v["criteria"],
                         "near_match": v["near_match"], "coverage_13": v["coverage_13"],
                         "coverage_8_fraction": v["coverage_8_fraction"], "diag_any_13gram": v["diag_any_13gram"],
+                        "diag_p31_coverage_also_fired": v["diag_p31_coverage"],
                     })
                 else:
+                    if v["diag_p31_coverage"]:
+                        n_restored += 1              # P3.1 removed it; P3.2 keeps it
+                    # Coverage travels with the item. P4 stratifies on this.
+                    e["train_ngram_coverage"] = v["coverage_13"]["fraction"]
                     keep.append(e)
+            # Quartile boundaries are read off the delivered set, then stamped
+            # on each item so P4 needs no recomputation to stratify.
+            qb = contamination.quartiles([e["train_ngram_coverage"] for e in keep])
+            qc = Counter()
+            for e in keep:
+                q = contamination.quartile_of(e["train_ngram_coverage"], qb)
+                e["train_ngram_coverage_quartile"] = q
+                qc[f"q{q}"] += 1
             examples[t][sp] = keep
             key = f"{t}/{sp}"
+            recon["p31_would_remove"] += n_p31; recon["p32_removed"] += len(rem); recon["restored"] += n_restored
             contam_sets[key] = {
                 "before": len(rows), "after": len(keep), "removed": len(rem),
                 "removed_fraction": round(len(rem) / len(rows), 4) if rows else 0.0,
-                "removed_by_near_only": n_near, "removed_by_coverage_only": n_cov, "removed_by_both": n_both,
+                "removed_by_near_duplicate": len(rem),
+                "restored_p31_coverage_only": n_restored,
+                "diag_p31_criterion_would_remove": n_p31,
                 "diag_old_criterion_would_remove": n_old,
                 "diag_old_criterion_fraction": round(n_old / len(rows), 4) if rows else 0.0,
+                "coverage_quartiles": qb, "coverage_quartile_counts": dict(qc),
+                "coverage_zero": sum(1 for e in keep if e["train_ngram_coverage"] == 0.0),
             }
             if train_cna is not None:
-                before = Counter(e["meta"].get("assigner") or "?" for e in rows)
-                after_old = Counter(e["meta"].get("assigner") or "?" for e in rows if not verdicts[e["entity_id"]]["diag_any_13gram"])
-                after_new = Counter(e["meta"].get("assigner") or "?" for e in keep)
+                def cna(items):
+                    return Counter(e["meta"].get("assigner") or "?" for e in items)
+                before = cna(rows)
+                after_old = cna([e for e in rows if not verdicts[e["entity_id"]]["diag_any_13gram"]])
+                after_p31 = cna([e for e in rows if not (verdicts[e["entity_id"]]["removed"]
+                                                         or verdicts[e["entity_id"]]["diag_p31_coverage"])])
+                after_new = cna(keep)
                 cna_dist[key] = {
                     "tvd_before": contamination.tvd(before, train_cna),
                     "tvd_after_old": contamination.tvd(after_old, train_cna),
+                    "tvd_after_p31": contamination.tvd(after_p31, train_cna),
                     "tvd_after_new": contamination.tvd(after_new, train_cna),
                     "before_top": before.most_common(10), "after_old_top": after_old.most_common(10),
+                    "after_p31_top": after_p31.most_common(10),
                     "after_new_top": after_new.most_common(10), "train_top": train_cna.most_common(10),
                 }
         post = {e["entity_id"] for e in examples[t][temporal.EVAL_POST]}
@@ -316,14 +339,26 @@ def main() -> int:
         cross[t] = len(post & pre)
         assert not (post & pre), f"{t}: entity in both temporal eval sets"
     edges = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    # Reconciliation against the P3.1 record, computed not asserted.
+    assert recon["p31_would_remove"] == recon["p32_removed"] + recon["restored"], "reconciliation does not close"
     contam = {
         "index": idx_stats, "eval_sets": contam_sets, "total_removed": len(removal_record),
         "total_diag_old_criterion": sum(v["diag_old_criterion_would_remove"] for v in contam_sets.values()),
+        "reconciliation_with_p31": {
+            "p31_removed_total": recon["p31_would_remove"],
+            "p32_removed_total": recon["p32_removed"],
+            "restored_coverage_only": recon["restored"],
+            "identity": "p31_removed_total = p32_removed_total + restored_coverage_only (checked in build.py)",
+            "note": ("P3.1 applied near-duplicate OR coverage>0.5 and removed the union. P3.2 applies "
+                     "near-duplicate alone; every item P3.1 removed on coverage alone is back in the set, "
+                     "carrying its coverage value as a field."),
+        },
         "coverage_histogram": contamination.hist(cov_all, edges),
         "near_jaccard_histogram": contamination.hist(jac_all, edges),
         "cna_distribution": cna_dist, "cross_eval": cross,
-        "policy": "applied: near_duplicate (Jaccard >= threshold, P2 MinHash) and coverage (>0.5 of 13-grams in training); "
-                  "diagnostic only, NOT applied: any single shared 13-gram",
+        "policy": "applied: near_duplicate (Jaccard >= threshold, P2 MinHash), and nothing else. "
+                  "measured, NOT applied: 13-gram coverage ratio (attached per item, quartiles per set). "
+                  "diagnostic only, NOT applied: any single shared 13-gram; the superseded P3.1 coverage>0.5 rule",
     }
     removal_record.sort(key=lambda r: r["example_id"] + "|" + r["split"])
 

@@ -9,20 +9,20 @@
 | 과제/분할 | 예제 | 입력 p50/p90/p99/max | 정답 p50/p90/p99/max | >512 | >1024 | >2048 | >4096 |
 |---|---|---|---|---|---|---|---|
 | `attack_technique/eval_post_cutoff` | 79 | 206/383/499/585 | 16/16/16/16 | 1.27% | 0.00% | 0.00% | 0.00% |
-| `attack_technique/eval_pre_cutoff` | 67 | 227/360/481/672 | 16/16/16/16 | 1.49% | 0.00% | 0.00% | 0.00% |
+| `attack_technique/eval_pre_cutoff` | 79 | 202/357/481/672 | 16/16/16/16 | 1.27% | 0.00% | 0.00% | 0.00% |
 | `attack_technique/train` | 738 | 216/382/628/952 | 16/16/16/16 | 2.98% | 0.00% | 0.00% | 0.00% |
-| `cve_to_cwe/eval_post_cutoff` | 3,673 | 94/197/613/2437 | 13/13/14/14 | 1.63% | 0.49% | 0.11% | 0.00% |
-| `cve_to_cwe/eval_pre_cutoff` | 3,384 | 77/147/309/1974 | 13/13/14/14 | 0.24% | 0.06% | 0.00% | 0.00% |
+| `cve_to_cwe/eval_post_cutoff` | 3,867 | 95/195/600/2437 | 13/13/14/14 | 1.55% | 0.46% | 0.10% | 0.00% |
+| `cve_to_cwe/eval_pre_cutoff` | 4,014 | 80/145/322/1974 | 13/13/14/14 | 0.32% | 0.07% | 0.00% | 0.00% |
 | `cve_to_cwe/train` | 170,748 | 84/145/421/2771 | 13/13/13/14 | 0.77% | 0.36% | 0.08% | 0.00% |
 | `cve_to_cwe/train_subsample` | 28,491 | 84/146/443/2771 | 13/13/13/14 | 0.83% | 0.42% | 0.08% | 0.00% |
-| `cvss_vector/eval_post_cutoff` | 4,333 | 118/229/929/2449 | 102/103/106/107 | 3.28% | 1.01% | 0.25% | 0.00% |
-| `cvss_vector/eval_pre_cutoff` | 4,160 | 95/166/338/2002 | 102/103/106/107 | 0.58% | 0.12% | 0.02% | 0.00% |
+| `cvss_vector/eval_post_cutoff` | 4,549 | 119/228/894/2449 | 102/103/106/107 | 3.12% | 0.97% | 0.24% | 0.00% |
+| `cvss_vector/eval_pre_cutoff` | 4,904 | 98/167/341/2002 | 102/103/106/107 | 0.59% | 0.12% | 0.02% | 0.00% |
 | `cvss_vector/train` | 123,402 | 103/182/662/2890 | 102/103/106/107 | 1.89% | 0.70% | 0.19% | 0.00% |
 | `cvss_vector/train_subsample` | 20,591 | 103/185/677/2872 | 102/103/106/107 | 2.02% | 0.72% | 0.18% | 0.00% |
 | `replay/train` | 37,100 | 17/54/208/2213 | 137/415/776/11625 | 7.00% | 0.59% | 0.05% | 0.01% |
 | `replay/train_subsample` | 11,251 | 17/54/216/2213 | 140/417/821/4704 | 7.42% | 0.60% | 0.07% | 0.01% |
-| `structured_extract/eval_post_cutoff` | 3,117 | 107/193/323/770 | 34/53/106/603 | 0.26% | 0.00% | 0.00% | 0.00% |
-| `structured_extract/eval_pre_cutoff` | 1,831 | 94/178/347/951 | 35/68/295/823 | 0.87% | 0.06% | 0.00% | 0.00% |
+| `structured_extract/eval_post_cutoff` | 3,328 | 108/193/322/770 | 34/53/107/603 | 0.30% | 0.00% | 0.00% | 0.00% |
+| `structured_extract/eval_pre_cutoff` | 2,307 | 95/173/338/951 | 34/71/383/823 | 1.04% | 0.04% | 0.00% | 0.00% |
 | `structured_extract/train` | 65,429 | 100/185/367/2495 | 35/70/323/1219 | 1.56% | 0.09% | 0.03% | 0.00% |
 | `structured_extract/train_subsample` | 10,918 | 100/184/355/1040 | 35/69/298/905 | 1.43% | 0.04% | 0.00% | 0.00% |
 
@@ -31,20 +31,20 @@
 | 과제/분할 | 4096 시퀀스 수 | 시퀀스당 예제 | 패딩 비율 | 4096 초과(절단) |
 |---|---|---|---|---|
 | `attack_technique/eval_post_cutoff` | 5 | **15.8** | 5.5% | 0 |
-| `attack_technique/eval_pre_cutoff` | 5 | **13.4** | 18.2% | 0 |
+| `attack_technique/eval_pre_cutoff` | 5 | **15.8** | 8.3% | 0 |
 | `attack_technique/train` | 48 | **15.375** | 4.9% | 0 |
-| `cve_to_cwe/eval_post_cutoff` | 130 | **28.254** | 3.8% | 0 |
-| `cve_to_cwe/eval_pre_cutoff` | 90 | **37.6** | 2.6% | 0 |
+| `cve_to_cwe/eval_post_cutoff` | 137 | **28.226** | 4.2% | 0 |
+| `cve_to_cwe/eval_pre_cutoff` | 109 | **36.826** | 2.9% | 0 |
 | `cve_to_cwe/train` | 5,005 | **34.115** | 3.0% | 0 |
 | `cve_to_cwe/train_subsample` | 841 | **33.878** | 3.1% | 0 |
-| `cvss_vector/eval_post_cutoff` | 287 | **15.098** | 4.5% | 0 |
-| `cvss_vector/eval_pre_cutoff` | 224 | **18.571** | 3.3% | 0 |
+| `cvss_vector/eval_post_cutoff` | 300 | **15.163** | 4.5% | 0 |
+| `cvss_vector/eval_pre_cutoff` | 267 | **18.367** | 3.3% | 0 |
 | `cvss_vector/train` | 7,348 | **16.794** | 4.3% | 0 |
 | `cvss_vector/train_subsample` | 1,230 | **16.741** | 4.2% | 0 |
 | `replay/train` | 2,077 | **17.862** | 4.7% | 3 |
 | `replay/train_subsample` | 641 | **17.552** | 5.2% | 1 |
-| `structured_extract/eval_post_cutoff` | 127 | **24.543** | 2.8% | 0 |
-| `structured_extract/eval_pre_cutoff` | 73 | **25.082** | 3.2% | 0 |
+| `structured_extract/eval_post_cutoff` | 135 | **24.652** | 2.2% | 0 |
+| `structured_extract/eval_pre_cutoff` | 93 | **24.806** | 2.6% | 0 |
 | `structured_extract/train` | 2,743 | **23.853** | 3.0% | 0 |
 | `structured_extract/train_subsample` | 451 | **24.208** | 2.9% | 0 |
 
