@@ -117,6 +117,26 @@ sudo apt-get install -y systemd-oomd   # 또는 earlyoom
 sudo systemctl enable --now systemd-oomd
 ```
 
+#### P4 재시도 (2026-09-19) — 여전히 미해결, 시도 2회 기록
+
+P4 작업지시서는 이것을 선행조건으로 걸었다. 두 번 시도했고 두 번 다 같은 벽에 막혔다.
+
+| 시도 | 명령 | 결과 |
+|---|---|---|
+| 1 | `sudo -n apt-get install -y earlyoom` | `sudo: 암호가 필요합니다` — passwordless sudo 없음. `apt-cache policy earlyoom` 후보는 **1.7-2**로 설치 가능한 상태 |
+| 2 | `sudo -n systemctl enable --now systemd-oomd` | 같은 거부. 게다가 `/usr/lib/systemd/systemd-oomd`와 `/lib/systemd/systemd-oomd` **바이너리 자체가 없다** — 패키지가 설치되어 있지 않다 |
+
+**따라서 P4는 사용자 공간 OOM 데몬 없이 실행됐다.** 대신 실제로 적용한 완화책은
+root 없이 가능한 유일한 것, 즉 **cgroup 상한**이다. 모든 평가 실행은
+`systemd-run --user --scope -p MemoryMax=80G -p MemorySwapMax=0` 안에서 돌았고
+(`Makefile`의 `eval-*` 타깃), 그 값이 실행 매니페스트 `memory_ceiling`에 기록된다.
+
+이 완화책의 한계를 분명히 적어 둔다: **A2에서 측정했듯 이 상한은 호스트 RSS만 덮는다.**
+GB10 통합 메모리에서 CUDA 할당은 이 상한 밖이며, 그쪽은 vLLM의
+`gpu_memory_utilization=0.45`가 따로 막는다. 두 상한 모두 매니페스트에 기록된다.
+사람이 root로 위 두 줄을 실행하기 전까지, **호스트를 통째로 먹는 종류의 사고에 대한
+방어는 여전히 없다.** P5는 P4보다 오래 돌므로 노출은 더 커진다.
+
 ### 오해하기 쉬운 지점 — 두 상한은 다른 것을 막는다
 
 `torch.cuda.set_per_process_memory_fraction()`을 걸어 두는 것은 의미가 있지만,
