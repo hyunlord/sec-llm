@@ -1,0 +1,14 @@
+{
+  "hellaswag": {
+    "config": null,
+    "repo": "Rowan/hellaswag",
+    "revision": "218ec52e09a7e7462a5400043bb9a69a41d06b76",
+    "split": "validation"
+  },
+  "mmlu": {
+    "config": "all",
+    "repo": "cais/mmlu",
+    "revision": "c30699e8356da336a370243923dbaf21066bb9fe",
+    "split": "test"
+  }
+}

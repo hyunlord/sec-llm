@@ -1,0 +1,7 @@
+{
+  "reference": "python@sha256:90744cff8f32887f075c47d747a173ff333e9e98801667af93c357fa9f5e28ff",
+  "tag": "python:3.11.15-slim",
+  "platform": "linux/arm64",
+  "why_digest": "the tag is multi-arch and the host had cached the amd64 variant, which failed with 'exec format error'. Pinning the digest makes the image immutable and unambiguous, the same discipline P1 applies to source data.",
+  "pull": "docker pull --platform linux/arm64 python:3.11.15-slim"
+}
