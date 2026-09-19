@@ -59,8 +59,9 @@ def main() -> int:
     out = {"seq": SEQ, "p0_sec_per_step": sec_per_step, "p0_tokens_per_step": tokens_per_step, "tasks": {}}
     total_train_tokens = 0
     total_train_seqs = 0
+    sub = {"domain": [], "replay": []}   # total lengths, for the pre-registered subsample
     for t in TASKS:
-        for sp in SPLITS:
+        for sp in SPLITS + ("train_subsample",):
             p = OUT / t / f"{sp}.jsonl"
             if not p.exists():
                 continue
@@ -70,6 +71,8 @@ def main() -> int:
                 pr.append(a); tg.append(b); tot.append(a + b)
             if not tot:
                 continue
+            if sp == "train_subsample":
+                sub["replay" if t == "replay" else "domain"].extend(tot)
             pack = greedy_pack(tot)
             row = {
                 "examples": len(tot),
@@ -85,7 +88,21 @@ def main() -> int:
                 total_train_tokens += sum(tot)
                 total_train_seqs += pack["sequences_4096"]
 
-    # P5 schedule from measured numbers: one optimizer step = 16 packed sequences.
+    # Pre-registered ablation: Cond-1 = domain subsample; Cond-2 = the same subsample + replay.
+    def sched(lengths, label):
+        pk = greedy_pack(lengths)
+        steps = pk["sequences_4096"] / 16
+        return {"label": label, "examples": len(lengths), "tokens": sum(lengths),
+                "sequences_4096": pk["sequences_4096"], "examples_per_sequence": pk["examples_per_sequence"],
+                "padding_fraction": pk["padding_fraction"], "optimizer_steps_per_epoch": round(steps, 1),
+                "hours_per_epoch_at_p0_step_cost": round(steps * sec_per_step / 3600, 2) if sec_per_step else None}
+    d, r = sub["domain"], sub["replay"]
+    out["subsample_schedule"] = {
+        "cond1_domain_only": sched(d, "Cond-1: 60k domain subsample"),
+        "cond2_domain_plus_replay": sched(d + r, "Cond-2: 60k domain subsample + replay (20% of tokens)"),
+        "replay_fraction_of_cond2_tokens": round(sum(r) / (sum(d) + sum(r)), 4) if (d or r) else 0.0,
+    }
+    # Full set, for the optional run after the ablation.
     steps_per_epoch = total_train_seqs / 16 if total_train_seqs else 0
     out["schedule"] = {
         "train_tokens_all_tasks_plus_replay": total_train_tokens,
@@ -98,6 +115,7 @@ def main() -> int:
                  "corpus, not for 4096-token synthetic rows."),
     }
     (OUT / "lengths.json").write_text(json.dumps(out, indent=2) + "\n")
+    print(json.dumps(out["subsample_schedule"], indent=1))
     print(json.dumps(out["schedule"], indent=1))
     return 0
 
