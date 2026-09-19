@@ -17,9 +17,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import jsonschema  # noqa: E402
 
-from datasets import cwe_policy, replay, temporal  # noqa: E402
+from datasets import contamination, cwe_policy, replay, temporal  # noqa: E402
 from datasets.common import (  # noqa: E402
-    ATTACK_TABLE, CVE_TABLE, OUT, SCHEMAS, ensure_dirs, iter_jsonl, write_jsonl,
+    ATTACK_TABLE, CVE_TABLE, OUT, SCHEMAS, ensure_dirs, iter_jsonl, stable_int, write_jsonl,
 )
 from datasets.templates import render  # noqa: E402
 from datasets.tokenize_qwen import n_tokens  # noqa: E402
@@ -28,6 +28,8 @@ TASKS = ("cve_to_cwe", "cvss_vector", "attack_technique", "structured_extract")
 SPLITS_OUT = (temporal.TRAIN, temporal.EVAL_POST, temporal.EVAL_PRE)
 MAX_VERSIONS = 16
 MIN_ATTACK_DESC_CHARS = 40
+SUBSAMPLE_N = 60_000
+SUBSAMPLE_SEED = "sec-llm-p5-subsample-v1"
 
 _validators = {t: jsonschema.Draft202012Validator(json.loads((SCHEMAS / f"{t}.json").read_text())) for t in TASKS}
 
@@ -223,7 +225,109 @@ def main() -> int:
         examples["attack_technique"][sp].append(
             make_example("attack_technique", a["technique_id"], sp, a["description"], {"technique_id": a["technique_id"]}, meta))
 
-    # ---- write task files ----
+    # ---- replay, budgeted against the FULL domain training set ----
+    domain_train_tokens = sum(e["n_prompt_tokens"] + e["n_target_tokens"]
+                              for t in TASKS for e in examples[t][temporal.TRAIN])
+    pairs, rstats = replay.load_pairs()
+    pairs, scan = replay.scan_and_redact(pairs)
+    chosen, budget = replay.sample_to_budget(pairs, n_tokens, domain_train_tokens)
+
+    def replay_row(p):
+        return {"example_id": p["replay_id"], "task": "replay", "split": temporal.TRAIN, "entity_id": p["replay_id"],
+                "template_id": None, "prompt": p["prompt"], "input": p["prompt"], "target": None,
+                "target_json": p["response"], "n_prompt_tokens": n_tokens(p["prompt"]),
+                "n_target_tokens": n_tokens(p["response"]), "meta": {"lang": p["lang"], "rank": p.get("rank")}}
+    rrows = [replay_row(p) for p in chosen]
+
+    # ---- contamination screening: build.py OWNS removal and its record ----
+    # (docs/engineering-rules.md rule 1). Everything the model will train on is
+    # the training side: every task's inputs and targets, and replay prompts and
+    # responses. Each eval entity is screened once and the verdict applies to
+    # every task it appears in, so the same CVE cannot be kept in one task and
+    # removed from another.
+    train_texts = []
+    for t in TASKS:
+        for e in examples[t][temporal.TRAIN]:
+            train_texts.append((f"{t}:{e['entity_id']}:in", e["input"]))
+            train_texts.append((f"{t}:{e['entity_id']}:tg", e["target_json"]))
+    for r in rrows:
+        train_texts.append((f"replay:{r['entity_id']}:in", r["input"]))
+        train_texts.append((f"replay:{r['entity_id']}:tg", r["target_json"]))
+    eval_by_entity = {}
+    for t in TASKS:
+        for sp in (temporal.EVAL_POST, temporal.EVAL_PRE):
+            for e in examples[t][sp]:
+                eval_by_entity.setdefault(e["entity_id"], e["input"])
+    print(f"  screening {len(eval_by_entity):,} eval entities against {len(train_texts):,} training texts", flush=True)
+    verdicts, idx_stats = contamination.screen(eval_by_entity, train_texts)
+
+    removal_record = []
+    contam_sets = {}
+    cna_dist = {}
+    cross = {}
+    cov_all, jac_all = [], []
+    for t in TASKS:
+        train_cna = Counter(e["meta"].get("assigner") or "?" for e in examples[t][temporal.TRAIN]) if t != "attack_technique" else None
+        for sp in (temporal.EVAL_POST, temporal.EVAL_PRE):
+            rows = examples[t][sp]
+            keep, rem = [], []
+            n_near = n_cov = n_both = n_old = 0
+            for e in rows:
+                v = verdicts[e["entity_id"]]
+                cov_all.append(v["coverage_13"]["fraction"]); jac_all.append(v["near_match"]["jaccard"])
+                if v["diag_any_13gram"]:
+                    n_old += 1
+                if v["removed"]:
+                    c = v["criteria"]
+                    if c == ["near_duplicate"]: n_near += 1
+                    elif c == ["coverage"]: n_cov += 1
+                    else: n_both += 1
+                    rem.append(e)
+                    removal_record.append({
+                        "task": t, "split": sp, "example_id": e["example_id"], "entity_id": e["entity_id"],
+                        "assigner": e["meta"].get("assigner"), "criteria": c,
+                        "near_match": v["near_match"], "coverage_13": v["coverage_13"],
+                        "coverage_8_fraction": v["coverage_8_fraction"], "diag_any_13gram": v["diag_any_13gram"],
+                    })
+                else:
+                    keep.append(e)
+            examples[t][sp] = keep
+            key = f"{t}/{sp}"
+            contam_sets[key] = {
+                "before": len(rows), "after": len(keep), "removed": len(rem),
+                "removed_fraction": round(len(rem) / len(rows), 4) if rows else 0.0,
+                "removed_by_near_only": n_near, "removed_by_coverage_only": n_cov, "removed_by_both": n_both,
+                "diag_old_criterion_would_remove": n_old,
+                "diag_old_criterion_fraction": round(n_old / len(rows), 4) if rows else 0.0,
+            }
+            if train_cna is not None:
+                before = Counter(e["meta"].get("assigner") or "?" for e in rows)
+                after_old = Counter(e["meta"].get("assigner") or "?" for e in rows if not verdicts[e["entity_id"]]["diag_any_13gram"])
+                after_new = Counter(e["meta"].get("assigner") or "?" for e in keep)
+                cna_dist[key] = {
+                    "tvd_before": contamination.tvd(before, train_cna),
+                    "tvd_after_old": contamination.tvd(after_old, train_cna),
+                    "tvd_after_new": contamination.tvd(after_new, train_cna),
+                    "before_top": before.most_common(10), "after_old_top": after_old.most_common(10),
+                    "after_new_top": after_new.most_common(10), "train_top": train_cna.most_common(10),
+                }
+        post = {e["entity_id"] for e in examples[t][temporal.EVAL_POST]}
+        pre = {e["entity_id"] for e in examples[t][temporal.EVAL_PRE]}
+        cross[t] = len(post & pre)
+        assert not (post & pre), f"{t}: entity in both temporal eval sets"
+    edges = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    contam = {
+        "index": idx_stats, "eval_sets": contam_sets, "total_removed": len(removal_record),
+        "total_diag_old_criterion": sum(v["diag_old_criterion_would_remove"] for v in contam_sets.values()),
+        "coverage_histogram": contamination.hist(cov_all, edges),
+        "near_jaccard_histogram": contamination.hist(jac_all, edges),
+        "cna_distribution": cna_dist, "cross_eval": cross,
+        "policy": "applied: near_duplicate (Jaccard >= threshold, P2 MinHash) and coverage (>0.5 of 13-grams in training); "
+                  "diagnostic only, NOT applied: any single shared 13-gram",
+    }
+    removal_record.sort(key=lambda r: r["example_id"] + "|" + r["split"])
+
+    # ---- write task files (post-removal) ----
     files = {}
     for t in TASKS:
         for sp in SPLITS_OUT:
@@ -235,40 +339,61 @@ def main() -> int:
                 stats[t]["by_template"][str(e["template_id"])] += 1
     n, sha = write_jsonl(OUT / "cve_to_cwe" / "contested.jsonl", sorted(contested_rows, key=lambda x: x["cve_id"]))
     files["cve_to_cwe/contested"] = {"count": n, "sha256": sha}
-
-    # ---- replay: 20% of training tokens ----
-    domain_train_tokens = sum(e["n_prompt_tokens"] + e["n_target_tokens"]
-                              for t in TASKS for e in examples[t][temporal.TRAIN])
-    pairs, rstats = replay.load_pairs()
-    pairs, scan = replay.scan_and_redact(pairs)
-    chosen, budget = replay.sample_to_budget(pairs, n_tokens, domain_train_tokens)
-    rrows = [{"example_id": p["replay_id"], "task": "replay", "split": temporal.TRAIN, "entity_id": p["replay_id"],
-              "template_id": None, "prompt": p["prompt"], "input": p["prompt"], "target": None,
-              "target_json": p["response"], "n_prompt_tokens": n_tokens(p["prompt"]),
-              "n_target_tokens": n_tokens(p["response"]), "meta": {"lang": p["lang"], "rank": p.get("rank")}} for p in chosen]
     n, sha = write_jsonl(OUT / "replay" / "train.jsonl", rrows)
     files["replay/train"] = {"count": n, "sha256": sha}
 
+    # ---- pre-registered P5 subsample: 60k domain examples, stratified over the
+    # three SCORED tasks, seeded, hashed. Both training conditions use exactly
+    # this; Cond-2 adds replay budgeted at 20% of the SUBSAMPLE's tokens.
+    scored = [t for t in TASKS if t != "attack_technique"]
+    totals = {t: len(examples[t][temporal.TRAIN]) for t in scored}
+    grand = sum(totals.values())
+    quota = {t: round(SUBSAMPLE_N * totals[t] / grand) for t in scored}
+    quota[scored[-1]] += SUBSAMPLE_N - sum(quota.values())   # rounding residue to the last task
+    sub_tokens = 0
+    for t in scored:
+        order = sorted(examples[t][temporal.TRAIN],
+                       key=lambda e: (stable_int(SUBSAMPLE_SEED + e["example_id"], 1 << 62), e["example_id"]))
+        pick = sorted(order[:quota[t]], key=lambda e: e["example_id"])
+        n, sha = write_jsonl(OUT / t / "train_subsample.jsonl", pick)
+        files[f"{t}/train_subsample"] = {"count": n, "sha256": sha}
+        sub_tokens += sum(e["n_prompt_tokens"] + e["n_target_tokens"] for e in pick)
+    sub_chosen, sub_budget = replay.sample_to_budget(pairs, n_tokens, sub_tokens)
+    n, sha = write_jsonl(OUT / "replay" / "train_subsample.jsonl", [replay_row(p) for p in sub_chosen])
+    files["replay/train_subsample"] = {"count": n, "sha256": sha}
+    subsample = {"n": SUBSAMPLE_N, "seed": SUBSAMPLE_SEED, "stratified_over": scored, "quota": quota,
+                 "source_totals": totals, "domain_tokens": sub_tokens, "replay": sub_budget}
+
     out = {
         "tasks": {t: {k: (dict(v) if isinstance(v, Counter) else v) for k, v in stats[t].items()} for t in TASKS},
+        "scored": {t: (t != "attack_technique") for t in TASKS},
+        "not_scored_reason": {"attack_technique": (
+            "738 training examples and 72 / 44 evaluation items; confidence intervals exceed +/-10 percentage "
+            "points and the task is recall of ~800 fixed items. Kept in the datasets and manifest, reported "
+            "descriptively by P4/P5, excluded from any comparison between conditions.")},
         "split_counts_cve": dict(split_counts),
         "split_counts_attack": dict(Counter(asplit.values())),
         "cwe_buckets": dict(cwe_buckets),
         "cwe_source_by_split": {k: dict(v) for k, v in cwe_source_by_split.items()},
         "cwe_guard": dict(guard),
+        "cwe_guard_provenance": "interim guard in datasets/build.py; P2.1 not delivered, reconciliation deferred",
         "contested_structure": {"relation": dict(contested_structure["relation"]),
                                 "top_pairs": contested_structure["pairs"].most_common(15),
                                 "top_cnas": contested_structure["cnas"].most_common(15),
                                 "total": sum(contested_structure["relation"].values())},
-        "replay": {"parse": rstats, "scan": scan, "budget": budget,
+        "replay": {"parse": rstats, "scan": scan, "budget_full": budget,
                    "lang_counts": dict(Counter(p["lang"] for p in chosen))},
-        "files_pre_contamination": files,
+        "subsample": subsample,
+        "contamination": contam,
+        "removal_record": removal_record,
+        "files": files,
         "temporal": {"cutoff": temporal.CUTOFF, "pre_eval_years": list(temporal.PRE_EVAL_YEARS),
                      "eval_sample_per_period": temporal.EVAL_SAMPLE},
     }
     (OUT / "build_stats.json").write_text(json.dumps(out, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
     print(json.dumps({t: dict(stats[t]["by_split"]) for t in TASKS}, indent=1))
-    print("replay:", budget)
+    print("removed:", {k: v["removed"] for k, v in contam_sets.items()})
+    print("replay full:", budget); print("subsample:", subsample["quota"], "replay:", sub_budget)
     print(f"build wall {time.time()-t0:.0f}s")
     return 0
 

@@ -109,6 +109,14 @@ def cwe_md():
     L.append("| 가드 결과 | 건수 |\n|---|---|")
     for k, v in sorted(g.items(), key=lambda kv: -kv[1]):
         L.append(f"| `{k}` | {n(v)} |")
+    L.append("\n### P2.1과의 조정(P3.1 Change 5) — 현재 상태: **보류**\n")
+    L.append(f"- 가드 출처: `{M.get('cwe_guard_provenance','')}`")
+    L.append("- P3.1 시점에도 P2.1 문서와 커밋은 존재하지 않는다 (저장소·작업 디렉터리·임시 경로 전역 검색 결과 없음). "
+             "따라서 위 임시 가드가 그대로 남아 있고, 근접 중복 임계값도 P2의 0.75를 쓴다.")
+    L.append("- P2.1이 도착하면: `build.py`가 `decisions.jsonl`의 가드 필드를 직접 소비하고 임시 가드를 제거하며, "
+             "임시 가드와 P2.1 가드 사이에 **상태가 바뀌는 레코드 수**를 이 절에 기록한다. 두 가드가 크게 다르면 그것은 "
+             "덮을 것이 아니라 기록할 발견이다.")
+    L.append("- 비교 기준선(임시 가드): " + ", ".join(f"`{k}`={n(v)}" for k, v in sorted(g.items())))
     (D / "CWE_POLICY.md").write_text("\n".join(L) + "\n", encoding="utf-8")
 
 
@@ -123,13 +131,30 @@ def card_md():
     L.append("| `cvss_vector` | CVE 설명 | CVSS v3.1 기본 지표 8개 + 점수 + 벡터 문자열 | NVD `cvssMetricV31` (Primary 우선) | `cvss_vector.json` |")
     L.append("| `attack_technique` | ATT&CK 기법 설명 | `{\"technique_id\": ...}` | STIX `external_id` | `attack_technique.json` |")
     L.append("| `structured_extract` | CVE 설명 | vendor / product / versions / impact | CVE V5 `cna.affected`, `cna.impacts` | `structured_extract.json` |")
-    L.append("\n## 과제별 산출 규모\n\n| 과제 | 학습 | 평가(이후) | 평가(이전) |\n|---|---|---|---|")
+    L.append("\n## 과제별 산출 규모와 채점 여부\n\n| 과제 | 채점 | 학습 | 학습 서브샘플(60k) | 평가(이후) | 평가(이전) |\n|---|---|---|---|---|---|")
     f = M["files"]
+    sc = M.get("scored", {})
     for t in TASKS:
-        L.append(f"| `{t}` | {n(f.get(f'{t}/train.jsonl',{}).get('count',0))} | "
+        L.append(f"| `{t}` | {'**예**' if sc.get(t, True) else '**아니오** (`scored: false`)'} | "
+                 f"{n(f.get(f'{t}/train.jsonl',{}).get('count',0))} | "
+                 f"{n(f.get(f'{t}/train_subsample.jsonl',{}).get('count',0)) if f'{t}/train_subsample.jsonl' in f else '—'} | "
                  f"{n(f.get(f'{t}/eval_post_cutoff.jsonl',{}).get('count',0))} | "
                  f"{n(f.get(f'{t}/eval_pre_cutoff.jsonl',{}).get('count',0))} |")
-    L.append(f"| `replay` | {n(f.get('replay/train.jsonl',{}).get('count',0))} | — | — |")
+    L.append(f"| `replay` | — | {n(f.get('replay/train.jsonl',{}).get('count',0))} | "
+             f"{n(f.get('replay/train_subsample.jsonl',{}).get('count',0))} | — | — |")
+    nsr = M.get("not_scored_reason", {})
+    if nsr:
+        L.append("\n### `scored: false` — 채점하지 않는 과제\n")
+        for t, why in nsr.items():
+            L.append(f"- **`{t}`**: {why}")
+        L.append("")
+    L.append("### 라벨 출처가 시간에 따라 달라진다\n")
+    cs = M["decisions"]["cwe_ground_truth"]["cwe_source_by_split"]
+    L.append("| 분할 | agreed | nvd | cna |\n|---|---|---|---|")
+    for sp, c in cs.items():
+        L.append(f"| `{sp}` | {n(c.get('agreed',0))} | {n(c.get('nvd',0))} | {n(c.get('cna',0))} |")
+    L.append("\n컷오프 이후 평가는 `agreed`가 우세하고 학습은 `nvd`가 우세하다 — 최근 CVE는 CNA가 CWE를 달고, 오래된 CVE는 "
+             "NVD 분석가만 달았기 때문이다. 같은 과제 안에서 라벨의 **출처 구성이 분할마다 다르므로** P4는 `cwe_source`로 층화해 보고해야 한다.")
     L.append("\n## 과제별 유의점 — 공정하지만 경계가 있는 과제들\n")
     L.append("- **`cvss_vector`**: NVD v3.1 지표가 있는 CVE만 쓴다. v2(다른 척도)나 v4(다른 벡터)로 조용히 대체하지 않는다. "
              f"v3.1이 없어 제외된 CVE 수는 `reports/datasets.md`에 있다.")
@@ -146,14 +171,16 @@ def card_md():
     L.append(f"- 출처: **OpenAssistant/oasst2**, Apache-2.0 (데이터 카드 선언), 커밋 `{M['pins']['replay_oasst2'].get('commit_sha','')[:12]}`에 고정.")
     L.append("- 라이선스는 **다운로드 전에** 읽었다. 저장소에 별도 LICENSE 파일은 없고 카드의 SPDX 필드가 선언이다 — 그대로 기록한다.")
     L.append("- 사람이 쓴 메시지만 사용한다. `synthetic: true`(모델 생성) 메시지는 제외해 제3 모델의 약관이 개입하지 않게 했다.")
-    L.append(f"- 선택된 쌍 {n(r['pairs_selected'])} / 가용 {n(r['pairs_available'])}, 토큰 {n(r['replay_tokens_used'])}, "
-             f"전체 학습 토큰 중 **{r['replay_fraction_of_total']:.1%}** (목표 20%). 풀 소진 여부: {r['budget_exhausted_pool']}.")
+    fs, ss = r["full_set"], r["subsample"]
+    L.append(f"- **사전 등록된 60k 서브샘플(Cond-2가 실제로 쓰는 것)**: 선택 {n(ss['pairs_selected'])}쌍, 토큰 {n(ss['replay_tokens_used'])}, "
+             f"전체 학습 토큰 중 **{ss['replay_fraction_of_total']:.1%}** — 목표 20% **도달**. 풀 소진: {ss['budget_exhausted_pool']}.")
+    L.append(f"- **전체 세트(선택적 후속 실행)**: 선택 {n(fs['pairs_selected'])} / 가용 {n(fs['pairs_available'])}쌍, 토큰 {n(fs['replay_tokens_used'])}, "
+             f"**{fs['replay_fraction_of_total']:.1%}** — 목표 20% **미달**, 풀 소진: {fs['budget_exhausted_pool']}. 미달 상태로 기록한다.")
+    L.append(f"- HelpSteer2 (CC-BY-4.0) 보충 검토 결과: **사용하지 않음.** {r.get('helpsteer2','')} 라이선스는 적합하지만 "
+             "카드 스스로 응답이 사내 LLM 생성이라고 밝히므로 '사람이 쓴 턴만' 제약에 걸린다. 다른 언어를 섞거나 예제를 반복해 채우지 않았다.")
     ko = r["lang_counts"].get("ko", 0)
     L.append(f"- 언어: {r['lang_counts']}. **한국어 리플레이는 사실상 없다** — 필터를 통과한 oasst2 한국어 쌍이 {n(ko)}건뿐이다. "
              "P5가 한국어 지시 능력을 지키려면 다른 출처가 필요하다.")
-    L.append("- 목표 20%에 미달한 채 풀이 소진되었다. 더 낮은 순위 답변까지 포함한 뒤의 값이며, 다른 언어를 섞거나 "
-             "예제를 반복해 채우지 않았다. 20%가 필요하면 라이선스를 이미 읽어 둔 nvidia/HelpSteer2(CC-BY-4.0, 모델 생성 응답)를 "
-             "두 번째 출처로 추가하거나, P5에서 리플레이를 에폭 단위로 재표집(반복)하는 학습 시점 선택으로 맞춘다.")
     L.append(f"- P2 시크릿/PII 정책 적용: 탐지 {n(sum(r['scan']['findings_by_category'].values()))}건 "
              f"({r['scan']['findings_by_category']}), 값은 어디에도 기록하지 않는다.")
     L.append("- 기각한 후보와 사유는 `docs/data-sources.md`의 oasst2 행에 있다.\n")
@@ -194,34 +221,10 @@ def datasets_report():
 
 
 def contamination_report():
-    c = M["contamination"]
-    L = [gen_header("P3 오염 검사 보고서")]
-    L.append(f"정책: **{c['policy_n']}-gram, 무관용.** 학습 세트(도메인 4과제 + 리플레이)의 어떤 항목과도 {c['policy_n']}-gram을 공유하는 "
-             f"평가 항목은 제거한다. **{c['diagnostic_n']}-gram**은 같은 세트에 진단용으로 돌려 함께 보고한다.\n")
-    L.append("n-gram은 `input`과 `target_json`(내용)에서만 계산한다. 지시 템플릿은 설계상 공유되므로 포함하면 모든 항목이 걸린다.\n")
-    L.append(f"학습 세트 고유 n-gram: {c['policy_n']}-gram **{n(c['train_unique_ngrams'][str(c['policy_n'])])}**, "
-             f"{c['diagnostic_n']}-gram **{n(c['train_unique_ngrams'][str(c['diagnostic_n'])])}**\n")
-    L.append("## 평가 세트별 결과\n\n| 평가 세트 | 검사 전 | 13-gram 제거 | 제거율 | 검사 후 | 8-gram이면 제거될 수 | 8-gram 추가분 | 8-gram 제거율 |\n|---|---|---|---|---|---|---|---|")
-    for k, v in c["eval_sets"].items():
-        L.append(f"| `{k}` | {n(v['before'])} | **{n(v['removed_at_13'])}** | {v['removed_fraction_13']:.1%} | {n(v['after'])} | "
-                 f"{n(v['would_remove_at_8'])} | +{n(v['additional_at_8_beyond_13'])} | {v['would_remove_fraction_8']:.1%} |")
-    L.append(f"\n총 13-gram 제거: **{n(c['total_removed_at_13'])}건**. 제거 후 재검사 결과 13-gram 겹침 **0** (`--assert-zero` 통과).\n")
-    L.append("## 8-gram이 추가로 잡는 것 — 이 코퍼스가 얼마나 정형화되어 있는가\n")
-    L.append("8-gram에서 가장 자주 걸린 구절(공개 취약점 설명의 상투구이며 비밀이 아니다):\n")
-    for k, grams in c["top_diag_grams"].items():
-        if not grams:
-            continue
-        L.append(f"**`{k}`**")
-        for g, cnt in grams[:5]:
-            L.append(f"- ({cnt}) `{g}`")
-        L.append("")
-    L.append("13-gram 제거율이 높은 것 자체가 발견 사항이다: Oracle·Adobe·Android 같은 벤더의 CVE 설명은 제품명과 버전만 다른 "
-             "고정 문장이라 13단어 연쇄가 그대로 학습 세트에 존재한다. 무관용 정책은 이런 항목을 평가에서 걷어내므로 "
-             "**평가 세트는 정형화가 덜한 벤더 쪽으로 기운다.** P4는 이 편향을 알고 해석해야 한다.\n")
-    L.append("## 교차 평가 검사\n")
-    for k, v in c["cross_eval"].items():
-        L.append(f"- `{k}`: {v if not isinstance(v, dict) else v.get('shared_entity_ids')} 개 엔티티가 두 시간 세트에 동시 존재 (0이어야 함)")
-    (REPORTS / "contamination.md").write_text("\n".join(L) + "\n", encoding="utf-8")
+    # Rendered from the manifest's recorded removal by the module that owns the
+    # criteria. Nothing is recomputed here (docs/engineering-rules.md rule 1).
+    from datasets import contamination
+    contamination.render(M)
 
 
 def lengths_report():
@@ -237,8 +240,22 @@ def lengths_report():
     for k, v in l["tasks"].items():
         pk = v["packing"]
         L.append(f"| `{k}` | {n(pk['sequences_4096'])} | **{pk['examples_per_sequence']}** | {pk['padding_fraction']:.1%} | {pk['truncated_over_4096']} |")
+    ss = l.get("subsample_schedule")
+    if ss:
+        L.append("\n## 사전 등록된 P5 절제 실험 — 60k 서브샘플 일정\n")
+        sub = M["decisions"]["subsample"]
+        L.append(f"- 표집: {n(sub['n'])}개 도메인 예제, 채점 과제 3개에 비례 층화 (`{sub['quota']}`), 시드 `{sub['seed']}`, 파일 해시는 매니페스트에.")
+        L.append("- Cond-1과 Cond-2는 **정확히 이 서브샘플**로 학습한다. Cond-2는 여기에 리플레이를 더한다.\n")
+        L.append("| 조건 | 예제 | 토큰 | 4096 시퀀스 | 시퀀스당 예제 | 패딩 | 에폭당 스텝 | **에폭당 시간** |\n|---|---|---|---|---|---|---|---|")
+        for k in ("cond1_domain_only", "cond2_domain_plus_replay"):
+            c = ss[k]
+            L.append(f"| {c['label']} | {n(c['examples'])} | {n(c['tokens'])} | {n(c['sequences_4096'])} | {c['examples_per_sequence']} | "
+                     f"{c['padding_fraction']:.1%} | {c['optimizer_steps_per_epoch']} | **{c['hours_per_epoch_at_p0_step_cost']} h** |")
+        L.append(f"\n- Cond-2에서 리플레이가 차지하는 토큰 비율: **{ss['replay_fraction_of_cond2_tokens']:.1%}**")
+        L.append(f"- 두 조건 합계(1 에폭씩): **{ss['cond1_domain_only']['hours_per_epoch_at_p0_step_cost'] + ss['cond2_domain_plus_replay']['hours_per_epoch_at_p0_step_cost']:.1f} h** "
+                 f"— 전체 세트 두 조건 {2*l['schedule']['hours_per_epoch_at_p0_step_cost']:.1f} h 대비.")
     s = l["schedule"]
-    L.append("\n## P0 측정치를 P5 일정으로 — 이 보고서의 존재 이유\n")
+    L.append("\n## 전체 세트 일정 (절제 실험 후 선택적 실행)\n")
     L.append(f"- P0 체크 07: **{l['p0_sec_per_step']}초/옵티마이저 스텝**, 스텝당 {n(l['p0_tokens_per_step'])} 토큰 (16 × 4096, 합성 전장 시퀀스).")
     L.append(f"- 실제 학습 토큰(4과제 + 리플레이): **{n(s['train_tokens_all_tasks_plus_replay'])}**")
     L.append(f"- 패킹 후 4096 시퀀스: **{n(s['train_sequences_4096_after_packing'])}** → 스텝당 16 시퀀스 → **에폭당 {n(s['optimizer_steps_per_epoch'])} 스텝**")
