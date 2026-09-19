@@ -1,0 +1,31 @@
+{
+  "compared": "outputs.jsonl byte for byte; scores.json with timing, run id and image id removed",
+  "env_required": {
+    "PIP_ONLY_BINARY": ":all:",
+    "VLLM_BATCH_INVARIANT": "1",
+    "VLLM_USE_FLASHINFER_SAMPLER": "0"
+  },
+  "gate": "Gate 4 -- evaluation determinism",
+  "not_compared": [
+    "seconds",
+    "wall",
+    "timings",
+    "run_id",
+    "image_id"
+  ],
+  "outputs": {
+    "byte_identical": true,
+    "differing_items": [],
+    "n_differing": 0,
+    "sha256": "3ac8e5c5b18b84059ee925ad0e7d8463650649e10f72949d426d1500728c5894"
+  },
+  "passed": true,
+  "runs": [
+    "baseline",
+    "baseline_repeat"
+  ],
+  "score_differences": [],
+  "scores_identical": true,
+  "wall_seconds": {},
+  "why": "Gate 0 measured that greedy decoding on this machine is not byte-reproducible without VLLM_BATCH_INVARIANT=1 (15 sequential samples, 2 distinct outputs). Gate 4 proves the fix holds at evaluation scale with a full batch mix and both decoding modes."
+}

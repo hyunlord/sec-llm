@@ -105,6 +105,18 @@ def verdict(a: dict, b: dict, p_value: float | None = None) -> dict:
 
 
 # ---------------------------------------------------------------------- scoring
+def _length_stats(lengths) -> dict:
+    v = sorted(lengths)
+    n = len(v)
+    if not n:
+        return {"n": 0}
+    total = sum(v)
+    top1 = sum(v[int(n * 0.99):])
+    return {"n": n, "median": v[n // 2], "p99": v[min(n - 1, int(n * 0.99))], "max": v[-1],
+            "total_tokens": total,
+            "top_1pct_share_of_tokens": round(top1 / total, 4) if total else 0.0}
+
+
 def _primary_flag(task, parsed, target) -> bool:
     if task in exact_match.FIELDS:
         return exact_match.score_one(task, parsed, target)["correct"]
@@ -191,6 +203,10 @@ def score_run(run_id: str, with_sandbox: bool = True) -> dict:
             "mdd_points_over_all": mdd(float(np.mean(prim)) if prim else None, len(prim)),
             "fence_stripped": sum(1 for x in schema_rows if x["normalization"] == schema_scorer.FENCE),
             "truncated": sum(1 for r in rows if r["finish_reason"] == "length"),
+            # Output length is a cost measurement, and the cost is a tail. It is
+            # recorded per group because P5 runs this three times and the free
+            # decoding mode is where the hours go.
+            "output_length": _length_stats([r["n_output_tokens"] for r in rows]),
             "by_stratum": {},
         }
         for s_name in strata.STRATA:
@@ -407,7 +423,15 @@ def render_baseline(run_id: str) -> Path:
             b = r["by_stratum"][name]
             cells.append(f"{ci(b['accuracy_over_all_items'])}" if b["n_items"] else f"— n=0")
         L.append(f"| {mark(k, s['scored'])} | {st.get('positive_median','—')} | " + " | ".join(cells) + " |")
-    L.append("\n**high 계층은 일부 세트에서 얇다** (전체 커버리지 히스토그램은 [0.0,0.1)에 15,519건, [0.9,1.0)에 188건). "
+    L.append("\n### 이 표를 Cond-0에서 읽는 법 — 여기서 커버리지 격차는 암기가 아니다\n")
+    L.append("여섯 개 채점 세트 **전부**에서 커버리지가 높을수록 정확도가 높다. 그러나 **기준선 모델은 우리 학습 세트를 본 적이 없다.** "
+             "따라서 Cond-0에서 커버리지 계층이 재는 것은 암기가 아니라 **설명문이 얼마나 정형화되어 있는가**다 — "
+             "우리 코퍼스와 13-gram을 많이 공유하는 항목은 템플릿으로 쓰인 항목이고, 템플릿으로 쓰인 항목이 기준선에게 더 쉽다.\n")
+    L.append("**그래서 이 표가 P5의 기준선이다.** 같은 항목, 같은 계층 경계로 미세조정 후를 재서 "
+             "**high 계층이 zero 계층보다 더 많이 올랐다면 그 초과분이 암기의 측정값**이다. 여기서는 그 초과분을 잴 수 없고, "
+             "잴 수 있는 것은 출발점뿐이다. P3.2가 커버리지 높은 항목 2,483건을 지우는 대신 필드로 붙여 둔 덕분에 "
+             "이 측정이 가능하다 — 삭제했다면 이 표 자체가 존재할 수 없다.\n")
+    L.append("**high 계층은 일부 세트에서 얇다** (전체 커버리지 히스토그램은 [0.0,0.1)에 15,519건, [0.9,1.0)에 188건). "
              "얇은 계층의 구간은 넓고, 넓은 구간은 점추정값처럼 읽어서는 안 된다.\n")
 
     L.append("## 컷오프 이후 vs 이전 — 이 파이프라인 자신의 사전학습 오염 추정치\n")
@@ -418,6 +442,12 @@ def render_baseline(run_id: str) -> Path:
         z = g["by_stratum_gap"].get("zero")
         L.append(f"| {mark(k.split('/',1)[1], s['scored'])} | {ci(g['post_cutoff'])} | {ci(g['pre_cutoff'])} | "
                  f"{pc(g['gap'])} | **{g['verdict']}** | {pc(z) if z is not None else '—'} |")
+    L.append("\n### 이 격차를 어디까지 말할 수 있나\n")
+    L.append("기준선 모델은 우리 학습 세트를 보지 않았으므로 이 격차는 **우리 데이터의 누수가 아니다**. 남는 설명은 두 가지이고 "
+             "이 하네스는 둘을 분리하지 못한다: (1) 모델이 사전학습에서 오래된 CVE를 이미 봤다, (2) 오래된 CVE가 그냥 더 쉽다 "
+             "(CNA 구성, CWE 라벨 출처, 설명문 길이가 시간에 따라 다르다 — `datasets/CARD.md` 참조). "
+             "**zero 계층에서도 격차가 거의 그대로 남는다는 사실**은 최소한 그 격차가 우리 코퍼스와의 어휘 중복으로는 "
+             "설명되지 않는다는 것을 말해 준다.\n")
     L.append("\n컷오프 이전 세트가 더 높다면 그 차이는 모델이 사전학습에서 이미 본 CVE라는 뜻이다. **zero 계층에서도 격차가 남으면 "
              "그 오염은 어휘적(13-gram)이 아니다** — 즉 커버리지로는 잡히지 않는 형태의 사전 노출이다.\n")
 
@@ -480,6 +510,16 @@ def render_baseline(run_id: str) -> Path:
         L.append("**공식 자체검증**은 NVD 자신의 벡터로 점수를 계산해 NVD가 기록한 점수와 비교한 값이다. 이것이 100%가 아니면 "
                  "위의 모델 점수 일치율은 공식 구현 오류를 모델 결과로 잘못 보고하는 것이 된다.\n")
 
+    L.append("## 생성 비용 — P5가 이것을 세 번 돌린다\n")
+    L.append("| 과제/분할/디코딩 | 출력 토큰 중앙값 | p99 | 최대 | 총 출력 토큰 | 상위 1%가 차지하는 비율 | 문맥 한계까지 간 항목 |\n|---|---|---|---|---|---|---|")
+    for k, r in s["domain"].items():
+        o = r.get("output_length", {})
+        L.append(f"| `{k}` | {n(o.get('median'))} | {n(o.get('p99'))} | {n(o.get('max'))} | {n(o.get('total_tokens'))} | "
+                 f"{pc(o.get('top_1pct_share_of_tokens'))} | {r['truncated']} |")
+    L.append(f"\n1회 통과 벽시계 **{w['total_sec']/3600:.2f} 시간** 중 생성이 {w['generation_sec']/3600:.2f} 시간이다. "
+             "**비용은 꼬리에서 나온다**: 자유 생성에서 상위 1% 항목이 전체 출력 토큰의 상당 부분을 차지한다. "
+             "제약 생성은 문법이 조기 종료를 강제하므로 같은 항목 수에 훨씬 적은 토큰을 쓴다. "
+             "P5가 조건마다 한 번씩 돌릴 때의 예산은 이 표에서 나온다.\n")
     L.append("## 검출 가능한 최소 차이 (MDD)\n")
     L.append("귀무 결과와 검정력 부족을 구분하기 위해, 각 세트의 n에서 유의수준 0.05·검정력 0.80으로 검출 가능한 최소 차이를 싣는다. "
              "짝지은 McNemar 검정은 이보다 검정력이 높으므로 아래 값은 **보수적 상한**이다.\n")

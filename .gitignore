@@ -29,7 +29,6 @@ outputs/
 #  data/labels negation; a bare `data/` here would re-block it)
 # NOTE: `datasets/` is the P3 source package and IS committed. Materialized
 # JSONL lives under data/out/, which data/* already excludes.
-runs/
 *.arrow
 
 # Logs -- raw stdout of env checks is packed by `make pack`, not committed
@@ -48,5 +47,7 @@ p0-artifacts.zip
 .omc/
 .omx/
 .codegraph
+# P4 runs: the manifest, scores and gate record are the evidence and go in.
+# Raw generations and per-item flags are large and stay out.
 runs/*/outputs.jsonl
 runs/*/flags.json

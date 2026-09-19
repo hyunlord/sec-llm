@@ -1,0 +1,514 @@
+{
+  "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+  "checkpoint_files": 11,
+  "constrained_failures": [],
+  "dataset": {
+    "coverage_applied_as_filter": false,
+    "dataset_manifest_phase": "P3",
+    "dataset_manifest_sha256": "61c060f77d28f95482abc816664f1970c9ae5b30a18e51adca45c34cf25ff149",
+    "files_verified": {
+      "attack_technique/eval_post_cutoff.jsonl": {
+        "count": 79,
+        "sha256": "ab5e1e632d6a842d0abd1a1ba309732f4197bd84251cc55f79e42f52368eaeb3"
+      },
+      "attack_technique/eval_pre_cutoff.jsonl": {
+        "count": 79,
+        "sha256": "27aaa6817ad0b439b3167c337f2c541638d51012f6244ef53d852d9226fb30ea"
+      },
+      "cve_to_cwe/eval_post_cutoff.jsonl": {
+        "count": 3867,
+        "sha256": "20c22e3a02489ce0a975be8987270e336b388b350523d666ac820370989b7395"
+      },
+      "cve_to_cwe/eval_pre_cutoff.jsonl": {
+        "count": 4014,
+        "sha256": "59b98bb44c9fe42af7a05de83670b415d6392dcdff3c9c880f552b60ea2333ce"
+      },
+      "cvss_vector/eval_post_cutoff.jsonl": {
+        "count": 4549,
+        "sha256": "3473afda2ad9c50f6d76d2d005ff39702a6b71ea1da9fa341db6b878e950b665"
+      },
+      "cvss_vector/eval_pre_cutoff.jsonl": {
+        "count": 4904,
+        "sha256": "278ee3ea4dc6dcbdad4939b2a1362c5cc11d2bebed26325fca6fe6ec3bfe8298"
+      },
+      "structured_extract/eval_post_cutoff.jsonl": {
+        "count": 3328,
+        "sha256": "88ec0614ff5a32ce50ffc131ded89df635b60603771d97c24819105bf0aeecb4"
+      },
+      "structured_extract/eval_pre_cutoff.jsonl": {
+        "count": 2307,
+        "sha256": "e10034a18ce0489753127a74708854e133fd57fdd974c204986c7af3bd4c12af"
+      }
+    },
+    "near_threshold": 0.75,
+    "near_threshold_source": "P2 calibration (P2.1 not delivered)",
+    "not_scored_reason": {
+      "attack_technique": "738 training examples and 72 / 44 evaluation items; confidence intervals exceed +/-10 percentage points and the task is recall of ~800 fixed items. Kept in the datasets and manifest, reported descriptively by P4/P5, excluded from any comparison between conditions."
+    },
+    "scored": {
+      "attack_technique": false,
+      "cve_to_cwe": true,
+      "cvss_vector": true,
+      "structured_extract": true
+    }
+  },
+  "dataset_manifest_sha256": "61c060f77d28f95482abc816664f1970c9ae5b30a18e51adca45c34cf25ff149",
+  "decodings": [
+    "free",
+    "constrained"
+  ],
+  "driver_version": "580.126.09",
+  "env": {
+    "PIP_ONLY_BINARY": ":all:",
+    "VLLM_BATCH_INVARIANT": "1",
+    "VLLM_USE_FLASHINFER_SAMPLER": "0"
+  },
+  "general_max_tokens": 8,
+  "general_pins": {
+    "hellaswag": {
+      "config": null,
+      "file": "data/validation-00000-of-00001.parquet",
+      "file_sha256": "899813071e1e95efafec90f856e1987d2150fa4d020fc005df6962c259f660cd",
+      "pool_size": 10042,
+      "prompt_template_sha256": "c382bbb8a4b8819f5dcef7e2ca6ea0818f5a367f988eb1ee2ac5e3cbc26f8ab1",
+      "protocol": "letter generation, not log-likelihood comparison; see reports/eval_harness.md",
+      "repo": "Rowan/hellaswag",
+      "revision": "218ec52e09a7e7462a5400043bb9a69a41d06b76",
+      "selection": "stable sha256 of (stem + choices), smallest n, independent of row order",
+      "split": "validation",
+      "subset_n": 1000,
+      "subset_sha256": "e809add61f35de7fdea3b233993dc85b0287818f082c0e2abb1e5355b914c999"
+    },
+    "mmlu": {
+      "config": "all",
+      "file": "all/test-00000-of-00001.parquet",
+      "file_sha256": "74a41822ce7d3def56e1682f958469c04642a5336a5ce912fa375fdb90fb25d7",
+      "pool_size": 14042,
+      "prompt_template_sha256": "c382bbb8a4b8819f5dcef7e2ca6ea0818f5a367f988eb1ee2ac5e3cbc26f8ab1",
+      "protocol": "letter generation, not log-likelihood comparison; see reports/eval_harness.md",
+      "repo": "cais/mmlu",
+      "revision": "c30699e8356da336a370243923dbaf21066bb9fe",
+      "selection": "stable sha256 of (stem + choices), smallest n, independent of row order",
+      "split": "test",
+      "subset_n": 1000,
+      "subset_sha256": "a13f61f155510e63e9c4984953ebe091bcaa0ae9ffb8089d4d701d64ee745291"
+    }
+  },
+  "general_sets": [
+    "mmlu",
+    "hellaswag"
+  ],
+  "gpu_name": "NVIDIA GB10",
+  "jsonschema_version": "4.26.0",
+  "limit_per_set": null,
+  "machine": "aarch64",
+  "max_tokens_rule": "max_model_len - prompt tokens - 8, per item; no cap chosen by the harness",
+  "memory_ceiling": {
+    "mechanism": "systemd-run --user --scope",
+    "memory_max": "80G",
+    "memory_swap_max": "0"
+  },
+  "model_arg": "base",
+  "model_checkpoint_sha256": "2564ff2127caa0a9f79cfaf96f569e407dec51c264566735efc5ff4e2c68a234",
+  "model_commit": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "model_repo": "Qwen/Qwen2.5-7B-Instruct",
+  "model_snapshot": "/home/hyunlord/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28",
+  "n_outputs": 48254,
+  "numpy_version": "2.3.5",
+  "outputs_jsonl_sha256": "3ac8e5c5b18b84059ee925ad0e7d8463650649e10f72949d426d1500728c5894",
+  "partial": false,
+  "python": "3.12.3",
+  "run_id": "baseline",
+  "sampling": {
+    "seed": 1234,
+    "temperature": 0.0,
+    "top_p": 1.0
+  },
+  "splits": [
+    "eval_post_cutoff",
+    "eval_pre_cutoff"
+  ],
+  "strata": {
+    "attack_technique/eval_post_cutoff": {
+      "counts": {
+        "high": 3,
+        "low": 4,
+        "zero": 72
+      },
+      "definition": "zero: coverage==0; low: 0<coverage<=median(positive); high: coverage>median(positive)",
+      "field": "train_ngram_coverage",
+      "n": 79,
+      "note": "recorded quartiles are deliberately not used: coverage is zero-inflated and quartile boundaries collapse, which makes quartile strata incomparable across evaluation sets",
+      "positive_median": 0.0514
+    },
+    "attack_technique/eval_pre_cutoff": {
+      "counts": {
+        "high": 17,
+        "low": 18,
+        "zero": 44
+      },
+      "definition": "zero: coverage==0; low: 0<coverage<=median(positive); high: coverage>median(positive)",
+      "field": "train_ngram_coverage",
+      "n": 79,
+      "note": "recorded quartiles are deliberately not used: coverage is zero-inflated and quartile boundaries collapse, which makes quartile strata incomparable across evaluation sets",
+      "positive_median": 0.2472
+    },
+    "cve_to_cwe/eval_post_cutoff": {
+      "counts": {
+        "high": 508,
+        "low": 544,
+        "zero": 2815
+      },
+      "definition": "zero: coverage==0; low: 0<coverage<=median(positive); high: coverage>median(positive)",
+      "field": "train_ngram_coverage",
+      "n": 3867,
+      "note": "recorded quartiles are deliberately not used: coverage is zero-inflated and quartile boundaries collapse, which makes quartile strata incomparable across evaluation sets",
+      "positive_median": 0.2
+    },
+    "cve_to_cwe/eval_pre_cutoff": {
+      "counts": {
+        "high": 997,
+        "low": 999,
+        "zero": 2018
+      },
+      "definition": "zero: coverage==0; low: 0<coverage<=median(positive); high: coverage>median(positive)",
+      "field": "train_ngram_coverage",
+      "n": 4014,
+      "note": "recorded quartiles are deliberately not used: coverage is zero-inflated and quartile boundaries collapse, which makes quartile strata incomparable across evaluation sets",
+      "positive_median": 0.3514
+    },
+    "cvss_vector/eval_post_cutoff": {
+      "counts": {
+        "high": 686,
+        "low": 747,
+        "zero": 3116
+      },
+      "definition": "zero: coverage==0; low: 0<coverage<=median(positive); high: coverage>median(positive)",
+      "field": "train_ngram_coverage",
+      "n": 4549,
+      "note": "recorded quartiles are deliberately not used: coverage is zero-inflated and quartile boundaries collapse, which makes quartile strata incomparable across evaluation sets",
+      "positive_median": 0.2
+    },
+    "cvss_vector/eval_pre_cutoff": {
+      "counts": {
+        "high": 1203,
+        "low": 1205,
+        "zero": 2496
+      },
+      "definition": "zero: coverage==0; low: 0<coverage<=median(positive); high: coverage>median(positive)",
+      "field": "train_ngram_coverage",
+      "n": 4904,
+      "note": "recorded quartiles are deliberately not used: coverage is zero-inflated and quartile boundaries collapse, which makes quartile strata incomparable across evaluation sets",
+      "positive_median": 0.3448
+    },
+    "structured_extract/eval_post_cutoff": {
+      "counts": {
+        "high": 574,
+        "low": 577,
+        "zero": 2177
+      },
+      "definition": "zero: coverage==0; low: 0<coverage<=median(positive); high: coverage>median(positive)",
+      "field": "train_ngram_coverage",
+      "n": 3328,
+      "note": "recorded quartiles are deliberately not used: coverage is zero-inflated and quartile boundaries collapse, which makes quartile strata incomparable across evaluation sets",
+      "positive_median": 0.2292
+    },
+    "structured_extract/eval_pre_cutoff": {
+      "counts": {
+        "high": 685,
+        "low": 686,
+        "zero": 936
+      },
+      "definition": "zero: coverage==0; low: 0<coverage<=median(positive); high: coverage>median(positive)",
+      "field": "train_ngram_coverage",
+      "n": 2307,
+      "note": "recorded quartiles are deliberately not used: coverage is zero-inflated and quartile boundaries collapse, which makes quartile strata incomparable across evaluation sets",
+      "positive_median": 0.381
+    }
+  },
+  "structured_outputs_backend": "xgrammar",
+  "tasks": [
+    "cve_to_cwe",
+    "cvss_vector",
+    "attack_technique",
+    "structured_extract"
+  ],
+  "timings": [
+    {
+      "group": "cve_to_cwe/eval_post_cutoff/free",
+      "items": 3867,
+      "max_tokens": {
+        "max": 8122,
+        "median": 8060,
+        "min": 5718
+      },
+      "output_tokens": 68222,
+      "output_tokens_per_sec": 101.7,
+      "prompt_tokens": 600610,
+      "seconds": 671.1,
+      "truncated_at_context": 1
+    },
+    {
+      "group": "cve_to_cwe/eval_post_cutoff/constrained",
+      "items": 3867,
+      "max_tokens": {
+        "max": 8122,
+        "median": 8060,
+        "min": 5718
+      },
+      "output_tokens": 52722,
+      "output_tokens_per_sec": 1790.9,
+      "prompt_tokens": 600610,
+      "seconds": 29.4,
+      "truncated_at_context": 0
+    },
+    {
+      "group": "cve_to_cwe/eval_pre_cutoff/free",
+      "items": 4014,
+      "max_tokens": {
+        "max": 8123,
+        "median": 8075,
+        "min": 6181
+      },
+      "output_tokens": 64154,
+      "output_tokens_per_sec": 560.6,
+      "prompt_tokens": 499085,
+      "seconds": 114.4,
+      "truncated_at_context": 0
+    },
+    {
+      "group": "cve_to_cwe/eval_pre_cutoff/constrained",
+      "items": 4014,
+      "max_tokens": {
+        "max": 8123,
+        "median": 8075,
+        "min": 6181
+      },
+      "output_tokens": 54612,
+      "output_tokens_per_sec": 1890.5,
+      "prompt_tokens": 499085,
+      "seconds": 28.9,
+      "truncated_at_context": 0
+    },
+    {
+      "group": "cvss_vector/eval_post_cutoff/free",
+      "items": 4549,
+      "max_tokens": {
+        "max": 8111,
+        "median": 8036,
+        "min": 5706
+      },
+      "output_tokens": 2025126,
+      "output_tokens_per_sec": 891.9,
+      "prompt_tokens": 840653,
+      "seconds": 2270.5,
+      "truncated_at_context": 17
+    },
+    {
+      "group": "cvss_vector/eval_post_cutoff/constrained",
+      "items": 4549,
+      "max_tokens": {
+        "max": 8111,
+        "median": 8036,
+        "min": 5706
+      },
+      "output_tokens": 526470,
+      "output_tokens_per_sec": 1449.4,
+      "prompt_tokens": 840653,
+      "seconds": 363.2,
+      "truncated_at_context": 0
+    },
+    {
+      "group": "cvss_vector/eval_pre_cutoff/free",
+      "items": 4904,
+      "max_tokens": {
+        "max": 8115,
+        "median": 8057,
+        "min": 6153
+      },
+      "output_tokens": 2182998,
+      "output_tokens_per_sec": 888.7,
+      "prompt_tokens": 698111,
+      "seconds": 2456.5,
+      "truncated_at_context": 23
+    },
+    {
+      "group": "cvss_vector/eval_pre_cutoff/constrained",
+      "items": 4904,
+      "max_tokens": {
+        "max": 8115,
+        "median": 8057,
+        "min": 6153
+      },
+      "output_tokens": 567705,
+      "output_tokens_per_sec": 1672.3,
+      "prompt_tokens": 698111,
+      "seconds": 339.5,
+      "truncated_at_context": 0
+    },
+    {
+      "group": "attack_technique/eval_post_cutoff/free",
+      "items": 79,
+      "max_tokens": {
+        "max": 8083,
+        "median": 7949,
+        "min": 7570
+      },
+      "output_tokens": 1377,
+      "output_tokens_per_sec": 132.2,
+      "prompt_tokens": 20490,
+      "seconds": 10.4,
+      "truncated_at_context": 0
+    },
+    {
+      "group": "attack_technique/eval_post_cutoff/constrained",
+      "items": 79,
+      "max_tokens": {
+        "max": 8083,
+        "median": 7949,
+        "min": 7570
+      },
+      "output_tokens": 1119,
+      "output_tokens_per_sec": 772.5,
+      "prompt_tokens": 20490,
+      "seconds": 1.4,
+      "truncated_at_context": 0
+    },
+    {
+      "group": "attack_technique/eval_pre_cutoff/free",
+      "items": 79,
+      "max_tokens": {
+        "max": 8090,
+        "median": 7953,
+        "min": 7483
+      },
+      "output_tokens": 1340,
+      "output_tokens_per_sec": 175.3,
+      "prompt_tokens": 19922,
+      "seconds": 7.6,
+      "truncated_at_context": 0
+    },
+    {
+      "group": "attack_technique/eval_pre_cutoff/constrained",
+      "items": 79,
+      "max_tokens": {
+        "max": 8090,
+        "median": 7953,
+        "min": 7483
+      },
+      "output_tokens": 1103,
+      "output_tokens_per_sec": 719.1,
+      "prompt_tokens": 19922,
+      "seconds": 1.5,
+      "truncated_at_context": 0
+    },
+    {
+      "group": "structured_extract/eval_post_cutoff/free",
+      "items": 3328,
+      "max_tokens": {
+        "max": 8121,
+        "median": 8047,
+        "min": 7385
+      },
+      "output_tokens": 434968,
+      "output_tokens_per_sec": 465.5,
+      "prompt_tokens": 508322,
+      "seconds": 934.4,
+      "truncated_at_context": 16
+    },
+    {
+      "group": "structured_extract/eval_post_cutoff/constrained",
+      "items": 3328,
+      "max_tokens": {
+        "max": 8121,
+        "median": 8047,
+        "min": 7385
+      },
+      "output_tokens": 260653,
+      "output_tokens_per_sec": 334.1,
+      "prompt_tokens": 508322,
+      "seconds": 780.2,
+      "truncated_at_context": 7
+    },
+    {
+      "group": "structured_extract/eval_pre_cutoff/free",
+      "items": 2307,
+      "max_tokens": {
+        "max": 8125,
+        "median": 8060,
+        "min": 7204
+      },
+      "output_tokens": 193935,
+      "output_tokens_per_sec": 271.0,
+      "prompt_tokens": 322112,
+      "seconds": 715.7,
+      "truncated_at_context": 3
+    },
+    {
+      "group": "structured_extract/eval_pre_cutoff/constrained",
+      "items": 2307,
+      "max_tokens": {
+        "max": 8125,
+        "median": 8060,
+        "min": 7204
+      },
+      "output_tokens": 163467,
+      "output_tokens_per_sec": 248.7,
+      "prompt_tokens": 322112,
+      "seconds": 657.4,
+      "truncated_at_context": 4
+    },
+    {
+      "group": "mmlu/test/free",
+      "items": 1000,
+      "max_tokens": {
+        "fixed": 8
+      },
+      "output_tokens": 2006,
+      "output_tokens_per_sec": 77.0,
+      "prompt_tokens": 158214,
+      "seconds": 26.1,
+      "truncated_at_context": 1
+    },
+    {
+      "group": "hellaswag/validation/free",
+      "items": 1000,
+      "max_tokens": {
+        "fixed": 8
+      },
+      "output_tokens": 2000,
+      "output_tokens_per_sec": 46.6,
+      "prompt_tokens": 241624,
+      "seconds": 42.9,
+      "truncated_at_context": 0
+    }
+  ],
+  "tokenizer_sha256": "38c75a3be3e7b11090160f7a9cfe231b64464b247dcedb85bd27ca68549e2fbe",
+  "torch_version": "2.13.0+cu130",
+  "transformers_version": "5.17.0",
+  "vllm_engine": {
+    "gpu_memory_utilization": 0.45,
+    "max_model_len": 8192,
+    "max_num_seqs": 256,
+    "seed": 1234
+  },
+  "vllm_engine_gate0_reference": {
+    "gpu_memory_utilization": 0.45,
+    "max_model_len": 8192,
+    "max_num_seqs": 16,
+    "seed": 1234
+  },
+  "vllm_version": "0.29.0",
+  "wall": {
+    "generation_sec": 9451.1,
+    "model_load_sec": 104.7,
+    "total_sec": 9570.6
+  },
+  "weight_files": [
+    "model-00001-of-00004.safetensors",
+    "model-00002-of-00004.safetensors",
+    "model-00003-of-00004.safetensors",
+    "model-00004-of-00004.safetensors"
+  ],
+  "xgrammar_version": "0.2.7"
+}

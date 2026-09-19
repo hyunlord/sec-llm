@@ -31,9 +31,15 @@ SUBSET_N = 1000
 LETTERS = ("A", "B", "C", "D")
 PINS_FILE = Path(__file__).resolve().parents[1] / "general_pins.json"
 
+# Pinned FILES, not a library call. The repository's own `datasets/` package
+# shadows HuggingFace's `datasets` module inside this repo, and pulling the two
+# parquet files directly is both immune to that and closer to P1's discipline:
+# an immutable commit, a named file, and a digest of the bytes that were read.
 SPECS = {
-    "mmlu": {"repo": "cais/mmlu", "config": "all", "split": "test"},
-    "hellaswag": {"repo": "Rowan/hellaswag", "config": None, "split": "validation"},
+    "mmlu": {"repo": "cais/mmlu", "config": "all", "split": "test",
+             "file": "all/test-00000-of-00001.parquet"},
+    "hellaswag": {"repo": "Rowan/hellaswag", "config": None, "split": "validation",
+                  "file": "data/validation-00000-of-00001.parquet"},
 }
 
 TEMPLATE = ("The following is a multiple choice question. Answer with the letter of the "
@@ -63,14 +69,27 @@ def _resolve_revision(name: str, allow_network: bool) -> str:
     return rev
 
 
+def _read_parquet(name: str, rev: str) -> tuple[list[dict], str]:
+    import pyarrow.parquet as pq
+    from huggingface_hub import hf_hub_download
+    spec = SPECS[name]
+    path = hf_hub_download(spec["repo"], spec["file"], repo_type="dataset", revision=rev)
+    table = pq.read_table(path)
+    import hashlib
+    h = hashlib.sha256()
+    with open(path, "rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 20), b""):
+            h.update(chunk)
+    return table.to_pylist(), h.hexdigest()
+
+
 def prepare(name: str, n: int = SUBSET_N, allow_network: bool = True) -> dict:
     """Return {'items': [...], 'pin': {...}} with items already rendered."""
-    import datasets as hfds
     spec = SPECS[name]
     rev = _resolve_revision(name, allow_network)
-    ds = hfds.load_dataset(spec["repo"], spec["config"], split=spec["split"], revision=rev)
+    records, file_sha = _read_parquet(name, rev)
     rows = []
-    for r in ds:
+    for r in records:
         if name == "mmlu":
             stem, choices, gold = r["question"], list(r["choices"]), int(r["answer"])
             extra = {"subject": r.get("subject")}
@@ -96,6 +115,7 @@ def prepare(name: str, n: int = SUBSET_N, allow_network: bool = True) -> dict:
     return {
         "items": items,
         "pin": {"repo": spec["repo"], "revision": rev, "config": spec["config"], "split": spec["split"],
+                "file": spec["file"], "file_sha256": file_sha,
                 "pool_size": len(rows), "subset_n": len(items),
                 "subset_sha256": sha256_text("\n".join(i["example_id"] for i in items)),
                 "prompt_template_sha256": TEMPLATE_SHA,

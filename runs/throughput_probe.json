@@ -1,0 +1,39 @@
+{
+  "all_outputs_byte_identical": true,
+  "chosen_max_num_seqs": 256,
+  "conclusion": "batch invariance makes the generated text independent of the concurrency cap across a 16x range, so the cap is a throughput setting and not a result setting. Gate 0 measured the property at batch size one; this measures it at evaluation scale.",
+  "env": {
+    "VLLM_BATCH_INVARIANT": "1",
+    "VLLM_USE_FLASHINFER_SAMPLER": "0"
+  },
+  "gate0_reference_max_num_seqs": 16,
+  "group": "cvss_vector/eval_post_cutoff/free, first 256 items, identical settings otherwise",
+  "probe": "concurrency vs throughput vs output identity",
+  "rows": [
+    {
+      "items": 256,
+      "max_num_seqs": 16,
+      "output_tokens": 52113,
+      "output_tokens_per_sec": 212.6,
+      "outputs_sha256": "53ef079b93cd0f0fbe3ea04d91da6f274b09e23efff8cd93196ba740f5e88916",
+      "seconds": 245.1
+    },
+    {
+      "items": 256,
+      "max_num_seqs": 64,
+      "output_tokens": 52113,
+      "output_tokens_per_sec": 617.8,
+      "outputs_sha256": "53ef079b93cd0f0fbe3ea04d91da6f274b09e23efff8cd93196ba740f5e88916",
+      "seconds": 84.4
+    },
+    {
+      "items": 256,
+      "max_num_seqs": 256,
+      "output_tokens": 52113,
+      "output_tokens_per_sec": 1245.8,
+      "outputs_sha256": "53ef079b93cd0f0fbe3ea04d91da6f274b09e23efff8cd93196ba740f5e88916",
+      "seconds": 41.8
+    }
+  ],
+  "speedup_16_to_256": 5.86
+}

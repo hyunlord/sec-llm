@@ -30,8 +30,10 @@ from __future__ import annotations
 import json
 import subprocess
 import time
+from pathlib import Path
 
-IMAGE = "python:3.11.15-slim"
+IMAGE_PIN = Path(__file__).resolve().parent / "sandbox_image.json"
+IMAGE = json.loads(IMAGE_PIN.read_text())["reference"]   # pinned by digest, not by tag
 TIMEOUT_SEC = 30
 DOCKER_FLAGS = ["--rm", "-i", "--network=none", "--memory=512m", "--pids-limit=128",
                 "--read-only", "--tmpfs", "/tmp", "--security-opt", "no-new-privileges:true"]
@@ -108,7 +110,7 @@ def script_for(items) -> str:
 
 def image_id() -> str:
     try:
-        r = subprocess.run(["docker", "image", "inspect", "--format", "{{.Id}}", IMAGE],
+        r = subprocess.run(["docker", "image", "inspect", "--format", "{{.Id}} {{.Architecture}}", IMAGE],
                            capture_output=True, text=True, timeout=60)
         return r.stdout.strip()
     except Exception:

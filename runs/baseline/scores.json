@@ -1,0 +1,4409 @@
+{
+  "domain": {
+    "attack_technique/eval_post_cutoff/constrained": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "k": 0,
+        "n": 79,
+        "n_boot": 1000,
+        "rate": 0.0
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "k": 0,
+        "n": 79,
+        "n_boot": 1000,
+        "rate": 0.0
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 3,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 3,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "mdd_points_over_all": 1.6174959801163864e-06,
+          "n_items": 3,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 3,
+            "n": 3,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 4,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 4,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "mdd_points_over_all": 1.4007926092999998e-06,
+          "n_items": 4,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 4,
+            "n": 4,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 72,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 72,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "mdd_points_over_all": 3.3016998435734265e-07,
+          "n_items": 72,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 72,
+            "n": 72,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        }
+      },
+      "decoding": "constrained",
+      "denominators": {
+        "all_items": 79,
+        "schema_valid": 79
+      },
+      "fence_stripped": 0,
+      "mdd_points_over_all": 3.1520296328600493e-07,
+      "n_items": 79,
+      "output_length": {
+        "max": 17,
+        "median": 13,
+        "n": 79,
+        "p99": 17,
+        "top_1pct_share_of_tokens": 0.0152,
+        "total_tokens": 1119
+      },
+      "parse_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 79,
+        "n": 79,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 79,
+        "n": 79,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "scored": false,
+      "split": "eval_post_cutoff",
+      "task": "attack_technique",
+      "truncated": 0
+    },
+    "attack_technique/eval_post_cutoff/free": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "k": 0,
+        "n": 79,
+        "n_boot": 1000,
+        "rate": 0.0
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "k": 0,
+        "n": 73,
+        "n_boot": 1000,
+        "rate": 0.0
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 3,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 3,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "mdd_points_over_all": 1.6174959801163864e-06,
+          "n_items": 3,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 3,
+            "n": 3,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 4,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 4,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "mdd_points_over_all": 1.4007926092999998e-06,
+          "n_items": 4,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 4,
+            "n": 4,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 72,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 66,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "mdd_points_over_all": 3.3016998435734265e-07,
+          "n_items": 72,
+          "schema_valid_rate": {
+            "ci95": [
+              0.8472222222222222,
+              0.9722222222222222
+            ],
+            "k": 66,
+            "n": 72,
+            "n_boot": 1000,
+            "rate": 0.9166666666666666
+          }
+        }
+      },
+      "decoding": "free",
+      "denominators": {
+        "all_items": 79,
+        "schema_valid": 73
+      },
+      "fence_stripped": 22,
+      "mdd_points_over_all": 3.1520296328600493e-07,
+      "n_items": 79,
+      "output_length": {
+        "max": 100,
+        "median": 14,
+        "n": 79,
+        "p99": 100,
+        "top_1pct_share_of_tokens": 0.0726,
+        "total_tokens": 1377
+      },
+      "parse_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 79,
+        "n": 79,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          0.8607594936708861,
+          0.9746835443037974
+        ],
+        "k": 73,
+        "n": 79,
+        "n_boot": 1000,
+        "rate": 0.9240506329113924
+      },
+      "scored": false,
+      "split": "eval_post_cutoff",
+      "task": "attack_technique",
+      "truncated": 0
+    },
+    "attack_technique/eval_pre_cutoff/constrained": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "k": 0,
+        "n": 79,
+        "n_boot": 1000,
+        "rate": 0.0
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "k": 0,
+        "n": 79,
+        "n_boot": 1000,
+        "rate": 0.0
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 17,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 17,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "mdd_points_over_all": 6.794842220857024e-07,
+          "n_items": 17,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 17,
+            "n": 17,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 18,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 18,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "mdd_points_over_all": 6.603399687146853e-07,
+          "n_items": 18,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 18,
+            "n": 18,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 44,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 44,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "mdd_points_over_all": 4.2235486310463687e-07,
+          "n_items": 44,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 44,
+            "n": 44,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        }
+      },
+      "decoding": "constrained",
+      "denominators": {
+        "all_items": 79,
+        "schema_valid": 79
+      },
+      "fence_stripped": 0,
+      "mdd_points_over_all": 3.1520296328600493e-07,
+      "n_items": 79,
+      "output_length": {
+        "max": 17,
+        "median": 13,
+        "n": 79,
+        "p99": 17,
+        "top_1pct_share_of_tokens": 0.0154,
+        "total_tokens": 1103
+      },
+      "parse_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 79,
+        "n": 79,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 79,
+        "n": 79,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "scored": false,
+      "split": "eval_pre_cutoff",
+      "task": "attack_technique",
+      "truncated": 0
+    },
+    "attack_technique/eval_pre_cutoff/free": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "k": 0,
+        "n": 79,
+        "n_boot": 1000,
+        "rate": 0.0
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "k": 0,
+        "n": 73,
+        "n_boot": 1000,
+        "rate": 0.0
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 17,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 17,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "mdd_points_over_all": 6.794842220857024e-07,
+          "n_items": 17,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 17,
+            "n": 17,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 18,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 16,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "mdd_points_over_all": 6.603399687146853e-07,
+          "n_items": 18,
+          "schema_valid_rate": {
+            "ci95": [
+              0.7222222222222222,
+              1.0
+            ],
+            "k": 16,
+            "n": 18,
+            "n_boot": 1000,
+            "rate": 0.8888888888888888
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 44,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 40,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "mdd_points_over_all": 4.2235486310463687e-07,
+          "n_items": 44,
+          "schema_valid_rate": {
+            "ci95": [
+              0.8181818181818182,
+              0.9772727272727273
+            ],
+            "k": 40,
+            "n": 44,
+            "n_boot": 1000,
+            "rate": 0.9090909090909091
+          }
+        }
+      },
+      "decoding": "free",
+      "denominators": {
+        "all_items": 79,
+        "schema_valid": 73
+      },
+      "fence_stripped": 20,
+      "mdd_points_over_all": 3.1520296328600493e-07,
+      "n_items": 79,
+      "output_length": {
+        "max": 62,
+        "median": 14,
+        "n": 79,
+        "p99": 62,
+        "top_1pct_share_of_tokens": 0.0463,
+        "total_tokens": 1340
+      },
+      "parse_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 79,
+        "n": 79,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          0.8607594936708861,
+          0.9746835443037974
+        ],
+        "k": 73,
+        "n": 79,
+        "n_boot": 1000,
+        "rate": 0.9240506329113924
+      },
+      "scored": false,
+      "split": "eval_pre_cutoff",
+      "task": "attack_technique",
+      "truncated": 0
+    },
+    "cve_to_cwe/eval_post_cutoff/constrained": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.3757370054305663,
+          0.40652314455650373
+        ],
+        "k": 1510,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 0.3904835790018102
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.3757370054305663,
+          0.40652314455650373
+        ],
+        "k": 1510,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 0.3904835790018102
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.44881889763779526,
+              0.5334645669291339
+            ],
+            "k": 249,
+            "n": 508,
+            "n_boot": 1000,
+            "rate": 0.49015748031496065
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.44881889763779526,
+              0.5334645669291339
+            ],
+            "k": 249,
+            "n": 508,
+            "n_boot": 1000,
+            "rate": 0.49015748031496065
+          },
+          "mdd_points_over_all": 0.08787651439145462,
+          "n_items": 508,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 508,
+            "n": 508,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.3180147058823529,
+              0.39889705882352944
+            ],
+            "k": 194,
+            "n": 544,
+            "n_boot": 1000,
+            "rate": 0.35661764705882354
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.3180147058823529,
+              0.39889705882352944
+            ],
+            "k": 194,
+            "n": 544,
+            "n_boot": 1000,
+            "rate": 0.35661764705882354
+          },
+          "mdd_points_over_all": 0.08136832440731882,
+          "n_items": 544,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 544,
+            "n": 544,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.36127886323268205,
+              0.396101243339254
+            ],
+            "k": 1067,
+            "n": 2815,
+            "n_boot": 1000,
+            "rate": 0.3790408525754885
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.36127886323268205,
+              0.396101243339254
+            ],
+            "k": 1067,
+            "n": 2815,
+            "n_boot": 1000,
+            "rate": 0.3790408525754885
+          },
+          "mdd_points_over_all": 0.036228817607306625,
+          "n_items": 2815,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 2815,
+            "n": 2815,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        }
+      },
+      "decoding": "constrained",
+      "denominators": {
+        "all_items": 3867,
+        "schema_valid": 3867
+      },
+      "fence_stripped": 0,
+      "mdd_points_over_all": 0.03108320852924145,
+      "n_items": 3867,
+      "output_length": {
+        "max": 15,
+        "median": 14,
+        "n": 3867,
+        "p99": 14,
+        "top_1pct_share_of_tokens": 0.0104,
+        "total_tokens": 52722
+      },
+      "parse_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 3867,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 3867,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "scored": true,
+      "split": "eval_post_cutoff",
+      "task": "cve_to_cwe",
+      "truncated": 0
+    },
+    "cve_to_cwe/eval_post_cutoff/free": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.2955715024566848,
+          0.32583397982932505
+        ],
+        "k": 1200,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 0.3103180760279286
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.4104211277658815,
+          0.4471895074946467
+        ],
+        "k": 1200,
+        "n": 2802,
+        "n_boot": 1000,
+        "rate": 0.4282655246252677
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.39960629921259844,
+              0.4862204724409449
+            ],
+            "k": 225,
+            "n": 508,
+            "n_boot": 1000,
+            "rate": 0.44291338582677164
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.5214556962025316,
+              0.620253164556962
+            ],
+            "k": 225,
+            "n": 395,
+            "n_boot": 1000,
+            "rate": 0.569620253164557
+          },
+          "mdd_points_over_all": 0.08731879696706976,
+          "n_items": 508,
+          "schema_valid_rate": {
+            "ci95": [
+              0.7420767716535434,
+              0.812992125984252
+            ],
+            "k": 395,
+            "n": 508,
+            "n_boot": 1000,
+            "rate": 0.7775590551181102
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.25735294117647056,
+              0.33639705882352944
+            ],
+            "k": 161,
+            "n": 544,
+            "n_boot": 1000,
+            "rate": 0.2959558823529412
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.3558897243107769,
+              0.45363408521303256
+            ],
+            "k": 161,
+            "n": 399,
+            "n_boot": 1000,
+            "rate": 0.40350877192982454
+          },
+          "mdd_points_over_all": 0.07754125230413879,
+          "n_items": 544,
+          "schema_valid_rate": {
+            "ci95": [
+              0.6948529411764706,
+              0.7683823529411765
+            ],
+            "k": 399,
+            "n": 544,
+            "n_boot": 1000,
+            "rate": 0.7334558823529411
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.2728152753108348,
+              0.30550621669627
+            ],
+            "k": 814,
+            "n": 2815,
+            "n_boot": 1000,
+            "rate": 0.28916518650088807
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.3839516932270916,
+              0.42828685258964144
+            ],
+            "k": 814,
+            "n": 2008,
+            "n_boot": 1000,
+            "rate": 0.40537848605577687
+          },
+          "mdd_points_over_all": 0.03385610424067589,
+          "n_items": 2815,
+          "schema_valid_rate": {
+            "ci95": [
+              0.6962699822380106,
+              0.7289609236234459
+            ],
+            "k": 2008,
+            "n": 2815,
+            "n_boot": 1000,
+            "rate": 0.7133214920071048
+          }
+        }
+      },
+      "decoding": "free",
+      "denominators": {
+        "all_items": 3867,
+        "schema_valid": 2802
+      },
+      "fence_stripped": 34,
+      "mdd_points_over_all": 0.029475400034047822,
+      "n_items": 3867,
+      "output_length": {
+        "max": 8034,
+        "median": 13,
+        "n": 3867,
+        "p99": 150,
+        "top_1pct_share_of_tokens": 0.2265,
+        "total_tokens": 68222
+      },
+      "parse_rate": {
+        "ci95": [
+          0.9733643651409362,
+          0.982673907421774
+        ],
+        "k": 3783,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 0.978277734678045
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          0.7114041892940264,
+          0.73907421773985
+        ],
+        "k": 2802,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 0.7245927075252133
+      },
+      "scored": true,
+      "split": "eval_post_cutoff",
+      "task": "cve_to_cwe",
+      "truncated": 1
+    },
+    "cve_to_cwe/eval_pre_cutoff/constrained": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.49575859491778773,
+          0.5261584454409567
+        ],
+        "k": 2053,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 0.5114598903836572
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.49575859491778773,
+          0.5261584454409567
+        ],
+        "k": 2053,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 0.5114598903836572
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.5095285857572718,
+              0.571715145436309
+            ],
+            "k": 539,
+            "n": 997,
+            "n_boot": 1000,
+            "rate": 0.5406218655967904
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.5095285857572718,
+              0.571715145436309
+            ],
+            "k": 539,
+            "n": 997,
+            "n_boot": 1000,
+            "rate": 0.5406218655967904
+          },
+          "mdd_points_over_all": 0.06253212960363597,
+          "n_items": 997,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 997,
+            "n": 997,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.4934934934934935,
+              0.5535535535535535
+            ],
+            "k": 523,
+            "n": 999,
+            "n_boot": 1000,
+            "rate": 0.5235235235235235
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.4934934934934935,
+              0.5535535535535535
+            ],
+            "k": 523,
+            "n": 999,
+            "n_boot": 1000,
+            "rate": 0.5235235235235235
+          },
+          "mdd_points_over_all": 0.06260729262427678,
+          "n_items": 999,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 999,
+            "n": 999,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.4692765113974232,
+              0.510914271555996
+            ],
+            "k": 991,
+            "n": 2018,
+            "n_boot": 1000,
+            "rate": 0.4910802775024777
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.4692765113974232,
+              0.510914271555996
+            ],
+            "k": 991,
+            "n": 2018,
+            "n_boot": 1000,
+            "rate": 0.4910802775024777
+          },
+          "mdd_points_over_all": 0.04409193326235412,
+          "n_items": 2018,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 2018,
+            "n": 2018,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        }
+      },
+      "decoding": "constrained",
+      "denominators": {
+        "all_items": 4014,
+        "schema_valid": 4014
+      },
+      "fence_stripped": 0,
+      "mdd_points_over_all": 0.03125978988102022,
+      "n_items": 4014,
+      "output_length": {
+        "max": 15,
+        "median": 14,
+        "n": 4014,
+        "p99": 14,
+        "top_1pct_share_of_tokens": 0.0106,
+        "total_tokens": 54612
+      },
+      "parse_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 4014,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 4014,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "scored": true,
+      "split": "eval_pre_cutoff",
+      "task": "cve_to_cwe",
+      "truncated": 0
+    },
+    "cve_to_cwe/eval_pre_cutoff/free": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.3853948679621325,
+          0.415053562531141
+        ],
+        "k": 1606,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 0.40009965122072744
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.531987683886418,
+          0.5668833390352378
+        ],
+        "k": 1606,
+        "n": 2923,
+        "n_boot": 1000,
+        "rate": 0.5494355114608279
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.3971915747241725,
+              0.4593781344032096
+            ],
+            "k": 426,
+            "n": 997,
+            "n_boot": 1000,
+            "rate": 0.4272818455366098
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.5500342935528121,
+              0.6213991769547325
+            ],
+            "k": 426,
+            "n": 729,
+            "n_boot": 1000,
+            "rate": 0.5843621399176955
+          },
+          "mdd_points_over_all": 0.062072459158796424,
+          "n_items": 997,
+          "schema_valid_rate": {
+            "ci95": [
+              0.7031093279839519,
+              0.7582998996990972
+            ],
+            "k": 729,
+            "n": 997,
+            "n_boot": 1000,
+            "rate": 0.7311935807422267
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.37635135135135134,
+              0.43543543543543545
+            ],
+            "k": 405,
+            "n": 999,
+            "n_boot": 1000,
+            "rate": 0.40540540540540543
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.5135135135135135,
+              0.5851351351351352
+            ],
+            "k": 405,
+            "n": 740,
+            "n_boot": 1000,
+            "rate": 0.5472972972972973
+          },
+          "mdd_points_over_all": 0.06154479606732491,
+          "n_items": 999,
+          "schema_valid_rate": {
+            "ci95": [
+              0.7157157157157157,
+              0.7677677677677678
+            ],
+            "k": 740,
+            "n": 999,
+            "n_boot": 1000,
+            "rate": 0.7407407407407407
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.36272299306243805,
+              0.4058597621407334
+            ],
+            "k": 775,
+            "n": 2018,
+            "n_boot": 1000,
+            "rate": 0.3840436075322101
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.5068775790921596,
+              0.5591471801925723
+            ],
+            "k": 775,
+            "n": 1454,
+            "n_boot": 1000,
+            "rate": 0.5330123796423659
+          },
+          "mdd_points_over_all": 0.042896662890273204,
+          "n_items": 2018,
+          "schema_valid_rate": {
+            "ci95": [
+              0.7001982160555005,
+              0.7398538156590684
+            ],
+            "k": 1454,
+            "n": 2018,
+            "n_boot": 1000,
+            "rate": 0.7205153617443013
+          }
+        }
+      },
+      "decoding": "free",
+      "denominators": {
+        "all_items": 4014,
+        "schema_valid": 2923
+      },
+      "fence_stripped": 14,
+      "mdd_points_over_all": 0.030637533190239246,
+      "n_items": 4014,
+      "output_length": {
+        "max": 346,
+        "median": 13,
+        "n": 4014,
+        "p99": 136,
+        "top_1pct_share_of_tokens": 0.1205,
+        "total_tokens": 64154
+      },
+      "parse_rate": {
+        "ci95": [
+          0.9688527653213752,
+          0.978824115595416
+        ],
+        "k": 3909,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 0.9738415545590433
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          0.7140009965122073,
+          0.7424015944195317
+        ],
+        "k": 2923,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 0.7282012954658694
+      },
+      "scored": true,
+      "split": "eval_pre_cutoff",
+      "task": "cve_to_cwe",
+      "truncated": 0
+    },
+    "cvss_vector/eval_post_cutoff/constrained": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.16904264673554625,
+          0.19103649153660143
+        ],
+        "k": 819,
+        "n": 4549,
+        "n_boot": 1000,
+        "rate": 0.18003956913607386
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.16904264673554625,
+          0.19103649153660143
+        ],
+        "k": 819,
+        "n": 4549,
+        "n_boot": 1000,
+        "rate": 0.18003956913607386
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.2653061224489796,
+              0.33094023323615157
+            ],
+            "k": 204,
+            "n": 686,
+            "n_boot": 1000,
+            "rate": 0.29737609329446063
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.2653061224489796,
+              0.33094023323615157
+            ],
+            "k": 204,
+            "n": 686,
+            "n_boot": 1000,
+            "rate": 0.29737609329446063
+          },
+          "mdd_points_over_all": 0.06914666912395832,
+          "n_items": 686,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 686,
+            "n": 686,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.15261044176706828,
+              0.20883534136546184
+            ],
+            "k": 135,
+            "n": 747,
+            "n_boot": 1000,
+            "rate": 0.18072289156626506
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.15261044176706828,
+              0.20883534136546184
+            ],
+            "k": 135,
+            "n": 747,
+            "n_boot": 1000,
+            "rate": 0.18072289156626506
+          },
+          "mdd_points_over_all": 0.055780259172215185,
+          "n_items": 747,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 747,
+            "n": 747,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.14120667522464697,
+              0.1665596919127086
+            ],
+            "k": 480,
+            "n": 3116,
+            "n_boot": 1000,
+            "rate": 0.1540436456996149
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.14120667522464697,
+              0.1665596919127086
+            ],
+            "k": 480,
+            "n": 3116,
+            "n_boot": 1000,
+            "rate": 0.1540436456996149
+          },
+          "mdd_points_over_all": 0.025622174424487106,
+          "n_items": 3116,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 3116,
+            "n": 3116,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        }
+      },
+      "cvss_metrics_all_correct": {
+        "ci95": [
+          0.1719059133875577,
+          0.19432842382941307
+        ],
+        "k": 832,
+        "n": 4549,
+        "n_boot": 1000,
+        "rate": 0.1828973400747417
+      },
+      "cvss_per_field": {
+        "attackComplexity": {
+          "ci95": [
+            0.911409100901297,
+            0.9272367553308419
+          ],
+          "k": 4183,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 0.9195427566498131
+        },
+        "attackVector": {
+          "ci95": [
+            0.8461145306660804,
+            0.8659100901296989
+          ],
+          "k": 3894,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 0.8560123103978896
+        },
+        "availabilityImpact": {
+          "ci95": [
+            0.5792481864145966,
+            0.6098043526049681
+          ],
+          "k": 2705,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 0.5946361837766542
+        },
+        "baseScore": {
+          "ci95": [
+            0.11519015168168828,
+            0.13541987249945042
+          ],
+          "k": 570,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 0.12530226423389756
+        },
+        "confidentialityImpact": {
+          "ci95": [
+            0.6375027478566718,
+            0.6660804572433502
+          ],
+          "k": 2966,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 0.6520114310837547
+        },
+        "integrityImpact": {
+          "ci95": [
+            0.6190371510222027,
+            0.6478401846559684
+          ],
+          "k": 2881,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 0.6333260057155419
+        },
+        "privilegesRequired": {
+          "ci95": [
+            0.6832160914486701,
+            0.7100461639920862
+          ],
+          "k": 3167,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 0.6961969663662343
+        },
+        "scope": {
+          "ci95": [
+            0.7597219169048142,
+            0.7836887227962189
+          ],
+          "k": 3509,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 0.7713783249065729
+        },
+        "userInteraction": {
+          "ci95": [
+            0.7852275225324247,
+            0.8078698615080238
+          ],
+          "k": 3625,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 0.7968784348208398
+        },
+        "vectorString": {
+          "ci95": [
+            0.18157836887227963,
+            0.20422070784787866
+          ],
+          "k": 877,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 0.1927896240932073
+        }
+      },
+      "decoding": "constrained",
+      "denominators": {
+        "all_items": 4549,
+        "schema_valid": 4549
+      },
+      "fence_stripped": 0,
+      "mdd_points_over_all": 0.02257050606574722,
+      "n_items": 4549,
+      "output_length": {
+        "max": 119,
+        "median": 115,
+        "n": 4549,
+        "p99": 117,
+        "top_1pct_share_of_tokens": 0.0103,
+        "total_tokens": 526470
+      },
+      "parse_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 4549,
+        "n": 4549,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 4549,
+        "n": 4549,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "scored": true,
+      "split": "eval_post_cutoff",
+      "task": "cvss_vector",
+      "truncated": 0
+    },
+    "cvss_vector/eval_post_cutoff/free": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.0,
+          0.0010991426687183997
+        ],
+        "k": 2,
+        "n": 4549,
+        "n_boot": 1000,
+        "rate": 0.00043965706748735987
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.0,
+          0.5714285714285714
+        ],
+        "k": 2,
+        "n": 7,
+        "n_boot": 1000,
+        "rate": 0.2857142857142857
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.0,
+              0.004373177842565598
+            ],
+            "k": 1,
+            "n": 686,
+            "n_boot": 1000,
+            "rate": 0.0014577259475218659
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.0,
+              1.0
+            ],
+            "k": 1,
+            "n": 2,
+            "n_boot": 1000,
+            "rate": 0.5
+          },
+          "mdd_points_over_all": 0.005771357106415675,
+          "n_items": 686,
+          "schema_valid_rate": {
+            "ci95": [
+              0.0,
+              0.007288629737609329
+            ],
+            "k": 2,
+            "n": 686,
+            "n_boot": 1000,
+            "rate": 0.0029154518950437317
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 747,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              null,
+              null
+            ],
+            "k": 0,
+            "n": 0,
+            "n_boot": 1000,
+            "rate": null
+          },
+          "mdd_points_over_all": 1.0250464277256128e-07,
+          "n_items": 747,
+          "schema_valid_rate": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 747,
+            "n_boot": 1000,
+            "rate": 0.0
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.0,
+              0.0009627727856225931
+            ],
+            "k": 1,
+            "n": 3116,
+            "n_boot": 1000,
+            "rate": 0.00032092426187419767
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.0,
+              0.6
+            ],
+            "k": 1,
+            "n": 5,
+            "n_boot": 1000,
+            "rate": 0.2
+          },
+          "mdd_points_over_all": 0.001271310655943934,
+          "n_items": 3116,
+          "schema_valid_rate": {
+            "ci95": [
+              0.00032092426187419767,
+              0.003209242618741977
+            ],
+            "k": 5,
+            "n": 3116,
+            "n_boot": 1000,
+            "rate": 0.0016046213093709885
+          }
+        }
+      },
+      "cvss_metrics_all_correct": {
+        "ci95": [
+          0.0,
+          0.5714285714285714
+        ],
+        "k": 2,
+        "n": 7,
+        "n_boot": 1000,
+        "rate": 0.2857142857142857
+      },
+      "cvss_per_field": {
+        "attackComplexity": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 7,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "attackVector": {
+          "ci95": [
+            0.42500000000000016,
+            1.0
+          ],
+          "k": 5,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 0.7142857142857143
+        },
+        "availabilityImpact": {
+          "ci95": [
+            0.2857142857142857,
+            1.0
+          ],
+          "k": 5,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 0.7142857142857143
+        },
+        "baseScore": {
+          "ci95": [
+            0.0,
+            0.42857142857142855
+          ],
+          "k": 1,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 0.14285714285714285
+        },
+        "confidentialityImpact": {
+          "ci95": [
+            0.5714285714285714,
+            1.0
+          ],
+          "k": 6,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 0.8571428571428571
+        },
+        "integrityImpact": {
+          "ci95": [
+            0.5714285714285714,
+            1.0
+          ],
+          "k": 6,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 0.8571428571428571
+        },
+        "privilegesRequired": {
+          "ci95": [
+            0.42857142857142855,
+            1.0
+          ],
+          "k": 5,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 0.7142857142857143
+        },
+        "scope": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 7,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "userInteraction": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 7,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "vectorString": {
+          "ci95": [
+            0.0,
+            0.5714285714285714
+          ],
+          "k": 2,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 0.2857142857142857
+        }
+      },
+      "decoding": "free",
+      "denominators": {
+        "all_items": 4549,
+        "schema_valid": 7
+      },
+      "fence_stripped": 1525,
+      "mdd_points_over_all": 0.0012314659408756347,
+      "n_items": 4549,
+      "output_length": {
+        "max": 8080,
+        "median": 426,
+        "n": 4549,
+        "p99": 1107,
+        "top_1pct_share_of_tokens": 0.0853,
+        "total_tokens": 2025126
+      },
+      "parse_rate": {
+        "ci95": [
+          0.32160914486700376,
+          0.3490987030116509
+        ],
+        "k": 1525,
+        "n": 4549,
+        "n_boot": 1000,
+        "rate": 0.3352385139591119
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          0.00043965706748735987,
+          0.002857770938667839
+        ],
+        "k": 7,
+        "n": 4549,
+        "n_boot": 1000,
+        "rate": 0.0015387997362057595
+      },
+      "scored": true,
+      "split": "eval_post_cutoff",
+      "task": "cvss_vector",
+      "truncated": 17
+    },
+    "cvss_vector/eval_pre_cutoff/constrained": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.2296033849918434,
+          0.2542822185970636
+        ],
+        "k": 1185,
+        "n": 4904,
+        "n_boot": 1000,
+        "rate": 0.2416394779771615
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.2296033849918434,
+          0.2542822185970636
+        ],
+        "k": 1185,
+        "n": 4904,
+        "n_boot": 1000,
+        "rate": 0.2416394779771615
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.23771820448877806,
+              0.2876350789692435
+            ],
+            "k": 316,
+            "n": 1203,
+            "n_boot": 1000,
+            "rate": 0.2626766417290108
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.23771820448877806,
+              0.2876350789692435
+            ],
+            "k": 316,
+            "n": 1203,
+            "n_boot": 1000,
+            "rate": 0.2626766417290108
+          },
+          "mdd_points_over_all": 0.050271951620971166,
+          "n_items": 1203,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 1203,
+            "n": 1203,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.23900414937759337,
+              0.2896473029045643
+            ],
+            "k": 319,
+            "n": 1205,
+            "n_boot": 1000,
+            "rate": 0.26473029045643154
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.23900414937759337,
+              0.2896473029045643
+            ],
+            "k": 319,
+            "n": 1205,
+            "n_boot": 1000,
+            "rate": 0.26473029045643154
+          },
+          "mdd_points_over_all": 0.050355912161332166,
+          "n_items": 1205,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 1205,
+            "n": 1205,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.20352564102564102,
+              0.23678886217948716
+            ],
+            "k": 550,
+            "n": 2496,
+            "n_boot": 1000,
+            "rate": 0.2203525641025641
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.20352564102564102,
+              0.23678886217948716
+            ],
+            "k": 550,
+            "n": 2496,
+            "n_boot": 1000,
+            "rate": 0.2203525641025641
+          },
+          "mdd_points_over_all": 0.03287038012130528,
+          "n_items": 2496,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 2496,
+            "n": 2496,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        }
+      },
+      "cvss_metrics_all_correct": {
+        "ci95": [
+          0.22960848287112562,
+          0.2544861337683524
+        ],
+        "k": 1186,
+        "n": 4904,
+        "n_boot": 1000,
+        "rate": 0.24184339314845024
+      },
+      "cvss_per_field": {
+        "attackComplexity": {
+          "ci95": [
+            0.9630862561174551,
+            0.9726804649265905
+          ],
+          "k": 4746,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 0.9677814029363785
+        },
+        "attackVector": {
+          "ci95": [
+            0.8380913539967374,
+            0.8592985318107668
+          ],
+          "k": 4166,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 0.8495106035889071
+        },
+        "availabilityImpact": {
+          "ci95": [
+            0.7426539559543229,
+            0.7677406199021207
+          ],
+          "k": 3706,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 0.7557096247960848
+        },
+        "baseScore": {
+          "ci95": [
+            0.1343800978792822,
+            0.15456769983686786
+          ],
+          "k": 709,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 0.14457585644371942
+        },
+        "confidentialityImpact": {
+          "ci95": [
+            0.693913132137031,
+            0.7196217373572594
+          ],
+          "k": 3464,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 0.7063621533442088
+        },
+        "integrityImpact": {
+          "ci95": [
+            0.7267434747145187,
+            0.75
+          ],
+          "k": 3621,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 0.7383768352365416
+        },
+        "privilegesRequired": {
+          "ci95": [
+            0.6731188825448613,
+            0.7004486133768353
+          ],
+          "k": 3367,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 0.6865823817292006
+        },
+        "scope": {
+          "ci95": [
+            0.7628415579119086,
+            0.7863019983686786
+          ],
+          "k": 3801,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 0.7750815660685155
+        },
+        "userInteraction": {
+          "ci95": [
+            0.7112561174551386,
+            0.7361337683523654
+          ],
+          "k": 3548,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 0.7234910277324633
+        },
+        "vectorString": {
+          "ci95": [
+            0.25346146003262643,
+            0.27854812398042417
+          ],
+          "k": 1305,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 0.26610929853181076
+        }
+      },
+      "decoding": "constrained",
+      "denominators": {
+        "all_items": 4904,
+        "schema_valid": 4904
+      },
+      "fence_stripped": 0,
+      "mdd_points_over_all": 0.024219513060323286,
+      "n_items": 4904,
+      "output_length": {
+        "max": 119,
+        "median": 115,
+        "n": 4904,
+        "p99": 118,
+        "top_1pct_share_of_tokens": 0.0104,
+        "total_tokens": 567705
+      },
+      "parse_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 4904,
+        "n": 4904,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 4904,
+        "n": 4904,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "scored": true,
+      "split": "eval_pre_cutoff",
+      "task": "cvss_vector",
+      "truncated": 0
+    },
+    "cvss_vector/eval_pre_cutoff/free": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "k": 0,
+        "n": 4904,
+        "n_boot": 1000,
+        "rate": 0.0
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "k": 0,
+        "n": 7,
+        "n_boot": 1000,
+        "rate": 0.0
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 1203,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 6,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "mdd_points_over_all": 8.077389466333763e-08,
+          "n_items": 1203,
+          "schema_valid_rate": {
+            "ci95": [
+              0.0016625103906899418,
+              0.00914380714879468
+            ],
+            "k": 6,
+            "n": 1203,
+            "n_boot": 1000,
+            "rate": 0.004987531172069825
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 1205,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              null,
+              null
+            ],
+            "k": 0,
+            "n": 0,
+            "n_boot": 1000,
+            "rate": null
+          },
+          "mdd_points_over_all": 8.070683454827928e-08,
+          "n_items": 1205,
+          "schema_valid_rate": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 1205,
+            "n_boot": 1000,
+            "rate": 0.0
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 2496,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "k": 0,
+            "n": 1,
+            "n_boot": 1000,
+            "rate": 0.0
+          },
+          "mdd_points_over_all": 5.607658359775492e-08,
+          "n_items": 2496,
+          "schema_valid_rate": {
+            "ci95": [
+              0.0,
+              0.001201923076923077
+            ],
+            "k": 1,
+            "n": 2496,
+            "n_boot": 1000,
+            "rate": 0.00040064102564102563
+          }
+        }
+      },
+      "cvss_metrics_all_correct": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "k": 0,
+        "n": 7,
+        "n_boot": 1000,
+        "rate": 0.0
+      },
+      "cvss_per_field": {
+        "attackComplexity": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 7,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "attackVector": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 7,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "availabilityImpact": {
+          "ci95": [
+            0.42857142857142855,
+            1.0
+          ],
+          "k": 5,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 0.7142857142857143
+        },
+        "baseScore": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "k": 0,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 0.0
+        },
+        "confidentialityImpact": {
+          "ci95": [
+            0.14285714285714285,
+            0.8571428571428571
+          ],
+          "k": 4,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 0.5714285714285714
+        },
+        "integrityImpact": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 7,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "privilegesRequired": {
+          "ci95": [
+            0.0,
+            0.5714285714285714
+          ],
+          "k": 2,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 0.2857142857142857
+        },
+        "scope": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 7,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "userInteraction": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 7,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "vectorString": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "k": 0,
+          "n": 7,
+          "n_boot": 1000,
+          "rate": 0.0
+        }
+      },
+      "decoding": "free",
+      "denominators": {
+        "all_items": 4904,
+        "schema_valid": 7
+      },
+      "fence_stripped": 1662,
+      "mdd_points_over_all": 4.000632020082593e-08,
+      "n_items": 4904,
+      "output_length": {
+        "max": 8095,
+        "median": 424,
+        "n": 4904,
+        "p99": 1144,
+        "top_1pct_share_of_tokens": 0.1003,
+        "total_tokens": 2182998
+      },
+      "parse_rate": {
+        "ci95": [
+          0.32646818923327897,
+          0.3513611337683523
+        ],
+        "k": 1662,
+        "n": 4904,
+        "n_boot": 1000,
+        "rate": 0.3389070146818923
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          0.0004078303425774878,
+          0.0026508972267536707
+        ],
+        "k": 7,
+        "n": 4904,
+        "n_boot": 1000,
+        "rate": 0.0014274061990212073
+      },
+      "scored": true,
+      "split": "eval_pre_cutoff",
+      "task": "cvss_vector",
+      "truncated": 23
+    },
+    "structured_extract/eval_post_cutoff/constrained": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.08443509615384616,
+          0.10366586538461539
+        ],
+        "k": 311,
+        "n": 3328,
+        "n_boot": 1000,
+        "rate": 0.09344951923076923
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.08340861186389642,
+          0.10359078590785907
+        ],
+        "k": 311,
+        "n": 3321,
+        "n_boot": 1000,
+        "rate": 0.09364649202047576
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.15156794425087108,
+              0.21602787456445993
+            ],
+            "k": 106,
+            "n": 574,
+            "n_boot": 1000,
+            "rate": 0.18466898954703834
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.15156794425087108,
+              0.21602787456445993
+            ],
+            "k": 106,
+            "n": 574,
+            "n_boot": 1000,
+            "rate": 0.18466898954703834
+          },
+          "mdd_points_over_all": 0.06416923410444597,
+          "n_items": 574,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 574,
+            "n": 574,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.15077989601386482,
+              0.21317157712305027
+            ],
+            "k": 105,
+            "n": 577,
+            "n_boot": 1000,
+            "rate": 0.18197573656845753
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.15104166666666666,
+              0.2152777777777778
+            ],
+            "k": 105,
+            "n": 576,
+            "n_boot": 1000,
+            "rate": 0.18229166666666666
+          },
+          "mdd_points_over_all": 0.06363862159676877,
+          "n_items": 577,
+          "schema_valid_rate": {
+            "ci95": [
+              0.9930675909878682,
+              1.0
+            ],
+            "k": 576,
+            "n": 577,
+            "n_boot": 1000,
+            "rate": 0.9982668977469671
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.03720716582452917,
+              0.05512172714745062
+            ],
+            "k": 100,
+            "n": 2177,
+            "n_boot": 1000,
+            "rate": 0.045934772622875514
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.037309995393827726,
+              0.054364348226623664
+            ],
+            "k": 100,
+            "n": 2171,
+            "n_boot": 1000,
+            "rate": 0.046061722708429294
+          },
+          "mdd_points_over_all": 0.017776630275680397,
+          "n_items": 2177,
+          "schema_valid_rate": {
+            "ci95": [
+              0.9949471750114837,
+              0.9990813045475425
+            ],
+            "k": 2171,
+            "n": 2177,
+            "n_boot": 1000,
+            "rate": 0.9972439136426274
+          }
+        }
+      },
+      "decoding": "constrained",
+      "denominators": {
+        "all_items": 3328,
+        "schema_valid": 3321
+      },
+      "extract_fields": {
+        "impact": {
+          "correct": 177,
+          "f1": 0.1068840579710145,
+          "n_with_prediction": 2614,
+          "n_with_target": 698,
+          "precision": 0.0677123182861515,
+          "recall": 0.25358166189111747,
+          "spurious_when_target_null": 2136
+        },
+        "product": {
+          "correct": 1815,
+          "f1": 0.5465221318879856,
+          "n_with_prediction": 3321,
+          "n_with_target": 3321,
+          "precision": 0.5465221318879856,
+          "recall": 0.5465221318879856
+        },
+        "vendor": {
+          "correct": 1735,
+          "f1": 0.5224330021077989,
+          "n_with_prediction": 3321,
+          "n_with_target": 3321,
+          "precision": 0.5224330021077989,
+          "recall": 0.5224330021077989
+        },
+        "versions": {
+          "exact_set_rate": 0.17705510388437218,
+          "f1": 0.16233934270680583,
+          "fn": 3778,
+          "fp": 5933,
+          "n_items": 3321,
+          "precision": 0.13689263892929882,
+          "recall": 0.1994066539521085,
+          "tp": 941
+        }
+      },
+      "fence_stripped": 0,
+      "mdd_points_over_all": 0.019989950024788455,
+      "n_items": 3328,
+      "output_length": {
+        "max": 8072,
+        "median": 52,
+        "n": 3328,
+        "p99": 200,
+        "top_1pct_share_of_tokens": 0.237,
+        "total_tokens": 260653
+      },
+      "parse_rate": {
+        "ci95": [
+          0.99609375,
+          0.9991060697115385
+        ],
+        "k": 3321,
+        "n": 3328,
+        "n_boot": 1000,
+        "rate": 0.9978966346153846
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          0.99609375,
+          0.9991060697115385
+        ],
+        "k": 3321,
+        "n": 3328,
+        "n_boot": 1000,
+        "rate": 0.9978966346153846
+      },
+      "scored": true,
+      "split": "eval_post_cutoff",
+      "task": "structured_extract",
+      "truncated": 7
+    },
+    "structured_extract/eval_post_cutoff/free": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.0811298076923077,
+          0.10066856971153845
+        ],
+        "k": 301,
+        "n": 3328,
+        "n_boot": 1000,
+        "rate": 0.09044471153846154
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.09274304362761938,
+          0.11473720371006527
+        ],
+        "k": 301,
+        "n": 2911,
+        "n_boot": 1000,
+        "rate": 0.10340089316386121
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.13763066202090593,
+              0.20034843205574912
+            ],
+            "k": 97,
+            "n": 574,
+            "n_boot": 1000,
+            "rate": 0.16898954703832753
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.1653061224489796,
+              0.23469387755102042
+            ],
+            "k": 97,
+            "n": 490,
+            "n_boot": 1000,
+            "rate": 0.19795918367346937
+          },
+          "mdd_points_over_all": 0.06197207720622633,
+          "n_items": 574,
+          "schema_valid_rate": {
+            "ci95": [
+              0.8257404181184669,
+              0.8832752613240418
+            ],
+            "k": 490,
+            "n": 574,
+            "n_boot": 1000,
+            "rate": 0.8536585365853658
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.15251299826689774,
+              0.21490467937608318
+            ],
+            "k": 106,
+            "n": 577,
+            "n_boot": 1000,
+            "rate": 0.18370883882149047
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.17115384615384616,
+              0.23653846153846153
+            ],
+            "k": 106,
+            "n": 520,
+            "n_boot": 1000,
+            "rate": 0.20384615384615384
+          },
+          "mdd_points_over_all": 0.06387317457563108,
+          "n_items": 577,
+          "schema_valid_rate": {
+            "ci95": [
+              0.8769497400346621,
+              0.9237435008665511
+            ],
+            "k": 520,
+            "n": 577,
+            "n_boot": 1000,
+            "rate": 0.901213171577123
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.03628847037207166,
+              0.05420303169499311
+            ],
+            "k": 98,
+            "n": 2177,
+            "n_boot": 1000,
+            "rate": 0.04501607717041801
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.04208311415044713,
+              0.061546554445028934
+            ],
+            "k": 98,
+            "n": 1901,
+            "n_boot": 1000,
+            "rate": 0.051551814834297736
+          },
+          "mdd_points_over_all": 0.017606436882726617,
+          "n_items": 2177,
+          "schema_valid_rate": {
+            "ci95": [
+              0.8585209003215434,
+              0.8860817638952687
+            ],
+            "k": 1901,
+            "n": 2177,
+            "n_boot": 1000,
+            "rate": 0.8732200275608636
+          }
+        }
+      },
+      "decoding": "free",
+      "denominators": {
+        "all_items": 3328,
+        "schema_valid": 2911
+      },
+      "extract_fields": {
+        "impact": {
+          "correct": 177,
+          "f1": 0.1220268872802482,
+          "n_with_prediction": 2259,
+          "n_with_target": 642,
+          "precision": 0.07835325365205843,
+          "recall": 0.2757009345794392,
+          "spurious_when_target_null": 1822
+        },
+        "product": {
+          "correct": 1669,
+          "f1": 0.5733424939883202,
+          "n_with_prediction": 2911,
+          "n_with_target": 2911,
+          "precision": 0.5733424939883202,
+          "recall": 0.5733424939883202
+        },
+        "vendor": {
+          "correct": 1601,
+          "f1": 0.5499828237718997,
+          "n_with_prediction": 2911,
+          "n_with_target": 2911,
+          "precision": 0.5499828237718997,
+          "recall": 0.5499828237718997
+        },
+        "versions": {
+          "exact_set_rate": 0.19203023016145654,
+          "f1": 0.19439380127620784,
+          "fn": 3140,
+          "fp": 3930,
+          "n_items": 2911,
+          "precision": 0.17833995400376332,
+          "recall": 0.21362384172301527,
+          "tp": 853
+        }
+      },
+      "fence_stripped": 3299,
+      "mdd_points_over_all": 0.01969850726878225,
+      "n_items": 3328,
+      "output_length": {
+        "max": 8060,
+        "median": 57,
+        "n": 3328,
+        "p99": 1993,
+        "top_1pct_share_of_tokens": 0.4412,
+        "total_tokens": 434968
+      },
+      "parse_rate": {
+        "ci95": [
+          0.9762620192307693,
+          0.9852839543269231
+        ],
+        "k": 3265,
+        "n": 3328,
+        "n_boot": 1000,
+        "rate": 0.9810697115384616
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          0.8641751802884615,
+          0.8852163461538461
+        ],
+        "k": 2911,
+        "n": 3328,
+        "n_boot": 1000,
+        "rate": 0.8746995192307693
+      },
+      "scored": true,
+      "split": "eval_post_cutoff",
+      "task": "structured_extract",
+      "truncated": 16
+    },
+    "structured_extract/eval_pre_cutoff/constrained": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.07368877329865627,
+          0.09622886866059818
+        ],
+        "k": 195,
+        "n": 2307,
+        "n_boot": 1000,
+        "rate": 0.08452535760728218
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.07381676074685194,
+          0.09639600521059488
+        ],
+        "k": 195,
+        "n": 2303,
+        "n_boot": 1000,
+        "rate": 0.08467216673903603
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.11532846715328467,
+              0.16642335766423358
+            ],
+            "k": 96,
+            "n": 685,
+            "n_boot": 1000,
+            "rate": 0.14014598540145987
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.11695906432748537,
+              0.16812865497076024
+            ],
+            "k": 96,
+            "n": 684,
+            "n_boot": 1000,
+            "rate": 0.14035087719298245
+          },
+          "mdd_points_over_all": 0.05255042610784388,
+          "n_items": 685,
+          "schema_valid_rate": {
+            "ci95": [
+              0.9956204379562044,
+              1.0
+            ],
+            "k": 684,
+            "n": 685,
+            "n_boot": 1000,
+            "rate": 0.9985401459854014
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.08746355685131195,
+              0.13556851311953352
+            ],
+            "k": 76,
+            "n": 686,
+            "n_boot": 1000,
+            "rate": 0.11078717201166181
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.0905109489051095,
+              0.13576642335766423
+            ],
+            "k": 76,
+            "n": 685,
+            "n_boot": 1000,
+            "rate": 0.11094890510948906
+          },
+          "mdd_points_over_all": 0.047479307420826976,
+          "n_items": 686,
+          "schema_valid_rate": {
+            "ci95": [
+              0.9956268221574344,
+              1.0
+            ],
+            "k": 685,
+            "n": 686,
+            "n_boot": 1000,
+            "rate": 0.9985422740524781
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.014957264957264958,
+              0.03418803418803419
+            ],
+            "k": 23,
+            "n": 936,
+            "n_boot": 1000,
+            "rate": 0.024572649572649572
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.014989293361884369,
+              0.035331905781584586
+            ],
+            "k": 23,
+            "n": 934,
+            "n_boot": 1000,
+            "rate": 0.02462526766595289
+          },
+          "mdd_points_over_all": 0.020049537963784322,
+          "n_items": 936,
+          "schema_valid_rate": {
+            "ci95": [
+              0.9946581196581197,
+              1.0
+            ],
+            "k": 934,
+            "n": 936,
+            "n_boot": 1000,
+            "rate": 0.9978632478632479
+          }
+        }
+      },
+      "decoding": "constrained",
+      "denominators": {
+        "all_items": 2307,
+        "schema_valid": 2303
+      },
+      "extract_fields": {
+        "impact": {
+          "correct": 2,
+          "f1": 0.002002002002002002,
+          "n_with_prediction": 1821,
+          "n_with_target": 177,
+          "precision": 0.001098297638660077,
+          "recall": 0.011299435028248588,
+          "spurious_when_target_null": 1686
+        },
+        "product": {
+          "correct": 906,
+          "f1": 0.39339991315675205,
+          "n_with_prediction": 2303,
+          "n_with_target": 2303,
+          "precision": 0.39339991315675205,
+          "recall": 0.39339991315675205
+        },
+        "vendor": {
+          "correct": 1173,
+          "f1": 0.5093356491532783,
+          "n_with_prediction": 2303,
+          "n_with_target": 2303,
+          "precision": 0.5093356491532783,
+          "recall": 0.5093356491532783
+        },
+        "versions": {
+          "exact_set_rate": 0.17933130699088146,
+          "f1": 0.17744243528034342,
+          "fn": 2853,
+          "fp": 3470,
+          "n_items": 2303,
+          "precision": 0.1642581888246628,
+          "recall": 0.19292786421499292,
+          "tp": 682
+        }
+      },
+      "fence_stripped": 0,
+      "mdd_points_over_all": 0.022946249213235015,
+      "n_items": 2307,
+      "output_length": {
+        "max": 8101,
+        "median": 49,
+        "n": 2307,
+        "p99": 185,
+        "top_1pct_share_of_tokens": 0.2264,
+        "total_tokens": 163467
+      },
+      "parse_rate": {
+        "ci95": [
+          0.9965322930212397,
+          0.9995665366276549
+        ],
+        "k": 2303,
+        "n": 2307,
+        "n_boot": 1000,
+        "rate": 0.9982661465106198
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          0.9965322930212397,
+          0.9995665366276549
+        ],
+        "k": 2303,
+        "n": 2307,
+        "n_boot": 1000,
+        "rate": 0.9982661465106198
+      },
+      "scored": true,
+      "split": "eval_pre_cutoff",
+      "task": "structured_extract",
+      "truncated": 4
+    },
+    "structured_extract/eval_pre_cutoff/free": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.07151061985262246,
+          0.09363892501083658
+        ],
+        "k": 189,
+        "n": 2307,
+        "n_boot": 1000,
+        "rate": 0.08192457737321196
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.08256079027355623,
+          0.10891590678824721
+        ],
+        "k": 189,
+        "n": 1974,
+        "n_boot": 1000,
+        "rate": 0.09574468085106383
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.10215328467153285,
+              0.15182481751824817
+            ],
+            "k": 86,
+            "n": 685,
+            "n_boot": 1000,
+            "rate": 0.12554744525547445
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.12152777777777778,
+              0.18229166666666666
+            ],
+            "k": 86,
+            "n": 576,
+            "n_boot": 1000,
+            "rate": 0.14930555555555555
+          },
+          "mdd_points_over_all": 0.05015862409032334,
+          "n_items": 685,
+          "schema_valid_rate": {
+            "ci95": [
+              0.8145985401459854,
+              0.8686131386861314
+            ],
+            "k": 576,
+            "n": 685,
+            "n_boot": 1000,
+            "rate": 0.8408759124087591
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.08892128279883382,
+              0.13556851311953352
+            ],
+            "k": 76,
+            "n": 686,
+            "n_boot": 1000,
+            "rate": 0.11078717201166181
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.10032894736842106,
+              0.14967105263157895
+            ],
+            "k": 76,
+            "n": 608,
+            "n_boot": 1000,
+            "rate": 0.125
+          },
+          "mdd_points_over_all": 0.047479307420826976,
+          "n_items": 686,
+          "schema_valid_rate": {
+            "ci95": [
+              0.8615160349854227,
+              0.9096209912536443
+            ],
+            "k": 608,
+            "n": 686,
+            "n_boot": 1000,
+            "rate": 0.8862973760932945
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.018162393162393164,
+              0.0405982905982906
+            ],
+            "k": 27,
+            "n": 936,
+            "n_boot": 1000,
+            "rate": 0.028846153846153848
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.02278481012658228,
+              0.04810126582278481
+            ],
+            "k": 27,
+            "n": 790,
+            "n_boot": 1000,
+            "rate": 0.03417721518987342
+          },
+          "mdd_points_over_all": 0.02167548809287788,
+          "n_items": 936,
+          "schema_valid_rate": {
+            "ci95": [
+              0.8205128205128205,
+              0.8675213675213675
+            ],
+            "k": 790,
+            "n": 936,
+            "n_boot": 1000,
+            "rate": 0.844017094017094
+          }
+        }
+      },
+      "decoding": "free",
+      "denominators": {
+        "all_items": 2307,
+        "schema_valid": 1974
+      },
+      "extract_fields": {
+        "impact": {
+          "correct": 2,
+          "f1": 0.0023894862604540022,
+          "n_with_prediction": 1540,
+          "n_with_target": 134,
+          "precision": 0.0012987012987012987,
+          "recall": 0.014925373134328358,
+          "spurious_when_target_null": 1434
+        },
+        "product": {
+          "correct": 844,
+          "f1": 0.4275582573454914,
+          "n_with_prediction": 1974,
+          "n_with_target": 1974,
+          "precision": 0.4275582573454914,
+          "recall": 0.4275582573454914
+        },
+        "vendor": {
+          "correct": 1045,
+          "f1": 0.5293819655521783,
+          "n_with_prediction": 1974,
+          "n_with_target": 1974,
+          "precision": 0.5293819655521783,
+          "recall": 0.5293819655521783
+        },
+        "versions": {
+          "exact_set_rate": 0.2016210739614995,
+          "f1": 0.207462206497266,
+          "fn": 2307,
+          "fp": 2621,
+          "n_items": 1974,
+          "precision": 0.19748928352725045,
+          "recall": 0.2184959349593496,
+          "tp": 645
+        }
+      },
+      "fence_stripped": 2295,
+      "mdd_points_over_all": 0.022622537844031405,
+      "n_items": 2307,
+      "output_length": {
+        "max": 8066,
+        "median": 54,
+        "n": 2307,
+        "p99": 365,
+        "top_1pct_share_of_tokens": 0.2608,
+        "total_tokens": 193935
+      },
+      "parse_rate": {
+        "ci95": [
+          0.9696575639358475,
+          0.9822388383181622
+        ],
+        "k": 2252,
+        "n": 2307,
+        "n_boot": 1000,
+        "rate": 0.976159514521023
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          0.8400520156046815,
+          0.8682271348071088
+        ],
+        "k": 1974,
+        "n": 2307,
+        "n_boot": 1000,
+        "rate": 0.8556566970091027
+      },
+      "scored": true,
+      "split": "eval_pre_cutoff",
+      "task": "structured_extract",
+      "truncated": 3
+    }
+  },
+  "flags_file": "flags.json",
+  "flags_sha256": null,
+  "gaps": {
+    "decoding/attack_technique/eval_post_cutoff": {
+      "accuracy": {
+        "a": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "n": 79,
+          "rate": 0.0
+        },
+        "b": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "n": 79,
+          "rate": 0.0
+        },
+        "intervals_overlap": true,
+        "mcnemar_p": 1.0,
+        "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+        "verdict": "no difference detected"
+      },
+      "accuracy_over_all_gap": 0.0,
+      "constrained_schema_valid": 1.0,
+      "free_schema_valid": 0.9240506329113924,
+      "mcnemar_accuracy": {
+        "a_only_correct": 0,
+        "b_only_correct": 0,
+        "discordant": 0,
+        "method": "no discordant pairs",
+        "p_value": 1.0,
+        "paired_items": 79
+      },
+      "mcnemar_schema_valid": {
+        "a_only_correct": 0,
+        "b_only_correct": 6,
+        "discordant": 6,
+        "method": "exact binomial",
+        "p_value": 0.03125,
+        "paired_items": 79
+      },
+      "means": "how much schema compliance comes from the decoder rather than the model; an accuracy gap shows constraint changing content, not just form",
+      "paired": true,
+      "schema_valid": {
+        "a": {
+          "ci95": [
+            0.8607594936708861,
+            0.9746835443037974
+          ],
+          "n": 79,
+          "rate": 0.9240506329113924
+        },
+        "b": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 79,
+          "rate": 1.0
+        },
+        "intervals_overlap": false,
+        "mcnemar_p": 0.03125,
+        "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+        "verdict": "difference detected"
+      },
+      "schema_valid_gap": 0.07594936708860756
+    },
+    "decoding/attack_technique/eval_pre_cutoff": {
+      "accuracy": {
+        "a": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "n": 79,
+          "rate": 0.0
+        },
+        "b": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "n": 79,
+          "rate": 0.0
+        },
+        "intervals_overlap": true,
+        "mcnemar_p": 1.0,
+        "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+        "verdict": "no difference detected"
+      },
+      "accuracy_over_all_gap": 0.0,
+      "constrained_schema_valid": 1.0,
+      "free_schema_valid": 0.9240506329113924,
+      "mcnemar_accuracy": {
+        "a_only_correct": 0,
+        "b_only_correct": 0,
+        "discordant": 0,
+        "method": "no discordant pairs",
+        "p_value": 1.0,
+        "paired_items": 79
+      },
+      "mcnemar_schema_valid": {
+        "a_only_correct": 0,
+        "b_only_correct": 6,
+        "discordant": 6,
+        "method": "exact binomial",
+        "p_value": 0.03125,
+        "paired_items": 79
+      },
+      "means": "how much schema compliance comes from the decoder rather than the model; an accuracy gap shows constraint changing content, not just form",
+      "paired": true,
+      "schema_valid": {
+        "a": {
+          "ci95": [
+            0.8607594936708861,
+            0.9746835443037974
+          ],
+          "n": 79,
+          "rate": 0.9240506329113924
+        },
+        "b": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 79,
+          "rate": 1.0
+        },
+        "intervals_overlap": false,
+        "mcnemar_p": 0.03125,
+        "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+        "verdict": "difference detected"
+      },
+      "schema_valid_gap": 0.07594936708860756
+    },
+    "decoding/cve_to_cwe/eval_post_cutoff": {
+      "accuracy": {
+        "a": {
+          "ci95": [
+            0.2955715024566848,
+            0.32583397982932505
+          ],
+          "n": 3867,
+          "rate": 0.3103180760279286
+        },
+        "b": {
+          "ci95": [
+            0.3757370054305663,
+            0.40652314455650373
+          ],
+          "n": 3867,
+          "rate": 0.3904835790018102
+        },
+        "intervals_overlap": false,
+        "mcnemar_p": 1.600779693139941e-68,
+        "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+        "verdict": "difference detected"
+      },
+      "accuracy_over_all_gap": 0.08016550297388159,
+      "constrained_schema_valid": 1.0,
+      "free_schema_valid": 0.7245927075252133,
+      "mcnemar_accuracy": {
+        "a_only_correct": 1,
+        "b_only_correct": 311,
+        "discordant": 312,
+        "method": "chi-square with continuity correction",
+        "p_value": 1.600779693139941e-68,
+        "paired_items": 3867
+      },
+      "mcnemar_schema_valid": {
+        "a_only_correct": 0,
+        "b_only_correct": 1065,
+        "discordant": 1065,
+        "method": "chi-square with continuity correction",
+        "p_value": 3.6353364671367364e-233,
+        "paired_items": 3867
+      },
+      "means": "how much schema compliance comes from the decoder rather than the model; an accuracy gap shows constraint changing content, not just form",
+      "paired": true,
+      "schema_valid": {
+        "a": {
+          "ci95": [
+            0.7114041892940264,
+            0.73907421773985
+          ],
+          "n": 3867,
+          "rate": 0.7245927075252133
+        },
+        "b": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 3867,
+          "rate": 1.0
+        },
+        "intervals_overlap": false,
+        "mcnemar_p": 3.6353364671367364e-233,
+        "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+        "verdict": "difference detected"
+      },
+      "schema_valid_gap": 0.2754072924747867
+    },
+    "decoding/cve_to_cwe/eval_pre_cutoff": {
+      "accuracy": {
+        "a": {
+          "ci95": [
+            0.3853948679621325,
+            0.415053562531141
+          ],
+          "n": 4014,
+          "rate": 0.40009965122072744
+        },
+        "b": {
+          "ci95": [
+            0.49575859491778773,
+            0.5261584454409567
+          ],
+          "n": 4014,
+          "rate": 0.5114598903836572
+        },
+        "intervals_overlap": false,
+        "mcnemar_p": 8.826335633108772e-99,
+        "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+        "verdict": "difference detected"
+      },
+      "accuracy_over_all_gap": 0.11136023916292981,
+      "constrained_schema_valid": 1.0,
+      "free_schema_valid": 0.7282012954658694,
+      "mcnemar_accuracy": {
+        "a_only_correct": 0,
+        "b_only_correct": 447,
+        "discordant": 447,
+        "method": "chi-square with continuity correction",
+        "p_value": 8.826335633108772e-99,
+        "paired_items": 4014
+      },
+      "mcnemar_schema_valid": {
+        "a_only_correct": 0,
+        "b_only_correct": 1091,
+        "discordant": 1091,
+        "method": "chi-square with continuity correction",
+        "p_value": 8.118646241001565e-239,
+        "paired_items": 4014
+      },
+      "means": "how much schema compliance comes from the decoder rather than the model; an accuracy gap shows constraint changing content, not just form",
+      "paired": true,
+      "schema_valid": {
+        "a": {
+          "ci95": [
+            0.7140009965122073,
+            0.7424015944195317
+          ],
+          "n": 4014,
+          "rate": 0.7282012954658694
+        },
+        "b": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 4014,
+          "rate": 1.0
+        },
+        "intervals_overlap": false,
+        "mcnemar_p": 8.118646241001565e-239,
+        "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+        "verdict": "difference detected"
+      },
+      "schema_valid_gap": 0.2717987045341306
+    },
+    "decoding/cvss_vector/eval_post_cutoff": {
+      "accuracy": {
+        "a": {
+          "ci95": [
+            0.0,
+            0.0010991426687183997
+          ],
+          "n": 4549,
+          "rate": 0.00043965706748735987
+        },
+        "b": {
+          "ci95": [
+            0.16904264673554625,
+            0.19103649153660143
+          ],
+          "n": 4549,
+          "rate": 0.18003956913607386
+        },
+        "intervals_overlap": false,
+        "mcnemar_p": 2.9550342455736798e-179,
+        "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+        "verdict": "difference detected"
+      },
+      "accuracy_over_all_gap": 0.1795999120685865,
+      "constrained_schema_valid": 1.0,
+      "free_schema_valid": 0.0015387997362057595,
+      "mcnemar_accuracy": {
+        "a_only_correct": 0,
+        "b_only_correct": 817,
+        "discordant": 817,
+        "method": "chi-square with continuity correction",
+        "p_value": 2.9550342455736798e-179,
+        "paired_items": 4549
+      },
+      "mcnemar_schema_valid": {
+        "a_only_correct": 0,
+        "b_only_correct": 4542,
+        "discordant": 4542,
+        "method": "chi-square with continuity correction",
+        "p_value": 0.0,
+        "paired_items": 4549
+      },
+      "means": "how much schema compliance comes from the decoder rather than the model; an accuracy gap shows constraint changing content, not just form",
+      "paired": true,
+      "schema_valid": {
+        "a": {
+          "ci95": [
+            0.00043965706748735987,
+            0.002857770938667839
+          ],
+          "n": 4549,
+          "rate": 0.0015387997362057595
+        },
+        "b": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 4549,
+          "rate": 1.0
+        },
+        "intervals_overlap": false,
+        "mcnemar_p": 0.0,
+        "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+        "verdict": "difference detected"
+      },
+      "schema_valid_gap": 0.9984612002637943
+    },
+    "decoding/cvss_vector/eval_pre_cutoff": {
+      "accuracy": {
+        "a": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "n": 4904,
+          "rate": 0.0
+        },
+        "b": {
+          "ci95": [
+            0.2296033849918434,
+            0.2542822185970636
+          ],
+          "n": 4904,
+          "rate": 0.2416394779771615
+        },
+        "intervals_overlap": false,
+        "mcnemar_p": 3.0179490381930364e-259,
+        "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+        "verdict": "difference detected"
+      },
+      "accuracy_over_all_gap": 0.2416394779771615,
+      "constrained_schema_valid": 1.0,
+      "free_schema_valid": 0.0014274061990212073,
+      "mcnemar_accuracy": {
+        "a_only_correct": 0,
+        "b_only_correct": 1185,
+        "discordant": 1185,
+        "method": "chi-square with continuity correction",
+        "p_value": 3.0179490381930364e-259,
+        "paired_items": 4904
+      },
+      "mcnemar_schema_valid": {
+        "a_only_correct": 0,
+        "b_only_correct": 4897,
+        "discordant": 4897,
+        "method": "chi-square with continuity correction",
+        "p_value": 0.0,
+        "paired_items": 4904
+      },
+      "means": "how much schema compliance comes from the decoder rather than the model; an accuracy gap shows constraint changing content, not just form",
+      "paired": true,
+      "schema_valid": {
+        "a": {
+          "ci95": [
+            0.0004078303425774878,
+            0.0026508972267536707
+          ],
+          "n": 4904,
+          "rate": 0.0014274061990212073
+        },
+        "b": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 4904,
+          "rate": 1.0
+        },
+        "intervals_overlap": false,
+        "mcnemar_p": 0.0,
+        "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+        "verdict": "difference detected"
+      },
+      "schema_valid_gap": 0.9985725938009788
+    },
+    "decoding/structured_extract/eval_post_cutoff": {
+      "accuracy": {
+        "a": {
+          "ci95": [
+            0.0811298076923077,
+            0.10066856971153845
+          ],
+          "n": 3328,
+          "rate": 0.09044471153846154
+        },
+        "b": {
+          "ci95": [
+            0.08443509615384616,
+            0.10366586538461539
+          ],
+          "n": 3328,
+          "rate": 0.09344951923076923
+        },
+        "intervals_overlap": true,
+        "mcnemar_p": 0.07755616674366549,
+        "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+        "verdict": "no difference detected"
+      },
+      "accuracy_over_all_gap": 0.0030048076923076955,
+      "constrained_schema_valid": 0.9978966346153846,
+      "free_schema_valid": 0.8746995192307693,
+      "mcnemar_accuracy": {
+        "a_only_correct": 8,
+        "b_only_correct": 18,
+        "discordant": 26,
+        "method": "chi-square with continuity correction",
+        "p_value": 0.07755616674366549,
+        "paired_items": 3328
+      },
+      "mcnemar_schema_valid": {
+        "a_only_correct": 1,
+        "b_only_correct": 411,
+        "discordant": 412,
+        "method": "chi-square with continuity correction",
+        "p_value": 2.6920238398483715e-90,
+        "paired_items": 3328
+      },
+      "means": "how much schema compliance comes from the decoder rather than the model; an accuracy gap shows constraint changing content, not just form",
+      "paired": true,
+      "schema_valid": {
+        "a": {
+          "ci95": [
+            0.8641751802884615,
+            0.8852163461538461
+          ],
+          "n": 3328,
+          "rate": 0.8746995192307693
+        },
+        "b": {
+          "ci95": [
+            0.99609375,
+            0.9991060697115385
+          ],
+          "n": 3328,
+          "rate": 0.9978966346153846
+        },
+        "intervals_overlap": false,
+        "mcnemar_p": 2.6920238398483715e-90,
+        "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+        "verdict": "difference detected"
+      },
+      "schema_valid_gap": 0.12319711538461531
+    },
+    "decoding/structured_extract/eval_pre_cutoff": {
+      "accuracy": {
+        "a": {
+          "ci95": [
+            0.07151061985262246,
+            0.09363892501083658
+          ],
+          "n": 2307,
+          "rate": 0.08192457737321196
+        },
+        "b": {
+          "ci95": [
+            0.07368877329865627,
+            0.09622886866059818
+          ],
+          "n": 2307,
+          "rate": 0.08452535760728218
+        },
+        "intervals_overlap": true,
+        "mcnemar_p": 0.237884521484375,
+        "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+        "verdict": "no difference detected"
+      },
+      "accuracy_over_all_gap": 0.0026007802340702185,
+      "constrained_schema_valid": 0.9982661465106198,
+      "free_schema_valid": 0.8556566970091027,
+      "mcnemar_accuracy": {
+        "a_only_correct": 6,
+        "b_only_correct": 12,
+        "discordant": 18,
+        "method": "exact binomial",
+        "p_value": 0.237884521484375,
+        "paired_items": 2307
+      },
+      "mcnemar_schema_valid": {
+        "a_only_correct": 0,
+        "b_only_correct": 329,
+        "discordant": 329,
+        "method": "chi-square with continuity correction",
+        "p_value": 4.3205422053857754e-73,
+        "paired_items": 2307
+      },
+      "means": "how much schema compliance comes from the decoder rather than the model; an accuracy gap shows constraint changing content, not just form",
+      "paired": true,
+      "schema_valid": {
+        "a": {
+          "ci95": [
+            0.8400520156046815,
+            0.8682271348071088
+          ],
+          "n": 2307,
+          "rate": 0.8556566970091027
+        },
+        "b": {
+          "ci95": [
+            0.9965322930212397,
+            0.9995665366276549
+          ],
+          "n": 2307,
+          "rate": 0.9982661465106198
+        },
+        "intervals_overlap": false,
+        "mcnemar_p": 4.3205422053857754e-73,
+        "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+        "verdict": "difference detected"
+      },
+      "schema_valid_gap": 0.1426094495015171
+    },
+    "temporal/attack_technique/constrained": {
+      "by_stratum_gap": {
+        "high": 0,
+        "low": 0,
+        "zero": 0
+      },
+      "gap": 0.0,
+      "means": "this pipeline's own estimate of pretraining contamination. If the gap persists inside the zero stratum, the contamination is not lexical.",
+      "post_cutoff": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "k": 0,
+        "n": 79,
+        "n_boot": 1000,
+        "rate": 0.0
+      },
+      "pre_cutoff": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "k": 0,
+        "n": 79,
+        "n_boot": 1000,
+        "rate": 0.0
+      },
+      "verdict": "no difference detected"
+    },
+    "temporal/attack_technique/free": {
+      "by_stratum_gap": {
+        "high": 0,
+        "low": 0,
+        "zero": 0
+      },
+      "gap": 0.0,
+      "means": "this pipeline's own estimate of pretraining contamination. If the gap persists inside the zero stratum, the contamination is not lexical.",
+      "post_cutoff": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "k": 0,
+        "n": 79,
+        "n_boot": 1000,
+        "rate": 0.0
+      },
+      "pre_cutoff": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "k": 0,
+        "n": 79,
+        "n_boot": 1000,
+        "rate": 0.0
+      },
+      "verdict": "no difference detected"
+    },
+    "temporal/cve_to_cwe/constrained": {
+      "by_stratum_gap": {
+        "high": 0.05046438528182973,
+        "low": 0.16690587646469995,
+        "zero": 0.1120394249269892
+      },
+      "gap": 0.12097631138184706,
+      "means": "this pipeline's own estimate of pretraining contamination. If the gap persists inside the zero stratum, the contamination is not lexical.",
+      "post_cutoff": {
+        "ci95": [
+          0.3757370054305663,
+          0.40652314455650373
+        ],
+        "k": 1510,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 0.3904835790018102
+      },
+      "pre_cutoff": {
+        "ci95": [
+          0.49575859491778773,
+          0.5261584454409567
+        ],
+        "k": 2053,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 0.5114598903836572
+      },
+      "verdict": "difference detected"
+    },
+    "temporal/cve_to_cwe/free": {
+      "by_stratum_gap": {
+        "high": -0.01563154029016184,
+        "low": 0.10944952305246425,
+        "zero": 0.09487842103132205
+      },
+      "gap": 0.08978157519279883,
+      "means": "this pipeline's own estimate of pretraining contamination. If the gap persists inside the zero stratum, the contamination is not lexical.",
+      "post_cutoff": {
+        "ci95": [
+          0.2955715024566848,
+          0.32583397982932505
+        ],
+        "k": 1200,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 0.3103180760279286
+      },
+      "pre_cutoff": {
+        "ci95": [
+          0.3853948679621325,
+          0.415053562531141
+        ],
+        "k": 1606,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 0.40009965122072744
+      },
+      "verdict": "difference detected"
+    },
+    "temporal/cvss_vector/constrained": {
+      "by_stratum_gap": {
+        "high": -0.034699451565449846,
+        "low": 0.08400739889016648,
+        "zero": 0.0663089184029492
+      },
+      "gap": 0.06159990884108765,
+      "means": "this pipeline's own estimate of pretraining contamination. If the gap persists inside the zero stratum, the contamination is not lexical.",
+      "post_cutoff": {
+        "ci95": [
+          0.16904264673554625,
+          0.19103649153660143
+        ],
+        "k": 819,
+        "n": 4549,
+        "n_boot": 1000,
+        "rate": 0.18003956913607386
+      },
+      "pre_cutoff": {
+        "ci95": [
+          0.2296033849918434,
+          0.2542822185970636
+        ],
+        "k": 1185,
+        "n": 4904,
+        "n_boot": 1000,
+        "rate": 0.2416394779771615
+      },
+      "verdict": "difference detected"
+    },
+    "temporal/cvss_vector/free": {
+      "by_stratum_gap": {
+        "high": -0.0014577259475218659,
+        "low": 0,
+        "zero": -0.00032092426187419767
+      },
+      "gap": -0.00043965706748735987,
+      "means": "this pipeline's own estimate of pretraining contamination. If the gap persists inside the zero stratum, the contamination is not lexical.",
+      "post_cutoff": {
+        "ci95": [
+          0.0,
+          0.0010991426687183997
+        ],
+        "k": 2,
+        "n": 4549,
+        "n_boot": 1000,
+        "rate": 0.00043965706748735987
+      },
+      "pre_cutoff": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "k": 0,
+        "n": 4904,
+        "n_boot": 1000,
+        "rate": 0.0
+      },
+      "verdict": "no difference detected"
+    },
+    "temporal/structured_extract/constrained": {
+      "by_stratum_gap": {
+        "high": -0.04452300414557847,
+        "low": -0.07118856455679572,
+        "zero": -0.02136212305022594
+      },
+      "gap": -0.008924161623487054,
+      "means": "this pipeline's own estimate of pretraining contamination. If the gap persists inside the zero stratum, the contamination is not lexical.",
+      "post_cutoff": {
+        "ci95": [
+          0.08443509615384616,
+          0.10366586538461539
+        ],
+        "k": 311,
+        "n": 3328,
+        "n_boot": 1000,
+        "rate": 0.09344951923076923
+      },
+      "pre_cutoff": {
+        "ci95": [
+          0.07368877329865627,
+          0.09622886866059818
+        ],
+        "k": 195,
+        "n": 2307,
+        "n_boot": 1000,
+        "rate": 0.08452535760728218
+      },
+      "verdict": "no difference detected"
+    },
+    "temporal/structured_extract/free": {
+      "by_stratum_gap": {
+        "high": -0.04344210178285307,
+        "low": -0.07292166680982866,
+        "zero": -0.01616992332426416
+      },
+      "gap": -0.008520134165249577,
+      "means": "this pipeline's own estimate of pretraining contamination. If the gap persists inside the zero stratum, the contamination is not lexical.",
+      "post_cutoff": {
+        "ci95": [
+          0.0811298076923077,
+          0.10066856971153845
+        ],
+        "k": 301,
+        "n": 3328,
+        "n_boot": 1000,
+        "rate": 0.09044471153846154
+      },
+      "pre_cutoff": {
+        "ci95": [
+          0.07151061985262246,
+          0.09363892501083658
+        ],
+        "k": 189,
+        "n": 2307,
+        "n_boot": 1000,
+        "rate": 0.08192457737321196
+      },
+      "verdict": "no difference detected"
+    }
+  },
+  "general": {
+    "hellaswag": {
+      "accuracy_over_all": {
+        "ci95": [
+          0.815,
+          0.858
+        ],
+        "k": 837,
+        "n": 1000,
+        "n_boot": 1000,
+        "rate": 0.837
+      },
+      "accuracy_over_extracted": {
+        "ci95": [
+          0.815,
+          0.858
+        ],
+        "k": 837,
+        "n": 1000,
+        "n_boot": 1000,
+        "rate": 0.837
+      },
+      "decoding": "free",
+      "letter_extracted": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 1000,
+        "n": 1000,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "mdd_points": 0.04627808361220871,
+      "n_items": 1000
+    },
+    "mmlu": {
+      "accuracy_over_all": {
+        "ci95": [
+          0.683975,
+          0.743
+        ],
+        "k": 712,
+        "n": 1000,
+        "n_boot": 1000,
+        "rate": 0.712
+      },
+      "accuracy_over_extracted": {
+        "ci95": [
+          0.683975,
+          0.743
+        ],
+        "k": 712,
+        "n": 1000,
+        "n_boot": 1000,
+        "rate": 0.712
+      },
+      "decoding": "free",
+      "letter_extracted": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 1000,
+        "n": 1000,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "mdd_points": 0.05673552473303244,
+      "n_items": 1000
+    }
+  },
+  "manifest_sha_fields": {
+    "dataset_manifest_sha256": "61c060f77d28f95482abc816664f1970c9ae5b30a18e51adca45c34cf25ff149",
+    "model_checkpoint_sha256": "2564ff2127caa0a9f79cfaf96f569e407dec51c264566735efc5ff4e2c68a234",
+    "outputs_jsonl_sha256": "3ac8e5c5b18b84059ee925ad0e7d8463650649e10f72949d426d1500728c5894"
+  },
+  "not_scored_reason": {
+    "attack_technique": "738 training examples and 72 / 44 evaluation items; confidence intervals exceed +/-10 percentage points and the task is recall of ~800 fixed items. Kept in the datasets and manifest, reported descriptively by P4/P5, excluded from any comparison between conditions."
+  },
+  "primary_metric": {
+    "attack_technique": "exact match (technique_id)",
+    "cve_to_cwe": "exact match (cwe_id)",
+    "cvss_vector": "whole-vector exact match (8 metrics + vector string)",
+    "structured_extract": "all fields exact (versions set equal; impact when non-null)"
+  },
+  "run_id": "baseline",
+  "sandbox": {
+    "cvss_vector/eval_post_cutoff/constrained": {
+      "container_failures": 0,
+      "containers": 1,
+      "docker_flags": [
+        "--rm",
+        "-i",
+        "--network=none",
+        "--memory=512m",
+        "--pids-limit=128",
+        "--read-only",
+        "--tmpfs",
+        "/tmp",
+        "--security-opt",
+        "no-new-privileges:true"
+      ],
+      "execution": {
+        "n": 4549,
+        "no_vector_produced": 0,
+        "rate": 1.0,
+        "succeeded": 4549
+      },
+      "formula_self_test": {
+        "k": 4549,
+        "means": "score computed from NVD's own vector vs NVD's recorded score; must be 1.0 or the formula implementation is wrong",
+        "n": 4549,
+        "rate": 1.0
+      },
+      "group": "cvss_vector/eval_post_cutoff/constrained",
+      "image": "python@sha256:90744cff8f32887f075c47d747a173ff333e9e98801667af93c357fa9f5e28ff",
+      "image_id": "sha256:c62d7c95d6ea9f2f0d25d2407a0138dfeb16b2d1c580cc0524fc483b8c44fa10 arm64",
+      "items": 4549,
+      "per_item": {},
+      "score_match": {
+        "denominator": "items whose vector executed",
+        "k": 967,
+        "n": 4549,
+        "rate": 0.21257419213013848
+      },
+      "script_sha256": null,
+      "seconds": 0.32,
+      "timeout_sec": 30,
+      "timeouts": 0
+    },
+    "cvss_vector/eval_post_cutoff/free": {
+      "container_failures": 0,
+      "containers": 1,
+      "docker_flags": [
+        "--rm",
+        "-i",
+        "--network=none",
+        "--memory=512m",
+        "--pids-limit=128",
+        "--read-only",
+        "--tmpfs",
+        "/tmp",
+        "--security-opt",
+        "no-new-privileges:true"
+      ],
+      "execution": {
+        "n": 4549,
+        "no_vector_produced": 4542,
+        "rate": 0.0015387997362057595,
+        "succeeded": 7
+      },
+      "formula_self_test": {
+        "k": 4549,
+        "means": "score computed from NVD's own vector vs NVD's recorded score; must be 1.0 or the formula implementation is wrong",
+        "n": 4549,
+        "rate": 1.0
+      },
+      "group": "cvss_vector/eval_post_cutoff/free",
+      "image": "python@sha256:90744cff8f32887f075c47d747a173ff333e9e98801667af93c357fa9f5e28ff",
+      "image_id": "sha256:c62d7c95d6ea9f2f0d25d2407a0138dfeb16b2d1c580cc0524fc483b8c44fa10 arm64",
+      "items": 4549,
+      "per_item": {},
+      "score_match": {
+        "denominator": "items whose vector executed",
+        "k": 2,
+        "n": 7,
+        "rate": 0.2857142857142857
+      },
+      "script_sha256": null,
+      "seconds": 0.3,
+      "timeout_sec": 30,
+      "timeouts": 0
+    },
+    "cvss_vector/eval_pre_cutoff/constrained": {
+      "container_failures": 0,
+      "containers": 1,
+      "docker_flags": [
+        "--rm",
+        "-i",
+        "--network=none",
+        "--memory=512m",
+        "--pids-limit=128",
+        "--read-only",
+        "--tmpfs",
+        "/tmp",
+        "--security-opt",
+        "no-new-privileges:true"
+      ],
+      "execution": {
+        "n": 4904,
+        "no_vector_produced": 0,
+        "rate": 1.0,
+        "succeeded": 4904
+      },
+      "formula_self_test": {
+        "k": 4904,
+        "means": "score computed from NVD's own vector vs NVD's recorded score; must be 1.0 or the formula implementation is wrong",
+        "n": 4904,
+        "rate": 1.0
+      },
+      "group": "cvss_vector/eval_pre_cutoff/constrained",
+      "image": "python@sha256:90744cff8f32887f075c47d747a173ff333e9e98801667af93c357fa9f5e28ff",
+      "image_id": "sha256:c62d7c95d6ea9f2f0d25d2407a0138dfeb16b2d1c580cc0524fc483b8c44fa10 arm64",
+      "items": 4904,
+      "per_item": {},
+      "score_match": {
+        "denominator": "items whose vector executed",
+        "k": 1394,
+        "n": 4904,
+        "rate": 0.28425774877650895
+      },
+      "script_sha256": null,
+      "seconds": 0.3,
+      "timeout_sec": 30,
+      "timeouts": 0
+    },
+    "cvss_vector/eval_pre_cutoff/free": {
+      "container_failures": 0,
+      "containers": 1,
+      "docker_flags": [
+        "--rm",
+        "-i",
+        "--network=none",
+        "--memory=512m",
+        "--pids-limit=128",
+        "--read-only",
+        "--tmpfs",
+        "/tmp",
+        "--security-opt",
+        "no-new-privileges:true"
+      ],
+      "execution": {
+        "n": 4904,
+        "no_vector_produced": 4897,
+        "rate": 0.0014274061990212073,
+        "succeeded": 7
+      },
+      "formula_self_test": {
+        "k": 4904,
+        "means": "score computed from NVD's own vector vs NVD's recorded score; must be 1.0 or the formula implementation is wrong",
+        "n": 4904,
+        "rate": 1.0
+      },
+      "group": "cvss_vector/eval_pre_cutoff/free",
+      "image": "python@sha256:90744cff8f32887f075c47d747a173ff333e9e98801667af93c357fa9f5e28ff",
+      "image_id": "sha256:c62d7c95d6ea9f2f0d25d2407a0138dfeb16b2d1c580cc0524fc483b8c44fa10 arm64",
+      "items": 4904,
+      "per_item": {},
+      "score_match": {
+        "denominator": "items whose vector executed",
+        "k": 0,
+        "n": 7,
+        "rate": 0.0
+      },
+      "script_sha256": null,
+      "seconds": 0.29,
+      "timeout_sec": 30,
+      "timeouts": 0
+    }
+  },
+  "scored": {
+    "attack_technique": false,
+    "cve_to_cwe": true,
+    "cvss_vector": true,
+    "structured_extract": true
+  },
+  "strata": {
+    "attack_technique/eval_post_cutoff": {
+      "counts": {
+        "high": 3,
+        "low": 4,
+        "zero": 72
+      },
+      "definition": "zero: coverage==0; low: 0<coverage<=median(positive); high: coverage>median(positive)",
+      "field": "train_ngram_coverage",
+      "n": 79,
+      "note": "recorded quartiles are deliberately not used: coverage is zero-inflated and quartile boundaries collapse, which makes quartile strata incomparable across evaluation sets",
+      "positive_median": 0.0514
+    },
+    "attack_technique/eval_pre_cutoff": {
+      "counts": {
+        "high": 17,
+        "low": 18,
+        "zero": 44
+      },
+      "definition": "zero: coverage==0; low: 0<coverage<=median(positive); high: coverage>median(positive)",
+      "field": "train_ngram_coverage",
+      "n": 79,
+      "note": "recorded quartiles are deliberately not used: coverage is zero-inflated and quartile boundaries collapse, which makes quartile strata incomparable across evaluation sets",
+      "positive_median": 0.2472
+    },
+    "cve_to_cwe/eval_post_cutoff": {
+      "counts": {
+        "high": 508,
+        "low": 544,
+        "zero": 2815
+      },
+      "definition": "zero: coverage==0; low: 0<coverage<=median(positive); high: coverage>median(positive)",
+      "field": "train_ngram_coverage",
+      "n": 3867,
+      "note": "recorded quartiles are deliberately not used: coverage is zero-inflated and quartile boundaries collapse, which makes quartile strata incomparable across evaluation sets",
+      "positive_median": 0.2
+    },
+    "cve_to_cwe/eval_pre_cutoff": {
+      "counts": {
+        "high": 997,
+        "low": 999,
+        "zero": 2018
+      },
+      "definition": "zero: coverage==0; low: 0<coverage<=median(positive); high: coverage>median(positive)",
+      "field": "train_ngram_coverage",
+      "n": 4014,
+      "note": "recorded quartiles are deliberately not used: coverage is zero-inflated and quartile boundaries collapse, which makes quartile strata incomparable across evaluation sets",
+      "positive_median": 0.3514
+    },
+    "cvss_vector/eval_post_cutoff": {
+      "counts": {
+        "high": 686,
+        "low": 747,
+        "zero": 3116
+      },
+      "definition": "zero: coverage==0; low: 0<coverage<=median(positive); high: coverage>median(positive)",
+      "field": "train_ngram_coverage",
+      "n": 4549,
+      "note": "recorded quartiles are deliberately not used: coverage is zero-inflated and quartile boundaries collapse, which makes quartile strata incomparable across evaluation sets",
+      "positive_median": 0.2
+    },
+    "cvss_vector/eval_pre_cutoff": {
+      "counts": {
+        "high": 1203,
+        "low": 1205,
+        "zero": 2496
+      },
+      "definition": "zero: coverage==0; low: 0<coverage<=median(positive); high: coverage>median(positive)",
+      "field": "train_ngram_coverage",
+      "n": 4904,
+      "note": "recorded quartiles are deliberately not used: coverage is zero-inflated and quartile boundaries collapse, which makes quartile strata incomparable across evaluation sets",
+      "positive_median": 0.3448
+    },
+    "structured_extract/eval_post_cutoff": {
+      "counts": {
+        "high": 574,
+        "low": 577,
+        "zero": 2177
+      },
+      "definition": "zero: coverage==0; low: 0<coverage<=median(positive); high: coverage>median(positive)",
+      "field": "train_ngram_coverage",
+      "n": 3328,
+      "note": "recorded quartiles are deliberately not used: coverage is zero-inflated and quartile boundaries collapse, which makes quartile strata incomparable across evaluation sets",
+      "positive_median": 0.2292
+    },
+    "structured_extract/eval_pre_cutoff": {
+      "counts": {
+        "high": 685,
+        "low": 686,
+        "zero": 936
+      },
+      "definition": "zero: coverage==0; low: 0<coverage<=median(positive); high: coverage>median(positive)",
+      "field": "train_ngram_coverage",
+      "n": 2307,
+      "note": "recorded quartiles are deliberately not used: coverage is zero-inflated and quartile boundaries collapse, which makes quartile strata incomparable across evaluation sets",
+      "positive_median": 0.381
+    }
+  }
+}
