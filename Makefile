@@ -189,3 +189,12 @@ eval-report:
 
 eval-selftest:
 	env $(EVAL_ENV) $(EVAL_PY) -m eval.stats --self-compare $(RUN_ID)
+
+# ---------------------------------------------------------------- P5: training
+# Every training job inside a memory-ceilinged user scope (rule 2).
+TRAIN_ENV := PIP_ONLY_BINARY=:all: TOKENIZERS_PARALLELISM=false
+train-verify:
+	$(EVAL_PY) -m train.verify_subset
+
+train:
+	$(EVAL_SCOPE) env $(TRAIN_ENV) $(EVAL_PY) -m train.run --config train/config/$(COND).yaml $(ARGS)

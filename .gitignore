@@ -51,3 +51,4 @@ p0-artifacts.zip
 # Raw generations and per-item flags are large and stay out.
 runs/*/outputs.jsonl
 runs/*/flags.json
+checkpoints/

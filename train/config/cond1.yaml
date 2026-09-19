@@ -1,0 +1,16 @@
+# Cond-1: T tokens, all domain. The pre-registered 60k subsample from P3.2.
+name: cond1
+files:
+  - cve_to_cwe/train_subsample.jsonl
+  - cvss_vector/train_subsample.jsonl
+  - structured_extract/train_subsample.jsonl
+lora: {r: 64, alpha: 128, dropout: 0.0,
+       target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]}
+lr: 1.0e-4
+warmup_steps: 8
+steps: 157
+seq_len: 4096
+per_device_batch: 4
+grad_accum: 4
+grad_clip: 1.0
+seed: 1234

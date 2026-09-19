@@ -1,0 +1,17 @@
+# Cond-2: 0.8T domain (a proven subset of Cond-1) + 0.2T replay. Same steps, same tokens.
+name: cond2
+files:
+  - cve_to_cwe/train_cond2_domain.jsonl
+  - cvss_vector/train_cond2_domain.jsonl
+  - structured_extract/train_cond2_domain.jsonl
+  - replay/train_cond2.jsonl
+lora: {r: 64, alpha: 128, dropout: 0.0,
+       target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]}
+lr: 1.0e-4
+warmup_steps: 8
+steps: 157
+seq_len: 4096
+per_device_batch: 4
+grad_accum: 4
+grad_clip: 1.0
+seed: 1234
