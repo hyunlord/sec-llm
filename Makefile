@@ -8,7 +8,7 @@ PYTHON ?= .venv/bin/python
 CHECKS := scripts/env_check
 
 .DEFAULT_GOAL := help
-.PHONY: help env-check report lock pack clean-artifacts pin ingest ingest-offline ingest-verify sources-doc ingest-report process calibrate process-report
+.PHONY: help env-check report lock pack clean-artifacts pin ingest ingest-offline ingest-verify sources-doc ingest-report process calibrate process-report datasets contamination datasets-docs
 
 help:
 	@echo "targets:"
@@ -27,6 +27,10 @@ help:
 	@echo "  process       run P2: canonicalize, dedup, identity, secrets -> process.manifest.json"
 	@echo "  calibrate     re-run the near-duplicate threshold sweep against the labelled sample"
 	@echo "  process-report regenerate the three P2 Korean reports"
+	@echo ""
+	@echo "  datasets      P3: extract, build tasks+splits+replay, contamination, lengths, manifest, docs"
+	@echo "  contamination re-run the n-gram overlap check; add ARGS=--assert-zero to fail on any overlap"
+	@echo "  datasets-docs regenerate the P3 Korean docs and reports from the manifest"
 
 # Rule 1 is enforced by the environment, not by intent. PIP_ONLY_BINARY makes
 # pip refuse a source distribution at resolution time rather than starting a
@@ -144,3 +148,20 @@ calibrate:
 
 process-report:
 	$(INGEST_PY) -m process.render_reports
+
+# P3 -- dataset construction. Order matters: the manifest is written last, from
+# the final artifacts, after contamination removal and length profiling.
+datasets:
+	$(INGEST_PY) -m datasets.extract
+	$(INGEST_PY) -m datasets.build
+	$(INGEST_PY) -m datasets.contamination
+	$(INGEST_PY) -m datasets.contamination --assert-zero
+	$(INGEST_PY) -m datasets.lengths
+	$(INGEST_PY) -m datasets.manifest
+	$(INGEST_PY) -m datasets.render_docs
+
+contamination:
+	$(INGEST_PY) -m datasets.contamination $(ARGS)
+
+datasets-docs:
+	$(INGEST_PY) -m datasets.render_docs

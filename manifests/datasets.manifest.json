@@ -1,0 +1,1280 @@
+{
+  "contamination": {
+    "cross_eval": {
+      "attack_technique": {
+        "shared_entity_ids": 0
+      },
+      "cve_tasks_post_vs_pre_shared": 0,
+      "cve_to_cwe": {
+        "shared_entity_ids": 0
+      },
+      "cvss_vector": {
+        "shared_entity_ids": 0
+      },
+      "structured_extract": {
+        "shared_entity_ids": 0
+      }
+    },
+    "diagnostic_n": 8,
+    "eval_sets": {
+      "attack_technique/eval_post_cutoff": {
+        "additional_at_8_beyond_13": 7,
+        "after": 72,
+        "before": 72,
+        "removed_at_13": 0,
+        "removed_fraction_13": 0.0,
+        "would_remove_at_8": 7,
+        "would_remove_fraction_8": 0.0972
+      },
+      "attack_technique/eval_pre_cutoff": {
+        "additional_at_8_beyond_13": 10,
+        "after": 44,
+        "before": 44,
+        "removed_at_13": 0,
+        "removed_fraction_13": 0.0,
+        "would_remove_at_8": 10,
+        "would_remove_fraction_8": 0.2273
+      },
+      "cve_to_cwe/eval_post_cutoff": {
+        "additional_at_8_beyond_13": 1166,
+        "after": 2815,
+        "before": 2815,
+        "removed_at_13": 0,
+        "removed_fraction_13": 0.0,
+        "would_remove_at_8": 1166,
+        "would_remove_fraction_8": 0.4142
+      },
+      "cve_to_cwe/eval_pre_cutoff": {
+        "additional_at_8_beyond_13": 1089,
+        "after": 2020,
+        "before": 2020,
+        "removed_at_13": 0,
+        "removed_fraction_13": 0.0,
+        "would_remove_at_8": 1089,
+        "would_remove_fraction_8": 0.5391
+      },
+      "cvss_vector/eval_post_cutoff": {
+        "additional_at_8_beyond_13": 1433,
+        "after": 3116,
+        "before": 3116,
+        "removed_at_13": 0,
+        "removed_fraction_13": 0.0,
+        "would_remove_at_8": 1433,
+        "would_remove_fraction_8": 0.4599
+      },
+      "cvss_vector/eval_pre_cutoff": {
+        "additional_at_8_beyond_13": 1309,
+        "after": 2498,
+        "before": 2498,
+        "removed_at_13": 0,
+        "removed_fraction_13": 0.0,
+        "would_remove_at_8": 1309,
+        "would_remove_fraction_8": 0.524
+      },
+      "structured_extract/eval_post_cutoff": {
+        "additional_at_8_beyond_13": 866,
+        "after": 2177,
+        "before": 2177,
+        "removed_at_13": 0,
+        "removed_fraction_13": 0.0,
+        "would_remove_at_8": 866,
+        "would_remove_fraction_8": 0.3978
+      },
+      "structured_extract/eval_pre_cutoff": {
+        "additional_at_8_beyond_13": 502,
+        "after": 938,
+        "before": 938,
+        "removed_at_13": 0,
+        "removed_fraction_13": 0.0,
+        "would_remove_at_8": 502,
+        "would_remove_fraction_8": 0.5352
+      }
+    },
+    "policy_n": 13,
+    "top_diag_grams": {
+      "attack_technique/eval_post_cutoff": [
+        [
+          "to establish an interactive command and control channel",
+          2
+        ],
+        [
+          "extensions to establish persistent access to victim systems.",
+          1
+        ],
+        [
+          "establish an interactive command and control channel to",
+          1
+        ],
+        [
+          "an interactive command and control channel to target",
+          1
+        ],
+        [
+          "to hide their malicious data in order to",
+          1
+        ],
+        [
+          "hide their malicious data in order to evade",
+          1
+        ],
+        [
+          "their malicious data in order to evade detection.",
+          1
+        ],
+        [
+          "Adversaries may utilize standard operating system APIs to",
+          1
+        ]
+      ],
+      "attack_technique/eval_pre_cutoff": [
+        [
+          "In some cases, adversaries may be able to",
+          1
+        ],
+        [
+          "Adversaries may establish persistence and elevate privileges by",
+          1
+        ],
+        [
+          "enable follow-on behaviors such as Network Sniffing or",
+          1
+        ],
+        [
+          "follow-on behaviors such as Network Sniffing or Transmitted",
+          1
+        ],
+        [
+          "behaviors such as Network Sniffing or Transmitted Data",
+          1
+        ],
+        [
+          "may evade detection from security products since the",
+          1
+        ],
+        [
+          "evade detection from security products since the execution",
+          1
+        ],
+        [
+          "using system mechanisms that trigger execution based on",
+          1
+        ]
+      ],
+      "cve_to_cwe/eval_post_cutoff": [
+        [
+          "In the Linux kernel, the following vulnerability has",
+          170
+        ],
+        [
+          "the Linux kernel, the following vulnerability has been",
+          170
+        ],
+        [
+          "Linux kernel, the following vulnerability has been resolved:",
+          170
+        ],
+        [
+          "Improper Neutralization of Input During Web Page Generation",
+          129
+        ],
+        [
+          "Neutralization of Input During Web Page Generation ('Cross-site",
+          127
+        ],
+        [
+          "of Input During Web Page Generation ('Cross-site Scripting')",
+          127
+        ],
+        [
+          "allows Exploiting Incorrectly Configured Access Control Security Levels.This",
+          66
+        ],
+        [
+          "Exploiting Incorrectly Configured Access Control Security Levels.This issue",
+          65
+        ]
+      ],
+      "cve_to_cwe/eval_pre_cutoff": [
+        [
+          "Auth. (admin+) Stored Cross-Site Scripting (XSS) vulnerability in",
+          36
+        ],
+        [
+          "Improper Neutralization of Input During Web Page Generation",
+          16
+        ],
+        [
+          "Neutralization of Input During Web Page Generation ('Cross-site",
+          16
+        ],
+        [
+          "of Input During Web Page Generation ('Cross-site Scripting')",
+          16
+        ],
+        [
+          "was discovered to contain a SQL injection vulnerability",
+          15
+        ],
+        [
+          "discovered to contain a SQL injection vulnerability via",
+          10
+        ],
+        [
+          "Auth. (contributor+) Stored Cross-Site Scripting (XSS) vulnerability in",
+          10
+        ],
+        [
+          "allows a remote attacker to execute arbitrary code",
+          9
+        ]
+      ],
+      "cvss_vector/eval_post_cutoff": [
+        [
+          "In the Linux kernel, the following vulnerability has",
+          354
+        ],
+        [
+          "the Linux kernel, the following vulnerability has been",
+          354
+        ],
+        [
+          "Linux kernel, the following vulnerability has been resolved:",
+          354
+        ],
+        [
+          "Improper Neutralization of Input During Web Page Generation",
+          129
+        ],
+        [
+          "Neutralization of Input During Web Page Generation ('Cross-site",
+          127
+        ],
+        [
+          "of Input During Web Page Generation ('Cross-site Scripting')",
+          127
+        ],
+        [
+          "allows Exploiting Incorrectly Configured Access Control Security Levels.This",
+          66
+        ],
+        [
+          "Exploiting Incorrectly Configured Access Control Security Levels.This issue",
+          65
+        ]
+      ],
+      "cvss_vector/eval_pre_cutoff": [
+        [
+          "Auth. (admin+) Stored Cross-Site Scripting (XSS) vulnerability in",
+          36
+        ],
+        [
+          "Improper Neutralization of Input During Web Page Generation",
+          16
+        ],
+        [
+          "Neutralization of Input During Web Page Generation ('Cross-site",
+          16
+        ],
+        [
+          "of Input During Web Page Generation ('Cross-site Scripting')",
+          16
+        ],
+        [
+          "was discovered to contain a SQL injection vulnerability",
+          15
+        ],
+        [
+          "allows a remote attacker to execute arbitrary code",
+          10
+        ],
+        [
+          "a remote attacker to execute arbitrary code via",
+          10
+        ],
+        [
+          "An issue was discovered in the Linux kernel",
+          10
+        ]
+      ],
+      "structured_extract/eval_post_cutoff": [
+        [
+          "Improper Neutralization of Input During Web Page Generation",
+          124
+        ],
+        [
+          "Neutralization of Input During Web Page Generation ('Cross-site",
+          122
+        ],
+        [
+          "of Input During Web Page Generation ('Cross-site Scripting')",
+          122
+        ],
+        [
+          "allows Exploiting Incorrectly Configured Access Control Security Levels.This",
+          61
+        ],
+        [
+          "Exploiting Incorrectly Configured Access Control Security Levels.This issue",
+          60
+        ],
+        [
+          "Incorrectly Configured Access Control Security Levels.This issue affects",
+          56
+        ],
+        [
+          "Impact: Successful exploitation of this vulnerability may affect",
+          10
+        ],
+        [
+          "Successful exploitation of this vulnerability may affect availability.",
+          9
+        ]
+      ],
+      "structured_extract/eval_pre_cutoff": [
+        [
+          "Cross-site Scripting (XSS) - Stored in GitHub repository",
+          8
+        ],
+        [
+          "Improper Neutralization of Input During Web Page Generation",
+          5
+        ],
+        [
+          "Neutralization of Input During Web Page Generation ('Cross-site",
+          5
+        ],
+        [
+          "of Input During Web Page Generation ('Cross-site Scripting')",
+          5
+        ],
+        [
+          "Unrestricted Upload of File with Dangerous Type in",
+          4
+        ],
+        [
+          "Cross-site Scripting (XSS) - Reflected in GitHub repository",
+          4
+        ],
+        [
+          "There are no known workarounds for this vulnerability.",
+          4
+        ],
+        [
+          "parameter before using it in a SQL statement",
+          3
+        ]
+      ]
+    },
+    "total_removed_at_13": 0,
+    "train_unique_ngrams": {
+      "13": 10500784,
+      "8": 10654951
+    }
+  },
+  "decisions": {
+    "cwe_ground_truth": {
+      "buckets": {
+        "agreed": 127332,
+        "cna": 1740,
+        "contested": 13562,
+        "multi_cwe": 21076,
+        "none": 5452,
+        "nvd": 154289,
+        "placeholder": 53149,
+        "rejected": 18358
+      },
+      "contested_structure": {
+        "relation": {
+          "disjoint": 317,
+          "partial_overlap": 13245
+        },
+        "top_cnas": [
+          [
+            "GitHub_M",
+            1369
+          ],
+          [
+            "cisco",
+            1129
+          ],
+          [
+            "VulDB",
+            1013
+          ],
+          [
+            "redhat",
+            850
+          ],
+          [
+            "icscert",
+            700
+          ],
+          [
+            "talos",
+            570
+          ],
+          [
+            "zdi",
+            527
+          ],
+          [
+            "hackerone",
+            472
+          ],
+          [
+            "siemens",
+            320
+          ],
+          [
+            "qualcomm",
+            315
+          ],
+          [
+            "Wordfence",
+            297
+          ],
+          [
+            "adobe",
+            287
+          ],
+          [
+            "dell",
+            263
+          ],
+          [
+            "microsoft",
+            241
+          ],
+          [
+            "WPScan",
+            226
+          ]
+        ],
+        "top_pairs": [
+          [
+            "CWE-122->CWE-787",
+            16
+          ],
+          [
+            "CWE-400->CWE-770",
+            10
+          ],
+          [
+            "CWE-121->CWE-787",
+            10
+          ],
+          [
+            "CWE-120->CWE-787",
+            7
+          ],
+          [
+            "CWE-35->CWE-22",
+            7
+          ],
+          [
+            "CWE-285->CWE-863",
+            6
+          ],
+          [
+            "CWE-94->CWE-434",
+            5
+          ],
+          [
+            "CWE-287->CWE-863",
+            5
+          ],
+          [
+            "CWE-280->CWE-276",
+            5
+          ],
+          [
+            "CWE-20->CWE-787",
+            4
+          ],
+          [
+            "CWE-927->CWE-668",
+            4
+          ],
+          [
+            "CWE-1427->CWE-94",
+            4
+          ],
+          [
+            "CWE-305->CWE-287",
+            3
+          ],
+          [
+            "CWE-20->CWE-125",
+            3
+          ],
+          [
+            "CWE-680->CWE-190",
+            3
+          ]
+        ],
+        "total": 13562
+      },
+      "cwe_source_by_split": {
+        "eval_post_cutoff": {
+          "agreed": 3066,
+          "cna": 28,
+          "nvd": 803
+        },
+        "eval_pre_cutoff": {
+          "agreed": 2086,
+          "cna": 99,
+          "nvd": 1910
+        },
+        "train": {
+          "agreed": 47852,
+          "cna": 994,
+          "nvd": 121902
+        }
+      },
+      "guard": {
+        "dropped_rep_unlabelled": 1288,
+        "dropped_same_label": 9499,
+        "not_readmitted_rep_in_eval": 29,
+        "readmitted_to_train": 1265
+      },
+      "policy": "agree->label; one side->label with source; disagree->contested, excluded, reported; placeholders absent; REJECTED excluded everywhere; multi-CWE excluded from the single-label task"
+    },
+    "replay": {
+      "budget_exhausted_pool": true,
+      "domain_train_tokens": 59775196,
+      "lang_counts": {
+        "en": 37091,
+        "ko": 9
+      },
+      "pairs_available": 37100,
+      "pairs_selected": 37100,
+      "parse": {
+        "assistant_messages": 85318,
+        "messages": 135174,
+        "pairs": 37100,
+        "rank_0": 28305,
+        "rank_1": 28248,
+        "rank_10": 1,
+        "rank_11": 1,
+        "rank_12": 1,
+        "rank_13": 1,
+        "rank_14": 1,
+        "rank_15": 1,
+        "rank_2": 18203,
+        "rank_3": 1154,
+        "rank_4": 237,
+        "rank_5": 71,
+        "rank_6": 27,
+        "rank_7": 13,
+        "rank_8": 6,
+        "rank_9": 3,
+        "rank_None": 4078,
+        "skip_deleted": 3197,
+        "skip_failed_review": 1770,
+        "skip_language": 42570,
+        "skip_too_short": 681
+      },
+      "replay_fraction_of_total": 0.1196,
+      "replay_token_budget": 14943799,
+      "replay_tokens_used": 8118286,
+      "scan": {
+        "findings_by_category": {
+          "pii": 141,
+          "secret": 6
+        },
+        "findings_by_type": {
+          "credentials_in_url": 5,
+          "email": 61,
+          "generic_secret_assignment": 1,
+          "internal_hostname": 22,
+          "private_ip": 58
+        },
+        "pairs_scanned": 37100,
+        "pairs_with_findings": 110,
+        "policy": "identical to P2: secrets -> unrecoverable marker; PII -> stable pseudonym; counts only"
+      },
+      "source": "replay_oasst2"
+    },
+    "temporal_split": {
+      "cutoff": "2025-01-01",
+      "eval_sample_per_period": 5000,
+      "post_cutoff_unused_cves": 102836,
+      "pre_cutoff_eval_years": [
+        2022,
+        2023
+      ],
+      "split_counts_attack": {
+        "eval_post_cutoff": 79,
+        "eval_pre_cutoff": 79,
+        "excluded": 22,
+        "train": 738
+      },
+      "split_counts_cve": {
+        "eval_post_cutoff": 5000,
+        "eval_pre_cutoff": 5000,
+        "excluded": 53255,
+        "post_cutoff_unused": 102836,
+        "train": 228867
+      },
+      "training_uses_only_pre_cutoff": true
+    }
+  },
+  "determinism": "Splits by stable hash under a fixed seed; templates by stable hash; sorted iteration everywhere; no wall-clock field. Re-running against the same pins and P2 outputs reproduces this manifest byte for byte.",
+  "files": {
+    "attack_technique/eval_post_cutoff.jsonl": {
+      "bytes": 199772,
+      "count": 72,
+      "sha256": "a2659fa6fa2a99ee84cb6efa3311e25cd02cd13a2295a680dd7f805d8a7e8354"
+    },
+    "attack_technique/eval_pre_cutoff.jsonl": {
+      "bytes": 130211,
+      "count": 44,
+      "sha256": "82c8c036f3c8b0c3925ffc517a76f86eb322e8429f38914e7ebd7b5d399935bc"
+    },
+    "attack_technique/train.jsonl": {
+      "bytes": 2094146,
+      "count": 738,
+      "sha256": "5a4f37c6b9b6a572ab37a095921aba7af3d92ff45c1bb0bfa0abe46546f18514"
+    },
+    "cve_to_cwe/contested.jsonl": {
+      "bytes": 6870559,
+      "count": 11903,
+      "sha256": "cdd553623b67e23be788fbc016f7fa39f3596ccbc5ef3d7fcbd8d9eaa48a4e7b"
+    },
+    "cve_to_cwe/eval_post_cutoff.jsonl": {
+      "bytes": 3788901,
+      "count": 2815,
+      "sha256": "80b716ef58cf0b9afdd08079703f965f6a27b9c123a9756819eaa0fa4f3049ad"
+    },
+    "cve_to_cwe/eval_pre_cutoff.jsonl": {
+      "bytes": 2013968,
+      "count": 2020,
+      "sha256": "a08d8f90dacf7607165fdbfd5d8a83547b39b102a1783b6ae259c3233db30436"
+    },
+    "cve_to_cwe/train.jsonl": {
+      "bytes": 193551279,
+      "count": 170748,
+      "sha256": "2d47329527439d29cbc8e72b63d90432ffff7a11c03040bfb28ebc24e757d40e"
+    },
+    "cvss_vector/eval_post_cutoff.jsonl": {
+      "bytes": 6546151,
+      "count": 3116,
+      "sha256": "e5b9aee9891c5a29dfeb61d380127087fa851fa1e7b86933f7a329c2b4e47f46"
+    },
+    "cvss_vector/eval_pre_cutoff.jsonl": {
+      "bytes": 4196945,
+      "count": 2498,
+      "sha256": "cec8d100389bcd204b08e48eb131a8298140da795780a47a43140ece9fed093d"
+    },
+    "cvss_vector/train.jsonl": {
+      "bytes": 232596863,
+      "count": 123402,
+      "sha256": "eb56f450594de6bdd544d8303c7464f32ba4b844abc09585f4d269b15390b674"
+    },
+    "replay/train.jsonl": {
+      "bytes": 55200670,
+      "count": 37100,
+      "sha256": "003ac863ca82878e1179dcbf056b1921792458ed220a552c35d8b97c3ef0b5e2"
+    },
+    "structured_extract/eval_post_cutoff.jsonl": {
+      "bytes": 3487535,
+      "count": 2177,
+      "sha256": "732e88cb9add8f3b6c4bc9c18c2c938193f6cc0c7c0f0323e2d84f471d46190a"
+    },
+    "structured_extract/eval_pre_cutoff.jsonl": {
+      "bytes": 1296791,
+      "count": 938,
+      "sha256": "d80a6b48f52c781497538d1bae5376c1e32cc1eb4c39bd6bbe4aa8b4d45dfd48"
+    },
+    "structured_extract/train.jsonl": {
+      "bytes": 100218209,
+      "count": 65429,
+      "sha256": "136457b00f88fb2d8585c2037514fdf6c1c417ece216bd0cf78860575f8491be"
+    }
+  },
+  "lengths": {
+    "p0_sec_per_step": 129.5145,
+    "p0_tokens_per_step": 65536,
+    "schedule": {
+      "hours_per_epoch_at_p0_step_cost": 38.72,
+      "note": "Derived from the P0 measurement (129.5 s per 65,536-token step) and the packing yield above. Padding fraction is already inside the sequence count, so this is wall time for the real corpus, not for 4096-token synthetic rows.",
+      "optimizer_steps_per_epoch": 1076.3,
+      "sequences_per_optimizer_step": 16,
+      "train_sequences_4096_after_packing": 17221,
+      "train_tokens_all_tasks_plus_replay": 67893482
+    },
+    "seq": 4096,
+    "tasks": {
+      "attack_technique/eval_post_cutoff": {
+        "examples": 72,
+        "fraction_over": {
+          "1024": 0.0,
+          "2048": 0.0,
+          "4096": 0.0,
+          "512": 0.01389
+        },
+        "packing": {
+          "examples_per_sequence": 14.4,
+          "padding_fraction": 0.1397,
+          "sequences_4096": 5,
+          "truncated_over_4096": 0
+        },
+        "prompt": {
+          "max": 585,
+          "p50": 211,
+          "p90": 383,
+          "p99": 457
+        },
+        "target": {
+          "max": 16,
+          "p50": 16,
+          "p90": 16,
+          "p99": 16
+        },
+        "total": {
+          "max": 601,
+          "p50": 226,
+          "p90": 399,
+          "p99": 473,
+          "sum": 17619
+        }
+      },
+      "attack_technique/eval_pre_cutoff": {
+        "examples": 44,
+        "fraction_over": {
+          "1024": 0.0,
+          "2048": 0.0,
+          "4096": 0.0,
+          "512": 0.0
+        },
+        "packing": {
+          "examples_per_sequence": 14.667,
+          "padding_fraction": 0.0665,
+          "sequences_4096": 3,
+          "truncated_over_4096": 0
+        },
+        "prompt": {
+          "max": 459,
+          "p50": 245,
+          "p90": 367,
+          "p99": 459
+        },
+        "target": {
+          "max": 16,
+          "p50": 16,
+          "p90": 16,
+          "p99": 16
+        },
+        "total": {
+          "max": 475,
+          "p50": 257,
+          "p90": 379,
+          "p99": 475,
+          "sum": 11471
+        }
+      },
+      "attack_technique/train": {
+        "examples": 738,
+        "fraction_over": {
+          "1024": 0.0,
+          "2048": 0.0,
+          "4096": 0.0,
+          "512": 0.02981
+        },
+        "packing": {
+          "examples_per_sequence": 15.375,
+          "padding_fraction": 0.0489,
+          "sequences_4096": 48,
+          "truncated_over_4096": 0
+        },
+        "prompt": {
+          "max": 952,
+          "p50": 216,
+          "p90": 382,
+          "p99": 628
+        },
+        "target": {
+          "max": 16,
+          "p50": 16,
+          "p90": 16,
+          "p99": 16
+        },
+        "total": {
+          "max": 968,
+          "p50": 230,
+          "p90": 398,
+          "p99": 644,
+          "sum": 186990
+        }
+      },
+      "cve_to_cwe/eval_post_cutoff": {
+        "examples": 2815,
+        "fraction_over": {
+          "1024": 0.00284,
+          "2048": 0.00036,
+          "4096": 0.0,
+          "512": 0.01314
+        },
+        "packing": {
+          "examples_per_sequence": 30.269,
+          "padding_fraction": 0.0286,
+          "sequences_4096": 93,
+          "truncated_over_4096": 0
+        },
+        "prompt": {
+          "max": 2371,
+          "p50": 90,
+          "p90": 192,
+          "p99": 534
+        },
+        "target": {
+          "max": 14,
+          "p50": 13,
+          "p90": 13,
+          "p99": 14
+        },
+        "total": {
+          "max": 2384,
+          "p50": 103,
+          "p90": 205,
+          "p99": 547,
+          "sum": 370050
+        }
+      },
+      "cve_to_cwe/eval_pre_cutoff": {
+        "examples": 2020,
+        "fraction_over": {
+          "1024": 0.0,
+          "2048": 0.0,
+          "4096": 0.0,
+          "512": 0.0005
+        },
+        "packing": {
+          "examples_per_sequence": 42.979,
+          "padding_fraction": 0.0226,
+          "sequences_4096": 47,
+          "truncated_over_4096": 0
+        },
+        "prompt": {
+          "max": 634,
+          "p50": 68,
+          "p90": 120,
+          "p99": 256
+        },
+        "target": {
+          "max": 14,
+          "p50": 13,
+          "p90": 13,
+          "p99": 14
+        },
+        "total": {
+          "max": 646,
+          "p50": 81,
+          "p90": 133,
+          "p99": 269,
+          "sum": 188158
+        }
+      },
+      "cve_to_cwe/train": {
+        "examples": 170748,
+        "fraction_over": {
+          "1024": 0.00357,
+          "2048": 0.00081,
+          "4096": 0.0,
+          "512": 0.00774
+        },
+        "packing": {
+          "examples_per_sequence": 34.115,
+          "padding_fraction": 0.0299,
+          "sequences_4096": 5005,
+          "truncated_over_4096": 0
+        },
+        "prompt": {
+          "max": 2771,
+          "p50": 84,
+          "p90": 145,
+          "p99": 421
+        },
+        "target": {
+          "max": 14,
+          "p50": 13,
+          "p90": 13,
+          "p99": 13
+        },
+        "total": {
+          "max": 2784,
+          "p50": 97,
+          "p90": 158,
+          "p99": 433,
+          "sum": 19887228
+        }
+      },
+      "cvss_vector/eval_post_cutoff": {
+        "examples": 3116,
+        "fraction_over": {
+          "1024": 0.00674,
+          "2048": 0.0016,
+          "4096": 0.0,
+          "512": 0.03145
+        },
+        "packing": {
+          "examples_per_sequence": 15.58,
+          "padding_fraction": 0.0428,
+          "sequences_4096": 200,
+          "truncated_over_4096": 0
+        },
+        "prompt": {
+          "max": 2390,
+          "p50": 112,
+          "p90": 236,
+          "p99": 676
+        },
+        "target": {
+          "max": 107,
+          "p50": 102,
+          "p90": 103,
+          "p99": 106
+        },
+        "total": {
+          "max": 2492,
+          "p50": 214,
+          "p90": 338,
+          "p99": 778,
+          "sum": 784130
+        }
+      },
+      "cvss_vector/eval_pre_cutoff": {
+        "examples": 2498,
+        "fraction_over": {
+          "1024": 0.0004,
+          "2048": 0.0,
+          "4096": 0.0,
+          "512": 0.0028
+        },
+        "packing": {
+          "examples_per_sequence": 19.825,
+          "padding_fraction": 0.0312,
+          "sequences_4096": 126,
+          "truncated_over_4096": 0
+        },
+        "prompt": {
+          "max": 975,
+          "p50": 86,
+          "p90": 142,
+          "p99": 274
+        },
+        "target": {
+          "max": 107,
+          "p50": 102,
+          "p90": 103,
+          "p99": 106
+        },
+        "total": {
+          "max": 1076,
+          "p50": 188,
+          "p90": 245,
+          "p99": 379,
+          "sum": 499980
+        }
+      },
+      "cvss_vector/train": {
+        "examples": 123402,
+        "fraction_over": {
+          "1024": 0.00696,
+          "2048": 0.00186,
+          "4096": 0.0,
+          "512": 0.01892
+        },
+        "packing": {
+          "examples_per_sequence": 16.794,
+          "padding_fraction": 0.0431,
+          "sequences_4096": 7348,
+          "truncated_over_4096": 0
+        },
+        "prompt": {
+          "max": 2890,
+          "p50": 103,
+          "p90": 182,
+          "p99": 662
+        },
+        "target": {
+          "max": 107,
+          "p50": 102,
+          "p90": 103,
+          "p99": 106
+        },
+        "total": {
+          "max": 2992,
+          "p50": 205,
+          "p90": 285,
+          "p99": 764,
+          "sum": 28801286
+        }
+      },
+      "replay/train": {
+        "examples": 37100,
+        "fraction_over": {
+          "1024": 0.0059,
+          "2048": 0.00054,
+          "4096": 8e-05,
+          "512": 0.07003
+        },
+        "packing": {
+          "examples_per_sequence": 17.862,
+          "padding_fraction": 0.0468,
+          "sequences_4096": 2077,
+          "truncated_over_4096": 3
+        },
+        "prompt": {
+          "max": 2213,
+          "p50": 17,
+          "p90": 54,
+          "p99": 208
+        },
+        "target": {
+          "max": 11625,
+          "p50": 137,
+          "p90": 415,
+          "p99": 776
+        },
+        "total": {
+          "max": 11638,
+          "p50": 165,
+          "p90": 455,
+          "p99": 869,
+          "sum": 8118286
+        }
+      },
+      "structured_extract/eval_post_cutoff": {
+        "examples": 2177,
+        "fraction_over": {
+          "1024": 0.0,
+          "2048": 0.0,
+          "4096": 0.0,
+          "512": 0.00322
+        },
+        "packing": {
+          "examples_per_sequence": 24.739,
+          "padding_fraction": 0.0295,
+          "sequences_4096": 88,
+          "truncated_over_4096": 0
+        },
+        "prompt": {
+          "max": 770,
+          "p50": 103,
+          "p90": 195,
+          "p99": 335
+        },
+        "target": {
+          "max": 398,
+          "p50": 34,
+          "p90": 54,
+          "p99": 104
+        },
+        "total": {
+          "max": 815,
+          "p50": 139,
+          "p90": 241,
+          "p99": 411,
+          "sum": 349825
+        }
+      },
+      "structured_extract/eval_pre_cutoff": {
+        "examples": 938,
+        "fraction_over": {
+          "1024": 0.00107,
+          "2048": 0.0,
+          "4096": 0.0,
+          "512": 0.00426
+        },
+        "packing": {
+          "examples_per_sequence": 27.588,
+          "padding_fraction": 0.0485,
+          "sequences_4096": 34,
+          "truncated_over_4096": 0
+        },
+        "prompt": {
+          "max": 951,
+          "p50": 81,
+          "p90": 165,
+          "p99": 332
+        },
+        "target": {
+          "max": 576,
+          "p50": 34,
+          "p90": 57,
+          "p99": 212
+        },
+        "total": {
+          "max": 1112,
+          "p50": 117,
+          "p90": 218,
+          "p99": 460,
+          "sum": 132516
+        }
+      },
+      "structured_extract/train": {
+        "examples": 65429,
+        "fraction_over": {
+          "1024": 0.00086,
+          "2048": 0.00034,
+          "4096": 0.0,
+          "512": 0.01564
+        },
+        "packing": {
+          "examples_per_sequence": 23.853,
+          "padding_fraction": 0.0299,
+          "sequences_4096": 2743,
+          "truncated_over_4096": 0
+        },
+        "prompt": {
+          "max": 2495,
+          "p50": 100,
+          "p90": 185,
+          "p99": 367
+        },
+        "target": {
+          "max": 1219,
+          "p50": 35,
+          "p90": 70,
+          "p99": 323
+        },
+        "total": {
+          "max": 3714,
+          "p50": 139,
+          "p90": 249,
+          "p99": 647,
+          "sum": 10899692
+        }
+      }
+    }
+  },
+  "phase": "P3",
+  "pins": {
+    "attack": {
+      "commit_sha": "6cda5ad8462c79e14fbb872f4e09059b18e0cfc4",
+      "pin_type": "git_tag_release",
+      "tag": "v19.2",
+      "version": "19.2"
+    },
+    "cve_list": {
+      "commit_sha": "9d4f632aa6e148754e1f27bdfb69f4635792f69a",
+      "pin_type": "git_commit"
+    },
+    "cwe": {
+      "pin_type": "versioned_release",
+      "version": "4.20"
+    },
+    "nvd": {
+      "pin_type": "api_snapshot",
+      "snapshot_instant_utc": "2026-09-18T04:37:25Z"
+    },
+    "replay_oasst2": {
+      "commit_sha": "179dd21fc55192153d94adb0e0ce8f69e222bf75",
+      "pin_type": "hf_dataset_commit"
+    },
+    "tokenizer_qwen25": {
+      "commit_sha": "a09a35458c702b33eeacc393d103063234e8bc28",
+      "pin_type": "hf_model_commit"
+    }
+  },
+  "schema_version": 1,
+  "schemas_sha256": {
+    "attack_technique": "e6a2c17e14c22f82cb85280304246670abd4e6706164d8e3d97e55ec6796d798",
+    "cve_to_cwe": "2c6e30ee81e108344e0d63d068cf7b765c1f6b032ac1095131057ff9c8e22a7b",
+    "cvss_vector": "b974480ac74eefcd49fdc6e89eebd9e95a9b7ce6f8bea0f57a0c687852152745",
+    "structured_extract": "f70a68d01c590368c746f8f6913bf324424008ca74bc73734c0f3ded527635a1"
+  },
+  "tasks": {
+    "attack_technique": {
+      "by_split": {
+        "eval_post_cutoff": 79,
+        "eval_pre_cutoff": 79,
+        "train": 738
+      },
+      "by_template": {
+        "0": 293,
+        "1": 300,
+        "2": 303
+      },
+      "excluded_by_dedup": {
+        "near_or_exact": 22
+      },
+      "excluded_by_filter": {}
+    },
+    "cve_to_cwe": {
+      "by_split": {
+        "eval_post_cutoff": 3897,
+        "eval_pre_cutoff": 4095,
+        "train": 170748
+      },
+      "by_template": {
+        "0": 59377,
+        "1": 59711,
+        "2": 59652
+      },
+      "excluded_by_dedup": {
+        "exact": 15347,
+        "near": 19550
+      },
+      "excluded_by_filter": {
+        "bucket_multi_cwe": 20250,
+        "bucket_none": 5349,
+        "bucket_placeholder": 47575,
+        "post_cutoff_unused": 79151
+      }
+    },
+    "cvss_vector": {
+      "by_split": {
+        "eval_post_cutoff": 4578,
+        "eval_pre_cutoff": 4993,
+        "train": 123402
+      },
+      "by_template": {
+        "0": 44302,
+        "1": 44393,
+        "2": 44278
+      },
+      "excluded_by_dedup": {
+        "exact": 15347,
+        "near": 19550
+      },
+      "excluded_by_filter": {
+        "no_v31_metric": 115157,
+        "post_cutoff_unused": 93573
+      },
+      "missing_v31_by_versions_present": {
+        "V2": 68931,
+        "V30": 1083,
+        "V30+V2": 35865,
+        "V40": 6019,
+        "V40+V30": 272,
+        "none": 2987
+      }
+    },
+    "structured_extract": {
+      "by_split": {
+        "eval_post_cutoff": 3355,
+        "eval_pre_cutoff": 2385,
+        "train": 65429
+      },
+      "by_template": {
+        "0": 23387,
+        "1": 23943,
+        "2": 23839
+      },
+      "excluded_by_dedup": {
+        "exact": 15347,
+        "near": 19550
+      },
+      "excluded_by_filter": {
+        "more_than_16_versions": 2048,
+        "multiple_affected_products": 37734,
+        "no_affected_product": 135958,
+        "no_affected_versions": 10944,
+        "post_cutoff_unused": 69514,
+        "vendor_na": 14336
+      }
+    }
+  }
+}
