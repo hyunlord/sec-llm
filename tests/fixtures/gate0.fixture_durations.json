@@ -1,0 +1,6 @@
+{
+  "summary": {"gate_passed": true, "host": "somehost",
+               "checks": {"01": {"duration_sec": 1.0}, "02": {"duration_sec": 1.0}}},
+  "checks": {"01": {"runner_duration_sec": 1.0, "data": {"x": 1}},
+             "02": {"runner_duration_sec": 1.0, "data": {"x": 1}}}
+}

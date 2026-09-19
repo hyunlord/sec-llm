@@ -1,0 +1,5 @@
+{
+  "summary": {"gate_passed": true, "host": "10.nate.com",
+               "checks": {"01": {"duration_sec": 1.0}, "02": {"duration_sec": 1.0}}},
+  "checks": {}
+}

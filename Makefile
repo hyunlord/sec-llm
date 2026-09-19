@@ -69,8 +69,13 @@ lock:
 
 # docs/ and logs/ are created first so zip does not warn on a fresh checkout
 # where no check has run yet.
+# GATE0 is overridable only so the refusal can be proven against a fixture:
+#   make pack GATE0=tests/fixtures/gate0.fixture.json   -> must fail
+GATE0 ?= env/gate0.json
+
 pack: clean-artifacts
 	@mkdir -p env reports docs logs
+	@$(INGEST_PY) tools/pack_guard.py $(GATE0)
 	@touch logs/.keep
 	@zip -q -r p0-artifacts.zip env reports docs logs \
 	   -x '*/__pycache__/*' '*.pyc'
