@@ -8,7 +8,7 @@ PYTHON ?= .venv/bin/python
 CHECKS := scripts/env_check
 
 .DEFAULT_GOAL := help
-.PHONY: help env-check report lock pack clean-artifacts pin ingest ingest-offline ingest-verify sources-doc ingest-report process calibrate process-report datasets contamination datasets-docs
+.PHONY: help env-check report lock pack clean-artifacts pin ingest ingest-offline ingest-verify sources-doc ingest-report process calibrate process-report datasets contamination datasets-docs  eval-gate4 eval-run eval-score eval-report eval-selftest
 
 help:
 	@echo "targets:"
@@ -165,3 +165,27 @@ contamination:
 
 datasets-docs:
 	$(INGEST_PY) -m datasets.render_docs
+
+# ---------------------------------------------------------------- P4: evaluation
+# The required settings are set here, not left to the shell. eval/common.py
+# refuses to start if any of them is missing or wrong.
+EVAL_ENV := VLLM_BATCH_INVARIANT=1 VLLM_USE_FLASHINFER_SAMPLER=0 PIP_ONLY_BINARY=:all:
+EVAL_PY  ?= .venv/bin/python
+RUN_ID   ?= baseline
+# Rule 2: every subprocess under a measured host-memory ceiling, no swap.
+EVAL_SCOPE := systemd-run --user --scope -p MemoryMax=80G -p MemorySwapMax=0
+
+eval-gate4:
+	$(EVAL_SCOPE) env $(EVAL_ENV) $(EVAL_PY) -m eval.determinism --model base --assert-identical $(ARGS)
+
+eval-run:
+	$(EVAL_SCOPE) env $(EVAL_ENV) $(EVAL_PY) -m eval.runner --model base --run-id $(RUN_ID) --all-tasks $(ARGS)
+
+eval-score:
+	env $(EVAL_ENV) $(EVAL_PY) -m eval.stats --run $(RUN_ID) --score $(ARGS)
+
+eval-report:
+	env $(EVAL_ENV) $(EVAL_PY) -m eval.stats --run $(RUN_ID) --render --render-harness
+
+eval-selftest:
+	env $(EVAL_ENV) $(EVAL_PY) -m eval.stats --self-compare $(RUN_ID)

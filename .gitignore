@@ -48,3 +48,5 @@ p0-artifacts.zip
 .omc/
 .omx/
 .codegraph
+runs/*/outputs.jsonl
+runs/*/flags.json
