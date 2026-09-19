@@ -114,13 +114,19 @@ def scan_and_redact(pairs: list[dict]) -> tuple[list[dict], dict]:
     }
 
 
-def sample_to_budget(pairs: list[dict], token_len, domain_train_tokens: int) -> tuple[list[dict], dict]:
+def sample_to_budget(pairs: list[dict], token_len, domain_train_tokens: int,
+                     budget: int | None = None) -> tuple[list[dict], dict]:
     """Take pairs in stable-hash order until replay tokens reach the budget.
 
-    budget = domain * f/(1-f) so that replay is f of the total.
+    Default budget = domain * f/(1-f), so replay is f of the total. An explicit
+    budget is used by the equal-token-budget ablation, where the replay share is
+    whatever is left of the fixed total T after the domain portion -- which makes
+    Cond-2's total equal Cond-1's rather than 1.25x it.
     """
     f = REPLAY_FRACTION_OF_TOTAL
-    budget = int(domain_train_tokens * f / (1 - f))
+    explicit = budget is not None
+    if not explicit:
+        budget = int(domain_train_tokens * f / (1 - f))
     order = sorted(pairs, key=lambda p: (stable_int(SEED + p["replay_id"], 1 << 62), p["replay_id"]))
     chosen, used = [], 0
     for p in order:
@@ -133,6 +139,7 @@ def sample_to_budget(pairs: list[dict], token_len, domain_train_tokens: int) -> 
     return chosen, {
         "domain_train_tokens": domain_train_tokens,
         "replay_token_budget": budget,
+        "replay_token_budget_source": "explicit (T - domain tokens)" if explicit else "derived (domain * f/(1-f))",
         "replay_tokens_used": used,
         "replay_fraction_of_total": round(used / (domain_train_tokens + used), 4) if used else 0.0,
         "pairs_available": len(pairs),

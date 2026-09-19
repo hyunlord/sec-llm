@@ -13,16 +13,19 @@
 | `cve_to_cwe/eval_post_cutoff.jsonl` | 3,867 | `20c22e3a02489ce0…` |
 | `cve_to_cwe/eval_pre_cutoff.jsonl` | 4,014 | `59b98bb44c9fe42a…` |
 | `cve_to_cwe/train.jsonl` | 170,748 | `2d47329527439d29…` |
+| `cve_to_cwe/train_cond2_domain.jsonl` | 22,776 | `0baccbe9bc141880…` |
 | `cve_to_cwe/train_subsample.jsonl` | 28,491 | `3285351ea811b759…` |
 | `cvss_vector/eval_post_cutoff.jsonl` | 4,549 | `3473afda2ad9c50f…` |
 | `cvss_vector/eval_pre_cutoff.jsonl` | 4,904 | `278ee3ea4dc6dcbd…` |
 | `cvss_vector/train.jsonl` | 123,402 | `eb56f450594de6bd…` |
+| `cvss_vector/train_cond2_domain.jsonl` | 16,472 | `6f7e5d0851687785…` |
 | `cvss_vector/train_subsample.jsonl` | 20,591 | `4010f3a7cdbc8f57…` |
 | `replay/train.jsonl` | 37,100 | `003ac863ca82878e…` |
-| `replay/train_subsample.jsonl` | 11,251 | `90657fb2afd26829…` |
+| `replay/train_cond2.jsonl` | 9,043 | `588b7c01d368cc5b…` |
 | `structured_extract/eval_post_cutoff.jsonl` | 3,328 | `88ec0614ff5a32ce…` |
 | `structured_extract/eval_pre_cutoff.jsonl` | 2,307 | `e10034a18ce04897…` |
 | `structured_extract/train.jsonl` | 65,429 | `136457b00f88fb2d…` |
+| `structured_extract/train_cond2_domain.jsonl` | 8,665 | `ed92f0d680e2ebc1…` |
 | `structured_extract/train_subsample.jsonl` | 10,918 | `5c28d6de1e15c888…` |
 
 ## 과제별 제외 사유

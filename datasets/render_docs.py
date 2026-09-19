@@ -131,7 +131,7 @@ def card_md():
     L.append("| `cvss_vector` | CVE 설명 | CVSS v3.1 기본 지표 8개 + 점수 + 벡터 문자열 | NVD `cvssMetricV31` (Primary 우선) | `cvss_vector.json` |")
     L.append("| `attack_technique` | ATT&CK 기법 설명 | `{\"technique_id\": ...}` | STIX `external_id` | `attack_technique.json` |")
     L.append("| `structured_extract` | CVE 설명 | vendor / product / versions / impact | CVE V5 `cna.affected`, `cna.impacts` | `structured_extract.json` |")
-    L.append("\n## 과제별 산출 규모와 채점 여부\n\n| 과제 | 채점 | 학습 | 학습 서브샘플(60k) | 평가(이후) | 평가(이전) |\n|---|---|---|---|---|---|")
+    L.append("\n## 과제별 산출 규모와 채점 여부\n\n| 과제 | 채점 | 학습 | Cond-1 서브샘플(60k) | 평가(이후) | 평가(이전) |\n|---|---|---|---|---|---|")
     f = M["files"]
     sc = M.get("scored", {})
     for t in TASKS:
@@ -141,7 +141,7 @@ def card_md():
                  f"{n(f.get(f'{t}/eval_post_cutoff.jsonl',{}).get('count',0))} | "
                  f"{n(f.get(f'{t}/eval_pre_cutoff.jsonl',{}).get('count',0))} |")
     L.append(f"| `replay` | — | {n(f.get('replay/train.jsonl',{}).get('count',0))} | "
-             f"{n(f.get('replay/train_subsample.jsonl',{}).get('count',0))} | — | — |")
+             f"{n(f.get('replay/train_cond2.jsonl',{}).get('count',0))} (Cond-2) | — | — |")
     nsr = M.get("not_scored_reason", {})
     if nsr:
         L.append("\n### `scored: false` — 채점하지 않는 과제\n")
@@ -167,13 +167,37 @@ def card_md():
              "기법 수 자체가 적어(활성 918개) 이 과제는 작다.")
     L.append("- **`cve_to_cwe`**: 단일 라벨. 다중 CWE CVE는 제외했고 그 수를 보고한다. `cwe_source`가 예제마다 기록되어 "
              "평가에서 층화할 수 있다.\n")
+    # The leakage finding, rendered from the recorded contamination block.
+    c = M["contamination"]
+    j = c["removed_near_jaccard"]
+    L.append("## 오염 검사에서 실제로 찾은 것\n")
+    L.append(f"적용한 기준은 **근접 중복 하나**다. 그것이 잡아낸 항목은 **{n(c['total_removed'])}건**이고, "
+             f"최근접 학습 입력과의 Jaccard가 최소 **{j['min']}**, 중앙값 **{j['q50']}**, **최대 {j['max']}**다. "
+             "최대 1.0은 **CVE ID만 다르고 사실상 동일한 입력이 시간 경계를 넘어 존재한다**는 뜻이다 — 이것이 진짜 누수이고 제거했다.")
+    L.append(f"여섯 개 CVE 평가 세트에 고르게 퍼져 있다 (세트별 {min(v for k,v in c['removed_per_eval_set'].items())}–"
+             f"{max(c['removed_per_eval_set'].values())}건): 한 벤더의 특이현상이 아니다.\n")
+    L.append("**커버리지(13-gram)는 필터가 아니라 측정값이다.** P3.1은 커버리지 0.5 초과 항목 2,483건을 지웠지만 "
+             "그 임계값에는 근거가 없었고, 기록된 CNA 분포는 그 삭제가 편향을 **줄이지 않고 바꿨다**는 것을 보여줬다. "
+             "지금 모든 평가 항목은 `train_ngram_coverage`와 그 사분위를 필드로 들고 다니며, P4는 모든 점수를 "
+             "전체 및 커버리지 사분위별로 보고한다. 커버리지 0 그룹은 별도로 본다 (세트별 41–91%). "
+             "자세한 내용은 `reports/contamination.md`, 근거는 `docs/engineering-rules.md` 규칙 5.\n")
+    L.append("## 절제 실험의 균형 — 계산량을 고정한 대가\n")
+    co = M["decisions"]["conditions"]
+    L.append(f"총 토큰 예산 T = {n(co['budget_T_tokens'])}를 **두 조건에 동일하게** 고정했다. "
+             f"Cond-1은 T 전부를 도메인에 쓰고, Cond-2는 0.8T 도메인 + 0.2T 리플레이를 쓴다. "
+             f"Cond-2의 도메인은 Cond-1의 부분집합({n(co['cond2']['domain_examples'])} / {n(co['cond1']['examples'])} 예제)이다.")
+    L.append("**그래서 Cond-2는 도메인 데이터를 Cond-1보다 20% 적게 본다.** 도메인 정확도에서 Cond-1이 앞서는 것은 "
+             "**예상된 결과이고 리플레이에 불리한 증거가 아니다.** 의미 있는 비교는 **같은 계산량에서의 범용 능력 격차**다. "
+             "P3.1 설계(Cond-2 = Cond-1 + 리플레이)에서는 Cond-2가 토큰과 스텝을 25% 더 썼으므로 "
+             "범용 능력 우위를 리플레이 효과와 학습량 효과로 분리할 수 없었다 — 교란된 설계였다.\n")
     L.append("## 리플레이 세트 (Decision 3)\n")
     L.append(f"- 출처: **OpenAssistant/oasst2**, Apache-2.0 (데이터 카드 선언), 커밋 `{M['pins']['replay_oasst2'].get('commit_sha','')[:12]}`에 고정.")
     L.append("- 라이선스는 **다운로드 전에** 읽었다. 저장소에 별도 LICENSE 파일은 없고 카드의 SPDX 필드가 선언이다 — 그대로 기록한다.")
     L.append("- 사람이 쓴 메시지만 사용한다. `synthetic: true`(모델 생성) 메시지는 제외해 제3 모델의 약관이 개입하지 않게 했다.")
     fs, ss = r["full_set"], r["subsample"]
-    L.append(f"- **사전 등록된 60k 서브샘플(Cond-2가 실제로 쓰는 것)**: 선택 {n(ss['pairs_selected'])}쌍, 토큰 {n(ss['replay_tokens_used'])}, "
-             f"전체 학습 토큰 중 **{ss['replay_fraction_of_total']:.1%}** — 목표 20% **도달**. 풀 소진: {ss['budget_exhausted_pool']}.")
+    L.append(f"- **Cond-2가 실제로 쓰는 리플레이**: 선택 {n(ss['pairs_selected'])}쌍, 토큰 {n(ss['replay_tokens_used'])}, "
+             f"Cond-2 전체 토큰 중 **{ss['replay_fraction_of_total']:.1%}** — 목표 20% **도달**. "
+             f"예산 산정: {ss['replay_token_budget_source']} (= T − 도메인 토큰). 풀 소진: {ss['budget_exhausted_pool']}.")
     L.append(f"- **전체 세트(선택적 후속 실행)**: 선택 {n(fs['pairs_selected'])} / 가용 {n(fs['pairs_available'])}쌍, 토큰 {n(fs['replay_tokens_used'])}, "
              f"**{fs['replay_fraction_of_total']:.1%}** — 목표 20% **미달**, 풀 소진: {fs['budget_exhausted_pool']}. 미달 상태로 기록한다.")
     L.append(f"- HelpSteer2 (CC-BY-4.0) 보충 검토 결과: **사용하지 않음.** {r.get('helpsteer2','')} 라이선스는 적합하지만 "
@@ -240,20 +264,36 @@ def lengths_report():
     for k, v in l["tasks"].items():
         pk = v["packing"]
         L.append(f"| `{k}` | {n(pk['sequences_4096'])} | **{pk['examples_per_sequence']}** | {pk['padding_fraction']:.1%} | {pk['truncated_over_4096']} |")
-    ss = l.get("subsample_schedule")
+    ss = l.get("equal_budget_schedule")
     if ss:
-        L.append("\n## 사전 등록된 P5 절제 실험 — 60k 서브샘플 일정\n")
+        L.append("\n## 사전 등록된 P5 절제 실험 — **동일 토큰 예산** 일정\n")
         sub = M["decisions"]["subsample"]
-        L.append(f"- 표집: {n(sub['n'])}개 도메인 예제, 채점 과제 3개에 비례 층화 (`{sub['quota']}`), 시드 `{sub['seed']}`, 파일 해시는 매니페스트에.")
-        L.append("- Cond-1과 Cond-2는 **정확히 이 서브샘플**로 학습한다. Cond-2는 여기에 리플레이를 더한다.\n")
-        L.append("| 조건 | 예제 | 토큰 | 4096 시퀀스 | 시퀀스당 예제 | 패딩 | 에폭당 스텝 | **에폭당 시간** |\n|---|---|---|---|---|---|---|---|")
-        for k in ("cond1_domain_only", "cond2_domain_plus_replay"):
+        co = M["decisions"]["conditions"]
+        L.append(f"- 표집: {n(sub['n'])}개 도메인 예제, 채점 과제 3개에 비례 층화 (`{sub['quota']}`), 시드 `{sub['seed']}`.")
+        L.append(f"- **총 토큰 예산 T = {n(ss['token_budget_T'])}** (= 현재 Cond-1 예산).")
+        L.append(f"- Cond-1: T 전부 도메인 ({n(ss['cond1_examples'])} 예제). "
+                 f"Cond-2: **0.8T 도메인 + 0.2T 리플레이** (도메인 {n(ss['cond2_domain_examples'])} 예제 + 리플레이 {n(ss['cond2_replay_examples'])}쌍).")
+        L.append(f"- Cond-2의 도메인 예제는 **같은 시드·같은 순서로 Cond-1에서 뽑은 부분집합**이다 "
+                 f"(Cond-1의 {ss['cond2_domain_share_of_cond1_examples']:.1%}). "
+                 f"부분집합 증명: `{co['subset_proof']['cond2_domain_ids_sha256'][:16]}…` = Cond-1 ∩ Cond-2 해시. "
+                 "`python -m datasets.build --verify-subset`으로 재검증한다.\n")
+        L.append("| 조건 | 예제 | 토큰 | 4096 시퀀스 | 시퀀스당 예제 | 패딩 | **에폭당 스텝** | 남는 시퀀스 | **에폭당 시간** |\n|---|---|---|---|---|---|---|---|---|")
+        for k in ("cond1", "cond2"):
             c = ss[k]
             L.append(f"| {c['label']} | {n(c['examples'])} | {n(c['tokens'])} | {n(c['sequences_4096'])} | {c['examples_per_sequence']} | "
-                     f"{c['padding_fraction']:.1%} | {c['optimizer_steps_per_epoch']} | **{c['hours_per_epoch_at_p0_step_cost']} h** |")
-        L.append(f"\n- Cond-2에서 리플레이가 차지하는 토큰 비율: **{ss['replay_fraction_of_cond2_tokens']:.1%}**")
-        L.append(f"- 두 조건 합계(1 에폭씩): **{ss['cond1_domain_only']['hours_per_epoch_at_p0_step_cost'] + ss['cond2_domain_plus_replay']['hours_per_epoch_at_p0_step_cost']:.1f} h** "
+                     f"{c['padding_fraction']:.1%} | **{c['optimizer_steps_per_epoch']}** | {c['sequences_left_over']} | **{c['hours_per_epoch_at_p0_step_cost']} h** |")
+        L.append(f"\n- **두 조건의 옵티마이저 스텝 수가 같다: {ss['shared_optimizer_steps_per_epoch']}스텝** "
+                 f"(일치 확인: `steps_match = {ss['steps_match']}`, `datasets/lengths.py`에서 assert). "
+                 "토큰이 같아도 패딩이 달라 패킹된 시퀀스 수는 약간 다르므로, 스텝 수를 두 조건에 대해 하나로 고정하고 "
+                 "남는 시퀀스를 그대로 보고한다.")
+        L.append(f"- Cond-2 총 토큰 {n(ss['cond2_total_tokens'])} = T − {n(ss['token_gap_vs_T'])} "
+                 f"({ss['token_gap_fraction']:.4%}) — 예제를 쪼개지 않고 예산에 맞추다 남은 잔차다.")
+        L.append(f"- Cond-2에서 리플레이가 차지하는 토큰 비율: **{ss['replay_fraction_of_cond2_tokens']:.1%}**")
+        L.append(f"- 두 조건 합계(1 에폭씩): **{ss['cond1']['hours_per_epoch_at_p0_step_cost'] + ss['cond2']['hours_per_epoch_at_p0_step_cost']:.1f} h** "
                  f"— 전체 세트 두 조건 {2*l['schedule']['hours_per_epoch_at_p0_step_cost']:.1f} h 대비.")
+        L.append("- P3.1에서는 Cond-2 = Cond-1 + 리플레이였다: 토큰 25% 많고 스텝 25% 많았다(5.67h vs 7.11h). "
+                 "그 설계에서는 Cond-2가 범용 능력에서 이겨도 **리플레이 덕인지 더 오래 학습한 덕인지 구분할 수 없다.** "
+                 "지금은 계산량이 같다.\n")
     s = l["schedule"]
     L.append("\n## 전체 세트 일정 (절제 실험 후 선택적 실행)\n")
     L.append(f"- P0 체크 07: **{l['p0_sec_per_step']}초/옵티마이저 스텝**, 스텝당 {n(l['p0_tokens_per_step'])} 토큰 (16 × 4096, 합성 전장 시퀀스).")

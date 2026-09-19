@@ -7,6 +7,7 @@ split -- the split is assigned once per CVE and checked, not assumed.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 import time
@@ -55,6 +56,29 @@ def make_example(task, entity_id, split, input_text, target, meta):
         "n_target_tokens": n_tokens(target_json),
         "meta": meta,
     }
+
+
+def _ids_sha(ids) -> str:
+    """Stable digest of an example-id set: sha256 over the sorted ids, newline
+    joined. Two such digests are what the Cond-2 subset proof compares."""
+    return hashlib.sha256("\n".join(sorted(ids)).encode("utf-8")).hexdigest()
+
+
+def _sweep_stale(written: set[str]) -> list[str]:
+    """Delete .jsonl files this build did not write. Without this a file from an
+    earlier design (replay/train_subsample.jsonl, superseded by the equal-budget
+    conditions) survives on disk, gets globbed into the manifest, and the
+    manifest stops describing what the build produced."""
+    gone = []
+    for t in TASKS + ("replay",):
+        d = OUT / t
+        if not d.exists():
+            continue
+        for p in sorted(d.glob("*.jsonl")):
+            if f"{t}/{p.stem}" not in written:
+                p.unlink()
+                gone.append(f"{t}/{p.name}")
+    return gone
 
 
 def main() -> int:
@@ -353,6 +377,10 @@ def main() -> int:
                      "near-duplicate alone; every item P3.1 removed on coverage alone is back in the set, "
                      "carrying its coverage value as a field."),
         },
+        # The leakage finding itself, recorded once here so CARD.md and
+        # contamination.md render it instead of recomputing it (rule 1).
+        "removed_near_jaccard": contamination.quartiles([r["near_match"]["jaccard"] for r in removal_record]),
+        "removed_per_eval_set": {f"{r['task']}/{r['split']}": 0 for r in removal_record},
         "coverage_histogram": contamination.hist(cov_all, edges),
         "near_jaccard_histogram": contamination.hist(jac_all, edges),
         "cna_distribution": cna_dist, "cross_eval": cross,
@@ -360,6 +388,8 @@ def main() -> int:
                   "measured, NOT applied: 13-gram coverage ratio (attached per item, quartiles per set). "
                   "diagnostic only, NOT applied: any single shared 13-gram; the superseded P3.1 coverage>0.5 rule",
     }
+    for r in removal_record:
+        contam["removed_per_eval_set"][f"{r['task']}/{r['split']}"] += 1
     removal_record.sort(key=lambda r: r["example_id"] + "|" + r["split"])
 
     # ---- write task files (post-removal) ----
@@ -385,19 +415,87 @@ def main() -> int:
     grand = sum(totals.values())
     quota = {t: round(SUBSAMPLE_N * totals[t] / grand) for t in scored}
     quota[scored[-1]] += SUBSAMPLE_N - sum(quota.values())   # rounding residue to the last task
-    sub_tokens = 0
+    cond1: dict[str, list] = {}
     for t in scored:
         order = sorted(examples[t][temporal.TRAIN],
                        key=lambda e: (stable_int(SUBSAMPLE_SEED + e["example_id"], 1 << 62), e["example_id"]))
         pick = sorted(order[:quota[t]], key=lambda e: e["example_id"])
+        cond1[t] = pick
         n, sha = write_jsonl(OUT / t / "train_subsample.jsonl", pick)
         files[f"{t}/train_subsample"] = {"count": n, "sha256": sha}
-        sub_tokens += sum(e["n_prompt_tokens"] + e["n_target_tokens"] for e in pick)
-    sub_chosen, sub_budget = replay.sample_to_budget(pairs, n_tokens, sub_tokens)
-    n, sha = write_jsonl(OUT / "replay" / "train_subsample.jsonl", [replay_row(p) for p in sub_chosen])
-    files["replay/train_subsample"] = {"count": n, "sha256": sha}
-    subsample = {"n": SUBSAMPLE_N, "seed": SUBSAMPLE_SEED, "stratified_over": scored, "quota": quota,
-                 "source_totals": totals, "domain_tokens": sub_tokens, "replay": sub_budget}
+    tok = lambda e: e["n_prompt_tokens"] + e["n_target_tokens"]   # noqa: E731
+    T = sum(tok(e) for t in scored for e in cond1[t])
+
+    # ---- equal token budget across conditions (P3.2 change 2) ----
+    # Cond-1 = T tokens, all domain. Cond-2 = (1-f)*T domain + f*T replay, so
+    # both conditions see the same number of tokens and take the same number of
+    # optimizer steps. Previously Cond-2 was Cond-1 PLUS replay: 1.25x the
+    # tokens and 1.25x the steps, which confounds "replay prevents forgetting"
+    # with "trained longer".
+    #
+    # Cond-2's domain portion is a prefix of the SAME stable-hash order over the
+    # Cond-1 pool -- drawn from Cond-1's members, never from the full training
+    # set -- so the subset relation holds by construction and is checked below.
+    f = replay.REPLAY_FRACTION_OF_TOTAL
+    pool = sorted((e for t in scored for e in cond1[t]),
+                  key=lambda e: (stable_int(SUBSAMPLE_SEED + e["example_id"], 1 << 62), e["example_id"]))
+    target_domain = int(T * (1 - f))
+    cond2_pick, c2_domain_tokens = [], 0
+    for e in pool:
+        n_ = tok(e)
+        if c2_domain_tokens + n_ > target_domain and cond2_pick:
+            break
+        cond2_pick.append(e)
+        c2_domain_tokens += n_
+    c2_by_task = {t: sorted((e for e in cond2_pick if e["task"] == t), key=lambda e: e["example_id"])
+                  for t in scored}
+    for t in scored:
+        n, sha = write_jsonl(OUT / t / "train_cond2_domain.jsonl", c2_by_task[t])
+        files[f"{t}/train_cond2_domain"] = {"count": n, "sha256": sha}
+    # Replay fills exactly what the domain portion left of T, so Cond-2's total
+    # is T and not 1.25*T.
+    c2_replay, c2_rbudget = replay.sample_to_budget(pairs, n_tokens, c2_domain_tokens,
+                                                    budget=T - c2_domain_tokens)
+    n, sha = write_jsonl(OUT / "replay" / "train_cond2.jsonl", [replay_row(p) for p in c2_replay])
+    files["replay/train_cond2"] = {"count": n, "sha256": sha}
+
+    ids1 = sorted(e["example_id"] for t in scored for e in cond1[t])
+    ids2 = sorted(e["example_id"] for e in cond2_pick)
+    assert set(ids2) <= set(ids1), "Cond-2 domain is not a subset of Cond-1"
+    inter = sorted(set(ids1) & set(ids2))
+    h1, h2, hi = (_ids_sha(ids1), _ids_sha(ids2), _ids_sha(inter))
+    assert h2 == hi, "subset proof failed: cond2 ids != cond1 ∩ cond2"
+    c2_total = c2_domain_tokens + c2_rbudget["replay_tokens_used"]
+    subsample = {
+        "n": SUBSAMPLE_N, "seed": SUBSAMPLE_SEED, "stratified_over": scored, "quota": quota,
+        "source_totals": totals, "domain_tokens": T, "replay": c2_rbudget,
+        "conditions": {
+            "design": ("equal total token budget T. Cond-1: T domain. Cond-2: (1-f)T domain drawn from "
+                       "Cond-1 by the same seed and order, plus fT replay. Both run the same number of "
+                       "optimizer steps (see lengths.equal_budget_schedule)."),
+            "budget_T_tokens": T,
+            "replay_fraction_target": f,
+            "cond1": {"label": "Cond-1: domain only, T tokens", "examples": len(ids1), "domain_tokens": T,
+                      "replay_tokens": 0, "total_tokens": T, "example_ids_sha256": h1,
+                      "files": [f"{t}/train_subsample.jsonl" for t in scored]},
+            "cond2": {"label": "Cond-2: 0.8T domain + 0.2T replay", "domain_examples": len(ids2),
+                      "domain_tokens": c2_domain_tokens, "replay_pairs": len(c2_replay),
+                      "replay_tokens": c2_rbudget["replay_tokens_used"], "total_tokens": c2_total,
+                      "replay_fraction_achieved": round(c2_rbudget["replay_tokens_used"] / c2_total, 4),
+                      "domain_example_ids_sha256": h2,
+                      "files": [f"{t}/train_cond2_domain.jsonl" for t in scored] + ["replay/train_cond2.jsonl"]},
+            "budget_residue_tokens": T - c2_total,
+            "budget_residue_fraction": round((T - c2_total) / T, 6),
+            "subset_proof": {
+                "cond2_domain_subset_of_cond1": True,
+                "cond1_ids_sha256": h1, "cond2_domain_ids_sha256": h2, "intersection_ids_sha256": hi,
+                "method": ("sha256 over sorted example_ids joined by newline. The proof is that the hash of "
+                           "Cond-2's ids equals the hash of (Cond-1 ∩ Cond-2); both are recorded so the "
+                           "relation is recomputable from the published files."),
+                "verify": "python -m datasets.build --verify-subset",
+            },
+        },
+    }
 
     out = {
         "tasks": {t: {k: (dict(v) if isinstance(v, Counter) else v) for k, v in stats[t].items()} for t in TASKS},
@@ -425,13 +523,48 @@ def main() -> int:
         "temporal": {"cutoff": temporal.CUTOFF, "pre_eval_years": list(temporal.PRE_EVAL_YEARS),
                      "eval_sample_per_period": temporal.EVAL_SAMPLE},
     }
-    (OUT / "build_stats.json").write_text(json.dumps(out, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
     print(json.dumps({t: dict(stats[t]["by_split"]) for t in TASKS}, indent=1))
     print("removed:", {k: v["removed"] for k, v in contam_sets.items()})
-    print("replay full:", budget); print("subsample:", subsample["quota"], "replay:", sub_budget)
+    swept = _sweep_stale(set(files))
+    if swept:
+        print("removed stale files no longer written by this build:", swept)
+    out["stale_files_removed"] = swept
+    print("replay full:", budget)
+    print("subsample:", subsample["quota"])
+    co = subsample["conditions"]
+    print(f"equal budget T={co['budget_T_tokens']:,}; cond1 {co['cond1']['total_tokens']:,} tok / "
+          f"{co['cond1']['examples']:,} ex; cond2 {co['cond2']['total_tokens']:,} tok "
+          f"({co['cond2']['domain_examples']:,} domain + {co['cond2']['replay_pairs']:,} replay, "
+          f"replay {co['cond2']['replay_fraction_achieved']:.1%}); residue {co['budget_residue_fraction']:.4%}")
+    (OUT / "build_stats.json").write_text(json.dumps(out, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
     print(f"build wall {time.time()-t0:.0f}s")
     return 0
 
 
+def verify_subset() -> int:
+    """Recompute the Cond-2 subset relation from the published files, not from
+    the manifest's claim about them."""
+    scored = [t for t in TASKS if t != "attack_technique"]
+    ids1, ids2 = set(), set()
+    for t in scored:
+        for e in iter_jsonl(OUT / t / "train_subsample.jsonl"):
+            ids1.add(e["example_id"])
+        for e in iter_jsonl(OUT / t / "train_cond2_domain.jsonl"):
+            ids2.add(e["example_id"])
+    extra = ids2 - ids1
+    inter = ids1 & ids2
+    ok = not extra and _ids_sha(ids2) == _ids_sha(inter)
+    rec = json.loads((OUT / "build_stats.json").read_text())["subsample"]["conditions"]["subset_proof"]
+    match = (rec["cond1_ids_sha256"] == _ids_sha(ids1) and rec["cond2_domain_ids_sha256"] == _ids_sha(ids2))
+    print(f"Cond-1 {len(ids1):,} ids  sha256 {_ids_sha(ids1)[:16]}…")
+    print(f"Cond-2 {len(ids2):,} ids  sha256 {_ids_sha(ids2)[:16]}…")
+    print(f"Cond-2 \\ Cond-1 = {len(extra)} ids (must be 0); sha256(Cond-2) == sha256(Cond-1 ∩ Cond-2): {ok}")
+    print(f"digests match the recorded proof in build_stats.json: {match}")
+    print("SUBSET VERIFIED" if (ok and match) else "SUBSET CHECK FAILED")
+    return 0 if (ok and match) else 1
+
+
 if __name__ == "__main__":
+    if "--verify-subset" in sys.argv:
+        sys.exit(verify_subset())
     sys.exit(main())
