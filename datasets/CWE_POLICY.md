@@ -88,3 +88,10 @@
 | `dropped_rep_unlabelled` | 1,288 |
 | `readmitted_to_train` | 1,265 |
 | `not_readmitted_rep_in_eval` | 29 |
+
+### P2.1과의 조정(P3.1 Change 5) — 현재 상태: **보류**
+
+- 가드 출처: `interim guard in datasets/build.py; P2.1 not delivered, reconciliation deferred`
+- P3.1 시점에도 P2.1 문서와 커밋은 존재하지 않는다 (저장소·작업 디렉터리·임시 경로 전역 검색 결과 없음). 따라서 위 임시 가드가 그대로 남아 있고, 근접 중복 임계값도 P2의 0.75를 쓴다.
+- P2.1이 도착하면: `build.py`가 `decisions.jsonl`의 가드 필드를 직접 소비하고 임시 가드를 제거하며, 임시 가드와 P2.1 가드 사이에 **상태가 바뀌는 레코드 수**를 이 절에 기록한다. 두 가드가 크게 다르면 그것은 덮을 것이 아니라 기록할 발견이다.
+- 비교 기준선(임시 가드): `dropped_rep_unlabelled`=1,288, `dropped_same_label`=9,499, `not_readmitted_rep_in_eval`=29, `readmitted_to_train`=1,265
