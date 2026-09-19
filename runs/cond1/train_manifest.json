@@ -1,0 +1,126 @@
+{
+  "adapter_files": 3,
+  "adapter_sha256": "af03311f76dd8c5a29c8ac2a0d79e3752b4979448818b215e832e5d7eb4da2f1",
+  "base_checkpoint_sha256": "2564ff2127caa0a9f79cfaf96f569e407dec51c264566735efc5ff4e2c68a234",
+  "config": {
+    "files": [
+      "cve_to_cwe/train_subsample.jsonl",
+      "cvss_vector/train_subsample.jsonl",
+      "structured_extract/train_subsample.jsonl"
+    ],
+    "grad_accum": 4,
+    "grad_clip": 1.0,
+    "lora": {
+      "alpha": 128,
+      "dropout": 0.0,
+      "r": 64,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ]
+    },
+    "lr": 0.0001,
+    "name": "cond1",
+    "per_device_batch": 4,
+    "seed": 1234,
+    "seq_len": 4096,
+    "steps": 157,
+    "warmup_steps": 8
+  },
+  "config_sha256": "b7391678b9290a6f49cf6e0efb5e65f3a49c9684974419f4fc76ae1260a0cb47",
+  "data_order_sha256": "90785b13193c8b36e93ddf4cc17fd601beac103ed77dae32bbbe5e82f2fb7e5f",
+  "driver_version": "580.126.09",
+  "epoch_fraction": 0.8396,
+  "examples": 60000,
+  "examples_by_task": {
+    "cve_to_cwe": 28491,
+    "cvss_vector": 20591,
+    "structured_extract": 10918
+  },
+  "examples_seen": 50378,
+  "examples_seen_by_task": {
+    "cve_to_cwe": 23988,
+    "cvss_vector": 17240,
+    "structured_extract": 9150
+  },
+  "files_consumed": {
+    "cve_to_cwe/train_subsample.jsonl": {
+      "count": 28491,
+      "sha256": "3285351ea811b7594e9cc560a57e3cc4741cb0bf23c3f3223618048965c81af8"
+    },
+    "cvss_vector/train_subsample.jsonl": {
+      "count": 20591,
+      "sha256": "4010f3a7cdbc8f57f58f4b7b0edfbbe1424f2c945711085e59829888508d15b3"
+    },
+    "structured_extract/train_subsample.jsonl": {
+      "count": 10918,
+      "sha256": "5c28d6de1e15c888aa065670fbc5fcbf1cb089fe352ad4cbfd6420297c44349c"
+    }
+  },
+  "gpu_name": "NVIDIA GB10",
+  "jsonschema_version": "4.26.0",
+  "loss_first": 0.85704,
+  "loss_last": 0.112,
+  "machine": "aarch64",
+  "mean_sec_per_step_after_first": 129.01,
+  "merged_checkpoint_sha256": "a717d8d179d074d2e048cc7e6310a668013a2ba14a64a02f75791b55ff666a13",
+  "merged_files": 6,
+  "merged_path": "/home/hyunlord/sec-llm/checkpoints/cond1/merged",
+  "misaligned_prefixes": 0,
+  "model_repo_commit": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "name": "cond1",
+  "numpy_version": "2.3.5",
+  "packed_sequences": 2996,
+  "packing_isolation_check": {
+    "argmax_agreement_masked_vs_alone": 1.0,
+    "max_abs_logit_diff_masked_vs_alone": 1.8125,
+    "max_abs_logit_diff_naive_vs_alone": 15.5469
+  },
+  "packing_seed": 1234,
+  "partial": false,
+  "peak_mem_gib": 61.83,
+  "python": "3.12.3",
+  "reproducibility_claim": "seed, data order hash and packing seed are recorded; bit-identical re-training was NOT re-run and is therefore untested",
+  "schedule_note": "P3.2 counted prompt+target tokens only (9,960,190 for Cond-1). The chat template adds a system prompt and role markers per example, so the same examples pack into more 4096-token sequences than the schedule assumed. Steps stay at 157 as specified; both conditions therefore see the same token budget and the same fraction of their data, and neither sees a full epoch. epoch_fraction is the measured value.",
+  "seed": 1234,
+  "sequences_left_over": 484,
+  "sequences_used": 2512,
+  "status": "completed",
+  "steps_completed": 157,
+  "steps_planned": 157,
+  "subset_check": {
+    "cond1_ids": 60000,
+    "cond1_ids_sha256": "9bde7c7fae751696750e3beff2b0c4231c6786b1c7f94717c6bd2b367b6e23f7",
+    "cond2_domain_ids": 47913,
+    "cond2_domain_ids_sha256": "027b90d579592cb083446a7def04310316055ad6f873bad4a17deab8073caba9",
+    "cond2_not_in_cond1": 0,
+    "intersection_sha256": "027b90d579592cb083446a7def04310316055ad6f873bad4a17deab8073caba9",
+    "matches_manifest_record": true,
+    "source": "recomputed from data/out/*/train_subsample.jsonl and train_cond2_domain.jsonl on this host",
+    "subset_holds": true
+  },
+  "supervised_tokens": 2605996,
+  "tokens_in_all_packed_sequences": 11820190,
+  "tokens_in_used_sequences": 9911278,
+  "torch_version": "2.13.0+cu130",
+  "total_params": 7777097216,
+  "trainable_params": 161480704,
+  "transformers_version": "5.17.0",
+  "truncated_over_seq_len": 0,
+  "vllm_version": "0.29.0",
+  "wall_sec": 20465.5,
+  "warmup_check": {
+    "abort_factor": 2.0,
+    "gate0_prediction_sec_per_step": 129.5,
+    "mean_sec_per_step": 129.05,
+    "projected_hours_for_run": 5.63,
+    "ratio_observed_over_predicted": 0.997,
+    "steps_measured": 19
+  },
+  "xgrammar_version": "0.2.7"
+}
