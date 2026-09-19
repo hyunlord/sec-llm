@@ -150,10 +150,10 @@ P3.2가 모든 평가 항목에 붙인 `train_ngram_coverage`를 쓴다. **기�
 
 | 그룹 | 항목 | 벡터 실행 성공 | 점수 일치(실행 분모) | 공식 자체검증 | 컨테이너 | 타임아웃 | 초 |
 |---|---|---|---|---|---|---|---|
-| `cvss_vector/eval_post_cutoff/constrained` | 4,549 | 100.0% | 21.3% | **100.0%** (4,549) | 1 | 0 | 0.32 |
+| `cvss_vector/eval_post_cutoff/constrained` | 4,549 | 100.0% | 21.3% | **100.0%** (4,549) | 1 | 0 | 0.3 |
 | `cvss_vector/eval_post_cutoff/free` | 4,549 | 0.2% | 28.6% | **100.0%** (4,549) | 1 | 0 | 0.3 |
 | `cvss_vector/eval_pre_cutoff/constrained` | 4,904 | 100.0% | 28.4% | **100.0%** (4,904) | 1 | 0 | 0.3 |
-| `cvss_vector/eval_pre_cutoff/free` | 4,904 | 0.1% | 0.0% | **100.0%** (4,904) | 1 | 0 | 0.29 |
+| `cvss_vector/eval_pre_cutoff/free` | 4,904 | 0.1% | 0.0% | **100.0%** (4,904) | 1 | 0 | 0.28 |
 
 컨테이너: `python@sha256:90744cff8f32887f075c47d747a173ff333e9e98801667af93c357fa9f5e28ff` `sha256:c62d7c95d6ea…`, 플래그 `--network=none --memory=512m --pids-limit=128 --read-only --tmpfs /tmp --security-opt no-new-privileges:true`, 타임아웃 30s.
 **공식 자체검증**은 NVD 자신의 벡터로 점수를 계산해 NVD가 기록한 점수와 비교한 값이다. 이것이 100%가 아니면 위의 모델 점수 일치율은 공식 구현 오류를 모델 결과로 잘못 보고하는 것이 된다.

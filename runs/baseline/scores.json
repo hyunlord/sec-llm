@@ -4168,7 +4168,7 @@
         "rate": 0.21257419213013848
       },
       "script_sha256": null,
-      "seconds": 0.32,
+      "seconds": 0.3,
       "timeout_sec": 30,
       "timeouts": 0
     },
@@ -4297,7 +4297,7 @@
         "rate": 0.0
       },
       "script_sha256": null,
-      "seconds": 0.29,
+      "seconds": 0.28,
       "timeout_sec": 30,
       "timeouts": 0
     }
