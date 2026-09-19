@@ -57,8 +57,9 @@ def render() -> Path:
     for sid in SOURCE_ORDER:
         s = SOURCES[sid]
         lic = s["license"]
+        used_mark = "" if s.get("used", True) else " — **미사용**"
         L.append(
-            f"| **{s['source_name']}** "
+            f"| **{s['source_name']}**{used_mark} "
             f"| {_ko(lic['redistribution_status'])} "
             f"| {_ko(lic['model_publication_status'])} "
             f"| {_ko(lic['commercial_status'])} "
@@ -103,6 +104,8 @@ def render() -> Path:
         L.append("")
         L.append(f"- **학습 가중치 공개(`model_publication_status`): {_ko(lic['model_publication_status'])}**")
         L.append(f"  - 확인한 내용: {lic['weights_release_evidence']}")
+        if lic.get("why_not_used"):
+            L.append(f"- **사용하지 않은 이유**: {lic['why_not_used']}")
         if lic.get("attribution_notice_required"):
             L.append(f"- **필수 표기 문구**: `{lic['attribution_notice_required']}`")
         L.append(f"- PII 정책: {lic['pii_policy']}")
