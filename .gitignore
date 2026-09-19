@@ -27,7 +27,8 @@ checkpoints/
 outputs/
 # (raw corpus already handled by `data/*` above, which permits the
 #  data/labels negation; a bare `data/` here would re-block it)
-datasets/
+# NOTE: `datasets/` is the P3 source package and IS committed. Materialized
+# JSONL lives under data/out/, which data/* already excludes.
 runs/
 *.arrow
 
