@@ -40,7 +40,22 @@ from eval.common import (  # noqa: E402
 )
 from eval.scorers import general as general_scorer  # noqa: E402
 
-MAX_TOKENS_RULE = "2 * max(recorded n_target_tokens in the set) + 32"
+# The generation cap is NOT a number this harness chose. It is whatever context
+# the model has left after the prompt.
+#
+# The first version capped at 2 * max(recorded target tokens) + 32. That was
+# data-derived but derived from the wrong distribution: targets are bare JSON,
+# while free generation adds prose. Measured on the smoke run, free-mode
+# cvss_vector output began "Certainly! Based on the vulnerability description..."
+# and hit the cap mid-JSON -- finish_reason "length" -- so schema validity was
+# measuring the cap, not the model. That is fatal here, because the free vs
+# constrained gap is supposed to measure what the DECODER contributes to schema
+# compliance. A cap-induced gap would answer a different question.
+#
+# So the cap is max_model_len minus the prompt: a property of the model, not a
+# level anyone picked. Truncation now means the model did not stop, which is a
+# real formatting failure and is counted as one.
+MAX_TOKENS_RULE = "max_model_len - prompt tokens - 8, per item; no cap chosen by the harness"
 GENERAL_MAX_TOKENS = 8
 
 
@@ -56,8 +71,10 @@ def load_domain_items(tasks, splits, limit=None) -> dict:
     return out
 
 
-def max_tokens_for(rows) -> int:
-    return 2 * max(r["n_target_tokens"] for r in rows) + 32
+def remaining_context(prompt_token_counts, max_model_len: int) -> list[int]:
+    # 8 tokens of slack: the harness tokenizes the prompt itself and vLLM
+    # recounts it, and the two must not disagree into an over-length request.
+    return [max(1, max_model_len - c - 8) for c in prompt_token_counts]
 
 
 def main() -> int:
@@ -147,15 +164,21 @@ def main() -> int:
         items = domain[(t, sp)] if kind == "domain" else gen_items[t]
         if not items:
             continue
-        mt = max_tokens_for(items) if kind == "domain" else GENERAL_MAX_TOKENS
-        kw = dict(temperature=REQUIRED_SAMPLING["temperature"], top_p=REQUIRED_SAMPLING["top_p"],
-                  seed=SEED, max_tokens=mt)
+        prompts = [wrap(i["prompt"]) for i in items]
+        kw = dict(temperature=REQUIRED_SAMPLING["temperature"], top_p=REQUIRED_SAMPLING["top_p"], seed=SEED)
         if mode == "constrained":
             kw["structured_outputs"] = StructuredOutputsParams(json=schemas[t])
-        prompts = [wrap(i["prompt"]) for i in items]
+        if kind == "domain":
+            n_prompt = [len(x) for x in tok(prompts, add_special_tokens=False)["input_ids"]]
+            caps = remaining_context(n_prompt, engine["max_model_len"])
+            sparams = [SamplingParams(**kw, max_tokens=c) for c in caps]
+            mt = {"min": min(caps), "median": sorted(caps)[len(caps) // 2], "max": max(caps)}
+        else:
+            sparams = SamplingParams(**kw, max_tokens=GENERAL_MAX_TOKENS)
+            mt = {"fixed": GENERAL_MAX_TOKENS}
         t0 = time.time()
         try:
-            outs = llm.generate(prompts, SamplingParams(**kw))
+            outs = llm.generate(prompts, sparams)
         except Exception as e:                                  # record and continue, per directive
             constrained_failures.append({"task": t, "split": sp, "mode": mode,
                                          "error": f"{type(e).__name__}: {str(e)[:300]}"})
@@ -166,9 +189,10 @@ def main() -> int:
         n_out = sum(len(o.outputs[0].token_ids) for o in outs)
         timings.append({"group": f"{t}/{sp}/{mode}", "items": len(items), "seconds": round(el, 1),
                         "prompt_tokens": n_in, "output_tokens": n_out, "max_tokens": mt,
+                        "truncated_at_context": sum(1 for o in outs if o.outputs[0].finish_reason == "length"),
                         "output_tokens_per_sec": round(n_out / el, 1) if el else 0.0})
         print(f"      {t}/{sp}/{mode}: {len(items)} items in {el:.0f}s "
-              f"({n_out/max(el,1e-9):.0f} out tok/s, max_tokens={mt})", flush=True)
+              f"({n_out/max(el,1e-9):.0f} out tok/s, cap={mt})", flush=True)
         for idx, (it, o) in enumerate(zip(items, outs)):
             c = o.outputs[0]
             rows_out.append({

@@ -342,6 +342,13 @@ def pc(x):
     return "—" if x is None else f"{100*x:.1f}%"
 
 
+def mark(key: str, scored: dict) -> str:
+    """Label a row, and mark it unscored wherever it appears -- not only in the
+    first table. `scored: false` has to travel with the number."""
+    task = key.split("/")[0]
+    return f"`{key}` **[미채점]**" if not scored.get(task, True) else f"`{key}`"
+
+
 def ci(d):
     if not d or d.get("rate") is None:
         return "—"
@@ -399,7 +406,7 @@ def render_baseline(run_id: str) -> Path:
         for name in strata.STRATA:
             b = r["by_stratum"][name]
             cells.append(f"{ci(b['accuracy_over_all_items'])}" if b["n_items"] else f"— n=0")
-        L.append(f"| `{k}` | {st.get('positive_median','—')} | " + " | ".join(cells) + " |")
+        L.append(f"| {mark(k, s['scored'])} | {st.get('positive_median','—')} | " + " | ".join(cells) + " |")
     L.append("\n**high 계층은 일부 세트에서 얇다** (전체 커버리지 히스토그램은 [0.0,0.1)에 15,519건, [0.9,1.0)에 188건). "
              "얇은 계층의 구간은 넓고, 넓은 구간은 점추정값처럼 읽어서는 안 된다.\n")
 
@@ -409,7 +416,7 @@ def render_baseline(run_id: str) -> Path:
         if not k.startswith("temporal/"):
             continue
         z = g["by_stratum_gap"].get("zero")
-        L.append(f"| `{k.split('/',1)[1]}` | {ci(g['post_cutoff'])} | {ci(g['pre_cutoff'])} | "
+        L.append(f"| {mark(k.split('/',1)[1], s['scored'])} | {ci(g['post_cutoff'])} | {ci(g['pre_cutoff'])} | "
                  f"{pc(g['gap'])} | **{g['verdict']}** | {pc(z) if z is not None else '—'} |")
     L.append("\n컷오프 이전 세트가 더 높다면 그 차이는 모델이 사전학습에서 이미 본 CVE라는 뜻이다. **zero 계층에서도 격차가 남으면 "
              "그 오염은 어휘적(13-gram)이 아니다** — 즉 커버리지로는 잡히지 않는 형태의 사전 노출이다.\n")
@@ -419,7 +426,7 @@ def render_baseline(run_id: str) -> Path:
     for k, g in s["gaps"].items():
         if not k.startswith("decoding/"):
             continue
-        L.append(f"| `{k.split('/',1)[1]}` | {pc(g['free_schema_valid'])} | {pc(g['constrained_schema_valid'])} | "
+        L.append(f"| {mark(k.split('/',1)[1], s['scored'])} | {pc(g['free_schema_valid'])} | {pc(g['constrained_schema_valid'])} | "
                  f"{pc(g['schema_valid_gap'])} | {pc(g['accuracy_over_all_gap'])} | "
                  f"{g['mcnemar_schema_valid']['p_value']:.3g} | **{g['schema_valid']['verdict']}** |")
     L.append("\n형식 격차는 **스키마 준수 중 디코더가 만들어낸 몫**이다. 정확도 격차가 0이 아니면 제약이 형식만이 아니라 내용도 바꿨다는 뜻이다.\n")
@@ -480,7 +487,7 @@ def render_baseline(run_id: str) -> Path:
     for k, r in s["domain"].items():
         b = r["by_stratum"]
         f = lambda x: (f"±{100*x:.1f}pp" if x else "—")
-        L.append(f"| `{k}` | {n(r['n_items'])} | {pc(r['accuracy_over_all_items']['rate'])} | "
+        L.append(f"| {mark(k, s['scored'])} | {n(r['n_items'])} | {pc(r['accuracy_over_all_items']['rate'])} | "
                  f"{f(r['mdd_points_over_all'])} | {f(b['zero']['mdd_points_over_all'])} | "
                  f"{f(b['low']['mdd_points_over_all'])} | {f(b['high']['mdd_points_over_all'])} |")
 
@@ -550,6 +557,19 @@ def render_harness(run_id: str) -> Path:
              "이 판정 문자열은 하네스가 직접 출력하므로, 보고서가 숫자보다 강하게 쓰일 수 없다.")
     L.append("- 귀무 결과와 검정력 부족을 구분하기 위해 세트별 MDD(검출 가능한 최소 차이)를 함께 싣는다.\n")
 
+    probe_p = RUNS / "throughput_probe.json"
+    if probe_p.exists():
+        pr = json.loads(probe_p.read_text())
+        L.append("## 동시성은 처리량 설정이지 결과 설정이 아니다 (측정)\n")
+        L.append(f"`{pr['group']}`에서 동시 시퀀스 상한만 바꾸고 나머지는 동일하게 두고 측정했다.\n")
+        L.append("| `max_num_seqs` | 초 | 출력 토큰/초 | 출력 파일 sha256 |\n|---|---|---|---|")
+        for r in pr["rows"]:
+            L.append(f"| {r['max_num_seqs']} | {r['seconds']} | {r['output_tokens_per_sec']} | `{r['outputs_sha256'][:24]}…` |")
+        L.append(f"\n**세 설정의 출력이 바이트 단위로 동일하다: {pr['all_outputs_byte_identical']}**. "
+                 f"처리량은 {pr['speedup_16_to_256']}배 차이가 난다. {pr['conclusion']}")
+        L.append(f"\n그래서 이 하네스는 `max_num_seqs={pr['chosen_max_num_seqs']}`을 쓴다 "
+                 f"(Gate 0 참조값 {pr['gate0_reference_max_num_seqs']}). 이 값은 매니페스트에 기록되고, "
+                 "Gate 4가 **실제로 쓰인 그 값에서** 재현성을 증명한다.\n")
     L.append("## 결정론 게이트 (Gate 4)\n")
     L.append("기준선 모델로 전체 평가를 **두 번** 돌려 모든 생성 출력이 바이트 단위로 같고 모든 점수가 같아야 통과한다. "
              "하나라도 다르면 다른 항목을 보고하고 채점을 거부한다. Gate 0은 이 기계에서 배치 불변성 없이는 순차 실행조차 "
@@ -614,10 +634,17 @@ def main() -> int:
                           for k, v in c["domain"].items()}, indent=1, ensure_ascii=False))
         print("SELF-COMPARE OK" if not bad else f"SELF-COMPARE FAILED: {bad}")
         return 1 if bad else 0
+    # The report is written to reports/ AND echoed to stdout, so both
+    # `make eval-report` and `python -m eval.stats --run X --render > file` do
+    # the right thing instead of one of them clobbering the report with a path.
     if a.render:
-        print(render_baseline(a.run))
+        sys.stdout.write(render_baseline(a.run).read_text(encoding="utf-8"))
     if a.render_harness:
-        print(render_harness(a.run))
+        out = render_harness(a.run)
+        if not a.render:
+            sys.stdout.write(out.read_text(encoding="utf-8"))
+        else:
+            print(f"\n<!-- also wrote {out} -->", file=sys.stderr)
     if not any([a.score, a.render, a.render_harness, a.compare, a.self_compare]):
         ap.print_help()
     return 0
