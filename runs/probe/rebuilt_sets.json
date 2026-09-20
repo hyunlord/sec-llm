@@ -1,0 +1,1750 @@
+{
+  "conditions": {
+    "cond1": {
+      "by_task_split": {
+        "cve_to_cwe/eval_post_cutoff": 21,
+        "cve_to_cwe/eval_pre_cutoff": 51,
+        "cvss_vector/eval_post_cutoff": 20,
+        "cvss_vector/eval_pre_cutoff": 57,
+        "structured_extract/eval_post_cutoff": 18,
+        "structured_extract/eval_pre_cutoff": 56
+      },
+      "hashed": 91126,
+      "jaccard": {
+        "max": 1.0,
+        "median": 0.7778,
+        "min": 0.75
+      },
+      "members": {
+        "cve_to_cwe:CVE-2018-25046": {
+          "jaccard": 1.0,
+          "partner": "cve_to_cwe:CVE-2020-36561:in"
+        },
+        "cve_to_cwe:CVE-2021-21088": {
+          "jaccard": 0.7833,
+          "partner": "cve_to_cwe:CVE-2021-21037:in"
+        },
+        "cve_to_cwe:CVE-2021-25745": {
+          "jaccard": 0.7544,
+          "partner": "cve_to_cwe:CVE-2021-25746:in"
+        },
+        "cve_to_cwe:CVE-2021-3862": {
+          "jaccard": 0.8182,
+          "partner": "cve_to_cwe:CVE-2021-3831:in"
+        },
+        "cve_to_cwe:CVE-2021-38927": {
+          "jaccard": 0.7561,
+          "partner": "cve_to_cwe:CVE-2022-34315:in"
+        },
+        "cve_to_cwe:CVE-2021-42265": {
+          "jaccard": 1.0,
+          "partner": "cve_to_cwe:CVE-2021-40791:in"
+        },
+        "cve_to_cwe:CVE-2022-21277": {
+          "jaccard": 0.9355,
+          "partner": "cve_to_cwe:CVE-2022-21360:in"
+        },
+        "cve_to_cwe:CVE-2022-22405": {
+          "jaccard": 0.7609,
+          "partner": "structured_extract:CVE-2016-9972:in"
+        },
+        "cve_to_cwe:CVE-2022-23204": {
+          "jaccard": 0.8367,
+          "partner": "cve_to_cwe:CVE-2024-47453:in"
+        },
+        "cve_to_cwe:CVE-2022-23479": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2022-23468:in"
+        },
+        "cve_to_cwe:CVE-2022-25761": {
+          "jaccard": 0.7619,
+          "partner": "cvss_vector:CVE-2022-24381:in"
+        },
+        "cve_to_cwe:CVE-2022-28854": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cve_to_cwe:CVE-2022-3295": {
+          "jaccard": 0.8182,
+          "partner": "cve_to_cwe:CVE-2022-3364:in"
+        },
+        "cve_to_cwe:CVE-2022-35971": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2022-36019:in"
+        },
+        "cve_to_cwe:CVE-2022-3831": {
+          "jaccard": 0.878,
+          "partner": "structured_extract:CVE-2023-7167:in"
+        },
+        "cve_to_cwe:CVE-2022-38406": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cve_to_cwe:CVE-2022-38409": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cve_to_cwe:CVE-2022-38443": {
+          "jaccard": 0.78,
+          "partner": "cve_to_cwe:CVE-2021-36060:in"
+        },
+        "cve_to_cwe:CVE-2022-4159": {
+          "jaccard": 0.7959,
+          "partner": "cvss_vector:CVE-2022-4164:in"
+        },
+        "cve_to_cwe:CVE-2022-44498": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cve_to_cwe:CVE-2022-4451": {
+          "jaccard": 0.7593,
+          "partner": "cve_to_cwe:CVE-2022-4627:in"
+        },
+        "cve_to_cwe:CVE-2022-4626": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2022-4627:in"
+        },
+        "cve_to_cwe:CVE-2022-4715": {
+          "jaccard": 0.7593,
+          "partner": "cve_to_cwe:CVE-2022-4627:in"
+        },
+        "cve_to_cwe:CVE-2022-4765": {
+          "jaccard": 0.8333,
+          "partner": "cvss_vector:CVE-2022-4824:in"
+        },
+        "cve_to_cwe:CVE-2023-0080": {
+          "jaccard": 0.8211,
+          "partner": "structured_extract:CVE-2023-0340:in"
+        },
+        "cve_to_cwe:CVE-2023-0719": {
+          "jaccard": 0.8361,
+          "partner": "cve_to_cwe:CVE-2023-0715:in"
+        },
+        "cve_to_cwe:CVE-2023-2031": {
+          "jaccard": 0.7647,
+          "partner": "cvss_vector:CVE-2023-2171:in"
+        },
+        "cve_to_cwe:CVE-2023-21582": {
+          "jaccard": 0.7955,
+          "partner": "cvss_vector:CVE-2021-45053:in"
+        },
+        "cve_to_cwe:CVE-2023-21595": {
+          "jaccard": 0.7609,
+          "partner": "cvss_vector:CVE-2021-28586:in"
+        },
+        "cve_to_cwe:CVE-2023-2322": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2022-0251:in"
+        },
+        "cve_to_cwe:CVE-2023-2343": {
+          "jaccard": 0.7778,
+          "partner": "cve_to_cwe:CVE-2023-1517:in"
+        },
+        "cve_to_cwe:CVE-2023-23843": {
+          "jaccard": 0.7692,
+          "partner": "cve_to_cwe:CVE-2023-23840:in"
+        },
+        "cve_to_cwe:CVE-2023-25830": {
+          "jaccard": 0.75,
+          "partner": "structured_extract:CVE-2023-25831:in"
+        },
+        "cve_to_cwe:CVE-2023-25866": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2021-28586:in"
+        },
+        "cve_to_cwe:CVE-2023-25893": {
+          "jaccard": 0.7826,
+          "partner": "structured_extract:CVE-2023-26384:in"
+        },
+        "cve_to_cwe:CVE-2023-26408": {
+          "jaccard": 1.0,
+          "partner": "cve_to_cwe:CVE-2023-26406:in"
+        },
+        "cve_to_cwe:CVE-2023-26415": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2021-45053:in"
+        },
+        "cve_to_cwe:CVE-2023-30914": {
+          "jaccard": 0.8,
+          "partner": "cve_to_cwe:CVE-2022-39117:in"
+        },
+        "cve_to_cwe:CVE-2023-32532": {
+          "jaccard": 0.8462,
+          "partner": "structured_extract:CVE-2023-32531:in"
+        },
+        "cve_to_cwe:CVE-2023-38223": {
+          "jaccard": 0.82,
+          "partner": "cvss_vector:CVE-2023-38246:in"
+        },
+        "cve_to_cwe:CVE-2023-38232": {
+          "jaccard": 0.7593,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cve_to_cwe:CVE-2023-4103": {
+          "jaccard": 0.7568,
+          "partner": "cve_to_cwe:CVE-2023-4098:in"
+        },
+        "cve_to_cwe:CVE-2023-42648": {
+          "jaccard": 0.8,
+          "partner": "cve_to_cwe:CVE-2023-40641:in"
+        },
+        "cve_to_cwe:CVE-2023-42680": {
+          "jaccard": 0.8571,
+          "partner": "cvss_vector:CVE-2023-42683:in"
+        },
+        "cve_to_cwe:CVE-2023-44353": {
+          "jaccard": 1.0,
+          "partner": "cve_to_cwe:CVE-2023-44350:in"
+        },
+        "cve_to_cwe:CVE-2023-45614": {
+          "jaccard": 0.7966,
+          "partner": "cvss_vector:CVE-2024-31466:in"
+        },
+        "cve_to_cwe:CVE-2023-47077": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cve_to_cwe:CVE-2023-4726": {
+          "jaccard": 0.7662,
+          "partner": "structured_extract:CVE-2023-3369:in"
+        },
+        "cve_to_cwe:CVE-2023-48625": {
+          "jaccard": 0.7955,
+          "partner": "cve_to_cwe:CVE-2024-34124:in"
+        },
+        "cve_to_cwe:CVE-2023-5433": {
+          "jaccard": 0.8052,
+          "partner": "cvss_vector:CVE-2023-5430:in"
+        },
+        "cve_to_cwe:CVE-2023-5980": {
+          "jaccard": 0.8,
+          "partner": "cvss_vector:CVE-2023-2578:in"
+        },
+        "cve_to_cwe:CVE-2024-13319": {
+          "jaccard": 0.7681,
+          "partner": "cve_to_cwe:CVE-2024-11359:in"
+        },
+        "cve_to_cwe:CVE-2025-10133": {
+          "jaccard": 0.7714,
+          "partner": "cvss_vector:CVE-2024-11451:in"
+        },
+        "cve_to_cwe:CVE-2025-10135": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2024-10150:in"
+        },
+        "cve_to_cwe:CVE-2025-10490": {
+          "jaccard": 0.8026,
+          "partner": "structured_extract:CVE-2024-0614:in"
+        },
+        "cve_to_cwe:CVE-2025-12018": {
+          "jaccard": 0.7595,
+          "partner": "structured_extract:CVE-2024-3023:in"
+        },
+        "cve_to_cwe:CVE-2025-14735": {
+          "jaccard": 0.7792,
+          "partner": "structured_extract:CVE-2024-3023:in"
+        },
+        "cve_to_cwe:CVE-2025-24428": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2024-20717:in"
+        },
+        "cve_to_cwe:CVE-2025-25025": {
+          "jaccard": 0.8182,
+          "partner": "cve_to_cwe:CVE-2023-45701:in"
+        },
+        "cve_to_cwe:CVE-2025-30925": {
+          "jaccard": 0.931,
+          "partner": "cve_to_cwe:CVE-2024-52356:in"
+        },
+        "cve_to_cwe:CVE-2025-4100": {
+          "jaccard": 0.7714,
+          "partner": "cve_to_cwe:CVE-2024-12814:in"
+        },
+        "cve_to_cwe:CVE-2025-5686": {
+          "jaccard": 0.7606,
+          "partner": "cve_to_cwe:CVE-2024-11119:in"
+        },
+        "cve_to_cwe:CVE-2025-8062": {
+          "jaccard": 0.7714,
+          "partner": "cve_to_cwe:CVE-2024-11759:in"
+        },
+        "cve_to_cwe:CVE-2025-9058": {
+          "jaccard": 0.7576,
+          "partner": "cve_to_cwe:CVE-2023-5161:in"
+        },
+        "cve_to_cwe:CVE-2025-9879": {
+          "jaccard": 0.7606,
+          "partner": "cve_to_cwe:CVE-2024-9027:in"
+        },
+        "cve_to_cwe:CVE-2026-18295": {
+          "jaccard": 0.7593,
+          "partner": "cve_to_cwe:CVE-2024-11517:in"
+        },
+        "cve_to_cwe:CVE-2026-34636": {
+          "jaccard": 0.814,
+          "partner": "cve_to_cwe:CVE-2024-34124:in"
+        },
+        "cve_to_cwe:CVE-2026-34708": {
+          "jaccard": 0.8182,
+          "partner": "cvss_vector:CVE-2024-30293:in"
+        },
+        "cve_to_cwe:CVE-2026-48335": {
+          "jaccard": 0.8,
+          "partner": "cve_to_cwe:CVE-2024-34124:in"
+        },
+        "cve_to_cwe:CVE-2026-48342": {
+          "jaccard": 0.8333,
+          "partner": "cve_to_cwe:CVE-2023-25903:in"
+        },
+        "cve_to_cwe:CVE-2026-48417": {
+          "jaccard": 0.7556,
+          "partner": "cvss_vector:CVE-2023-26412:in"
+        },
+        "cve_to_cwe:CVE-2026-48422": {
+          "jaccard": 0.7556,
+          "partner": "cvss_vector:CVE-2023-29283:in"
+        },
+        "cvss_vector:CVE-2018-25046": {
+          "jaccard": 1.0,
+          "partner": "cve_to_cwe:CVE-2020-36561:in"
+        },
+        "cvss_vector:CVE-2021-21088": {
+          "jaccard": 0.7833,
+          "partner": "cve_to_cwe:CVE-2021-21037:in"
+        },
+        "cvss_vector:CVE-2021-25745": {
+          "jaccard": 0.7544,
+          "partner": "cve_to_cwe:CVE-2021-25746:in"
+        },
+        "cvss_vector:CVE-2021-3862": {
+          "jaccard": 0.8182,
+          "partner": "cve_to_cwe:CVE-2021-3831:in"
+        },
+        "cvss_vector:CVE-2021-38927": {
+          "jaccard": 0.7561,
+          "partner": "cve_to_cwe:CVE-2022-34315:in"
+        },
+        "cvss_vector:CVE-2021-42265": {
+          "jaccard": 1.0,
+          "partner": "cve_to_cwe:CVE-2021-40791:in"
+        },
+        "cvss_vector:CVE-2021-42724": {
+          "jaccard": 0.7907,
+          "partner": "structured_extract:CVE-2021-42725:in"
+        },
+        "cvss_vector:CVE-2022-21277": {
+          "jaccard": 0.9355,
+          "partner": "cve_to_cwe:CVE-2022-21360:in"
+        },
+        "cvss_vector:CVE-2022-22405": {
+          "jaccard": 0.7609,
+          "partner": "structured_extract:CVE-2016-9972:in"
+        },
+        "cvss_vector:CVE-2022-23204": {
+          "jaccard": 0.8367,
+          "partner": "cve_to_cwe:CVE-2024-47453:in"
+        },
+        "cvss_vector:CVE-2022-23479": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2022-23468:in"
+        },
+        "cvss_vector:CVE-2022-25761": {
+          "jaccard": 0.7619,
+          "partner": "cvss_vector:CVE-2022-24381:in"
+        },
+        "cvss_vector:CVE-2022-26873": {
+          "jaccard": 0.7831,
+          "partner": "cvss_vector:CVE-2022-40262:in"
+        },
+        "cvss_vector:CVE-2022-28854": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cvss_vector:CVE-2022-3295": {
+          "jaccard": 0.8182,
+          "partner": "cve_to_cwe:CVE-2022-3364:in"
+        },
+        "cvss_vector:CVE-2022-35971": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2022-36019:in"
+        },
+        "cvss_vector:CVE-2022-3831": {
+          "jaccard": 0.878,
+          "partner": "structured_extract:CVE-2023-7167:in"
+        },
+        "cvss_vector:CVE-2022-38406": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cvss_vector:CVE-2022-38409": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cvss_vector:CVE-2022-38443": {
+          "jaccard": 0.78,
+          "partner": "cve_to_cwe:CVE-2021-36060:in"
+        },
+        "cvss_vector:CVE-2022-4159": {
+          "jaccard": 0.7959,
+          "partner": "cvss_vector:CVE-2022-4164:in"
+        },
+        "cvss_vector:CVE-2022-44498": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cvss_vector:CVE-2022-4451": {
+          "jaccard": 0.7593,
+          "partner": "cve_to_cwe:CVE-2022-4627:in"
+        },
+        "cvss_vector:CVE-2022-4626": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2022-4627:in"
+        },
+        "cvss_vector:CVE-2022-4715": {
+          "jaccard": 0.7593,
+          "partner": "cve_to_cwe:CVE-2022-4627:in"
+        },
+        "cvss_vector:CVE-2022-4765": {
+          "jaccard": 0.8333,
+          "partner": "cvss_vector:CVE-2022-4824:in"
+        },
+        "cvss_vector:CVE-2023-0036": {
+          "jaccard": 0.8,
+          "partner": "cvss_vector:CVE-2023-0035:in"
+        },
+        "cvss_vector:CVE-2023-0080": {
+          "jaccard": 0.8211,
+          "partner": "structured_extract:CVE-2023-0340:in"
+        },
+        "cvss_vector:CVE-2023-0383": {
+          "jaccard": 1.0,
+          "partner": "cvss_vector:CVE-2023-0382:in"
+        },
+        "cvss_vector:CVE-2023-0719": {
+          "jaccard": 0.8361,
+          "partner": "cve_to_cwe:CVE-2023-0715:in"
+        },
+        "cvss_vector:CVE-2023-2031": {
+          "jaccard": 0.7647,
+          "partner": "cvss_vector:CVE-2023-2171:in"
+        },
+        "cvss_vector:CVE-2023-21582": {
+          "jaccard": 0.7955,
+          "partner": "cvss_vector:CVE-2021-45053:in"
+        },
+        "cvss_vector:CVE-2023-21595": {
+          "jaccard": 0.7609,
+          "partner": "cvss_vector:CVE-2021-28586:in"
+        },
+        "cvss_vector:CVE-2023-2322": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2022-0251:in"
+        },
+        "cvss_vector:CVE-2023-2343": {
+          "jaccard": 0.7778,
+          "partner": "cve_to_cwe:CVE-2023-1517:in"
+        },
+        "cvss_vector:CVE-2023-23843": {
+          "jaccard": 0.7692,
+          "partner": "cve_to_cwe:CVE-2023-23840:in"
+        },
+        "cvss_vector:CVE-2023-25830": {
+          "jaccard": 0.75,
+          "partner": "structured_extract:CVE-2023-25831:in"
+        },
+        "cvss_vector:CVE-2023-25866": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2021-28586:in"
+        },
+        "cvss_vector:CVE-2023-25893": {
+          "jaccard": 0.7826,
+          "partner": "structured_extract:CVE-2023-26384:in"
+        },
+        "cvss_vector:CVE-2023-26383": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2023-26412:in"
+        },
+        "cvss_vector:CVE-2023-26408": {
+          "jaccard": 1.0,
+          "partner": "cve_to_cwe:CVE-2023-26406:in"
+        },
+        "cvss_vector:CVE-2023-26413": {
+          "jaccard": 0.7872,
+          "partner": "cvss_vector:CVE-2023-26412:in"
+        },
+        "cvss_vector:CVE-2023-26415": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2021-45053:in"
+        },
+        "cvss_vector:CVE-2023-30914": {
+          "jaccard": 0.8,
+          "partner": "cve_to_cwe:CVE-2022-39117:in"
+        },
+        "cvss_vector:CVE-2023-32532": {
+          "jaccard": 0.8462,
+          "partner": "structured_extract:CVE-2023-32531:in"
+        },
+        "cvss_vector:CVE-2023-38223": {
+          "jaccard": 0.82,
+          "partner": "cvss_vector:CVE-2023-38246:in"
+        },
+        "cvss_vector:CVE-2023-38232": {
+          "jaccard": 0.7593,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cvss_vector:CVE-2023-4103": {
+          "jaccard": 0.7568,
+          "partner": "cve_to_cwe:CVE-2023-4098:in"
+        },
+        "cvss_vector:CVE-2023-42648": {
+          "jaccard": 0.8,
+          "partner": "cve_to_cwe:CVE-2023-40641:in"
+        },
+        "cvss_vector:CVE-2023-42680": {
+          "jaccard": 0.8571,
+          "partner": "cvss_vector:CVE-2023-42683:in"
+        },
+        "cvss_vector:CVE-2023-44353": {
+          "jaccard": 1.0,
+          "partner": "cve_to_cwe:CVE-2023-44350:in"
+        },
+        "cvss_vector:CVE-2023-45614": {
+          "jaccard": 0.7966,
+          "partner": "cvss_vector:CVE-2024-31466:in"
+        },
+        "cvss_vector:CVE-2023-47077": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cvss_vector:CVE-2023-4726": {
+          "jaccard": 0.7662,
+          "partner": "structured_extract:CVE-2023-3369:in"
+        },
+        "cvss_vector:CVE-2023-48625": {
+          "jaccard": 0.7955,
+          "partner": "cve_to_cwe:CVE-2024-34124:in"
+        },
+        "cvss_vector:CVE-2023-5433": {
+          "jaccard": 0.8052,
+          "partner": "cvss_vector:CVE-2023-5430:in"
+        },
+        "cvss_vector:CVE-2023-5980": {
+          "jaccard": 0.8,
+          "partner": "cvss_vector:CVE-2023-2578:in"
+        },
+        "cvss_vector:CVE-2024-13319": {
+          "jaccard": 0.7681,
+          "partner": "cve_to_cwe:CVE-2024-11359:in"
+        },
+        "cvss_vector:CVE-2025-10133": {
+          "jaccard": 0.7714,
+          "partner": "cvss_vector:CVE-2024-11451:in"
+        },
+        "cvss_vector:CVE-2025-10135": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2024-10150:in"
+        },
+        "cvss_vector:CVE-2025-10490": {
+          "jaccard": 0.8026,
+          "partner": "structured_extract:CVE-2024-0614:in"
+        },
+        "cvss_vector:CVE-2025-12018": {
+          "jaccard": 0.7595,
+          "partner": "structured_extract:CVE-2024-3023:in"
+        },
+        "cvss_vector:CVE-2025-14735": {
+          "jaccard": 0.7792,
+          "partner": "structured_extract:CVE-2024-3023:in"
+        },
+        "cvss_vector:CVE-2025-24428": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2024-20717:in"
+        },
+        "cvss_vector:CVE-2025-25025": {
+          "jaccard": 0.8182,
+          "partner": "cve_to_cwe:CVE-2023-45701:in"
+        },
+        "cvss_vector:CVE-2025-30925": {
+          "jaccard": 0.931,
+          "partner": "cve_to_cwe:CVE-2024-52356:in"
+        },
+        "cvss_vector:CVE-2025-4100": {
+          "jaccard": 0.7714,
+          "partner": "cve_to_cwe:CVE-2024-12814:in"
+        },
+        "cvss_vector:CVE-2025-5686": {
+          "jaccard": 0.7606,
+          "partner": "cve_to_cwe:CVE-2024-11119:in"
+        },
+        "cvss_vector:CVE-2025-8062": {
+          "jaccard": 0.7714,
+          "partner": "cve_to_cwe:CVE-2024-11759:in"
+        },
+        "cvss_vector:CVE-2025-9058": {
+          "jaccard": 0.7576,
+          "partner": "cve_to_cwe:CVE-2023-5161:in"
+        },
+        "cvss_vector:CVE-2025-9879": {
+          "jaccard": 0.7606,
+          "partner": "cve_to_cwe:CVE-2024-9027:in"
+        },
+        "cvss_vector:CVE-2026-34636": {
+          "jaccard": 0.814,
+          "partner": "cve_to_cwe:CVE-2024-34124:in"
+        },
+        "cvss_vector:CVE-2026-34708": {
+          "jaccard": 0.8182,
+          "partner": "cvss_vector:CVE-2024-30293:in"
+        },
+        "cvss_vector:CVE-2026-48335": {
+          "jaccard": 0.8,
+          "partner": "cve_to_cwe:CVE-2024-34124:in"
+        },
+        "cvss_vector:CVE-2026-48342": {
+          "jaccard": 0.8333,
+          "partner": "cve_to_cwe:CVE-2023-25903:in"
+        },
+        "cvss_vector:CVE-2026-48417": {
+          "jaccard": 0.7556,
+          "partner": "cvss_vector:CVE-2023-26412:in"
+        },
+        "cvss_vector:CVE-2026-48422": {
+          "jaccard": 0.7556,
+          "partner": "cvss_vector:CVE-2023-29283:in"
+        },
+        "structured_extract:CVE-2018-25046": {
+          "jaccard": 1.0,
+          "partner": "cve_to_cwe:CVE-2020-36561:in"
+        },
+        "structured_extract:CVE-2021-21088": {
+          "jaccard": 0.7833,
+          "partner": "cve_to_cwe:CVE-2021-21037:in"
+        },
+        "structured_extract:CVE-2021-25745": {
+          "jaccard": 0.7544,
+          "partner": "cve_to_cwe:CVE-2021-25746:in"
+        },
+        "structured_extract:CVE-2021-3862": {
+          "jaccard": 0.8182,
+          "partner": "cve_to_cwe:CVE-2021-3831:in"
+        },
+        "structured_extract:CVE-2021-38927": {
+          "jaccard": 0.7561,
+          "partner": "cve_to_cwe:CVE-2022-34315:in"
+        },
+        "structured_extract:CVE-2021-42265": {
+          "jaccard": 1.0,
+          "partner": "cve_to_cwe:CVE-2021-40791:in"
+        },
+        "structured_extract:CVE-2021-42724": {
+          "jaccard": 0.7907,
+          "partner": "structured_extract:CVE-2021-42725:in"
+        },
+        "structured_extract:CVE-2022-21277": {
+          "jaccard": 0.9355,
+          "partner": "cve_to_cwe:CVE-2022-21360:in"
+        },
+        "structured_extract:CVE-2022-22405": {
+          "jaccard": 0.7609,
+          "partner": "structured_extract:CVE-2016-9972:in"
+        },
+        "structured_extract:CVE-2022-23204": {
+          "jaccard": 0.8367,
+          "partner": "cve_to_cwe:CVE-2024-47453:in"
+        },
+        "structured_extract:CVE-2022-23479": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2022-23468:in"
+        },
+        "structured_extract:CVE-2022-26873": {
+          "jaccard": 0.7831,
+          "partner": "cvss_vector:CVE-2022-40262:in"
+        },
+        "structured_extract:CVE-2022-28854": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "structured_extract:CVE-2022-30650": {
+          "jaccard": 0.8333,
+          "partner": "structured_extract:CVE-2022-30658:in"
+        },
+        "structured_extract:CVE-2022-3295": {
+          "jaccard": 0.8182,
+          "partner": "cve_to_cwe:CVE-2022-3364:in"
+        },
+        "structured_extract:CVE-2022-35971": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2022-36019:in"
+        },
+        "structured_extract:CVE-2022-3831": {
+          "jaccard": 0.878,
+          "partner": "structured_extract:CVE-2023-7167:in"
+        },
+        "structured_extract:CVE-2022-38406": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "structured_extract:CVE-2022-38409": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "structured_extract:CVE-2022-38443": {
+          "jaccard": 0.78,
+          "partner": "cve_to_cwe:CVE-2021-36060:in"
+        },
+        "structured_extract:CVE-2022-44498": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "structured_extract:CVE-2022-4451": {
+          "jaccard": 0.7593,
+          "partner": "cve_to_cwe:CVE-2022-4627:in"
+        },
+        "structured_extract:CVE-2022-4626": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2022-4627:in"
+        },
+        "structured_extract:CVE-2022-4715": {
+          "jaccard": 0.7593,
+          "partner": "cve_to_cwe:CVE-2022-4627:in"
+        },
+        "structured_extract:CVE-2022-4765": {
+          "jaccard": 0.8333,
+          "partner": "cvss_vector:CVE-2022-4824:in"
+        },
+        "structured_extract:CVE-2023-0036": {
+          "jaccard": 0.8,
+          "partner": "cvss_vector:CVE-2023-0035:in"
+        },
+        "structured_extract:CVE-2023-0080": {
+          "jaccard": 0.8211,
+          "partner": "structured_extract:CVE-2023-0340:in"
+        },
+        "structured_extract:CVE-2023-0383": {
+          "jaccard": 1.0,
+          "partner": "cvss_vector:CVE-2023-0382:in"
+        },
+        "structured_extract:CVE-2023-0719": {
+          "jaccard": 0.8361,
+          "partner": "cve_to_cwe:CVE-2023-0715:in"
+        },
+        "structured_extract:CVE-2023-2031": {
+          "jaccard": 0.7647,
+          "partner": "cvss_vector:CVE-2023-2171:in"
+        },
+        "structured_extract:CVE-2023-21582": {
+          "jaccard": 0.7955,
+          "partner": "cvss_vector:CVE-2021-45053:in"
+        },
+        "structured_extract:CVE-2023-21595": {
+          "jaccard": 0.7609,
+          "partner": "cvss_vector:CVE-2021-28586:in"
+        },
+        "structured_extract:CVE-2023-2322": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2022-0251:in"
+        },
+        "structured_extract:CVE-2023-2343": {
+          "jaccard": 0.7778,
+          "partner": "cve_to_cwe:CVE-2023-1517:in"
+        },
+        "structured_extract:CVE-2023-23843": {
+          "jaccard": 0.7692,
+          "partner": "cve_to_cwe:CVE-2023-23840:in"
+        },
+        "structured_extract:CVE-2023-25830": {
+          "jaccard": 0.75,
+          "partner": "structured_extract:CVE-2023-25831:in"
+        },
+        "structured_extract:CVE-2023-25866": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2021-28586:in"
+        },
+        "structured_extract:CVE-2023-25893": {
+          "jaccard": 0.7826,
+          "partner": "structured_extract:CVE-2023-26384:in"
+        },
+        "structured_extract:CVE-2023-26383": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2023-26412:in"
+        },
+        "structured_extract:CVE-2023-26408": {
+          "jaccard": 1.0,
+          "partner": "cve_to_cwe:CVE-2023-26406:in"
+        },
+        "structured_extract:CVE-2023-26413": {
+          "jaccard": 0.7872,
+          "partner": "cvss_vector:CVE-2023-26412:in"
+        },
+        "structured_extract:CVE-2023-26415": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2021-45053:in"
+        },
+        "structured_extract:CVE-2023-30914": {
+          "jaccard": 0.8,
+          "partner": "cve_to_cwe:CVE-2022-39117:in"
+        },
+        "structured_extract:CVE-2023-32532": {
+          "jaccard": 0.8462,
+          "partner": "structured_extract:CVE-2023-32531:in"
+        },
+        "structured_extract:CVE-2023-38223": {
+          "jaccard": 0.82,
+          "partner": "cvss_vector:CVE-2023-38246:in"
+        },
+        "structured_extract:CVE-2023-38232": {
+          "jaccard": 0.7593,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "structured_extract:CVE-2023-4103": {
+          "jaccard": 0.7568,
+          "partner": "cve_to_cwe:CVE-2023-4098:in"
+        },
+        "structured_extract:CVE-2023-42648": {
+          "jaccard": 0.8,
+          "partner": "cve_to_cwe:CVE-2023-40641:in"
+        },
+        "structured_extract:CVE-2023-42680": {
+          "jaccard": 0.8571,
+          "partner": "cvss_vector:CVE-2023-42683:in"
+        },
+        "structured_extract:CVE-2023-44353": {
+          "jaccard": 1.0,
+          "partner": "cve_to_cwe:CVE-2023-44350:in"
+        },
+        "structured_extract:CVE-2023-45614": {
+          "jaccard": 0.7966,
+          "partner": "cvss_vector:CVE-2024-31466:in"
+        },
+        "structured_extract:CVE-2023-47077": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "structured_extract:CVE-2023-4726": {
+          "jaccard": 0.7662,
+          "partner": "structured_extract:CVE-2023-3369:in"
+        },
+        "structured_extract:CVE-2023-48625": {
+          "jaccard": 0.7955,
+          "partner": "cve_to_cwe:CVE-2024-34124:in"
+        },
+        "structured_extract:CVE-2023-5433": {
+          "jaccard": 0.8052,
+          "partner": "cvss_vector:CVE-2023-5430:in"
+        },
+        "structured_extract:CVE-2023-5980": {
+          "jaccard": 0.8,
+          "partner": "cvss_vector:CVE-2023-2578:in"
+        },
+        "structured_extract:CVE-2024-13319": {
+          "jaccard": 0.7681,
+          "partner": "cve_to_cwe:CVE-2024-11359:in"
+        },
+        "structured_extract:CVE-2025-10133": {
+          "jaccard": 0.7714,
+          "partner": "cvss_vector:CVE-2024-11451:in"
+        },
+        "structured_extract:CVE-2025-10135": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2024-10150:in"
+        },
+        "structured_extract:CVE-2025-10490": {
+          "jaccard": 0.8026,
+          "partner": "structured_extract:CVE-2024-0614:in"
+        },
+        "structured_extract:CVE-2025-12018": {
+          "jaccard": 0.7595,
+          "partner": "structured_extract:CVE-2024-3023:in"
+        },
+        "structured_extract:CVE-2025-14735": {
+          "jaccard": 0.7792,
+          "partner": "structured_extract:CVE-2024-3023:in"
+        },
+        "structured_extract:CVE-2025-24428": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2024-20717:in"
+        },
+        "structured_extract:CVE-2025-25025": {
+          "jaccard": 0.8182,
+          "partner": "cve_to_cwe:CVE-2023-45701:in"
+        },
+        "structured_extract:CVE-2025-30925": {
+          "jaccard": 0.931,
+          "partner": "cve_to_cwe:CVE-2024-52356:in"
+        },
+        "structured_extract:CVE-2025-4100": {
+          "jaccard": 0.7714,
+          "partner": "cve_to_cwe:CVE-2024-12814:in"
+        },
+        "structured_extract:CVE-2025-5686": {
+          "jaccard": 0.7606,
+          "partner": "cve_to_cwe:CVE-2024-11119:in"
+        },
+        "structured_extract:CVE-2025-8062": {
+          "jaccard": 0.7714,
+          "partner": "cve_to_cwe:CVE-2024-11759:in"
+        },
+        "structured_extract:CVE-2025-9058": {
+          "jaccard": 0.7576,
+          "partner": "cve_to_cwe:CVE-2023-5161:in"
+        },
+        "structured_extract:CVE-2025-9879": {
+          "jaccard": 0.7606,
+          "partner": "cve_to_cwe:CVE-2024-9027:in"
+        },
+        "structured_extract:CVE-2026-18295": {
+          "jaccard": 0.7593,
+          "partner": "cve_to_cwe:CVE-2024-11517:in"
+        },
+        "structured_extract:CVE-2026-34708": {
+          "jaccard": 0.8182,
+          "partner": "cvss_vector:CVE-2024-30293:in"
+        },
+        "structured_extract:CVE-2026-48417": {
+          "jaccard": 0.7556,
+          "partner": "cvss_vector:CVE-2023-26412:in"
+        },
+        "structured_extract:CVE-2026-48422": {
+          "jaccard": 0.7556,
+          "partner": "cvss_vector:CVE-2023-29283:in"
+        }
+      },
+      "n_probe_items": 223,
+      "n_probe_items_p5_recorded_partner": 58,
+      "training_texts_indexed": 120000
+    },
+    "cond2": {
+      "by_task_split": {
+        "cve_to_cwe/eval_post_cutoff": 19,
+        "cve_to_cwe/eval_pre_cutoff": 47,
+        "cvss_vector/eval_post_cutoff": 18,
+        "cvss_vector/eval_pre_cutoff": 51,
+        "structured_extract/eval_post_cutoff": 16,
+        "structured_extract/eval_pre_cutoff": 50
+      },
+      "hashed": 88907,
+      "jaccard": {
+        "max": 1.0,
+        "median": 0.7778,
+        "min": 0.75
+      },
+      "members": {
+        "cve_to_cwe:CVE-2018-25046": {
+          "jaccard": 1.0,
+          "partner": "structured_extract:CVE-2020-36566:in"
+        },
+        "cve_to_cwe:CVE-2021-21088": {
+          "jaccard": 0.7833,
+          "partner": "cve_to_cwe:CVE-2021-21037:in"
+        },
+        "cve_to_cwe:CVE-2021-25745": {
+          "jaccard": 0.7544,
+          "partner": "cve_to_cwe:CVE-2021-25746:in"
+        },
+        "cve_to_cwe:CVE-2021-3862": {
+          "jaccard": 0.8182,
+          "partner": "cve_to_cwe:CVE-2021-3831:in"
+        },
+        "cve_to_cwe:CVE-2021-38927": {
+          "jaccard": 0.7561,
+          "partner": "cvss_vector:CVE-2023-26274:in"
+        },
+        "cve_to_cwe:CVE-2021-42265": {
+          "jaccard": 1.0,
+          "partner": "cve_to_cwe:CVE-2021-40791:in"
+        },
+        "cve_to_cwe:CVE-2022-21277": {
+          "jaccard": 0.9355,
+          "partner": "cve_to_cwe:CVE-2022-21360:in"
+        },
+        "cve_to_cwe:CVE-2022-22405": {
+          "jaccard": 0.7609,
+          "partner": "structured_extract:CVE-2016-9972:in"
+        },
+        "cve_to_cwe:CVE-2022-23204": {
+          "jaccard": 0.8367,
+          "partner": "cve_to_cwe:CVE-2024-47453:in"
+        },
+        "cve_to_cwe:CVE-2022-23479": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2022-23468:in"
+        },
+        "cve_to_cwe:CVE-2022-25761": {
+          "jaccard": 0.7619,
+          "partner": "cvss_vector:CVE-2022-24381:in"
+        },
+        "cve_to_cwe:CVE-2022-28854": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cve_to_cwe:CVE-2022-3295": {
+          "jaccard": 0.8182,
+          "partner": "cve_to_cwe:CVE-2022-3364:in"
+        },
+        "cve_to_cwe:CVE-2022-38406": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cve_to_cwe:CVE-2022-38409": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cve_to_cwe:CVE-2022-38443": {
+          "jaccard": 0.78,
+          "partner": "cve_to_cwe:CVE-2021-36060:in"
+        },
+        "cve_to_cwe:CVE-2022-4159": {
+          "jaccard": 0.7959,
+          "partner": "cvss_vector:CVE-2022-4164:in"
+        },
+        "cve_to_cwe:CVE-2022-44498": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cve_to_cwe:CVE-2022-4451": {
+          "jaccard": 0.7593,
+          "partner": "cvss_vector:CVE-2022-4544:in"
+        },
+        "cve_to_cwe:CVE-2022-4626": {
+          "jaccard": 0.7736,
+          "partner": "cvss_vector:CVE-2022-4544:in"
+        },
+        "cve_to_cwe:CVE-2022-4715": {
+          "jaccard": 0.7593,
+          "partner": "cvss_vector:CVE-2022-4544:in"
+        },
+        "cve_to_cwe:CVE-2022-4765": {
+          "jaccard": 0.8333,
+          "partner": "cvss_vector:CVE-2022-4824:in"
+        },
+        "cve_to_cwe:CVE-2023-0080": {
+          "jaccard": 0.8211,
+          "partner": "structured_extract:CVE-2023-0340:in"
+        },
+        "cve_to_cwe:CVE-2023-0719": {
+          "jaccard": 0.8361,
+          "partner": "cve_to_cwe:CVE-2023-0715:in"
+        },
+        "cve_to_cwe:CVE-2023-2031": {
+          "jaccard": 0.7647,
+          "partner": "cvss_vector:CVE-2023-2171:in"
+        },
+        "cve_to_cwe:CVE-2023-21582": {
+          "jaccard": 0.7955,
+          "partner": "cvss_vector:CVE-2021-45053:in"
+        },
+        "cve_to_cwe:CVE-2023-21595": {
+          "jaccard": 0.7609,
+          "partner": "cvss_vector:CVE-2021-28586:in"
+        },
+        "cve_to_cwe:CVE-2023-2322": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2022-0251:in"
+        },
+        "cve_to_cwe:CVE-2023-2343": {
+          "jaccard": 0.7778,
+          "partner": "cve_to_cwe:CVE-2023-1517:in"
+        },
+        "cve_to_cwe:CVE-2023-23843": {
+          "jaccard": 0.7692,
+          "partner": "cve_to_cwe:CVE-2023-23840:in"
+        },
+        "cve_to_cwe:CVE-2023-25830": {
+          "jaccard": 0.75,
+          "partner": "structured_extract:CVE-2023-25831:in"
+        },
+        "cve_to_cwe:CVE-2023-25866": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2021-28586:in"
+        },
+        "cve_to_cwe:CVE-2023-25893": {
+          "jaccard": 0.7826,
+          "partner": "structured_extract:CVE-2023-26384:in"
+        },
+        "cve_to_cwe:CVE-2023-26408": {
+          "jaccard": 1.0,
+          "partner": "cve_to_cwe:CVE-2023-26406:in"
+        },
+        "cve_to_cwe:CVE-2023-26415": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2021-45053:in"
+        },
+        "cve_to_cwe:CVE-2023-30914": {
+          "jaccard": 0.8,
+          "partner": "cve_to_cwe:CVE-2022-39117:in"
+        },
+        "cve_to_cwe:CVE-2023-32532": {
+          "jaccard": 0.8462,
+          "partner": "structured_extract:CVE-2023-32531:in"
+        },
+        "cve_to_cwe:CVE-2023-38223": {
+          "jaccard": 0.82,
+          "partner": "cvss_vector:CVE-2023-38246:in"
+        },
+        "cve_to_cwe:CVE-2023-38232": {
+          "jaccard": 0.7593,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cve_to_cwe:CVE-2023-42648": {
+          "jaccard": 0.8,
+          "partner": "cve_to_cwe:CVE-2023-40641:in"
+        },
+        "cve_to_cwe:CVE-2023-42680": {
+          "jaccard": 0.8571,
+          "partner": "cvss_vector:CVE-2023-42683:in"
+        },
+        "cve_to_cwe:CVE-2023-45614": {
+          "jaccard": 0.7966,
+          "partner": "cvss_vector:CVE-2024-31466:in"
+        },
+        "cve_to_cwe:CVE-2023-47077": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cve_to_cwe:CVE-2023-4726": {
+          "jaccard": 0.7662,
+          "partner": "structured_extract:CVE-2023-3369:in"
+        },
+        "cve_to_cwe:CVE-2023-48625": {
+          "jaccard": 0.7955,
+          "partner": "cve_to_cwe:CVE-2024-34124:in"
+        },
+        "cve_to_cwe:CVE-2023-5433": {
+          "jaccard": 0.8052,
+          "partner": "structured_extract:CVE-2023-5430:in"
+        },
+        "cve_to_cwe:CVE-2023-5980": {
+          "jaccard": 0.8,
+          "partner": "cvss_vector:CVE-2023-2578:in"
+        },
+        "cve_to_cwe:CVE-2024-13319": {
+          "jaccard": 0.7681,
+          "partner": "cve_to_cwe:CVE-2024-11359:in"
+        },
+        "cve_to_cwe:CVE-2025-10133": {
+          "jaccard": 0.7714,
+          "partner": "cvss_vector:CVE-2024-11451:in"
+        },
+        "cve_to_cwe:CVE-2025-10490": {
+          "jaccard": 0.8026,
+          "partner": "structured_extract:CVE-2024-0614:in"
+        },
+        "cve_to_cwe:CVE-2025-12018": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2024-2657:in"
+        },
+        "cve_to_cwe:CVE-2025-14735": {
+          "jaccard": 0.7692,
+          "partner": "cvss_vector:CVE-2024-2657:in"
+        },
+        "cve_to_cwe:CVE-2025-24428": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2024-20717:in"
+        },
+        "cve_to_cwe:CVE-2025-25025": {
+          "jaccard": 0.8182,
+          "partner": "cve_to_cwe:CVE-2023-45701:in"
+        },
+        "cve_to_cwe:CVE-2025-30925": {
+          "jaccard": 0.931,
+          "partner": "cve_to_cwe:CVE-2024-52356:in"
+        },
+        "cve_to_cwe:CVE-2025-4100": {
+          "jaccard": 0.7606,
+          "partner": "structured_extract:CVE-2024-8747:in"
+        },
+        "cve_to_cwe:CVE-2025-5686": {
+          "jaccard": 0.7606,
+          "partner": "cve_to_cwe:CVE-2024-11119:in"
+        },
+        "cve_to_cwe:CVE-2025-8062": {
+          "jaccard": 0.7714,
+          "partner": "cve_to_cwe:CVE-2024-11759:in"
+        },
+        "cve_to_cwe:CVE-2025-9058": {
+          "jaccard": 0.7576,
+          "partner": "cve_to_cwe:CVE-2023-5161:in"
+        },
+        "cve_to_cwe:CVE-2026-18295": {
+          "jaccard": 0.7593,
+          "partner": "cve_to_cwe:CVE-2024-11517:in"
+        },
+        "cve_to_cwe:CVE-2026-34636": {
+          "jaccard": 0.814,
+          "partner": "cve_to_cwe:CVE-2024-34124:in"
+        },
+        "cve_to_cwe:CVE-2026-34708": {
+          "jaccard": 0.8182,
+          "partner": "cvss_vector:CVE-2024-30293:in"
+        },
+        "cve_to_cwe:CVE-2026-48335": {
+          "jaccard": 0.8,
+          "partner": "cve_to_cwe:CVE-2024-34124:in"
+        },
+        "cve_to_cwe:CVE-2026-48342": {
+          "jaccard": 0.8333,
+          "partner": "cve_to_cwe:CVE-2023-25903:in"
+        },
+        "cve_to_cwe:CVE-2026-48417": {
+          "jaccard": 0.7556,
+          "partner": "cvss_vector:CVE-2023-26412:in"
+        },
+        "cve_to_cwe:CVE-2026-48422": {
+          "jaccard": 0.7556,
+          "partner": "cvss_vector:CVE-2023-29283:in"
+        },
+        "cvss_vector:CVE-2018-25046": {
+          "jaccard": 1.0,
+          "partner": "structured_extract:CVE-2020-36566:in"
+        },
+        "cvss_vector:CVE-2021-21088": {
+          "jaccard": 0.7833,
+          "partner": "cve_to_cwe:CVE-2021-21037:in"
+        },
+        "cvss_vector:CVE-2021-25745": {
+          "jaccard": 0.7544,
+          "partner": "cve_to_cwe:CVE-2021-25746:in"
+        },
+        "cvss_vector:CVE-2021-3862": {
+          "jaccard": 0.8182,
+          "partner": "cve_to_cwe:CVE-2021-3831:in"
+        },
+        "cvss_vector:CVE-2021-38927": {
+          "jaccard": 0.7561,
+          "partner": "cvss_vector:CVE-2023-26274:in"
+        },
+        "cvss_vector:CVE-2021-42265": {
+          "jaccard": 1.0,
+          "partner": "cve_to_cwe:CVE-2021-40791:in"
+        },
+        "cvss_vector:CVE-2021-42724": {
+          "jaccard": 0.7907,
+          "partner": "structured_extract:CVE-2021-42725:in"
+        },
+        "cvss_vector:CVE-2022-21277": {
+          "jaccard": 0.9355,
+          "partner": "cve_to_cwe:CVE-2022-21360:in"
+        },
+        "cvss_vector:CVE-2022-22405": {
+          "jaccard": 0.7609,
+          "partner": "structured_extract:CVE-2016-9972:in"
+        },
+        "cvss_vector:CVE-2022-23204": {
+          "jaccard": 0.8367,
+          "partner": "cve_to_cwe:CVE-2024-47453:in"
+        },
+        "cvss_vector:CVE-2022-23479": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2022-23468:in"
+        },
+        "cvss_vector:CVE-2022-25761": {
+          "jaccard": 0.7619,
+          "partner": "cvss_vector:CVE-2022-24381:in"
+        },
+        "cvss_vector:CVE-2022-26873": {
+          "jaccard": 0.7831,
+          "partner": "cvss_vector:CVE-2022-40262:in"
+        },
+        "cvss_vector:CVE-2022-28854": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cvss_vector:CVE-2022-3295": {
+          "jaccard": 0.8182,
+          "partner": "cve_to_cwe:CVE-2022-3364:in"
+        },
+        "cvss_vector:CVE-2022-38406": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cvss_vector:CVE-2022-38409": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cvss_vector:CVE-2022-38443": {
+          "jaccard": 0.78,
+          "partner": "cve_to_cwe:CVE-2021-36060:in"
+        },
+        "cvss_vector:CVE-2022-4159": {
+          "jaccard": 0.7959,
+          "partner": "cvss_vector:CVE-2022-4164:in"
+        },
+        "cvss_vector:CVE-2022-44498": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cvss_vector:CVE-2022-4451": {
+          "jaccard": 0.7593,
+          "partner": "cvss_vector:CVE-2022-4544:in"
+        },
+        "cvss_vector:CVE-2022-4626": {
+          "jaccard": 0.7736,
+          "partner": "cvss_vector:CVE-2022-4544:in"
+        },
+        "cvss_vector:CVE-2022-4715": {
+          "jaccard": 0.7593,
+          "partner": "cvss_vector:CVE-2022-4544:in"
+        },
+        "cvss_vector:CVE-2022-4765": {
+          "jaccard": 0.8333,
+          "partner": "cvss_vector:CVE-2022-4824:in"
+        },
+        "cvss_vector:CVE-2023-0080": {
+          "jaccard": 0.8211,
+          "partner": "structured_extract:CVE-2023-0340:in"
+        },
+        "cvss_vector:CVE-2023-0719": {
+          "jaccard": 0.8361,
+          "partner": "cve_to_cwe:CVE-2023-0715:in"
+        },
+        "cvss_vector:CVE-2023-2031": {
+          "jaccard": 0.7647,
+          "partner": "cvss_vector:CVE-2023-2171:in"
+        },
+        "cvss_vector:CVE-2023-21582": {
+          "jaccard": 0.7955,
+          "partner": "cvss_vector:CVE-2021-45053:in"
+        },
+        "cvss_vector:CVE-2023-21595": {
+          "jaccard": 0.7609,
+          "partner": "cvss_vector:CVE-2021-28586:in"
+        },
+        "cvss_vector:CVE-2023-2322": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2022-0251:in"
+        },
+        "cvss_vector:CVE-2023-2343": {
+          "jaccard": 0.7778,
+          "partner": "cve_to_cwe:CVE-2023-1517:in"
+        },
+        "cvss_vector:CVE-2023-23843": {
+          "jaccard": 0.7692,
+          "partner": "cve_to_cwe:CVE-2023-23840:in"
+        },
+        "cvss_vector:CVE-2023-25830": {
+          "jaccard": 0.75,
+          "partner": "structured_extract:CVE-2023-25831:in"
+        },
+        "cvss_vector:CVE-2023-25866": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2021-28586:in"
+        },
+        "cvss_vector:CVE-2023-25893": {
+          "jaccard": 0.7826,
+          "partner": "structured_extract:CVE-2023-26384:in"
+        },
+        "cvss_vector:CVE-2023-26383": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2023-26412:in"
+        },
+        "cvss_vector:CVE-2023-26408": {
+          "jaccard": 1.0,
+          "partner": "cve_to_cwe:CVE-2023-26406:in"
+        },
+        "cvss_vector:CVE-2023-26413": {
+          "jaccard": 0.7872,
+          "partner": "cvss_vector:CVE-2023-26412:in"
+        },
+        "cvss_vector:CVE-2023-26415": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2021-45053:in"
+        },
+        "cvss_vector:CVE-2023-30914": {
+          "jaccard": 0.8,
+          "partner": "cve_to_cwe:CVE-2022-39117:in"
+        },
+        "cvss_vector:CVE-2023-32532": {
+          "jaccard": 0.8462,
+          "partner": "structured_extract:CVE-2023-32531:in"
+        },
+        "cvss_vector:CVE-2023-38223": {
+          "jaccard": 0.82,
+          "partner": "cvss_vector:CVE-2023-38246:in"
+        },
+        "cvss_vector:CVE-2023-38232": {
+          "jaccard": 0.7593,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cvss_vector:CVE-2023-42648": {
+          "jaccard": 0.8,
+          "partner": "cve_to_cwe:CVE-2023-40641:in"
+        },
+        "cvss_vector:CVE-2023-42680": {
+          "jaccard": 0.8571,
+          "partner": "cvss_vector:CVE-2023-42683:in"
+        },
+        "cvss_vector:CVE-2023-45614": {
+          "jaccard": 0.7966,
+          "partner": "cvss_vector:CVE-2024-31466:in"
+        },
+        "cvss_vector:CVE-2023-47077": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "cvss_vector:CVE-2023-4726": {
+          "jaccard": 0.7662,
+          "partner": "structured_extract:CVE-2023-3369:in"
+        },
+        "cvss_vector:CVE-2023-48625": {
+          "jaccard": 0.7955,
+          "partner": "cve_to_cwe:CVE-2024-34124:in"
+        },
+        "cvss_vector:CVE-2023-5433": {
+          "jaccard": 0.8052,
+          "partner": "structured_extract:CVE-2023-5430:in"
+        },
+        "cvss_vector:CVE-2023-5980": {
+          "jaccard": 0.8,
+          "partner": "cvss_vector:CVE-2023-2578:in"
+        },
+        "cvss_vector:CVE-2024-13319": {
+          "jaccard": 0.7681,
+          "partner": "cve_to_cwe:CVE-2024-11359:in"
+        },
+        "cvss_vector:CVE-2025-10133": {
+          "jaccard": 0.7714,
+          "partner": "cvss_vector:CVE-2024-11451:in"
+        },
+        "cvss_vector:CVE-2025-10490": {
+          "jaccard": 0.8026,
+          "partner": "structured_extract:CVE-2024-0614:in"
+        },
+        "cvss_vector:CVE-2025-12018": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2024-2657:in"
+        },
+        "cvss_vector:CVE-2025-14735": {
+          "jaccard": 0.7692,
+          "partner": "cvss_vector:CVE-2024-2657:in"
+        },
+        "cvss_vector:CVE-2025-24428": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2024-20717:in"
+        },
+        "cvss_vector:CVE-2025-25025": {
+          "jaccard": 0.8182,
+          "partner": "cve_to_cwe:CVE-2023-45701:in"
+        },
+        "cvss_vector:CVE-2025-30925": {
+          "jaccard": 0.931,
+          "partner": "cve_to_cwe:CVE-2024-52356:in"
+        },
+        "cvss_vector:CVE-2025-4100": {
+          "jaccard": 0.7606,
+          "partner": "structured_extract:CVE-2024-8747:in"
+        },
+        "cvss_vector:CVE-2025-5686": {
+          "jaccard": 0.7606,
+          "partner": "cve_to_cwe:CVE-2024-11119:in"
+        },
+        "cvss_vector:CVE-2025-8062": {
+          "jaccard": 0.7714,
+          "partner": "cve_to_cwe:CVE-2024-11759:in"
+        },
+        "cvss_vector:CVE-2025-9058": {
+          "jaccard": 0.7576,
+          "partner": "cve_to_cwe:CVE-2023-5161:in"
+        },
+        "cvss_vector:CVE-2026-34636": {
+          "jaccard": 0.814,
+          "partner": "cve_to_cwe:CVE-2024-34124:in"
+        },
+        "cvss_vector:CVE-2026-34708": {
+          "jaccard": 0.8182,
+          "partner": "cvss_vector:CVE-2024-30293:in"
+        },
+        "cvss_vector:CVE-2026-48335": {
+          "jaccard": 0.8,
+          "partner": "cve_to_cwe:CVE-2024-34124:in"
+        },
+        "cvss_vector:CVE-2026-48342": {
+          "jaccard": 0.8333,
+          "partner": "cve_to_cwe:CVE-2023-25903:in"
+        },
+        "cvss_vector:CVE-2026-48417": {
+          "jaccard": 0.7556,
+          "partner": "cvss_vector:CVE-2023-26412:in"
+        },
+        "cvss_vector:CVE-2026-48422": {
+          "jaccard": 0.7556,
+          "partner": "cvss_vector:CVE-2023-29283:in"
+        },
+        "structured_extract:CVE-2018-25046": {
+          "jaccard": 1.0,
+          "partner": "structured_extract:CVE-2020-36566:in"
+        },
+        "structured_extract:CVE-2021-21088": {
+          "jaccard": 0.7833,
+          "partner": "cve_to_cwe:CVE-2021-21037:in"
+        },
+        "structured_extract:CVE-2021-25745": {
+          "jaccard": 0.7544,
+          "partner": "cve_to_cwe:CVE-2021-25746:in"
+        },
+        "structured_extract:CVE-2021-3862": {
+          "jaccard": 0.8182,
+          "partner": "cve_to_cwe:CVE-2021-3831:in"
+        },
+        "structured_extract:CVE-2021-38927": {
+          "jaccard": 0.7561,
+          "partner": "cvss_vector:CVE-2023-26274:in"
+        },
+        "structured_extract:CVE-2021-42265": {
+          "jaccard": 1.0,
+          "partner": "cve_to_cwe:CVE-2021-40791:in"
+        },
+        "structured_extract:CVE-2021-42724": {
+          "jaccard": 0.7907,
+          "partner": "structured_extract:CVE-2021-42725:in"
+        },
+        "structured_extract:CVE-2022-21277": {
+          "jaccard": 0.9355,
+          "partner": "cve_to_cwe:CVE-2022-21360:in"
+        },
+        "structured_extract:CVE-2022-22405": {
+          "jaccard": 0.7609,
+          "partner": "structured_extract:CVE-2016-9972:in"
+        },
+        "structured_extract:CVE-2022-23204": {
+          "jaccard": 0.8367,
+          "partner": "cve_to_cwe:CVE-2024-47453:in"
+        },
+        "structured_extract:CVE-2022-23479": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2022-23468:in"
+        },
+        "structured_extract:CVE-2022-26873": {
+          "jaccard": 0.7831,
+          "partner": "cvss_vector:CVE-2022-40262:in"
+        },
+        "structured_extract:CVE-2022-28854": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "structured_extract:CVE-2022-30650": {
+          "jaccard": 0.8333,
+          "partner": "structured_extract:CVE-2022-30658:in"
+        },
+        "structured_extract:CVE-2022-3295": {
+          "jaccard": 0.8182,
+          "partner": "cve_to_cwe:CVE-2022-3364:in"
+        },
+        "structured_extract:CVE-2022-38406": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "structured_extract:CVE-2022-38409": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "structured_extract:CVE-2022-38443": {
+          "jaccard": 0.78,
+          "partner": "cve_to_cwe:CVE-2021-36060:in"
+        },
+        "structured_extract:CVE-2022-44498": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "structured_extract:CVE-2022-4451": {
+          "jaccard": 0.7593,
+          "partner": "cvss_vector:CVE-2022-4544:in"
+        },
+        "structured_extract:CVE-2022-4626": {
+          "jaccard": 0.7736,
+          "partner": "cvss_vector:CVE-2022-4544:in"
+        },
+        "structured_extract:CVE-2022-4715": {
+          "jaccard": 0.7593,
+          "partner": "cvss_vector:CVE-2022-4544:in"
+        },
+        "structured_extract:CVE-2022-4765": {
+          "jaccard": 0.8333,
+          "partner": "cvss_vector:CVE-2022-4824:in"
+        },
+        "structured_extract:CVE-2023-0080": {
+          "jaccard": 0.8211,
+          "partner": "structured_extract:CVE-2023-0340:in"
+        },
+        "structured_extract:CVE-2023-0719": {
+          "jaccard": 0.8361,
+          "partner": "cve_to_cwe:CVE-2023-0715:in"
+        },
+        "structured_extract:CVE-2023-2031": {
+          "jaccard": 0.7647,
+          "partner": "cvss_vector:CVE-2023-2171:in"
+        },
+        "structured_extract:CVE-2023-21582": {
+          "jaccard": 0.7955,
+          "partner": "cvss_vector:CVE-2021-45053:in"
+        },
+        "structured_extract:CVE-2023-21595": {
+          "jaccard": 0.7609,
+          "partner": "cvss_vector:CVE-2021-28586:in"
+        },
+        "structured_extract:CVE-2023-2322": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2022-0251:in"
+        },
+        "structured_extract:CVE-2023-2343": {
+          "jaccard": 0.7778,
+          "partner": "cve_to_cwe:CVE-2023-1517:in"
+        },
+        "structured_extract:CVE-2023-23843": {
+          "jaccard": 0.7692,
+          "partner": "cve_to_cwe:CVE-2023-23840:in"
+        },
+        "structured_extract:CVE-2023-25830": {
+          "jaccard": 0.75,
+          "partner": "structured_extract:CVE-2023-25831:in"
+        },
+        "structured_extract:CVE-2023-25866": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2021-28586:in"
+        },
+        "structured_extract:CVE-2023-25893": {
+          "jaccard": 0.7826,
+          "partner": "structured_extract:CVE-2023-26384:in"
+        },
+        "structured_extract:CVE-2023-26383": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2023-26412:in"
+        },
+        "structured_extract:CVE-2023-26408": {
+          "jaccard": 1.0,
+          "partner": "cve_to_cwe:CVE-2023-26406:in"
+        },
+        "structured_extract:CVE-2023-26413": {
+          "jaccard": 0.7872,
+          "partner": "cvss_vector:CVE-2023-26412:in"
+        },
+        "structured_extract:CVE-2023-26415": {
+          "jaccard": 0.7778,
+          "partner": "cvss_vector:CVE-2021-45053:in"
+        },
+        "structured_extract:CVE-2023-30914": {
+          "jaccard": 0.8,
+          "partner": "cve_to_cwe:CVE-2022-39117:in"
+        },
+        "structured_extract:CVE-2023-32532": {
+          "jaccard": 0.8462,
+          "partner": "structured_extract:CVE-2023-32531:in"
+        },
+        "structured_extract:CVE-2023-38223": {
+          "jaccard": 0.82,
+          "partner": "cvss_vector:CVE-2023-38246:in"
+        },
+        "structured_extract:CVE-2023-38232": {
+          "jaccard": 0.7593,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "structured_extract:CVE-2023-42648": {
+          "jaccard": 0.8,
+          "partner": "cve_to_cwe:CVE-2023-40641:in"
+        },
+        "structured_extract:CVE-2023-42680": {
+          "jaccard": 0.8571,
+          "partner": "cvss_vector:CVE-2023-42683:in"
+        },
+        "structured_extract:CVE-2023-45614": {
+          "jaccard": 0.7966,
+          "partner": "cvss_vector:CVE-2024-31466:in"
+        },
+        "structured_extract:CVE-2023-47077": {
+          "jaccard": 0.7736,
+          "partner": "cve_to_cwe:CVE-2023-21603:in"
+        },
+        "structured_extract:CVE-2023-4726": {
+          "jaccard": 0.7662,
+          "partner": "structured_extract:CVE-2023-3369:in"
+        },
+        "structured_extract:CVE-2023-48625": {
+          "jaccard": 0.7955,
+          "partner": "cve_to_cwe:CVE-2024-34124:in"
+        },
+        "structured_extract:CVE-2023-5433": {
+          "jaccard": 0.8052,
+          "partner": "structured_extract:CVE-2023-5430:in"
+        },
+        "structured_extract:CVE-2023-5980": {
+          "jaccard": 0.8,
+          "partner": "cvss_vector:CVE-2023-2578:in"
+        },
+        "structured_extract:CVE-2024-13319": {
+          "jaccard": 0.7681,
+          "partner": "cve_to_cwe:CVE-2024-11359:in"
+        },
+        "structured_extract:CVE-2025-10133": {
+          "jaccard": 0.7714,
+          "partner": "cvss_vector:CVE-2024-11451:in"
+        },
+        "structured_extract:CVE-2025-10490": {
+          "jaccard": 0.8026,
+          "partner": "structured_extract:CVE-2024-0614:in"
+        },
+        "structured_extract:CVE-2025-12018": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2024-2657:in"
+        },
+        "structured_extract:CVE-2025-14735": {
+          "jaccard": 0.7692,
+          "partner": "cvss_vector:CVE-2024-2657:in"
+        },
+        "structured_extract:CVE-2025-24428": {
+          "jaccard": 0.75,
+          "partner": "cvss_vector:CVE-2024-20717:in"
+        },
+        "structured_extract:CVE-2025-25025": {
+          "jaccard": 0.8182,
+          "partner": "cve_to_cwe:CVE-2023-45701:in"
+        },
+        "structured_extract:CVE-2025-30925": {
+          "jaccard": 0.931,
+          "partner": "cve_to_cwe:CVE-2024-52356:in"
+        },
+        "structured_extract:CVE-2025-4100": {
+          "jaccard": 0.7606,
+          "partner": "structured_extract:CVE-2024-8747:in"
+        },
+        "structured_extract:CVE-2025-5686": {
+          "jaccard": 0.7606,
+          "partner": "cve_to_cwe:CVE-2024-11119:in"
+        },
+        "structured_extract:CVE-2025-8062": {
+          "jaccard": 0.7714,
+          "partner": "cve_to_cwe:CVE-2024-11759:in"
+        },
+        "structured_extract:CVE-2025-9058": {
+          "jaccard": 0.7576,
+          "partner": "cve_to_cwe:CVE-2023-5161:in"
+        },
+        "structured_extract:CVE-2026-18295": {
+          "jaccard": 0.7593,
+          "partner": "cve_to_cwe:CVE-2024-11517:in"
+        },
+        "structured_extract:CVE-2026-34708": {
+          "jaccard": 0.8182,
+          "partner": "cvss_vector:CVE-2024-30293:in"
+        },
+        "structured_extract:CVE-2026-48417": {
+          "jaccard": 0.7556,
+          "partner": "cvss_vector:CVE-2023-26412:in"
+        },
+        "structured_extract:CVE-2026-48422": {
+          "jaccard": 0.7556,
+          "partner": "cvss_vector:CVE-2023-29283:in"
+        }
+      },
+      "n_probe_items": 201,
+      "n_probe_items_p5_recorded_partner": 45,
+      "training_texts_indexed": 113912
+    }
+  },
+  "minhash": {
+    "num_perm": 128,
+    "seed": 1234,
+    "shingle_size": 5
+  },
+  "note": "membership recomputed against each condition's actual training texts; the P5 probe used the removal record's single nearest neighbour in the full corpus, which undercounts",
+  "threshold": 0.75,
+  "threshold_source": "P2 calibration, via datasets/contamination.py (unchanged)"
+}

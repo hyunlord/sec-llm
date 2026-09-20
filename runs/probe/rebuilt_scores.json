@@ -1,0 +1,147 @@
+{
+  "conditions": {
+    "cond1": {
+      "modes": {
+        "constrained": {
+          "above_floor": 0.009803921568627527,
+          "condition": {
+            "control_acc": 0.5,
+            "control_only_correct": 20,
+            "diff": 0.0490196078431373,
+            "diff_ci95": [
+              -0.014705882352941176,
+              0.11764705882352941
+            ],
+            "diff_se": 0.034273490471223245,
+            "mdd_points": 0.09602010429400698,
+            "n_pairs": 204,
+            "probe_acc": 0.5490196078431373,
+            "probe_only_correct": 30
+          },
+          "floor_baseline": {
+            "control_acc": 0.29411764705882354,
+            "control_only_correct": 10,
+            "diff": 0.039215686274509776,
+            "diff_ci95": [
+              -0.014705882352941176,
+              0.08823529411764706
+            ],
+            "diff_se": 0.025764447064322966,
+            "mdd_points": 0.07218129406080938,
+            "n_pairs": 204,
+            "probe_acc": 0.3333333333333333,
+            "probe_only_correct": 18
+          },
+          "floor_note": "the floor is Cond-0 measured on THESE items, not on the P5 pooled set, so the subtraction is like-for-like"
+        },
+        "free": {
+          "above_floor": 0.07843137254901969,
+          "condition": {
+            "control_acc": 0.5441176470588235,
+            "control_only_correct": 11,
+            "diff": 0.0980392156862746,
+            "diff_ci95": [
+              0.043995098039215697,
+              0.15698529411764695
+            ],
+            "diff_se": 0.030093723260198282,
+            "mdd_points": 0.0843101302584105,
+            "n_pairs": 204,
+            "probe_acc": 0.6421568627450981,
+            "probe_only_correct": 31
+          },
+          "floor_baseline": {
+            "control_acc": 0.20588235294117646,
+            "control_only_correct": 5,
+            "diff": 0.019607843137254916,
+            "diff_ci95": [
+              -0.014828431372549012,
+              0.05392156862745098
+            ],
+            "diff_se": 0.0184837218238926,
+            "mdd_points": 0.05178372184653174,
+            "n_pairs": 204,
+            "probe_acc": 0.22549019607843138,
+            "probe_only_correct": 9
+          },
+          "floor_note": "the floor is Cond-0 measured on THESE items, not on the P5 pooled set, so the subtraction is like-for-like"
+        }
+      },
+      "n_probe_in_training": 223,
+      "n_unmatched": 19,
+      "n_with_matched_control": 204
+    },
+    "cond2": {
+      "modes": {
+        "constrained": {
+          "above_floor": -0.03783783783783784,
+          "condition": {
+            "control_acc": 0.4756756756756757,
+            "control_only_correct": 24,
+            "diff": -0.005405405405405406,
+            "diff_ci95": [
+              -0.07581081081081081,
+              0.06486486486486487
+            ],
+            "diff_se": 0.037025765732434796,
+            "mdd_points": 0.10373083798333571,
+            "n_pairs": 185,
+            "probe_acc": 0.4702702702702703,
+            "probe_only_correct": 23
+          },
+          "floor_baseline": {
+            "control_acc": 0.2810810810810811,
+            "control_only_correct": 9,
+            "diff": 0.032432432432432434,
+            "diff_ci95": [
+              -0.016216216216216217,
+              0.08648648648648649
+            ],
+            "diff_se": 0.026170970918983693,
+            "mdd_points": 0.07332020528303516,
+            "n_pairs": 185,
+            "probe_acc": 0.31351351351351353,
+            "probe_only_correct": 15
+          },
+          "floor_note": "the floor is Cond-0 measured on THESE items, not on the P5 pooled set, so the subtraction is like-for-like"
+        },
+        "free": {
+          "above_floor": 0.07027027027027033,
+          "condition": {
+            "control_acc": 0.5135135135135135,
+            "control_only_correct": 12,
+            "diff": 0.09189189189189195,
+            "diff_ci95": [
+              0.032432432432432434,
+              0.1568918918918918
+            ],
+            "diff_se": 0.03288980318159797,
+            "mdd_points": 0.09214358643622811,
+            "n_pairs": 185,
+            "probe_acc": 0.6054054054054054,
+            "probe_only_correct": 29
+          },
+          "floor_baseline": {
+            "control_acc": 0.20540540540540542,
+            "control_only_correct": 5,
+            "diff": 0.021621621621621623,
+            "diff_ci95": [
+              -0.016216216216216217,
+              0.06486486486486487
+            ],
+            "diff_se": 0.02080478249923406,
+            "mdd_points": 0.058286371126042104,
+            "n_pairs": 185,
+            "probe_acc": 0.22702702702702704,
+            "probe_only_correct": 9
+          },
+          "floor_note": "the floor is Cond-0 measured on THESE items, not on the P5 pooled set, so the subtraction is like-for-like"
+        }
+      },
+      "n_probe_in_training": 201,
+      "n_unmatched": 16,
+      "n_with_matched_control": 185
+    }
+  },
+  "threshold": 0.75
+}

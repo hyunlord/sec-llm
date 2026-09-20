@@ -323,6 +323,35 @@ def render(runs) -> Path:
                  f"`cond2` {b['train_partner_present']['cond2']['yes']}건뿐이고, 짝짓기를 거치면 더 줄어든다. "
                  "위 표의 '학습됨' 열은 **검정력이 낮다** — MDD 값이 그것을 말해 준다. 큰 암기는 보이지만 작은 암기는 보이지 않는다. "
                  "전체 학습 세트로 학습하는 실험에서는 이 열의 n이 334에 가까워지고 검정력도 올라간다.\n")
+    rb_p, rs_p = PROBE_DIR / "rebuilt_sets.json", PROBE_DIR / "rebuilt_scores.json"
+    if rb_p.exists() and rs_p.exists():
+        RB, RS = json.loads(rb_p.read_text()), json.loads(rs_p.read_text())
+        L.append("## P5.1 재구축 — 실제로 학습한 것에 대해 다시 물었다\n")
+        L.append("P5의 탐침은 **전체 35.9만 건 코퍼스** 기준으로 근접 중복 판정을 받은 334건이었다. 그런데 P5는 6만 건 "
+                 "서브샘플로 학습했고, 판정 기록에 적힌 **최근접 이웃 하나**가 그 서브샘플에 있는지만 확인했더니 58건뿐이었다. "
+                 "그 계산은 과소집계다 — 전체 코퍼스에서의 최근접 이웃이 서브샘플에 없더라도, 서브샘플 안에 **다른** 근사 복사본이 "
+                 "있을 수 있다.\n")
+        L.append(f"그래서 각 조건의 **실제 학습 텍스트 전체**에 대해 P2의 MinHash로 다시 물었다 "
+                 f"(임계값 {RB['threshold']}, {RB['threshold_source']}; seed {RB['minhash']['seed']}, "
+                 f"순열 {RB['minhash']['num_perm']}, {RB['minhash']['shingle_size']}-gram — `datasets/contamination.py` 그대로).\n")
+        L.append("| 조건 | 색인한 학습 텍스트 | **학습 데이터에 근사 복사본이 있는 탐침 항목** | P5의 집계 | 대조 짝지어짐 | 짝 없음 |\n|---|---|---|---|---|---|")
+        for c, v in RB["conditions"].items():
+            sc = RS["conditions"][c]
+            L.append(f"| `{c}` | {v['training_texts_indexed']:,} | **{v['n_probe_items']} / 334** | {v['n_probe_items_p5_recorded_partner']} | "
+                     f"{sc['n_with_matched_control']} | {sc['n_unmatched']} |")
+        L.append("\n**Cond-2의 탐침 집합은 Cond-1의 것과 다르다** — Cond-2의 도메인 데이터가 부분집합이기 때문이다. "
+                 "두 집합을 합치지 않고 따로 보고한다. 바닥선(Cond-0)도 **각 집합의 같은 항목들에 대해** 다시 계산했다. "
+                 "그래야 뺄셈이 같은 대상끼리의 뺄셈이 된다.\n")
+        L.append("| 조건 | 짝 수 | Cond-0 바닥 | 조건 | **바닥 대비** | MDD | 판정 |\n|---|---|---|---|---|---|---|")
+        for c, rec in RS["conditions"].items():
+            m = rec["modes"]["constrained"]; fl, cd = m["floor_baseline"], m["condition"]
+            det = abs(m["above_floor"]) > cd["mdd_points"]
+            L.append(f"| `{c}` | {cd['n_pairs']} | {100*fl['diff']:+.1f}pp | {100*cd['diff']:+.1f}pp | "
+                     f"**{100*m['above_floor']:+.1f}pp** | ±{100*cd['mdd_points']:.1f}pp | "
+                     f"{'**검출됨**' if det else '검출되지 않음'} |")
+        L.append("\n재구축 후에도 **암기는 검출되지 않는다.** 이제는 탐침의 68%(Cond-1)와 60%(Cond-2)가 실제로 학습된 항목이므로, "
+                 "이 귀무 결과는 P5의 것보다 훨씬 많은 것을 말한다. 다만 MDD가 여전히 ±10퍼센트포인트 수준이므로 "
+                 "**그보다 작은 암기는 이 탐침으로 볼 수 없다.** 검출되지 않은 것과 없는 것은 다르다.\n")
     L.append("## 읽는 법\n")
     L.append("- **Cond-0 행이 바닥이다.** 기준선은 학습 세트를 본 적이 없으므로 거기서 탐침이 앞선다면 그것은 항목 난이도(근사 복사본이 "
              "많은 항목은 정형화된 항목이다)이지 암기가 아니다.")
@@ -338,12 +367,145 @@ def render(runs) -> Path:
     return out
 
 
+# ============================================================ P5.1 rebuild
+# The P5 probe was built from the 334 items P3.2 removed as near-duplicates of
+# the FULL 359k training corpus. P5 trained on a 60k subsample, so for most of
+# those items the model never saw the near-copy and the comparison measured
+# nothing about memorization -- only 58 of 334 had their recorded partner in
+# Cond-1's data.
+#
+# This rebuild asks the question the experiment can actually answer: for each
+# probe item, is there ANY text in THIS CONDITION's training data within P2's
+# near-duplicate threshold? The recorded partner was the nearest neighbour in
+# the whole corpus; an item can have a different near-copy inside the subsample.
+# Matching uses P2's MinHash through datasets/contamination.py -- the same code
+# path and the same 0.75 threshold that produced the removal record.
+#
+# Cond-2's training set is a subset of Cond-1's, so the two conditions get
+# DIFFERENT probe sets. They are reported separately and never pooled.
+
+COND_FILES = {
+    "cond1": ["cve_to_cwe/train_subsample.jsonl", "cvss_vector/train_subsample.jsonl",
+              "structured_extract/train_subsample.jsonl"],
+    "cond2": ["cve_to_cwe/train_cond2_domain.jsonl", "cvss_vector/train_cond2_domain.jsonl",
+              "structured_extract/train_cond2_domain.jsonl", "replay/train_cond2.jsonl"],
+}
+
+
+def rebuild(conditions) -> dict:
+    """Recompute near-duplicate membership against each condition's own training
+    set. No generation: the probe items were already generated for every run."""
+    from datasets import contamination as p3contam
+    probe = {p["example_id"]: p for p in iter_jsonl(PROBE_DIR / "probe_items.jsonl")}
+    out = {"threshold": p3contam.NEAR_THRESHOLD,
+           "threshold_source": "P2 calibration, via datasets/contamination.py (unchanged)",
+           "minhash": {"seed": p3contam.p2near.SEED, "num_perm": p3contam.p2near.NUM_PERM,
+                       "shingle_size": p3contam.p2near.SHINGLE_SIZE},
+           "note": ("membership recomputed against each condition's actual training texts; the P5 probe used "
+                    "the removal record's single nearest neighbour in the full corpus, which undercounts"),
+           "conditions": {}}
+    for cond in conditions:
+        texts = []
+        for f in COND_FILES[cond]:
+            fp = OUT / f
+            if not fp.exists():
+                continue
+            for e in iter_jsonl(fp):
+                texts.append((f"{e['task']}:{e['entity_id']}:in", e["input"]))
+                if e.get("target_json"):
+                    texts.append((f"{e['task']}:{e['entity_id']}:tg", e["target_json"]))
+        print(f"  {cond}: indexing {len(texts):,} training texts", flush=True)
+        idx = p3contam.NearIndex(texts)
+        members, jac = {}, []
+        for pid, p in sorted(probe.items()):
+            nn = idx.nearest(p["input"])
+            if nn["jaccard"] >= p3contam.NEAR_THRESHOLD:
+                members[pid] = {"jaccard": nn["jaccard"], "partner": nn["key"]}
+                jac.append(nn["jaccard"])
+        js = sorted(jac)
+        out["conditions"][cond] = {
+            "training_texts_indexed": len(texts), "hashed": idx.size,
+            "n_probe_items": len(members),
+            "n_probe_items_p5_recorded_partner": sum(1 for p in probe.values() if p.get(f"partner_in_{cond}")),
+            "jaccard": {"min": js[0], "median": js[len(js) // 2], "max": js[-1]} if js else None,
+            "by_task_split": dict(Counter(f"{probe[k]['task']}/{probe[k]['split']}" for k in members)),
+            "members": members,
+        }
+        print(f"  {cond}: {len(members)} of {len(probe)} probe items have a near-duplicate in its training data "
+              f"(P5 counted {out['conditions'][cond]['n_probe_items_p5_recorded_partner']} by the recorded partner)",
+              flush=True)
+    write_json(PROBE_DIR / "rebuilt_sets.json", out)
+    return out
+
+
+def score_rebuilt(conditions, baseline="baseline") -> dict:
+    """Score each condition on ITS OWN probe set, with the Cond-0 floor computed
+    over the same items so the subtraction is like-for-like."""
+    R = json.loads((PROBE_DIR / "rebuilt_sets.json").read_text())
+    ctl = json.loads((PROBE_DIR / "controls.json").read_text())["controls"]
+    probe = {p["example_id"]: p for p in iter_jsonl(PROBE_DIR / "probe_items.jsonl")}
+    evals = {}
+    for t in TASKS:
+        for sp in EVAL_SPLITS:
+            for e in iter_jsonl(OUT / t / f"{sp}.jsonl"):
+                evals[e["example_id"]] = e
+    validators = schema_scorer.load_validators(SCHEMAS, TASKS)
+    outs = {r: _outputs_by_key(RUNS / f"{r}_probe" / "outputs.jsonl") for r in [baseline] + list(conditions)}
+    evo = {r: _outputs_by_key(RUNS / r / "outputs.jsonl") for r in [baseline] + list(conditions)}
+
+    def correct(task, text, target):
+        s = schema_scorer.score_one(text, validators[task][1])
+        return bool(s["schema_valid"] and _primary_flag(task, s["value"], target))
+
+    res = {"threshold": R["threshold"], "conditions": {}}
+    for cond in conditions:
+        ids = [k for k in R["conditions"][cond]["members"] if k in ctl]
+        rec = {"n_probe_in_training": R["conditions"][cond]["n_probe_items"],
+               "n_with_matched_control": len(ids),
+               "n_unmatched": R["conditions"][cond]["n_probe_items"] - len(ids),
+               "modes": {}}
+        for mode in ("constrained", "free"):
+            pairs = {}
+            for run in (baseline, cond):
+                pv = []
+                for pid in ids:
+                    p = probe[pid]; c = ctl[pid]
+                    pr = outs[run].get((p["task"], mode, pid))
+                    cr = evo[run].get((p["task"], mode, c["control_id"]))
+                    if pr is None or cr is None:
+                        continue
+                    pv.append((correct(p["task"], pr["output_text"], p["target"]),
+                               correct(p["task"], cr["output_text"], evals[c["control_id"]]["target"])))
+                pairs[run] = paired_boot(pv)
+            fl, cd = pairs[baseline], pairs[cond]
+            rec["modes"][mode] = {
+                "floor_baseline": fl, "condition": cd,
+                "above_floor": (cd["diff"] - fl["diff"]) if cd.get("n_pairs") and fl.get("n_pairs") else None,
+                "floor_note": ("the floor is Cond-0 measured on THESE items, not on the P5 pooled set, so the "
+                               "subtraction is like-for-like"),
+            }
+        res["conditions"][cond] = rec
+    write_json(PROBE_DIR / "rebuilt_scores.json", res)
+    return res
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--build", action="store_true")
     ap.add_argument("--runs", default="", help="comma separated, baseline first")
     ap.add_argument("--render", action="store_true")
+    ap.add_argument("--rebuild", action="store_true", help="P5.1: recompute probe membership per condition")
+    ap.add_argument("--against", default="cond1,cond2")
     a = ap.parse_args()
+    if a.rebuild:
+        conds = [c for c in a.against.split(",") if c]
+        rebuild(conds)
+        r = score_rebuilt(conds)
+        for c, rec in r["conditions"].items():
+            m = rec["modes"]["constrained"]
+            print(f"{c}: probe-in-training {rec['n_probe_in_training']}, matched {rec['n_with_matched_control']} | "
+                  f"floor {100*m['floor_baseline']['diff']:+.1f}pp  cond {100*m['condition']['diff']:+.1f}pp  "
+                  f"above floor {100*m['above_floor']:+.1f}pp (MDD ±{100*m['condition']['mdd_points']:.1f}pp)")
     if a.build:
         r = build(); print(json.dumps({k: v for k, v in r.items() if k != "controls"}, indent=1, ensure_ascii=False))
     if a.runs:
