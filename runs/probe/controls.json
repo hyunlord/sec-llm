@@ -1227,7 +1227,7 @@
   "n_probe_items": 334,
   "n_removed_in_record": 334,
   "not_reconstructible": [],
-  "probe_items_sha256": "2e173714484ef9fc845822b85039c4c3233360e79161a71e5f12833f92b84053",
+  "probe_items_sha256": "3d9a0b927ad6aa96d95d439463411cbb415a2ca1e972601fcca3a2e530c77915",
   "probe_jaccard": {
     "max": 1.0,
     "median": 0.7812,
@@ -1236,6 +1236,17 @@
   "reconstruction_self_test": {
     "mismatches": 0,
     "surviving_items_checked": 22969
+  },
+  "train_partner_note": "the probe item's nearest training text, from the P3.2 removal record, mapped back to the example that contains it. A condition that did not train on that example cannot have memorized it, so the scorer splits on this.",
+  "train_partner_present": {
+    "cond1": {
+      "no": 276,
+      "yes": 58
+    },
+    "cond2": {
+      "no": 289,
+      "yes": 45
+    }
   },
   "unmatched": 32,
   "unmatched_ids": [

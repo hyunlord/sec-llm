@@ -128,6 +128,29 @@ def build() -> dict:
             unmatched.append(p["example_id"]); continue
         d, eid = min(cands)
         used.add(eid); controls[p["example_id"]] = {"control_id": eid, "length_distance": d}; dist.append(d)
+    # --- is the probe item's near-duplicate TRAINING partner actually in each
+    # condition's training data? Cond-2 trained on 80% of Cond-1's domain
+    # examples, so for some probe items Cond-2 never saw the near-copy and
+    # cannot have memorized it. Recorded per item; the scorer reports the
+    # probe result split on this, which is the sharpest form of the measurement.
+    cond_files = {"cond1": "train_subsample.jsonl", "cond2": "train_cond2_domain.jsonl"}
+    in_cond = {}
+    for cond, fn in cond_files.items():
+        ids = set()
+        for t in TASKS:
+            fp = OUT / t / fn
+            if fp.exists():
+                ids.update(e["example_id"] for e in iter_jsonl(fp))
+        in_cond[cond] = ids
+    partner_stats = {c: Counter() for c in cond_files}
+    for pr in probe:
+        key = pr["near_match"]["key"] or ""
+        partner = key.rsplit(":", 1)[0] if key else None      # "task:entity" from "task:entity:in"
+        pr["train_partner"] = partner
+        for cond in cond_files:
+            present = bool(partner and partner in in_cond[cond])
+            pr[f"partner_in_{cond}"] = present
+            partner_stats[cond][present] += 1
     PROBE_DIR.mkdir(parents=True, exist_ok=True)
     n, sha = write_jsonl(PROBE_DIR / "probe_items.jsonl", sorted(probe, key=lambda x: x["example_id"]))
     jac = sorted(p["near_match"]["jaccard"] for p in probe)
@@ -138,6 +161,10 @@ def build() -> dict:
         "by_task_split": dict(Counter(f"{p['task']}/{p['split']}" for p in probe)),
         "probe_jaccard": {"min": jac[0], "median": jac[len(jac) // 2], "max": jac[-1]},
         "matched": len(controls), "unmatched": len(unmatched), "unmatched_ids": unmatched,
+        "train_partner_present": {c: {"yes": v[True], "no": v[False]} for c, v in partner_stats.items()},
+        "train_partner_note": ("the probe item's nearest training text, from the P3.2 removal record, mapped back to "
+                               "the example that contains it. A condition that did not train on that example cannot "
+                               "have memorized it, so the scorer splits on this."),
         "matching": "same task, same split, same true label (cwe_id / vectorString / vendor), nearest n_grams; "
                     "greedy in example_id order, each control used once",
         "length_distance": {"median": (sorted(dist)[len(dist) // 2] if dist else None),
@@ -162,9 +189,15 @@ def paired_boot(pairs, seed=SEED):
     rng = np.random.default_rng(seed)
     idx = rng.integers(0, len(a), size=(N_BOOT, len(a)))
     d = (a[idx, 0] - a[idx, 1]).mean(axis=1)
+    se = float(d.std(ddof=1))
     return {"n_pairs": int(len(a)), "probe_acc": float(a[:, 0].mean()), "control_acc": float(a[:, 1].mean()),
             "diff": float(a[:, 0].mean() - a[:, 1].mean()),
             "diff_ci95": [float(np.percentile(d, 2.5)), float(np.percentile(d, 97.5))],
+            "diff_se": se,
+            # Smallest difference this probe could detect at its own observed
+            # variance: alpha 0.05 two-sided, power 0.80. Recorded so "not
+            # detected" can be told apart from "too small a probe to see it".
+            "mdd_points": float((1.959963985 + 0.8416212336) * se),
             "probe_only_correct": int(((a[:, 0] == 1) & (a[:, 1] == 0)).sum()),
             "control_only_correct": int(((a[:, 0] == 0) & (a[:, 1] == 1)).sum())}
 
@@ -193,6 +226,7 @@ def score(runs) -> dict:
         for mode in ("constrained", "free"):
             per_task, pooled = {}, []
             sv_probe, sv_ctl = [], []
+            by_partner = {True: [], False: []}
             for pid, c in ctl.items():
                 p = probe[pid]; t = p["task"]
                 pr = po.get((t, mode, pid)); cr = eo.get((t, mode, c["control_id"]))
@@ -201,11 +235,19 @@ def score(runs) -> dict:
                 pc, ps = correct(t, pr["output_text"], p["target"])
                 cc, cs = correct(t, cr["output_text"], evals[c["control_id"]]["target"])
                 per_task.setdefault(t, []).append((pc, cc)); pooled.append((pc, cc))
+                if run in ("cond1", "cond2"):
+                    by_partner[bool(p.get(f"partner_in_{run}"))].append((pc, cc))
                 sv_probe.append(ps); sv_ctl.append(cs)
             rec[mode] = {"pooled": paired_boot(pooled),
                          "by_task": {t: paired_boot(v) for t, v in sorted(per_task.items())},
                          "schema_valid": {"probe": float(np.mean(sv_probe)) if sv_probe else None,
                                           "control": float(np.mean(sv_ctl)) if sv_ctl else None}}
+            if run in ("cond1", "cond2"):
+                rec[mode]["by_partner_trained"] = {
+                    "trained": paired_boot(by_partner[True]), "not_trained": paired_boot(by_partner[False]),
+                    "means": ("'trained' = this condition's training data contains the example the probe item is a "
+                              "near-copy of; 'not_trained' = it does not, so memorization is impossible there and "
+                              "that row is a within-condition control")}
         out["runs"][run] = rec
     # memorization = probe advantage above the Cond-0 floor
     base = out["runs"].get(runs[0], {})
@@ -242,12 +284,13 @@ def render(runs) -> Path:
          f"주 판독은 **{s['primary_decoding']}**: {s['why_primary']}\n"]
     for mode in ("constrained", "free"):
         L.append(f"### {mode}\n")
-        L.append("| 조건 | 짝 수 | 탐침 정확도 | 대조 정확도 | **차이** | 95% 구간 | 탐침만 정답 / 대조만 정답 | Cond-0 바닥 대비 |\n|---|---|---|---|---|---|---|---|")
+        L.append("| 조건 | 짝 수 | 탐침 정확도 | 대조 정확도 | **차이** | 95% 구간 | MDD | 탐침만 정답 / 대조만 정답 | Cond-0 바닥 대비 |\n|---|---|---|---|---|---|---|---|---|")
         for run in runs:
             r = s["runs"][run][mode]; p = r["pooled"]
             above = r.get("above_cond0_floor", {}).get("diff_minus_baseline_diff")
             L.append(f"| `{run}` | {p['n_pairs']} | {pc(p['probe_acc'])} | {pc(p['control_acc'])} | **{100*p['diff']:+.1f}pp** | "
-                     f"[{100*p['diff_ci95'][0]:+.1f}, {100*p['diff_ci95'][1]:+.1f}] | {p['probe_only_correct']} / {p['control_only_correct']} | "
+                     f"[{100*p['diff_ci95'][0]:+.1f}, {100*p['diff_ci95'][1]:+.1f}] | ±{100*p['mdd_points']:.1f}pp | "
+                     f"{p['probe_only_correct']} / {p['control_only_correct']} | "
                      f"{('%+.1fpp' % (100*above)) if above is not None else '(바닥)'} |")
         L.append("\n과제별:\n\n| 조건 | 과제 | 짝 수 | 탐침 | 대조 | 차이 | 95% 구간 |\n|---|---|---|---|---|---|---|")
         for run in runs:
@@ -255,14 +298,41 @@ def render(runs) -> Path:
                 L.append(f"| `{run}` | `{t}` | {p['n_pairs']} | {pc(p['probe_acc'])} | {pc(p['control_acc'])} | "
                          f"{100*p['diff']:+.1f}pp | [{100*p['diff_ci95'][0]:+.1f}, {100*p['diff_ci95'][1]:+.1f}] |")
         L.append("")
+    tr_any = any("by_partner_trained" in s["runs"].get(r, {}).get("constrained", {}) for r in runs)
+    if tr_any:
+        L.append("## 학습 파트너가 실제로 그 조건의 데이터에 있었나 — 가장 날카로운 형태\n")
+        L.append(f"탐침 항목은 **학습 입력의 근사 복사본**이다. 그런데 Cond-2는 Cond-1 도메인 데이터의 80%만 봤으므로, "
+                 f"어떤 탐침 항목의 짝이 되는 학습 예제를 Cond-2는 아예 보지 못했을 수 있다. 보지 못한 항목은 "
+                 "**암기가 불가능**하므로 조건 내부의 대조군이 된다. 파트너 보유 현황: "
+                 + ", ".join(f"`{c}` 있음 {v['yes']} / 없음 {v['no']}" for c, v in b["train_partner_present"].items()) + ".\n")
+        L.append("| 조건 | 파트너 학습됨 (짝 수) | 차이 | 95% 구간 | 파트너 미학습 (짝 수) | 차이 | 95% 구간 |\n|---|---|---|---|---|---|---|")
+        for run in runs:
+            bt = s["runs"].get(run, {}).get("constrained", {}).get("by_partner_trained")
+            if not bt:
+                continue
+            t_, f_ = bt["trained"], bt["not_trained"]
+            def cell(x):
+                return (f"{x['n_pairs']} | {100*x['diff']:+.1f}pp | [{100*x['diff_ci95'][0]:+.1f}, {100*x['diff_ci95'][1]:+.1f}] "
+                        f"(MDD ±{100*x['mdd_points']:.1f}pp)" if x.get("n_pairs") else "0 | — | —")
+            L.append(f"| `{run}` | {cell(t_)} | {cell(f_)} |")
+        L.append("\n두 열의 차이가 암기의 가장 직접적인 증거다. 학습된 파트너 쪽만 올라가면 그것은 암기이고, "
+                 "두 열이 같이 올라가면 그것은 항목 난이도나 과제 전반의 향상이다.\n")
+        L.append("**이 분할의 한계를 분명히 적는다.** 탐침 334건은 P3.2가 **전체 학습 코퍼스**(35.9만 건) 기준으로 "
+                 "근접 중복 판정을 받은 항목이다. 그런데 P5는 그 중 6만 건 서브샘플로만 학습했다. 그래서 파트너가 실제로 "
+                 f"학습된 항목은 `cond1` {b['train_partner_present']['cond1']['yes']}건, "
+                 f"`cond2` {b['train_partner_present']['cond2']['yes']}건뿐이고, 짝짓기를 거치면 더 줄어든다. "
+                 "위 표의 '학습됨' 열은 **검정력이 낮다** — MDD 값이 그것을 말해 준다. 큰 암기는 보이지만 작은 암기는 보이지 않는다. "
+                 "전체 학습 세트로 학습하는 실험에서는 이 열의 n이 334에 가까워지고 검정력도 올라간다.\n")
     L.append("## 읽는 법\n")
     L.append("- **Cond-0 행이 바닥이다.** 기준선은 학습 세트를 본 적이 없으므로 거기서 탐침이 앞선다면 그것은 항목 난이도(근사 복사본이 "
              "많은 항목은 정형화된 항목이다)이지 암기가 아니다.")
     L.append("- 암기 신호는 **조건의 차이에서 Cond-0의 차이를 뺀 값**이다. 그 값의 구간이 0을 포함하면 이 탐침 크기에서 암기는 검출되지 않은 것이다 — "
              "'약간 있다'가 아니라 '검출되지 않음'이다.")
     L.append("- 이 측정이 계층 기반 추론을 **대체**한다. 계층 표는 결과 보고서에 남지만 더 이상 암기 주장의 근거가 아니다.")
-    L.append(f"- 탐침은 {b['n_probe_items']}건이고 짝지은 것은 {b['matched']}건이다. 검출 가능한 최소 차이는 결과 보고서의 MDD 표를 참조하라; "
-             "이 크기에서 수 퍼센트포인트 이하의 차이는 보이지 않는다.\n")
+    mdd = s["runs"][runs[0]]["constrained"]["pooled"]["mdd_points"]
+    L.append(f"- 탐침 {b['n_probe_items']}건 중 {b['matched']}건이 짝지어졌다. 이 크기에서 **검출 가능한 최소 차이는 약 ±{100*mdd:.1f}퍼센트포인트**다 "
+             "(관측된 짝 분산에서 계산, 유의수준 0.05·검정력 0.80). 그보다 작은 암기는 이 탐침으로 보이지 않으며, "
+             "보이지 않는 것과 없는 것은 다르다.\n")
     out = REPORTS / "memorization.md"
     out.write_text("\n".join(L) + "\n", encoding="utf-8")
     return out
