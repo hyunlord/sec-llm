@@ -1,0 +1,66 @@
+{
+  "_comment": [
+    "Citations and external identifiers that the published documents refer to.",
+    "This file exists so that a number appearing in a document -- an upstream",
+    "issue number, a spec version -- has a committed source like every other",
+    "number. Nothing here is a measurement; measurements live in manifests and",
+    "run outputs. Each entry records where it was read and when."
+  ],
+  "repo_url": "https://github.com/hyunlord/sec-llm",
+  "vllm_issues": {
+    "gdn_batch_invariant": {
+      "number": 42960,
+      "url": "https://github.com/vllm-project/vllm/issues/42960",
+      "title": "Batch invariance not supported for GDN_ATTN",
+      "why_it_matters": "vLLM raises RuntimeError when VLLM_BATCH_INVARIANT=1 is set on a Gated DeltaNet attention model, so byte-reproducible greedy decoding is unavailable on Qwen3.5 / Qwen3.6 class architectures",
+      "read_on": "2026-09-20"
+    },
+    "fused_moe_batch_invariant": {
+      "number": 57016,
+      "url": "https://github.com/vllm-project/vllm/issues/57016",
+      "title": "Batch invariance not supported for fused MoE",
+      "why_it_matters": "the same flag is refused for fused mixture-of-experts kernels, which rules out the MoE variants of several current candidates",
+      "read_on": "2026-09-20"
+    }
+  },
+  "spdx": {
+    "spec_version": "SPDX-2.3",
+    "data_license": "CC0-1.0",
+    "url": "https://spdx.github.io/spdx-spec/v2.3/"
+  },
+  "model": {
+    "repo": "Qwen/Qwen2.5-7B-Instruct",
+    "url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct",
+    "released": "2024-09",
+    "note": "release date of the Qwen2.5 instruct series as published on the model card; the training data cutoff is not documented by the publisher"
+  },
+  "candidates_doc": "docs/model-candidates.md",
+  "rules_doc": "docs/engineering-rules.md",
+  "p2_1": {
+    "status": "not_delivered",
+    "decision": "publish_as_is",
+    "decided_on": "2026-09-20",
+    "reason": "P2.1 recalibration was requested and has not run. The dataset specification states the threshold and the defect in its evidence plainly rather than waiting."
+  },
+  "seed2": {
+    "seed": 5678,
+    "status": "in_training",
+    "as_of": "2026-09-20",
+    "note": "second-seed replication of Cond-1 and Cond-2 was launched on the DGX and had not finished when these documents were built; the findings state the single-seed limitation in the finding itself"
+  },
+  "engineering_rules": {
+    "_comment": "rule numbers as they appear in docs/engineering-rules.md; cited by the generated documents so the citation itself is traceable",
+    "report_renders_the_record": 1,
+    "guards_are_measured_not_configured": 2,
+    "no_source_compilation_on_the_training_host": 3,
+    "machine_field_claims_no_more_than_its_evidence": 4,
+    "no_unevidenced_threshold_deletes_data": 5,
+    "the_test_must_match_the_design": 6
+  },
+  "gates": {
+    "_comment": "gate numbers as used across the phase reports; cited by the generated documents",
+    "environment_and_determinism": 0,
+    "ingestion": 1,
+    "evaluation_determinism": 4
+  }
+}

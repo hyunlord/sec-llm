@@ -8,7 +8,7 @@ PYTHON ?= .venv/bin/python
 CHECKS := scripts/env_check
 
 .DEFAULT_GOAL := help
-.PHONY: help env-check report lock pack clean-artifacts pin ingest ingest-offline ingest-verify sources-doc ingest-report process calibrate process-report datasets contamination datasets-docs  eval-gate4 eval-run eval-score eval-report eval-selftest
+.PHONY: help env-check report lock pack clean-artifacts pin ingest ingest-offline ingest-verify sources-doc ingest-report process calibrate process-report datasets contamination datasets-docs  eval-gate4 eval-run eval-score eval-report eval-selftest docs docs-verify all
 
 help:
 	@echo "targets:"
@@ -31,6 +31,10 @@ help:
 	@echo "  datasets      P3: extract, build tasks+splits+replay, contamination, lengths, manifest, docs"
 	@echo "  contamination ARGS=--render renders the recorded removal; ARGS=--assert-zero is a labelled RE-CHECK"
 	@echo "  datasets-docs regenerate the P3 Korean docs and reports from the manifest"
+	@echo ""
+	@echo "  docs          P7: regenerate README, the five docs/ artifacts and sbom.spdx.json"
+	@echo "  docs-verify   build the documents twice and prove they are byte-identical"
+	@echo "  all           pin -> ingest -> process -> datasets -> docs (no GPU stage)"
 
 # Rule 1 is enforced by the environment, not by intent. PIP_ONLY_BINARY makes
 # pip refuse a source distribution at resolution time rather than starting a
@@ -198,3 +202,34 @@ train-verify:
 
 train:
 	$(EVAL_SCOPE) env $(TRAIN_ENV) $(EVAL_PY) -m train.run --config train/config/$(COND).yaml $(ARGS)
+
+# --------------------------------------------- P7: publication artifacts
+#
+# Every published number is read from a manifest at build time and registered
+# with the path it came from; trace_check re-resolves each one independently
+# and fails the build on a figure it cannot find a source for. Nothing here
+# reads the clock, which is what makes a second run byte-identical.
+docs:
+	$(INGEST_PY) -m docs.build
+	$(INGEST_PY) -m docs.trace_check --assert-all
+
+# Build, hash, rebuild, hash, diff. The same shape as ingest-verify, for the
+# same reason: "it regenerates" and "it regenerates identically" are different
+# claims and only the second one is worth publishing.
+docs-verify:
+	@$(MAKE) --no-print-directory docs > /dev/null
+	@shasum -a 256 README.md docs/*.md sbom.spdx.json > /tmp/sec-llm-docs1.txt
+	@$(MAKE) --no-print-directory docs > /dev/null
+	@shasum -a 256 README.md docs/*.md sbom.spdx.json > /tmp/sec-llm-docs2.txt
+	@if diff -u /tmp/sec-llm-docs1.txt /tmp/sec-llm-docs2.txt; then \
+	  echo "DOCS REPRODUCIBLE"; \
+	else \
+	  echo "ERROR: generated documents changed across runs"; exit 1; \
+	fi
+
+# Everything that does not need a GPU, in dependency order. Training and
+# evaluation are deliberately absent: they run on the DGX and their targets
+# are eval-* and train. docs/REPRODUCE.md says what that costs.
+all: pin ingest process datasets docs
+	@echo "all: pins, manifests, datasets and published documents are up to date"
+	@echo "     GPU stages (train, eval-run, eval-gate4) are not part of this target"
