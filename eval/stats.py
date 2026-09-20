@@ -1027,7 +1027,7 @@ def render_results(runs) -> Path:
             if pk == main_pair:
                 continue
             L.append(f"| `{g}` | {pk} | {_vmark(pr['verdict'])} | {pr['mcnemar']['p_value']:.3g} | {100*(pr['a']['rate']-pr['b']['rate']):+.1f}pp |")
-    tension = [(g, rec["pairs"][main_pair]) for g, rec in gen.items()
+    tension = [(g, rec["pairs"][main_pair]) for g, rec in C["general"].items()
                if rec["pairs"][main_pair]["verdict"] == "no difference detected"
                and (rec["pairs"][main_pair].get("mcnemar_p") or 1) < 0.05]
     if tension:

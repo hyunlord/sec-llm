@@ -1,0 +1,537 @@
+{
+  "controls_file": "runs/probe/controls.json",
+  "primary_decoding": "constrained",
+  "runs": {
+    "baseline": {
+      "constrained": {
+        "by_task": {
+          "cve_to_cwe": {
+            "control_acc": 0.6846846846846847,
+            "control_only_correct": 5,
+            "diff": 0.036036036036036,
+            "diff_ci95": [
+              -0.02702702702702703,
+              0.0990990990990991
+            ],
+            "diff_se": 0.032779858539884306,
+            "mdd_points": 0.09183556715313884,
+            "n_pairs": 111,
+            "probe_acc": 0.7207207207207207,
+            "probe_only_correct": 9
+          },
+          "cvss_vector": {
+            "control_acc": 0.13675213675213677,
+            "control_only_correct": 5,
+            "diff": 0.0769230769230769,
+            "diff_ci95": [
+              0.0,
+              0.1452991452991453
+            ],
+            "diff_se": 0.03689953904466741,
+            "mdd_points": 0.10337720316069376,
+            "n_pairs": 117,
+            "probe_acc": 0.21367521367521367,
+            "probe_only_correct": 14
+          },
+          "structured_extract": {
+            "control_acc": 0.02702702702702703,
+            "control_only_correct": 1,
+            "diff": 0.04054054054054054,
+            "diff_ci95": [
+              -0.013513513513513514,
+              0.10810810810810811
+            ],
+            "diff_se": 0.030303612367324605,
+            "mdd_points": 0.08489815247848076,
+            "n_pairs": 74,
+            "probe_acc": 0.06756756756756757,
+            "probe_only_correct": 4
+          }
+        },
+        "pooled": {
+          "control_acc": 0.31125827814569534,
+          "control_only_correct": 11,
+          "diff": 0.05298013245033112,
+          "diff_ci95": [
+            0.013245033112582781,
+            0.09271523178807947
+          ],
+          "diff_se": 0.01973101704130686,
+          "mdd_points": 0.05527812569087,
+          "n_pairs": 302,
+          "probe_acc": 0.36423841059602646,
+          "probe_only_correct": 27
+        },
+        "schema_valid": {
+          "control": 0.9966887417218543,
+          "probe": 1.0
+        }
+      },
+      "free": {
+        "by_task": {
+          "cve_to_cwe": {
+            "control_acc": 0.5945945945945946,
+            "control_only_correct": 8,
+            "diff": 0.018018018018017945,
+            "diff_ci95": [
+              -0.05405405405405406,
+              0.0990990990990991
+            ],
+            "diff_se": 0.03740893914959549,
+            "mdd_points": 0.10480433096501357,
+            "n_pairs": 111,
+            "probe_acc": 0.6126126126126126,
+            "probe_only_correct": 10
+          },
+          "cvss_vector": {
+            "control_acc": 0.0,
+            "control_only_correct": 0,
+            "diff": 0.0,
+            "diff_ci95": [
+              0.0,
+              0.0
+            ],
+            "diff_se": 0.0,
+            "mdd_points": 0.0,
+            "n_pairs": 117,
+            "probe_acc": 0.0,
+            "probe_only_correct": 0
+          },
+          "structured_extract": {
+            "control_acc": 0.02702702702702703,
+            "control_only_correct": 1,
+            "diff": 0.04054054054054054,
+            "diff_ci95": [
+              -0.013513513513513514,
+              0.10810810810810811
+            ],
+            "diff_se": 0.030303612367324605,
+            "mdd_points": 0.08489815247848076,
+            "n_pairs": 74,
+            "probe_acc": 0.06756756756756757,
+            "probe_only_correct": 4
+          }
+        },
+        "pooled": {
+          "control_acc": 0.2251655629139073,
+          "control_only_correct": 9,
+          "diff": 0.016556291390728478,
+          "diff_ci95": [
+            -0.016556291390728478,
+            0.046357615894039736
+          ],
+          "diff_se": 0.015846345705480127,
+          "mdd_points": 0.04439488789729871,
+          "n_pairs": 302,
+          "probe_acc": 0.24172185430463577,
+          "probe_only_correct": 14
+        },
+        "schema_valid": {
+          "control": 0.5264900662251656,
+          "probe": 0.5
+        }
+      }
+    },
+    "cond1": {
+      "constrained": {
+        "above_cond0_floor": {
+          "diff_minus_baseline_diff": 0.016556291390728506,
+          "note": "positive means this condition's probe advantage exceeds the base model's, which is the memorization signal"
+        },
+        "by_partner_trained": {
+          "means": "'trained' = this condition's training data contains the example the probe item is a near-copy of; 'not_trained' = it does not, so memorization is impossible there and that row is a within-condition control",
+          "not_trained": {
+            "control_acc": 0.5524193548387096,
+            "control_only_correct": 22,
+            "diff": 0.06048387096774199,
+            "diff_ci95": [
+              -0.004032258064516129,
+              0.11693548387096774
+            ],
+            "diff_se": 0.03111850641606111,
+            "mdd_points": 0.08718114760014606,
+            "n_pairs": 248,
+            "probe_acc": 0.6129032258064516,
+            "probe_only_correct": 37
+          },
+          "trained": {
+            "control_acc": 0.35185185185185186,
+            "control_only_correct": 6,
+            "diff": 0.1111111111111111,
+            "diff_ci95": [
+              -0.03749999999999997,
+              0.25925925925925924
+            ],
+            "diff_se": 0.080173299825556,
+            "mdd_points": 0.22461233171766362,
+            "n_pairs": 54,
+            "probe_acc": 0.46296296296296297,
+            "probe_only_correct": 12
+          }
+        },
+        "by_task": {
+          "cve_to_cwe": {
+            "control_acc": 0.7927927927927928,
+            "control_only_correct": 3,
+            "diff": 0.06306306306306309,
+            "diff_ci95": [
+              0.0,
+              0.12612612612612611
+            ],
+            "diff_se": 0.03159350177827598,
+            "mdd_points": 0.0885118875858308,
+            "n_pairs": 111,
+            "probe_acc": 0.8558558558558559,
+            "probe_only_correct": 10
+          },
+          "cvss_vector": {
+            "control_acc": 0.4017094017094017,
+            "control_only_correct": 12,
+            "diff": 0.1367521367521367,
+            "diff_ci95": [
+              0.03418803418803419,
+              0.24786324786324787
+            ],
+            "diff_se": 0.05364396478120384,
+            "mdd_points": 0.15028813879811964,
+            "n_pairs": 117,
+            "probe_acc": 0.5384615384615384,
+            "probe_only_correct": 28
+          },
+          "structured_extract": {
+            "control_acc": 0.28378378378378377,
+            "control_only_correct": 13,
+            "diff": -0.02702702702702703,
+            "diff_ci95": [
+              -0.16216216216216217,
+              0.09493243243243213
+            ],
+            "diff_se": 0.06644610948208032,
+            "mdd_points": 0.18615443815847352,
+            "n_pairs": 74,
+            "probe_acc": 0.25675675675675674,
+            "probe_only_correct": 11
+          }
+        },
+        "pooled": {
+          "control_acc": 0.5165562913907285,
+          "control_only_correct": 28,
+          "diff": 0.06953642384105962,
+          "diff_ci95": [
+            0.019784768211920534,
+            0.1291390728476821
+          ],
+          "diff_se": 0.028028887252017073,
+          "mdd_points": 0.07852531621905699,
+          "n_pairs": 302,
+          "probe_acc": 0.5860927152317881,
+          "probe_only_correct": 49
+        },
+        "schema_valid": {
+          "control": 0.9933774834437086,
+          "probe": 1.0
+        }
+      },
+      "free": {
+        "above_cond0_floor": {
+          "diff_minus_baseline_diff": 0.07947019867549662,
+          "note": "positive means this condition's probe advantage exceeds the base model's, which is the memorization signal"
+        },
+        "by_partner_trained": {
+          "means": "'trained' = this condition's training data contains the example the probe item is a near-copy of; 'not_trained' = it does not, so memorization is impossible there and that row is a within-condition control",
+          "not_trained": {
+            "control_acc": 0.5725806451612904,
+            "control_only_correct": 16,
+            "diff": 0.08467741935483863,
+            "diff_ci95": [
+              0.024193548387096774,
+              0.14516129032258066
+            ],
+            "diff_se": 0.030156156668981363,
+            "mdd_points": 0.084485042773604,
+            "n_pairs": 248,
+            "probe_acc": 0.657258064516129,
+            "probe_only_correct": 37
+          },
+          "trained": {
+            "control_acc": 0.46296296296296297,
+            "control_only_correct": 3,
+            "diff": 0.1481481481481482,
+            "diff_ci95": [
+              0.018518518518518517,
+              0.27824074074074034
+            ],
+            "diff_se": 0.06565615081842052,
+            "mdd_points": 0.18394130164305922,
+            "n_pairs": 54,
+            "probe_acc": 0.6111111111111112,
+            "probe_only_correct": 11
+          }
+        },
+        "by_task": {
+          "cve_to_cwe": {
+            "control_acc": 0.7927927927927928,
+            "control_only_correct": 3,
+            "diff": 0.06306306306306309,
+            "diff_ci95": [
+              0.0,
+              0.12612612612612611
+            ],
+            "diff_se": 0.03159350177827598,
+            "mdd_points": 0.0885118875858308,
+            "n_pairs": 111,
+            "probe_acc": 0.8558558558558559,
+            "probe_only_correct": 10
+          },
+          "cvss_vector": {
+            "control_acc": 0.5128205128205128,
+            "control_only_correct": 7,
+            "diff": 0.16239316239316248,
+            "diff_ci95": [
+              0.06837606837606838,
+              0.2564102564102564
+            ],
+            "diff_se": 0.045885310647221594,
+            "mdd_points": 0.1285516080601252,
+            "n_pairs": 117,
+            "probe_acc": 0.6752136752136753,
+            "probe_only_correct": 26
+          },
+          "structured_extract": {
+            "control_acc": 0.25675675675675674,
+            "control_only_correct": 9,
+            "diff": 0.04054054054054057,
+            "diff_ci95": [
+              -0.08108108108108109,
+              0.17567567567567569
+            ],
+            "diff_se": 0.06284481696683664,
+            "mdd_points": 0.17606511027991198,
+            "n_pairs": 74,
+            "probe_acc": 0.2972972972972973,
+            "probe_only_correct": 12
+          }
+        },
+        "pooled": {
+          "control_acc": 0.5529801324503312,
+          "control_only_correct": 19,
+          "diff": 0.0960264900662251,
+          "diff_ci95": [
+            0.04304635761589404,
+            0.14577814569536415
+          ],
+          "diff_se": 0.026797403740250494,
+          "mdd_points": 0.07507521021554213,
+          "n_pairs": 302,
+          "probe_acc": 0.6490066225165563,
+          "probe_only_correct": 48
+        },
+        "schema_valid": {
+          "control": 0.9834437086092715,
+          "probe": 0.9900662251655629
+        }
+      }
+    },
+    "cond2": {
+      "constrained": {
+        "above_cond0_floor": {
+          "diff_minus_baseline_diff": -0.02317880794701993,
+          "note": "positive means this condition's probe advantage exceeds the base model's, which is the memorization signal"
+        },
+        "by_partner_trained": {
+          "means": "'trained' = this condition's training data contains the example the probe item is a near-copy of; 'not_trained' = it does not, so memorization is impossible there and that row is a within-condition control",
+          "not_trained": {
+            "control_acc": 0.528957528957529,
+            "control_only_correct": 25,
+            "diff": 0.03474903474903468,
+            "diff_ci95": [
+              -0.02702702702702703,
+              0.09266409266409266
+            ],
+            "diff_se": 0.02964471180809347,
+            "mdd_points": 0.08305218641121154,
+            "n_pairs": 259,
+            "probe_acc": 0.5637065637065637,
+            "probe_only_correct": 34
+          },
+          "trained": {
+            "control_acc": 0.37209302325581395,
+            "control_only_correct": 5,
+            "diff": 0.0,
+            "diff_ci95": [
+              -0.13953488372093023,
+              0.13953488372093023
+            ],
+            "diff_se": 0.07257024589166683,
+            "mdd_points": 0.20331172820026114,
+            "n_pairs": 43,
+            "probe_acc": 0.37209302325581395,
+            "probe_only_correct": 5
+          }
+        },
+        "by_task": {
+          "cve_to_cwe": {
+            "control_acc": 0.7927927927927928,
+            "control_only_correct": 3,
+            "diff": 0.04504504504504503,
+            "diff_ci95": [
+              -0.018018018018018018,
+              0.0990990990990991
+            ],
+            "diff_se": 0.028887261379766212,
+            "mdd_points": 0.08093012448738765,
+            "n_pairs": 111,
+            "probe_acc": 0.8378378378378378,
+            "probe_only_correct": 8
+          },
+          "cvss_vector": {
+            "control_acc": 0.4188034188034188,
+            "control_only_correct": 21,
+            "diff": 0.025641025641025605,
+            "diff_ci95": [
+              -0.08547008547008547,
+              0.13675213675213677
+            ],
+            "diff_se": 0.05664418798010839,
+            "mdd_points": 0.15869351976467144,
+            "n_pairs": 117,
+            "probe_acc": 0.4444444444444444,
+            "probe_only_correct": 24
+          },
+          "structured_extract": {
+            "control_acc": 0.21621621621621623,
+            "control_only_correct": 6,
+            "diff": 0.013513513513513514,
+            "diff_ci95": [
+              -0.08108108108108109,
+              0.10810810810810811
+            ],
+            "diff_se": 0.050201565225918406,
+            "mdd_points": 0.14064396308751675,
+            "n_pairs": 74,
+            "probe_acc": 0.22972972972972974,
+            "probe_only_correct": 7
+          }
+        },
+        "pooled": {
+          "control_acc": 0.5066225165562914,
+          "control_only_correct": 30,
+          "diff": 0.02980132450331119,
+          "diff_ci95": [
+            -0.019867549668874173,
+            0.07947019867549669
+          ],
+          "diff_se": 0.026340571479878346,
+          "mdd_points": 0.0737953557075039,
+          "n_pairs": 302,
+          "probe_acc": 0.5364238410596026,
+          "probe_only_correct": 39
+        },
+        "schema_valid": {
+          "control": 0.9933774834437086,
+          "probe": 1.0
+        }
+      },
+      "free": {
+        "above_cond0_floor": {
+          "diff_minus_baseline_diff": 0.09271523178807947,
+          "note": "positive means this condition's probe advantage exceeds the base model's, which is the memorization signal"
+        },
+        "by_partner_trained": {
+          "means": "'trained' = this condition's training data contains the example the probe item is a near-copy of; 'not_trained' = it does not, so memorization is impossible there and that row is a within-condition control",
+          "not_trained": {
+            "control_acc": 0.5482625482625483,
+            "control_only_correct": 14,
+            "diff": 0.10038610038610041,
+            "diff_ci95": [
+              0.04247104247104247,
+              0.15057915057915058
+            ],
+            "diff_se": 0.027201541056028858,
+            "mdd_points": 0.07620743534571148,
+            "n_pairs": 259,
+            "probe_acc": 0.6486486486486487,
+            "probe_only_correct": 40
+          },
+          "trained": {
+            "control_acc": 0.3953488372093023,
+            "control_only_correct": 2,
+            "diff": 0.16279069767441862,
+            "diff_ci95": [
+              0.023255813953488372,
+              0.3023255813953488
+            ],
+            "diff_se": 0.07372648506111602,
+            "mdd_points": 0.20655103076655634,
+            "n_pairs": 43,
+            "probe_acc": 0.5581395348837209,
+            "probe_only_correct": 9
+          }
+        },
+        "by_task": {
+          "cve_to_cwe": {
+            "control_acc": 0.7927927927927928,
+            "control_only_correct": 3,
+            "diff": 0.04504504504504503,
+            "diff_ci95": [
+              -0.018018018018018018,
+              0.0990990990990991
+            ],
+            "diff_se": 0.028887261379766212,
+            "mdd_points": 0.08093012448738765,
+            "n_pairs": 111,
+            "probe_acc": 0.8378378378378378,
+            "probe_only_correct": 8
+          },
+          "cvss_vector": {
+            "control_acc": 0.47863247863247865,
+            "control_only_correct": 8,
+            "diff": 0.18803418803418798,
+            "diff_ci95": [
+              0.09401709401709402,
+              0.28205128205128205
+            ],
+            "diff_se": 0.049191523950198685,
+            "mdd_points": 0.1378142463792845,
+            "n_pairs": 117,
+            "probe_acc": 0.6666666666666666,
+            "probe_only_correct": 30
+          },
+          "structured_extract": {
+            "control_acc": 0.20270270270270271,
+            "control_only_correct": 5,
+            "diff": 0.08108108108108106,
+            "diff_ci95": [
+              -0.013513513513513514,
+              0.1891891891891892
+            ],
+            "diff_se": 0.05411783699994442,
+            "mdd_points": 0.15161573220164845,
+            "n_pairs": 74,
+            "probe_acc": 0.28378378378378377,
+            "probe_only_correct": 11
+          }
+        },
+        "pooled": {
+          "control_acc": 0.5264900662251656,
+          "control_only_correct": 16,
+          "diff": 0.10927152317880795,
+          "diff_ci95": [
+            0.056291390728476824,
+            0.15894039735099338
+          ],
+          "diff_se": 0.026170645563107185,
+          "mdd_points": 0.07331929377082075,
+          "n_pairs": 302,
+          "probe_acc": 0.6357615894039735,
+          "probe_only_correct": 49
+        },
+        "schema_valid": {
+          "control": 0.9933774834437086,
+          "probe": 0.9933774834437086
+        }
+      }
+    }
+  },
+  "why_primary": "free-mode schema validity on cvss_vector is near zero in every condition, so free-mode accuracy there measures formatting, not knowledge; both decodings are reported"
+}
