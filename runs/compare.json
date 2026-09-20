@@ -758,7 +758,7 @@
         "cond1 vs baseline": {
           "accuracy": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -789,7 +789,7 @@
               "paired_items": 3867
             },
             "mcnemar_p": 8.706197242391778e-207,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 1.2188676139348489e-205,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -932,7 +932,7 @@
           },
           "schema_valid": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -963,7 +963,7 @@
               "paired_items": 3867
             },
             "mcnemar_p": 3.6353364671367364e-233,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 4.362403760564084e-232,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -983,7 +983,7 @@
         "cond1 vs cond2": {
           "accuracy": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -1014,7 +1014,7 @@
               "paired_items": 3867
             },
             "mcnemar_p": 0.020240570577077486,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 0.04048114115415497,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -1157,7 +1157,7 @@
           },
           "schema_valid": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -1188,7 +1188,7 @@
               "paired_items": 3867
             },
             "mcnemar_p": 1.0,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 1.0,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -1208,7 +1208,7 @@
         "cond2 vs baseline": {
           "accuracy": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -1239,7 +1239,7 @@
               "paired_items": 3867
             },
             "mcnemar_p": 4.622905029087117e-202,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 5.54748603490454e-201,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -1382,7 +1382,7 @@
           },
           "schema_valid": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -1413,7 +1413,7 @@
               "paired_items": 3867
             },
             "mcnemar_p": 3.6353364671367364e-233,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 4.362403760564084e-232,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -2248,7 +2248,7 @@
         "cond1 vs baseline": {
           "accuracy": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -2279,7 +2279,7 @@
               "paired_items": 4014
             },
             "mcnemar_p": 2.691575097726538e-205,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 3.499047627044499e-204,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -2422,7 +2422,7 @@
           },
           "schema_valid": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -2453,7 +2453,7 @@
               "paired_items": 4014
             },
             "mcnemar_p": 8.118646241001565e-239,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 1.1366104737402192e-237,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -2473,7 +2473,7 @@
         "cond1 vs cond2": {
           "accuracy": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -2504,7 +2504,7 @@
               "paired_items": 4014
             },
             "mcnemar_p": 0.002356813318510857,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 0.007070439955532571,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -2647,7 +2647,7 @@
           },
           "schema_valid": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -2678,7 +2678,7 @@
               "paired_items": 4014
             },
             "mcnemar_p": 1.0,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 1.0,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -2698,7 +2698,7 @@
         "cond2 vs baseline": {
           "accuracy": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -2729,7 +2729,7 @@
               "paired_items": 4014
             },
             "mcnemar_p": 3.3416991089691704e-197,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 3.6758690198660874e-196,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -2872,7 +2872,7 @@
           },
           "schema_valid": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -2903,7 +2903,7 @@
               "paired_items": 4014
             },
             "mcnemar_p": 8.118646241001565e-239,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 1.1366104737402192e-237,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -3738,7 +3738,7 @@
         "cond1 vs baseline": {
           "accuracy": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -3769,7 +3769,7 @@
               "paired_items": 4549
             },
             "mcnemar_p": 0.0,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 0.0,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -3912,7 +3912,7 @@
           },
           "schema_valid": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -3943,7 +3943,7 @@
               "paired_items": 4549
             },
             "mcnemar_p": 0.0,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 0.0,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -3963,7 +3963,7 @@
         "cond1 vs cond2": {
           "accuracy": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -3994,7 +3994,7 @@
               "paired_items": 4549
             },
             "mcnemar_p": 0.09782793691299035,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 0.09782793691299035,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -4137,7 +4137,7 @@
           },
           "schema_valid": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -4168,7 +4168,7 @@
               "paired_items": 4549
             },
             "mcnemar_p": 1.0,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 1.0,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -4188,7 +4188,7 @@
         "cond2 vs baseline": {
           "accuracy": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -4219,7 +4219,7 @@
               "paired_items": 4549
             },
             "mcnemar_p": 0.0,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 0.0,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -4362,7 +4362,7 @@
           },
           "schema_valid": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -4393,7 +4393,7 @@
               "paired_items": 4549
             },
             "mcnemar_p": 0.0,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 0.0,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -5228,7 +5228,7 @@
         "cond1 vs baseline": {
           "accuracy": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -5259,7 +5259,7 @@
               "paired_items": 4904
             },
             "mcnemar_p": 0.0,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 0.0,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -5402,7 +5402,7 @@
           },
           "schema_valid": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -5433,7 +5433,7 @@
               "paired_items": 4904
             },
             "mcnemar_p": 0.0,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 0.0,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -5453,7 +5453,7 @@
         "cond1 vs cond2": {
           "accuracy": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -5484,7 +5484,7 @@
               "paired_items": 4904
             },
             "mcnemar_p": 0.0005972100843562163,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 0.002388840337424865,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -5627,7 +5627,7 @@
           },
           "schema_valid": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -5658,7 +5658,7 @@
               "paired_items": 4904
             },
             "mcnemar_p": 1.0,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 1.0,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -5678,7 +5678,7 @@
         "cond2 vs baseline": {
           "accuracy": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -5709,7 +5709,7 @@
               "paired_items": 4904
             },
             "mcnemar_p": 0.0,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 0.0,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -5852,7 +5852,7 @@
           },
           "schema_valid": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -5883,7 +5883,7 @@
               "paired_items": 4904
             },
             "mcnemar_p": 0.0,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 0.0,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -6718,7 +6718,7 @@
         "cond1 vs baseline": {
           "accuracy": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -6749,7 +6749,7 @@
               "paired_items": 3328
             },
             "mcnemar_p": 5.269833391434849e-77,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 4.2158667131478794e-76,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -6892,7 +6892,7 @@
           },
           "schema_valid": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -6923,7 +6923,7 @@
               "paired_items": 3328
             },
             "mcnemar_p": 1.2073421883470332e-55,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 1.0866079695123299e-54,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -6943,7 +6943,7 @@
         "cond1 vs cond2": {
           "accuracy": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -6974,7 +6974,7 @@
               "paired_items": 3328
             },
             "mcnemar_p": 3.327631261232517e-13,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 1.9965787567395102e-12,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -7117,7 +7117,7 @@
           },
           "schema_valid": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -7148,7 +7148,7 @@
               "paired_items": 3328
             },
             "mcnemar_p": 1.4876985866944018e-05,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 8.926191520166411e-05,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -7168,7 +7168,7 @@
         "cond2 vs baseline": {
           "accuracy": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -7199,7 +7199,7 @@
               "paired_items": 3328
             },
             "mcnemar_p": 1.6929715471169118e-50,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 1.1850800829818382e-49,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -7342,7 +7342,7 @@
           },
           "schema_valid": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -7373,7 +7373,7 @@
               "paired_items": 3328
             },
             "mcnemar_p": 3.703899300997603e-73,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 3.703899300997603e-72,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -8208,7 +8208,7 @@
         "cond1 vs baseline": {
           "accuracy": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -8239,7 +8239,7 @@
               "paired_items": 2307
             },
             "mcnemar_p": 1.8595508997895048e-98,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 1.8595508997895048e-97,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -8382,7 +8382,7 @@
           },
           "schema_valid": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -8413,7 +8413,7 @@
               "paired_items": 2307
             },
             "mcnemar_p": 4.523206268854793e-31,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 3.166244388198355e-30,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -8433,7 +8433,7 @@
         "cond1 vs cond2": {
           "accuracy": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -8464,7 +8464,7 @@
               "paired_items": 2307
             },
             "mcnemar_p": 7.74233878470577e-05,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 0.0003871169392352885,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -8607,7 +8607,7 @@
           },
           "schema_valid": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -8638,7 +8638,7 @@
               "paired_items": 2307
             },
             "mcnemar_p": 0.0170726610937884,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 0.085363305468942,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -8652,13 +8652,13 @@
               "se": 0.0028089982086947265
             },
             "rule": "paired comparison: the verdict follows the McNemar test (Holm-adjusted within its family). Marginal interval overlap is recorded but decides nothing -- see docs/engineering-rules.md rule 6.",
-            "verdict": "difference detected"
+            "verdict": "no difference detected"
           }
         },
         "cond2 vs baseline": {
           "accuracy": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -8689,7 +8689,7 @@
               "paired_items": 2307
             },
             "mcnemar_p": 1.4353059738303847e-85,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 1.2917753764473462e-84,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -8832,7 +8832,7 @@
           },
           "schema_valid": {
             "alpha": 0.05,
-            "decided_by": "McNemar p",
+            "decided_by": "Holm-adjusted McNemar p",
             "design": "paired",
             "family_size": 18,
             "marginal_a": {
@@ -8863,7 +8863,7 @@
               "paired_items": 2307
             },
             "mcnemar_p": 4.9742778653180225e-37,
-            "mcnemar_p_holm": null,
+            "mcnemar_p_holm": 3.979422292254418e-36,
             "paired_difference": {
               "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
               "ci95": [
@@ -8968,6 +8968,54 @@
         "structured_extract/eval_pre_cutoff/constrained|cond1 vs baseline",
         "structured_extract/eval_pre_cutoff/constrained|cond1 vs cond2",
         "structured_extract/eval_pre_cutoff/constrained|cond2 vs baseline"
+      ],
+      "method": "Holm-Bonferroni",
+      "size": 18
+    },
+    "domain_free": {
+      "members": [
+        "cve_to_cwe/eval_post_cutoff/free|cond1 vs baseline",
+        "cve_to_cwe/eval_post_cutoff/free|cond1 vs cond2",
+        "cve_to_cwe/eval_post_cutoff/free|cond2 vs baseline",
+        "cve_to_cwe/eval_pre_cutoff/free|cond1 vs baseline",
+        "cve_to_cwe/eval_pre_cutoff/free|cond1 vs cond2",
+        "cve_to_cwe/eval_pre_cutoff/free|cond2 vs baseline",
+        "cvss_vector/eval_post_cutoff/free|cond1 vs baseline",
+        "cvss_vector/eval_post_cutoff/free|cond1 vs cond2",
+        "cvss_vector/eval_post_cutoff/free|cond2 vs baseline",
+        "cvss_vector/eval_pre_cutoff/free|cond1 vs baseline",
+        "cvss_vector/eval_pre_cutoff/free|cond1 vs cond2",
+        "cvss_vector/eval_pre_cutoff/free|cond2 vs baseline",
+        "structured_extract/eval_post_cutoff/free|cond1 vs baseline",
+        "structured_extract/eval_post_cutoff/free|cond1 vs cond2",
+        "structured_extract/eval_post_cutoff/free|cond2 vs baseline",
+        "structured_extract/eval_pre_cutoff/free|cond1 vs baseline",
+        "structured_extract/eval_pre_cutoff/free|cond1 vs cond2",
+        "structured_extract/eval_pre_cutoff/free|cond2 vs baseline"
+      ],
+      "method": "Holm-Bonferroni",
+      "size": 18
+    },
+    "domain_free_schema": {
+      "members": [
+        "cve_to_cwe/eval_post_cutoff/free|cond1 vs baseline",
+        "cve_to_cwe/eval_post_cutoff/free|cond1 vs cond2",
+        "cve_to_cwe/eval_post_cutoff/free|cond2 vs baseline",
+        "cve_to_cwe/eval_pre_cutoff/free|cond1 vs baseline",
+        "cve_to_cwe/eval_pre_cutoff/free|cond1 vs cond2",
+        "cve_to_cwe/eval_pre_cutoff/free|cond2 vs baseline",
+        "cvss_vector/eval_post_cutoff/free|cond1 vs baseline",
+        "cvss_vector/eval_post_cutoff/free|cond1 vs cond2",
+        "cvss_vector/eval_post_cutoff/free|cond2 vs baseline",
+        "cvss_vector/eval_pre_cutoff/free|cond1 vs baseline",
+        "cvss_vector/eval_pre_cutoff/free|cond1 vs cond2",
+        "cvss_vector/eval_pre_cutoff/free|cond2 vs baseline",
+        "structured_extract/eval_post_cutoff/free|cond1 vs baseline",
+        "structured_extract/eval_post_cutoff/free|cond1 vs cond2",
+        "structured_extract/eval_post_cutoff/free|cond2 vs baseline",
+        "structured_extract/eval_pre_cutoff/free|cond1 vs baseline",
+        "structured_extract/eval_pre_cutoff/free|cond1 vs cond2",
+        "structured_extract/eval_pre_cutoff/free|cond2 vs baseline"
       ],
       "method": "Holm-Bonferroni",
       "size": 18

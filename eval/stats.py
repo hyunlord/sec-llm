@@ -1014,7 +1014,7 @@ def compare_multi(runs) -> dict:
            "families": {}}
 
     # ---- pass 1: compute the tests, collect p-values per family
-    raw = {"general": {}, "domain": {}, "domain_schema": {}}
+    raw = {"general": {}, "domain": {}, "domain_schema": {}, "domain_free": {}, "domain_free_schema": {}}
     cache = {}
     keys = [k for k, v in S[runs[0]]["domain"].items() if v.get("scored", True)]
     for k in keys:
@@ -1026,9 +1026,9 @@ def compare_multi(runs) -> dict:
             mn_s = mcnemar(F[a][k]["schema_valid"], F[b][k]["schema_valid"])
             pd_s = paired_diff_boot(F[a][k]["schema_valid"], F[b][k]["schema_valid"])
             cache[(k, a, b)] = (mn, pd_, mn_s, pd_s)
-            if k.endswith("/constrained"):
-                raw["domain"][f"{k}|{a} vs {b}"] = mn["p_value"]
-                raw["domain_schema"][f"{k}|{a} vs {b}"] = mn_s["p_value"]
+            fam = "domain" if k.endswith("/constrained") else "domain_free"
+            raw[fam][f"{k}|{a} vs {b}"] = mn["p_value"]
+            raw[fam + "_schema"][f"{k}|{a} vs {b}"] = mn_s["p_value"]
     for g in GENERAL:
         if not all(g in S[r]["general"] for r in runs):
             continue
@@ -1051,9 +1051,10 @@ def compare_multi(runs) -> dict:
                 continue
             mn, pd_, mn_s, pd_s = cache[(k, a, b)]
             fam_key = f"{k}|{a} vs {b}"
-            ap = adj.get("domain", {}).get("adjusted", {}).get(fam_key)
-            aps = adj.get("domain_schema", {}).get("adjusted", {}).get(fam_key)
-            fam_n = adj.get("domain", {}).get("family_size")
+            famname = "domain" if k.endswith("/constrained") else "domain_free"
+            ap = adj.get(famname, {}).get("adjusted", {}).get(fam_key)
+            aps = adj.get(famname + "_schema", {}).get("adjusted", {}).get(fam_key)
+            fam_n = adj.get(famname, {}).get("family_size")
             rec["mdd_points_paired"] = pd_.get("mdd_points_paired")
             rec["pairs"][f"{a} vs {b}"] = {
                 "accuracy": {**verdict_paired(S[a]["domain"][k]["accuracy_over_all_items"],
@@ -1061,7 +1062,7 @@ def compare_multi(runs) -> dict:
                              "mcnemar": mn},
                 "schema_valid": {**verdict_paired(S[a]["domain"][k]["schema_valid_rate"],
                                                   S[b]["domain"][k]["schema_valid_rate"], mn_s, pd_s, aps,
-                                                  adj.get("domain_schema", {}).get("family_size")),
+                                                  adj.get(famname + "_schema", {}).get("family_size")),
                                  "mcnemar": mn_s},
                 "by_stratum": {st: verdict_paired(
                     S[a]["domain"][k]["by_stratum"][st]["accuracy_over_all_items"],
@@ -1193,6 +1194,10 @@ def render_training(runs) -> Path:
     return out
 
 
+def _p(x):
+    return "—" if x is None else f"{x:.3g}"
+
+
 def _vmark(v):
     return "**차이 검출되지 않음**" if v == "no difference detected" else ("**차이 검출됨**" if v == "difference detected" else v)
 
@@ -1241,47 +1246,94 @@ def render_results(runs) -> Path:
     L.append("- **범용 능력 (MMLU, HellaSwag)**: 중요한 비교다. 같은 계산량에서 Cond-2가 더 많이 유지하면 이 설정에서 리플레이가 작동한 것이다. "
              "구간이 겹치면 리플레이의 효과는 이 실험이 검출할 수 있는 크기 아래에 있고, **그것이 결과다.**\n")
 
-    L.append("## 범용 능력 — 중요한 비교\n")
-    L.append("| 세트 | " + " | ".join(f"`{r}`" for r in runs) + f" | **{main_pair}** | McNemar p | MDD |\n|---|" + "---|" * (len(runs) + 3))
+    L.append("## 범용 능력 — 사전 등록한 핵심 비교 (P5.1에서 검정을 고쳤다)\n")
+    L.append("**P5는 이 비교들을 잘못된 검정으로 판정했다.** 두 조건은 **같은 항목**에 답하므로 짝지은 비교이고, "
+             "짝지은 자료에서는 차이의 분산이 각 비율의 분산보다 작다. 그래서 주변 신뢰구간이 겹치는 것과 차이가 없는 것은 "
+             "별개다. P5는 p=0.0002인 비교에 '차이 검출되지 않음'을 적었다. P5.1은 판정을 **Holm 보정된 McNemar**로 바꾸고, "
+             "두 개의 주변 구간 대신 **차이 자체의 구간**을 싣는다. 원래 기록은 `runs/compare_p5_uncorrected.json`에 그대로 있다 "
+             "(`docs/engineering-rules.md` 규칙 6).\n")
+    fam = C.get("families", {}).get("general", {})
+    L.append(f"가족 크기 {fam.get('size','?')} (벤치마크 2 × 쌍 3), Holm 보정, 유의수준 {ALPHA_LEVEL}.\n")
     for g, rec in C["general"].items():
-        pr = rec["pairs"][main_pair]
-        L.append(f"| `{g}` | " + " | ".join(ci(rec["rates"][r]) for r in runs) +
-                 f" | {_vmark(pr['verdict'])} | {pr['mcnemar']['p_value']:.3g} (불일치 {pr['mcnemar']['discordant']}) | ±{100*rec['mdd_points']:.1f}pp |")
-    L.append("\n기준선 대비:\n\n| 세트 | 쌍 | 판정 | McNemar p | 격차 |\n|---|---|---|---|---|")
+        L.append(f"### `{g}`\n")
+        L.append("| 조건 | 정확도 (주변, 서술용) |\n|---|---|")
+        for r in runs:
+            L.append(f"| `{r}` | {ci(rec['rates'][r])} |")
+        L.append(f"\n**짝지은 MDD ±{100*rec['mdd_points_paired']:.1f}pp** — P5가 쓰던 비짝지음 수치는 "
+                 f"±{100*rec['mdd_points_unpaired']:.1f}pp였고, 그것이 3.6pp 차이를 '검출 불가'로 부른 이유다.\n")
+        L.append("| 쌍 | **차이 (짝지은)** | 95% 구간 (차이) | 불일치쌍 | McNemar p | **Holm p** | **판정** |\n|---|---|---|---|---|---|---|")
+        for pk, pr in rec["pairs"].items():
+            d = pr["paired_difference"]; mn = pr["mcnemar"]
+            L.append(f"| {pk} | **{100*d['diff']:+.1f}pp** | [{100*d['ci95'][0]:+.1f}, {100*d['ci95'][1]:+.1f}] | "
+                     f"{mn['a_only_correct']} / {mn['b_only_correct']} | {pr['mcnemar_p']:.3g} | "
+                     f"**{_p(pr['mcnemar_p_holm'])}** | {_vmark(pr['verdict'])} |")
+        L.append("")
+    L.append("### 경계에 있는 값들 — 반올림하지 않는다\n")
+    near = []
     for g, rec in C["general"].items():
         for pk, pr in rec["pairs"].items():
-            if pk == main_pair:
-                continue
-            L.append(f"| `{g}` | {pk} | {_vmark(pr['verdict'])} | {pr['mcnemar']['p_value']:.3g} | {100*(pr['a']['rate']-pr['b']['rate']):+.1f}pp |")
-    tension = [(g, rec["pairs"][main_pair]) for g, rec in C["general"].items()
-               if rec["pairs"][main_pair]["verdict"] == "no difference detected"
-               and (rec["pairs"][main_pair].get("mcnemar_p") or 1) < 0.05]
-    if tension:
-        L.append("\n> **판정 규칙과 짝검정이 갈리는 경우가 있다.** " +
-                 ", ".join(f"`{g}`(McNemar p={pr['mcnemar_p']:.3g})" for g, pr in tension) +
-                 "에서 95% 구간은 겹치지만 짝지은 McNemar 검정은 0.05 미만이다. 작업지시서가 정한 규칙은 "
-                 "**구간이 겹치면 '차이 검출되지 않음'**이고, 그 규칙을 그대로 적용했다. 짝검정이 구간 겹침 규칙보다 "
-                 "민감하다는 사실과 그 p값을 함께 기록하며, 판정을 이보다 강하게 쓰지 않는다.\n")
-    L.append("\n글자 추출률: " + "; ".join(f"`{r}` " + ", ".join(f"{g} {100*rec['extracted'][r]:.1f}%" for g, rec in C["general"].items()) for r in runs) + ".\n")
-
+            if pr["mcnemar_p_holm"] is not None and 0.02 <= pr["mcnemar_p_holm"] <= 0.15:
+                near.append((g, pk, pr))
+    if near:
+        for g, pk, pr in near:
+            d = pr["paired_difference"]
+            L.append(f"- `{g}` {pk}: 원 p={pr['mcnemar_p']:.3g}, **Holm p={_p(pr['mcnemar_p_holm'])}** — 유의수준 바로 "
+                     f"{'위' if pr['mcnemar_p_holm'] >= ALPHA_LEVEL else '아래'}다. 차이의 구간은 "
+                     f"[{100*d['ci95'][0]:+.1f}, {100*d['ci95'][1]:+.1f}]pp로 0을 "
+                     f"{'포함하지 않는다' if d['ci95'][0]*d['ci95'][1] > 0 else '포함한다'} (구간은 다중비교 보정 전이다). "
+                     "이 값은 어느 쪽으로도 반올림하지 않고 그대로 싣는다.")
+        L.append("")
+    L.append("### 두 벤치마크가 서로 다른 답을 준다 — 하나를 고르지 않는다\n")
+    hs = C["general"].get("hellaswag", {}).get("pairs", {})
+    mm = C["general"].get("mmlu", {}).get("pairs", {})
+    def gp(d, k, f="verdict"):
+        return (d.get(k) or {}).get(f)
+    L.append("- **HellaSwag**: Cond-2가 Cond-1보다 앞선다 — "
+             f"{100*gp(hs,'cond1 vs cond2','paired_difference')['diff']*-1:+.1f}pp, Holm p="
+             f"{gp(hs,'cond1 vs cond2','mcnemar_p_holm'):.3g}, 불일치쌍 "
+             f"{gp(hs,'cond1 vs cond2','mcnemar')['b_only_correct']} 대 {gp(hs,'cond1 vs cond2','mcnemar')['a_only_correct']}. "
+             f"그리고 Cond-2는 기준선과 구별되지 않는다 (p={gp(hs,'cond2 vs baseline','mcnemar_p'):.3g}) — "
+             "**같은 토큰, 같은 스텝에서 리플레이가 이 벤치마크의 능력을 지켰다.**")
+    L.append("- **MMLU**: 리플레이가 돕지 않았다. Cond-2는 기준선보다 "
+             f"{100*gp(mm,'cond2 vs baseline','paired_difference')['diff']:+.1f}pp 낮고 이것은 검출된다 "
+             f"(Holm p={gp(mm,'cond2 vs baseline','mcnemar_p_holm'):.3g}). Cond-1의 하락 "
+             f"({100*gp(mm,'cond1 vs baseline','paired_difference')['diff']:+.1f}pp, Holm p="
+             f"{gp(mm,'cond1 vs baseline','mcnemar_p_holm'):.3g})보다 **크다**. 두 조건끼리는 구별되지 않는다 "
+             f"(p={gp(mm,'cond1 vs cond2','mcnemar_p'):.3g}).")
+    L.append("\n**따라서 쓸 수 있는 결론은 하나다: 리플레이의 효과는 무엇을 범용 능력으로 정의하느냐에 달렸다.** "
+             "두 벤치마크 중 하나를 골라 '리플레이가 작동한다/안 한다'고 쓰는 것은 이 자료가 허락하지 않는다.\n")
+    L.append("> oasst2의 대화체가 HellaSwag의 문장 완성에는 가깝고 MMLU의 객관식 지식 회수에는 멀다는 설명이 그럴듯하지만, "
+             "**이 실험은 그 가설을 검정하지 않았다.** 가설로만 적어 둔다.\n")
+    L.append("> **이 결과는 조건당 시드 하나에 기대고 있다.** 3.6pp 차이가 Holm 보정 후에도 살아남는 것은 강한 신호지만, "
+             "실행 간 분산에 대한 증거는 이 실험에 없고 시드 분산은 이 크기의 차이를 만드는 알려진 원인이다. "
+             "두 번째 시드가 같은 방향을 보이면 결론은 단단해지고, 뒤집히면 이 설계는 리플레이와 시드 분산을 "
+             "분리하지 못한다는 것이 정직한 결론이 된다.\n")
     L.append("## 도메인 정확도 (제약 생성, 전체 항목 분모)\n")
     L.append("`attack_technique`는 이 표에 없다 — 아래 산문 절 참조.\n")
-    L.append("| 과제/분할 | " + " | ".join(f"`{r}`" for r in runs) + f" | **{main_pair}** | McNemar p | MDD |\n|---|" + "---|" * (len(runs) + 3))
+    L.append("| 과제/분할 | " + " | ".join(f"`{r}`" for r in runs) +
+             f" | **{main_pair} 차이 (짝지은)** | McNemar p / Holm | 판정 | 짝지은 MDD |\n|---|" + "---|" * (len(runs) + 4))
     for k, rec in C["domain"].items():
         if not k.endswith("/constrained"):
             continue
         pr = rec["pairs"].get(main_pair)
-        L.append(f"| `{k.rsplit('/',1)[0]}` | " + " | ".join(ci(rec["rates"][r]) for r in runs if r in rec["rates"]) +
-                 (f" | {_vmark(pr['accuracy']['verdict'])} | {pr['accuracy']['mcnemar']['p_value']:.3g} | ±{100*rec['mdd_points']:.1f}pp |" if pr else " | — | — | — |"))
-    L.append("\n기준선 대비 (제약 생성):\n\n| 과제/분할 | 쌍 | 격차 | 판정 | McNemar p |\n|---|---|---|---|---|")
+        if pr:
+            a_ = pr["accuracy"]; d = a_["paired_difference"]
+            cell = (f" | **{100*d['diff']:+.1f}pp** [{100*d['ci95'][0]:+.1f},{100*d['ci95'][1]:+.1f}] | "
+                    f"{_p(a_['mcnemar_p'])} / **{_p(a_['mcnemar_p_holm'])}** | {_vmark(a_['verdict'])} | "
+                    f"±{100*rec.get('mdd_points_paired', 0):.1f}pp |")
+        else:
+            cell = " | — | — | — | — |"
+        L.append(f"| `{k.rsplit('/',1)[0]}` | " + " | ".join(ci(rec["rates"][r]) for r in runs if r in rec["rates"]) + cell)
+    L.append("\n기준선 대비 (제약 생성):\n\n| 과제/분할 | 쌍 | 차이 (짝지은) | 판정 | McNemar p / Holm |\n|---|---|---|---|---|")
     for k, rec in C["domain"].items():
         if not k.endswith("/constrained"):
             continue
         for pk, pr in rec["pairs"].items():
             if pk == main_pair:
                 continue
-            a_ = pr["accuracy"]
-            L.append(f"| `{k.rsplit('/',1)[0]}` | {pk} | {100*(a_['a']['rate']-a_['b']['rate']):+.1f}pp | {_vmark(a_['verdict'])} | {a_['mcnemar']['p_value']:.3g} |")
+            a_ = pr["accuracy"]; d = a_["paired_difference"]
+            L.append(f"| `{k.rsplit('/',1)[0]}` | {pk} | {100*d['diff']:+.1f}pp | {_vmark(a_['verdict'])} | "
+                     f"{_p(a_['mcnemar_p'])} / {_p(a_['mcnemar_p_holm'])} |")
 
     L.append("\n## 자유 생성 — 형식과 정확도가 학습으로 어떻게 변했나\n")
     L.append("| 과제/분할 | " + " | ".join(f"`{r}` 스키마유효 / 정확도" for r in runs) + f" | 스키마유효 {main_pair} |\n|---|" + "---|" * (len(runs) + 1))
@@ -1290,7 +1342,7 @@ def render_results(runs) -> Path:
             continue
         pr = rec["pairs"].get(main_pair)
         L.append(f"| `{k.rsplit('/',1)[0]}` | " + " | ".join(f"{pc(rec['schema_valid'][r]['rate'])} / {pc(rec['rates'][r]['rate'])}" for r in runs if r in rec["rates"]) +
-                 (f" | {_vmark(pr['schema_valid']['verdict'])} (p={pr['schema_valid']['mcnemar']['p_value']:.2g}) |" if pr else " | — |"))
+                 (f" | {_vmark(pr['schema_valid']['verdict'])} (Holm p={_p(pr['schema_valid']['mcnemar_p_holm'])}) |" if pr else " | — |"))
     L.append("\n기준선의 자유 생성 스키마 유효율은 `cvss_vector`에서 0.2%였다 (산문 서두). 미세조정이 그것을 어디까지 바꿨는지가 이 표다.\n")
 
     L.append("## 컷오프 이후 vs 이전 — 조건별, 그리고 라벨 분포를 먼저 본다\n")
@@ -1362,20 +1414,25 @@ def render_results(runs) -> Path:
              " (이후 세트, 제약 생성). 학습 738건, 평가 79건인 과제에서 어떤 움직임도 극적으로 보이고 아무 의미도 없다. "
              "`scored: false`이며 어떤 요약 표에도 넣지 않았다.\n")
 
-    L.append("## 판정 — 사전 등록한 질문에 대한 답\n")
+    L.append("## 판정 — 사전 등록한 질문에 대한 답 (P5.1 보정 검정 기준)\n")
     gen = C["general"]
-    verdicts = {g: rec["pairs"][main_pair]["verdict"] for g, rec in gen.items()}
-    any_diff = [g for g, v in verdicts.items() if v == "difference detected"]
-    L.append(f"**범용 능력, {main_pair}**: " + "; ".join(f"{g} — {_vmark(v)}" for g, v in verdicts.items()) + ".")
-    if any_diff:
-        L.append(f"\n{', '.join(any_diff)}에서 구간이 겹치지 않았다. 방향과 크기는 위 표에 있고, 이 문장은 그것보다 강하게 쓰지 않는다.")
-    else:
-        L.append("\n리플레이의 효과는 이 실험이 검출할 수 있는 크기(MDD 표) 아래에 있다. **그것이 결과다.** 없다는 뜻이 아니라 이 크기에서 보이지 않는다는 뜻이다.")
-    dom = [(k, rec["pairs"][main_pair]["accuracy"]["verdict"]) for k, rec in C["domain"].items()
+    L.append("**범용 능력**: 두 벤치마크가 갈린다.")
+    for g, rec in gen.items():
+        rows = "; ".join(f"{pk} → {_vmark(pr['verdict'])} (Holm p={_p(pr['mcnemar_p_holm'])})"
+                         for pk, pr in rec["pairs"].items())
+        L.append(f"- `{g}`: {rows}")
+    hs_main = gen.get("hellaswag", {}).get("pairs", {}).get(main_pair, {})
+    L.append(f"\n`{main_pair}`에서 HellaSwag는 **차이가 검출되고** MMLU는 검출되지 않는다. "
+             "따라서 '리플레이가 망각을 막았다'는 문장은 **HellaSwag에 한해서만** 참이고, MMLU에서는 오히려 "
+             "Cond-2의 하락이 더 크다. 하나의 문장으로 합치지 않는다.")
+    dom = [(k, rec["pairs"][main_pair]["accuracy"]) for k, rec in C["domain"].items()
            if k.endswith("/constrained") and main_pair in rec["pairs"]]
-    n_dd = sum(1 for _, v in dom if v == "difference detected")
-    L.append(f"\n**도메인 정확도, {main_pair}**: {len(dom)}개 세트 중 {n_dd}개에서 차이 검출. 사전 등록대로 Cond-1 ≥ Cond-2가 예상되었고, "
-             "이것은 리플레이에 불리한 증거가 아니다.\n")
+    n_dd = sum(1 for _, v in dom if v["verdict"] == "difference detected")
+    fav1 = sum(1 for _, v in dom if v["paired_difference"]["diff"] > 0)
+    L.append(f"\n**도메인 정확도**: {len(dom)}개 세트 중 {n_dd}개에서 차이 검출, {fav1}개에서 Cond-1이 앞선다. "
+             "사전 등록대로 Cond-1 ≥ Cond-2가 예상되었고 (Cond-2는 같은 계산량에서 도메인을 20% 적게 본다), "
+             "**이것은 리플레이에 불리한 증거가 아니다.**")
+    L.append("\n**암기**: 재구축한 탐침에서도 검출되지 않았다. `reports/memorization.md` 참조.\n")
     REPORTS.mkdir(parents=True, exist_ok=True)
     out = REPORTS / "results.md"
     out.write_text("\n".join(L) + "\n", encoding="utf-8")
