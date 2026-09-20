@@ -91,17 +91,94 @@ def mcnemar(a_flags: dict, b_flags: dict) -> dict:
             "discordant": n, "p_value": float(p), "method": method}
 
 
-def verdict(a: dict, b: dict, p_value: float | None = None) -> dict:
-    """The rule, in code: overlapping intervals means no difference detected."""
+ALPHA_LEVEL = 0.05
+
+
+def paired_diff_boot(a_flags: dict, b_flags: dict, seed=SEED, n_boot=N_BOOT) -> dict:
+    """Bootstrap the PAIRED per-item difference, +1 / 0 / -1 over the shared items.
+
+    This is the interval that belongs beside a McNemar p. Two marginal intervals
+    do not: on paired data the variance of the difference is smaller than the
+    variance of either rate, so marginal intervals can overlap while the
+    difference is far from zero. That is exactly how P5 reported a 3.6pp
+    difference at p = 0.0002 as 'no difference detected'.
+    """
+    keys = sorted(set(a_flags) & set(b_flags))
+    if not keys:
+        return {"n_pairs": 0, "diff": None, "ci95": [None, None], "se": None}
+    d = np.array([float(bool(a_flags[k])) - float(bool(b_flags[k])) for k in keys])
+    rng = np.random.default_rng(seed)
+    idx = rng.integers(0, d.size, size=(n_boot, d.size))
+    means = d[idx].mean(axis=1)
+    disc = float((d != 0).mean())
+    return {"n_pairs": int(d.size), "diff": float(d.mean()),
+            "ci95": [float(np.percentile(means, 2.5)), float(np.percentile(means, 97.5))],
+            "se": float(means.std(ddof=1)), "discordant_rate": disc,
+            "mdd_points_paired": float((ALPHA + POWER_Z) * math.sqrt(max(disc, 1e-12) / d.size)),
+            "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed"}
+
+
+def holm(pvals: dict) -> dict:
+    """Holm-Bonferroni across a family of comparisons reported together."""
+    items = sorted(((k, v) for k, v in pvals.items() if v is not None), key=lambda kv: kv[1])
+    m, out, running = len(items), {}, 0.0
+    for i, (k, pv) in enumerate(items):
+        adj = min(1.0, (m - i) * pv)
+        running = max(running, adj)          # enforce monotonicity
+        out[k] = running
+    for k, v in pvals.items():
+        if v is None:
+            out[k] = None
+    return {"adjusted": out, "family_size": m, "method": "Holm-Bonferroni"}
+
+
+def verdict_paired(a: dict, b: dict, mn: dict, pdiff: dict, adj_p: float | None = None,
+                   family_size: int | None = None) -> dict:
+    """Verdict for a PAIRED comparison: it comes from McNemar, not from whether
+    two marginal intervals overlap. The marginal rates stay in the record as
+    descriptive context and are labelled as such."""
+    p_used = adj_p if adj_p is not None else mn.get("p_value")
+    if a.get("rate") is None or b.get("rate") is None or not mn.get("paired_items"):
+        return {"verdict": "not comparable", "design": "paired", "reason": "a rate or the pairing is missing"}
+    v = "difference detected" if (p_used is not None and p_used < ALPHA_LEVEL) else "no difference detected"
+    return {
+        "verdict": v, "design": "paired", "decided_by": ("Holm-adjusted McNemar p" if adj_p is not None else "McNemar p"),
+        "mcnemar_p": mn.get("p_value"), "mcnemar_p_holm": adj_p, "family_size": family_size,
+        "alpha": ALPHA_LEVEL,
+        "paired_difference": pdiff,
+        "marginal_a": {"rate": a["rate"], "ci95": a["ci95"], "n": a["n"], "note": "descriptive, not the verdict"},
+        "marginal_b": {"rate": b["rate"], "ci95": b["ci95"], "n": b["n"], "note": "descriptive, not the verdict"},
+        "marginal_intervals_overlap": not (a["ci95"][1] < b["ci95"][0] or b["ci95"][1] < a["ci95"][0]),
+        "rule": ("paired comparison: the verdict follows the McNemar test (Holm-adjusted within its family). "
+                 "Marginal interval overlap is recorded but decides nothing -- see docs/engineering-rules.md rule 6."),
+    }
+
+
+def verdict_unpaired(a: dict, b: dict) -> dict:
+    """For comparisons over DIFFERENT items, where no pairing exists. Interval
+    based, and labelled unpaired so it cannot be mistaken for the paired rule."""
     if a.get("rate") is None or b.get("rate") is None:
-        return {"verdict": "not comparable", "reason": "a rate is missing"}
+        return {"verdict": "not comparable", "design": "unpaired", "reason": "a rate is missing"}
     overlap = not (a["ci95"][1] < b["ci95"][0] or b["ci95"][1] < a["ci95"][0])
-    v = "no difference detected" if overlap else "difference detected"
-    return {"verdict": v, "intervals_overlap": overlap,
+    return {"verdict": "no difference detected" if overlap else "difference detected",
+            "design": "unpaired", "decided_by": "95% bootstrap interval overlap",
+            "intervals_overlap": overlap,
             "a": {"rate": a["rate"], "ci95": a["ci95"], "n": a["n"]},
             "b": {"rate": b["rate"], "ci95": b["ci95"], "n": b["n"]},
-            "mcnemar_p": p_value,
-            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates"}
+            "rule": "different items on each side, so there is no pairing to exploit and no McNemar test to run"}
+
+
+def verdict(a: dict, b: dict, p_value: float | None = None) -> dict:
+    """Retained only so nothing silently keeps the old behaviour: it refuses.
+
+    P5 called this on paired comparisons and got marginal-overlap verdicts.
+    Callers must now choose verdict_paired or verdict_unpaired explicitly.
+    """
+    raise HarnessError(
+        "verdict() is removed: choose verdict_paired() or verdict_unpaired(). "
+        "The old function judged paired comparisons by marginal interval overlap "
+        "(docs/engineering-rules.md rule 6)."
+    )
 
 
 # ---------------------------------------------------------------------- scoring
@@ -243,11 +320,13 @@ def score_run(run_id: str, with_sandbox: bool = True) -> dict:
                 fk = out["flags"][f"{t}/{sp}/free"]; ck = out["flags"][f"{t}/{sp}/constrained"]
                 mn_sv = mcnemar(fk["schema_valid"], ck["schema_valid"])
                 mn_acc = mcnemar(fk["correct"], ck["correct"])
+                pd_sv = paired_diff_boot(fk["schema_valid"], ck["schema_valid"])
+                pd_ac = paired_diff_boot(fk["correct"], ck["correct"])
                 out["gaps"][f"decoding/{t}/{sp}"] = {
                     "paired": True, "mcnemar_schema_valid": mn_sv, "mcnemar_accuracy": mn_acc,
-                    "schema_valid": verdict(f["schema_valid_rate"], c["schema_valid_rate"], mn_sv["p_value"]),
-                    "accuracy": verdict(f["accuracy_over_all_items"], c["accuracy_over_all_items"],
-                                        mn_acc["p_value"]),
+                    "schema_valid": verdict_paired(f["schema_valid_rate"], c["schema_valid_rate"], mn_sv, pd_sv),
+                    "accuracy": verdict_paired(f["accuracy_over_all_items"], c["accuracy_over_all_items"],
+                                               mn_acc, pd_ac),
                     "free_schema_valid": f["schema_valid_rate"]["rate"],
                     "constrained_schema_valid": c["schema_valid_rate"]["rate"],
                     "schema_valid_gap": (c["schema_valid_rate"]["rate"] - f["schema_valid_rate"]["rate"]),
@@ -263,7 +342,8 @@ def score_run(run_id: str, with_sandbox: bool = True) -> dict:
                 out["gaps"][f"temporal/{t}/{mode}"] = {
                     "post_cutoff": a["accuracy_over_all_items"], "pre_cutoff": b["accuracy_over_all_items"],
                     "gap": b["accuracy_over_all_items"]["rate"] - a["accuracy_over_all_items"]["rate"],
-                    "verdict": verdict(a["accuracy_over_all_items"], b["accuracy_over_all_items"])["verdict"],
+                    "design": "unpaired: post-cutoff and pre-cutoff are different CVEs, so there is no pairing",
+                    "verdict": verdict_unpaired(a["accuracy_over_all_items"], b["accuracy_over_all_items"])["verdict"],
                     "by_stratum_gap": {
                         s: (b["by_stratum"][s]["accuracy_over_all_items"]["rate"] or 0)
                            - (a["by_stratum"][s]["accuracy_over_all_items"]["rate"] or 0)
@@ -318,6 +398,24 @@ def _sandbox_axis(groups, items, validators) -> dict:
 
 
 # ------------------------------------------------------------------ comparison
+_STRATA_CACHE = {}
+
+
+def _stratum_ids(task: str, split: str, stratum: str) -> set:
+    ck = (task, split)
+    if ck not in _STRATA_CACHE:
+        items = list(iter_jsonl(OUT / task / f"{split}.jsonl"))
+        _STRATA_CACHE[ck] = strata.for_items(items)["by_id"]
+    return {k for k, v in _STRATA_CACHE[ck].items() if v == stratum}
+
+
+def _stratum_flags(fa: dict, fb: dict, key: str, stratum: str):
+    """Restrict two per-item flag maps to one contamination stratum."""
+    task, split, _ = key.split("/")
+    ids = _stratum_ids(task, split, stratum)
+    return ({k: v for k, v in fa.items() if k in ids}, {k: v for k, v in fb.items() if k in ids})
+
+
 def compare(run_a: str, run_b: str) -> dict:
     """Paired comparison of two runs. Used by P5 for Cond-1 vs Cond-2; exercised
     here by comparing the baseline with itself, which must return 'no difference
@@ -336,20 +434,26 @@ def compare(run_a: str, run_b: str) -> dict:
                                              "never compared between conditions"}
             continue
         mn = mcnemar(A["flags"][key]["correct"], B["flags"][key]["correct"])
+        pd_ = paired_diff_boot(A["flags"][key]["correct"], B["flags"][key]["correct"])
         out["domain"][key] = {
-            **verdict(ra["accuracy_over_all_items"], rb["accuracy_over_all_items"], mn["p_value"]),
-            "mcnemar": mn, "mdd_points": ra["mdd_points_over_all"],
-            "by_stratum": {s: verdict(ra["by_stratum"][s]["accuracy_over_all_items"],
-                                      rb["by_stratum"][s]["accuracy_over_all_items"])
-                           for s in strata.STRATA},
+            **verdict_paired(ra["accuracy_over_all_items"], rb["accuracy_over_all_items"], mn, pd_),
+            "mcnemar": mn, "mdd_points_unpaired": ra["mdd_points_over_all"],
+            "mdd_points_paired": pd_.get("mdd_points_paired"),
+            "by_stratum": {st: verdict_paired(
+                ra["by_stratum"][st]["accuracy_over_all_items"], rb["by_stratum"][st]["accuracy_over_all_items"],
+                mcnemar(*_stratum_flags(A["flags"][key]["correct"], B["flags"][key]["correct"], key, st)),
+                paired_diff_boot(*_stratum_flags(A["flags"][key]["correct"], B["flags"][key]["correct"], key, st)))
+                for st in strata.STRATA},
         }
     for g, ra in A["general"].items():
         rb = B["general"].get(g)
         if not rb:
             continue
-        mn = mcnemar(A["flags"][f"general/{g}/free"]["correct"], B["flags"][f"general/{g}/free"]["correct"])
-        out["general"][g] = {**verdict(ra["accuracy_over_all"], rb["accuracy_over_all"], mn["p_value"]),
-                             "mcnemar": mn, "mdd_points": ra["mdd_points"]}
+        fa, fb = A["flags"][f"general/{g}/free"]["correct"], B["flags"][f"general/{g}/free"]["correct"]
+        mn, pd_ = mcnemar(fa, fb), paired_diff_boot(fa, fb)
+        out["general"][g] = {**verdict_paired(ra["accuracy_over_all"], rb["accuracy_over_all"], mn, pd_),
+                             "mcnemar": mn, "mdd_points_unpaired": ra["mdd_points"],
+                             "mdd_points_paired": pd_.get("mdd_points_paired")}
     return out
 
 
@@ -663,8 +767,36 @@ def main() -> int:
     ap.add_argument("--self-compare", metavar="RUN", help="compare a run with itself; must detect no difference")
     ap.add_argument("--analyses", metavar="RUN", help="P5: stratum x length tercile and label analysis -> analysis.json")
     ap.add_argument("--render-training", action="store_true")
+    ap.add_argument("--assert-verdict-consistency", action="store_true",
+                    help="no comparison may report a verdict contradicting its own p value")
+    ap.add_argument("--file", default="runs/compare.json", help="record to check with --assert-verdict-consistency")
     ap.add_argument("--runs", default="cond1,cond2", help="for --render-training")
     a = ap.parse_args()
+    if a.assert_verdict_consistency:
+        import json as _j
+        rec = _j.loads(Path(a.file).read_text())
+        try:
+            assert_verdict_consistency(rec, label=a.file)
+            print(f"VERDICT CONSISTENCY OK: {a.file} -- every verdict agrees with its own test")
+            return 0
+        except HarnessError as e:
+            print(f"VERDICT CONSISTENCY FAILED: {e}", file=sys.stderr)
+            bad = []
+            def _w(n, path=""):
+                if isinstance(n, dict):
+                    v = n.get("verdict"); pv = n.get("mcnemar_p")
+                    if pv is None and isinstance(n.get("mcnemar"), dict): pv = n["mcnemar"].get("p_value")
+                    if isinstance(v, str) and isinstance(pv, (int, float)) and n.get("design") != "unpaired":
+                        pa = n.get("mcnemar_p_holm"); pu = pa if pa is not None else pv
+                        if (v == "no difference detected") == (pu < ALPHA_LEVEL): bad.append((path, v, pv))
+                    for k2, s2 in n.items(): _w(s2, f"{path}.{k2}" if path else str(k2))
+                elif isinstance(n, list):
+                    for i, s2 in enumerate(n): _w(s2, f"{path}[{i}]")
+            _w(rec)
+            for path, v, pv in bad[:12]:
+                print(f"   {path}: verdict '{v}' with p={pv:.3g}", file=sys.stderr)
+            print(f"   ({len(bad)} violations total)", file=sys.stderr)
+            return 1
     if a.analyses:
         r = analyses(a.analyses); print(f"wrote runs/{a.analyses}/analysis.json")
     if a.render_training:
@@ -705,7 +837,7 @@ def main() -> int:
         else:
             print(f"\n<!-- also wrote {out} -->", file=sys.stderr)
     if not any([a.score, a.render, a.render_harness, a.compare, a.self_compare,
-                a.analyses, a.render_training]):
+                a.analyses, a.render_training, a.assert_verdict_consistency]):
         ap.print_help()
     return 0
 
@@ -861,45 +993,139 @@ def _scores(run_id):
 
 
 def compare_multi(runs) -> dict:
-    """baseline first. Pairwise paired comparisons for every scored group and
-    both general sets; McNemar p, bootstrap intervals, the harness verdict, MDD."""
+    """baseline first. Every condition comparison is PAIRED -- both runs answer
+    the same items -- so each carries a McNemar p, a Holm-adjusted p within the
+    family of comparisons reported together, a bootstrap interval of the paired
+    difference, and a paired MDD. The marginal rates remain as description.
+
+    Two families, because two tables are read together:
+      general  = benchmarks x pairs   (2 x 3 = 6 on the current runs)
+      domain   = scored sets x pairs  (constrained)
+    """
     S = {r: _scores(r) for r in runs}
     F = {r: _flags(r) for r in runs}
-    pairs = [(runs[1], runs[2])] + [(r, runs[0]) for r in runs[1:]] if len(runs) >= 3 else [(runs[1], runs[0])]
+    pairs = ([(runs[1], runs[2])] + [(r, runs[0]) for r in runs[1:]]) if len(runs) >= 3 else [(runs[1], runs[0])]
     out = {"runs": runs, "pairs": [f"{a} vs {b}" for a, b in pairs], "domain": {}, "general": {}, "schema": {},
            "scoring_code_sha256": {r: S[r].get("scoring_code_sha256") for r in runs},
-           "dataset_manifest_sha256": {r: S[r]["manifest_sha_fields"]["dataset_manifest_sha256"] for r in runs}}
+           "dataset_manifest_sha256": {r: S[r]["manifest_sha_fields"]["dataset_manifest_sha256"] for r in runs},
+           "design": ("condition comparisons are paired over identical evaluation items; verdicts follow "
+                      "Holm-adjusted McNemar. Marginal bootstrap intervals are descriptive only "
+                      "(docs/engineering-rules.md rule 6)."),
+           "families": {}}
+
+    # ---- pass 1: compute the tests, collect p-values per family
+    raw = {"general": {}, "domain": {}, "domain_schema": {}}
+    cache = {}
     keys = [k for k, v in S[runs[0]]["domain"].items() if v.get("scored", True)]
+    for k in keys:
+        for a, b in pairs:
+            if k not in S[a]["domain"] or k not in S[b]["domain"]:
+                continue
+            mn = mcnemar(F[a][k]["correct"], F[b][k]["correct"])
+            pd_ = paired_diff_boot(F[a][k]["correct"], F[b][k]["correct"])
+            mn_s = mcnemar(F[a][k]["schema_valid"], F[b][k]["schema_valid"])
+            pd_s = paired_diff_boot(F[a][k]["schema_valid"], F[b][k]["schema_valid"])
+            cache[(k, a, b)] = (mn, pd_, mn_s, pd_s)
+            if k.endswith("/constrained"):
+                raw["domain"][f"{k}|{a} vs {b}"] = mn["p_value"]
+                raw["domain_schema"][f"{k}|{a} vs {b}"] = mn_s["p_value"]
+    for g in GENERAL:
+        if not all(g in S[r]["general"] for r in runs):
+            continue
+        for a, b in pairs:
+            fa, fb = F[a][f"general/{g}/free"]["correct"], F[b][f"general/{g}/free"]["correct"]
+            mn, pd_ = mcnemar(fa, fb), paired_diff_boot(fa, fb)
+            cache[(g, a, b)] = (mn, pd_, None, None)
+            raw["general"][f"{g}|{a} vs {b}"] = mn["p_value"]
+    adj = {fam: holm(pv) for fam, pv in raw.items() if pv}
+    out["families"] = {fam: {"size": h["family_size"], "method": h["method"],
+                             "members": sorted(raw[fam])} for fam, h in adj.items()}
+
+    # ---- pass 2: build the records with adjusted p in the verdict
     for k in keys:
         rec = {"rates": {r: S[r]["domain"][k]["accuracy_over_all_items"] for r in runs if k in S[r]["domain"]},
                "schema_valid": {r: S[r]["domain"][k]["schema_valid_rate"] for r in runs if k in S[r]["domain"]},
-               "mdd_points": S[runs[0]]["domain"][k]["mdd_points_over_all"], "pairs": {}}
+               "mdd_points_unpaired": S[runs[0]]["domain"][k]["mdd_points_over_all"], "pairs": {}}
         for a, b in pairs:
-            if k in S[a]["domain"] and k in S[b]["domain"]:
-                mn = mcnemar(F[a][k]["correct"], F[b][k]["correct"])
-                mn_s = mcnemar(F[a][k]["schema_valid"], F[b][k]["schema_valid"])
-                rec["pairs"][f"{a} vs {b}"] = {
-                    "accuracy": {**verdict(S[a]["domain"][k]["accuracy_over_all_items"],
-                                           S[b]["domain"][k]["accuracy_over_all_items"], mn["p_value"]), "mcnemar": mn},
-                    "schema_valid": {**verdict(S[a]["domain"][k]["schema_valid_rate"],
-                                               S[b]["domain"][k]["schema_valid_rate"], mn_s["p_value"]), "mcnemar": mn_s},
-                    "by_stratum": {s: verdict(S[a]["domain"][k]["by_stratum"][s]["accuracy_over_all_items"],
-                                              S[b]["domain"][k]["by_stratum"][s]["accuracy_over_all_items"])["verdict"]
-                                   for s in strata.STRATA}}
+            if (k, a, b) not in cache:
+                continue
+            mn, pd_, mn_s, pd_s = cache[(k, a, b)]
+            fam_key = f"{k}|{a} vs {b}"
+            ap = adj.get("domain", {}).get("adjusted", {}).get(fam_key)
+            aps = adj.get("domain_schema", {}).get("adjusted", {}).get(fam_key)
+            fam_n = adj.get("domain", {}).get("family_size")
+            rec["mdd_points_paired"] = pd_.get("mdd_points_paired")
+            rec["pairs"][f"{a} vs {b}"] = {
+                "accuracy": {**verdict_paired(S[a]["domain"][k]["accuracy_over_all_items"],
+                                              S[b]["domain"][k]["accuracy_over_all_items"], mn, pd_, ap, fam_n),
+                             "mcnemar": mn},
+                "schema_valid": {**verdict_paired(S[a]["domain"][k]["schema_valid_rate"],
+                                                  S[b]["domain"][k]["schema_valid_rate"], mn_s, pd_s, aps,
+                                                  adj.get("domain_schema", {}).get("family_size")),
+                                 "mcnemar": mn_s},
+                "by_stratum": {st: verdict_paired(
+                    S[a]["domain"][k]["by_stratum"][st]["accuracy_over_all_items"],
+                    S[b]["domain"][k]["by_stratum"][st]["accuracy_over_all_items"],
+                    mcnemar(*_stratum_flags(F[a][k]["correct"], F[b][k]["correct"], k, st)),
+                    paired_diff_boot(*_stratum_flags(F[a][k]["correct"], F[b][k]["correct"], k, st)))
+                    for st in strata.STRATA},
+            }
         out["domain"][k] = rec
     for g in GENERAL:
         if not all(g in S[r]["general"] for r in runs):
             continue
         rec = {"rates": {r: S[r]["general"][g]["accuracy_over_all"] for r in runs},
                "extracted": {r: S[r]["general"][g]["letter_extracted"]["rate"] for r in runs},
-               "mdd_points": S[runs[0]]["general"][g]["mdd_points"], "pairs": {}}
+               "mdd_points_unpaired": S[runs[0]]["general"][g]["mdd_points"], "pairs": {}}
         for a, b in pairs:
-            mn = mcnemar(F[a][f"general/{g}/free"]["correct"], F[b][f"general/{g}/free"]["correct"])
-            rec["pairs"][f"{a} vs {b}"] = {**verdict(S[a]["general"][g]["accuracy_over_all"],
-                                                     S[b]["general"][g]["accuracy_over_all"], mn["p_value"]), "mcnemar": mn}
+            mn, pd_, _, _ = cache[(g, a, b)]
+            fam_key = f"{g}|{a} vs {b}"
+            rec["mdd_points_paired"] = pd_.get("mdd_points_paired")
+            rec["pairs"][f"{a} vs {b}"] = {
+                **verdict_paired(S[a]["general"][g]["accuracy_over_all"], S[b]["general"][g]["accuracy_over_all"],
+                                 mn, pd_, adj["general"]["adjusted"].get(fam_key), adj["general"]["family_size"]),
+                "mcnemar": mn}
         out["general"][g] = rec
+    assert_verdict_consistency(out, label="freshly computed comparison")
     write_json(RUNS / "compare.json", out)
     return out
+
+
+def assert_verdict_consistency(rec: dict, label: str = "", alpha: float = ALPHA_LEVEL) -> list:
+    """No comparison may report a verdict that contradicts its own p value.
+
+    Walks any comparison record and checks every node carrying both a verdict
+    and a McNemar p. Returns the violations; raises if there are any. This is the
+    check that fires on P5's archived record, where verdicts came from marginal
+    interval overlap.
+    """
+    bad = []
+
+    def walk(node, path):
+        if isinstance(node, dict):
+            v, p = node.get("verdict"), node.get("mcnemar_p")
+            if p is None and isinstance(node.get("mcnemar"), dict):
+                p = node["mcnemar"].get("p_value")
+            if isinstance(v, str) and isinstance(p, (int, float)) and node.get("design") != "unpaired":
+                pa = node.get("mcnemar_p_holm")
+                p_used = pa if pa is not None else p
+                if v == "no difference detected" and p_used < alpha:
+                    bad.append({"path": path, "verdict": v, "p": p, "p_used": p_used,
+                                "why": "verdict says no difference while its own test rejects at alpha"})
+                elif v == "difference detected" and p_used >= alpha:
+                    bad.append({"path": path, "verdict": v, "p": p, "p_used": p_used,
+                                "why": "verdict says difference while its own test does not reject"})
+            for k, sub in node.items():
+                walk(sub, f"{path}.{k}" if path else str(k))
+        elif isinstance(node, list):
+            for i, sub in enumerate(node):
+                walk(sub, f"{path}[{i}]")
+
+    walk(rec, "")
+    if bad:
+        raise HarnessError(f"verdict/p inconsistency in {label or 'record'}: {len(bad)} violation(s); "
+                           f"first: {bad[0]}")
+    return bad
 
 
 def _tm(run_id):

@@ -1,0 +1,3532 @@
+{
+  "_archived": "P5's comparison record, kept unchanged. Its verdicts came from marginal bootstrap interval overlap on PAIRED comparisons, which is the defect P5.1 corrects (docs/engineering-rules.md rule 6). Published beside the corrected record, not replaced by it. `python -m eval.stats --assert-verdict-consistency --file runs/compare_p5_uncorrected.json` fails on this file, which is the demonstration the work order asks for.",
+  "dataset_manifest_sha256": {
+    "baseline": "61c060f77d28f95482abc816664f1970c9ae5b30a18e51adca45c34cf25ff149",
+    "cond1": "61c060f77d28f95482abc816664f1970c9ae5b30a18e51adca45c34cf25ff149",
+    "cond2": "61c060f77d28f95482abc816664f1970c9ae5b30a18e51adca45c34cf25ff149"
+  },
+  "domain": {
+    "cve_to_cwe/eval_post_cutoff/constrained": {
+      "mdd_points": 0.03108320852924145,
+      "pairs": {
+        "cond1 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.5694336695112491,
+                0.6004719420739592
+              ],
+              "n": 3867,
+              "rate": 0.5854667701060253
+            },
+            "b": {
+              "ci95": [
+                0.3757370054305663,
+                0.40652314455650373
+              ],
+              "n": 3867,
+              "rate": 0.3904835790018102
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 849,
+              "b_only_correct": 95,
+              "discordant": 944,
+              "method": "chi-square with continuity correction",
+              "p_value": 1.2119337388494399e-132,
+              "paired_items": 3867
+            },
+            "mcnemar_p": 1.2119337388494399e-132,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 3867,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 3867,
+              "rate": 1.0
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 0,
+              "b_only_correct": 0,
+              "discordant": 0,
+              "method": "no discordant pairs",
+              "p_value": 1.0,
+              "paired_items": 3867
+            },
+            "mcnemar_p": 1.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        },
+        "cond1 vs cond2": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.5694336695112491,
+                0.6004719420739592
+              ],
+              "n": 3867,
+              "rate": 0.5854667701060253
+            },
+            "b": {
+              "ci95": [
+                0.5629622446340832,
+                0.5919446599431083
+              ],
+              "n": 3867,
+              "rate": 0.5777088182053272
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 93,
+              "b_only_correct": 63,
+              "discordant": 156,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.020240570577077486,
+              "paired_items": 3867
+            },
+            "mcnemar_p": 0.020240570577077486,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          },
+          "by_stratum": {
+            "high": "no difference detected",
+            "low": "no difference detected",
+            "zero": "no difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 3867,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 3867,
+              "rate": 1.0
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 0,
+              "b_only_correct": 0,
+              "discordant": 0,
+              "method": "no discordant pairs",
+              "p_value": 1.0,
+              "paired_items": 3867
+            },
+            "mcnemar_p": 1.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        },
+        "cond2 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.5629622446340832,
+                0.5919446599431083
+              ],
+              "n": 3867,
+              "rate": 0.5777088182053272
+            },
+            "b": {
+              "ci95": [
+                0.3757370054305663,
+                0.40652314455650373
+              ],
+              "n": 3867,
+              "rate": 0.3904835790018102
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 810,
+              "b_only_correct": 86,
+              "discordant": 896,
+              "method": "chi-square with continuity correction",
+              "p_value": 6.821565135881859e-129,
+              "paired_items": 3867
+            },
+            "mcnemar_p": 6.821565135881859e-129,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 3867,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 3867,
+              "rate": 1.0
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 0,
+              "b_only_correct": 0,
+              "discordant": 0,
+              "method": "no discordant pairs",
+              "p_value": 1.0,
+              "paired_items": 3867
+            },
+            "mcnemar_p": 1.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        }
+      },
+      "rates": {
+        "baseline": {
+          "ci95": [
+            0.3757370054305663,
+            0.40652314455650373
+          ],
+          "k": 1510,
+          "n": 3867,
+          "n_boot": 1000,
+          "rate": 0.3904835790018102
+        },
+        "cond1": {
+          "ci95": [
+            0.5694336695112491,
+            0.6004719420739592
+          ],
+          "k": 2264,
+          "n": 3867,
+          "n_boot": 1000,
+          "rate": 0.5854667701060253
+        },
+        "cond2": {
+          "ci95": [
+            0.5629622446340832,
+            0.5919446599431083
+          ],
+          "k": 2234,
+          "n": 3867,
+          "n_boot": 1000,
+          "rate": 0.5777088182053272
+        }
+      },
+      "schema_valid": {
+        "baseline": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 3867,
+          "n": 3867,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "cond1": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 3867,
+          "n": 3867,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "cond2": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 3867,
+          "n": 3867,
+          "n_boot": 1000,
+          "rate": 1.0
+        }
+      }
+    },
+    "cve_to_cwe/eval_post_cutoff/free": {
+      "mdd_points": 0.029475400034047822,
+      "pairs": {
+        "cond1 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.5694336695112491,
+                0.6004719420739592
+              ],
+              "n": 3867,
+              "rate": 0.5854667701060253
+            },
+            "b": {
+              "ci95": [
+                0.2955715024566848,
+                0.32583397982932505
+              ],
+              "n": 3867,
+              "rate": 0.3103180760279286
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 1132,
+              "b_only_correct": 68,
+              "discordant": 1200,
+              "method": "chi-square with continuity correction",
+              "p_value": 8.706197242391778e-207,
+              "paired_items": 3867
+            },
+            "mcnemar_p": 8.706197242391778e-207,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 3867,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                0.7114041892940264,
+                0.73907421773985
+              ],
+              "n": 3867,
+              "rate": 0.7245927075252133
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 1065,
+              "b_only_correct": 0,
+              "discordant": 1065,
+              "method": "chi-square with continuity correction",
+              "p_value": 3.6353364671367364e-233,
+              "paired_items": 3867
+            },
+            "mcnemar_p": 3.6353364671367364e-233,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          }
+        },
+        "cond1 vs cond2": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.5694336695112491,
+                0.6004719420739592
+              ],
+              "n": 3867,
+              "rate": 0.5854667701060253
+            },
+            "b": {
+              "ci95": [
+                0.5629622446340832,
+                0.5919446599431083
+              ],
+              "n": 3867,
+              "rate": 0.5777088182053272
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 93,
+              "b_only_correct": 63,
+              "discordant": 156,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.020240570577077486,
+              "paired_items": 3867
+            },
+            "mcnemar_p": 0.020240570577077486,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          },
+          "by_stratum": {
+            "high": "no difference detected",
+            "low": "no difference detected",
+            "zero": "no difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 3867,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 3867,
+              "rate": 1.0
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 0,
+              "b_only_correct": 0,
+              "discordant": 0,
+              "method": "no discordant pairs",
+              "p_value": 1.0,
+              "paired_items": 3867
+            },
+            "mcnemar_p": 1.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        },
+        "cond2 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.5629622446340832,
+                0.5919446599431083
+              ],
+              "n": 3867,
+              "rate": 0.5777088182053272
+            },
+            "b": {
+              "ci95": [
+                0.2955715024566848,
+                0.32583397982932505
+              ],
+              "n": 3867,
+              "rate": 0.3103180760279286
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 1097,
+              "b_only_correct": 63,
+              "discordant": 1160,
+              "method": "chi-square with continuity correction",
+              "p_value": 4.622905029087117e-202,
+              "paired_items": 3867
+            },
+            "mcnemar_p": 4.622905029087117e-202,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 3867,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                0.7114041892940264,
+                0.73907421773985
+              ],
+              "n": 3867,
+              "rate": 0.7245927075252133
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 1065,
+              "b_only_correct": 0,
+              "discordant": 1065,
+              "method": "chi-square with continuity correction",
+              "p_value": 3.6353364671367364e-233,
+              "paired_items": 3867
+            },
+            "mcnemar_p": 3.6353364671367364e-233,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          }
+        }
+      },
+      "rates": {
+        "baseline": {
+          "ci95": [
+            0.2955715024566848,
+            0.32583397982932505
+          ],
+          "k": 1200,
+          "n": 3867,
+          "n_boot": 1000,
+          "rate": 0.3103180760279286
+        },
+        "cond1": {
+          "ci95": [
+            0.5694336695112491,
+            0.6004719420739592
+          ],
+          "k": 2264,
+          "n": 3867,
+          "n_boot": 1000,
+          "rate": 0.5854667701060253
+        },
+        "cond2": {
+          "ci95": [
+            0.5629622446340832,
+            0.5919446599431083
+          ],
+          "k": 2234,
+          "n": 3867,
+          "n_boot": 1000,
+          "rate": 0.5777088182053272
+        }
+      },
+      "schema_valid": {
+        "baseline": {
+          "ci95": [
+            0.7114041892940264,
+            0.73907421773985
+          ],
+          "k": 2802,
+          "n": 3867,
+          "n_boot": 1000,
+          "rate": 0.7245927075252133
+        },
+        "cond1": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 3867,
+          "n": 3867,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "cond2": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 3867,
+          "n": 3867,
+          "n_boot": 1000,
+          "rate": 1.0
+        }
+      }
+    },
+    "cve_to_cwe/eval_pre_cutoff/constrained": {
+      "mdd_points": 0.03125978988102022,
+      "pairs": {
+        "cond1 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.6557050323866468,
+                0.6846038863976084
+              ],
+              "n": 4014,
+              "rate": 0.6711509715994021
+            },
+            "b": {
+              "ci95": [
+                0.49575859491778773,
+                0.5261584454409567
+              ],
+              "n": 4014,
+              "rate": 0.5114598903836572
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 758,
+              "b_only_correct": 117,
+              "discordant": 875,
+              "method": "chi-square with continuity correction",
+              "p_value": 8.243576476961426e-104,
+              "paired_items": 4014
+            },
+            "mcnemar_p": 8.243576476961426e-104,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4014,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4014,
+              "rate": 1.0
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 0,
+              "b_only_correct": 0,
+              "discordant": 0,
+              "method": "no discordant pairs",
+              "p_value": 1.0,
+              "paired_items": 4014
+            },
+            "mcnemar_p": 1.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        },
+        "cond1 vs cond2": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.6557050323866468,
+                0.6846038863976084
+              ],
+              "n": 4014,
+              "rate": 0.6711509715994021
+            },
+            "b": {
+              "ci95": [
+                0.6457399103139013,
+                0.6748878923766816
+              ],
+              "n": 4014,
+              "rate": 0.6609367214748381
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 107,
+              "b_only_correct": 66,
+              "discordant": 173,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.002356813318510857,
+              "paired_items": 4014
+            },
+            "mcnemar_p": 0.002356813318510857,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          },
+          "by_stratum": {
+            "high": "no difference detected",
+            "low": "no difference detected",
+            "zero": "no difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4014,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4014,
+              "rate": 1.0
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 0,
+              "b_only_correct": 0,
+              "discordant": 0,
+              "method": "no discordant pairs",
+              "p_value": 1.0,
+              "paired_items": 4014
+            },
+            "mcnemar_p": 1.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        },
+        "cond2 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.6457399103139013,
+                0.6748878923766816
+              ],
+              "n": 4014,
+              "rate": 0.6609367214748381
+            },
+            "b": {
+              "ci95": [
+                0.49575859491778773,
+                0.5261584454409567
+              ],
+              "n": 4014,
+              "rate": 0.5114598903836572
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 712,
+              "b_only_correct": 112,
+              "discordant": 824,
+              "method": "chi-square with continuity correction",
+              "p_value": 1.0648823719234913e-96,
+              "paired_items": 4014
+            },
+            "mcnemar_p": 1.0648823719234913e-96,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4014,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4014,
+              "rate": 1.0
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 0,
+              "b_only_correct": 0,
+              "discordant": 0,
+              "method": "no discordant pairs",
+              "p_value": 1.0,
+              "paired_items": 4014
+            },
+            "mcnemar_p": 1.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        }
+      },
+      "rates": {
+        "baseline": {
+          "ci95": [
+            0.49575859491778773,
+            0.5261584454409567
+          ],
+          "k": 2053,
+          "n": 4014,
+          "n_boot": 1000,
+          "rate": 0.5114598903836572
+        },
+        "cond1": {
+          "ci95": [
+            0.6557050323866468,
+            0.6846038863976084
+          ],
+          "k": 2694,
+          "n": 4014,
+          "n_boot": 1000,
+          "rate": 0.6711509715994021
+        },
+        "cond2": {
+          "ci95": [
+            0.6457399103139013,
+            0.6748878923766816
+          ],
+          "k": 2653,
+          "n": 4014,
+          "n_boot": 1000,
+          "rate": 0.6609367214748381
+        }
+      },
+      "schema_valid": {
+        "baseline": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 4014,
+          "n": 4014,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "cond1": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 4014,
+          "n": 4014,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "cond2": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 4014,
+          "n": 4014,
+          "n_boot": 1000,
+          "rate": 1.0
+        }
+      }
+    },
+    "cve_to_cwe/eval_pre_cutoff/free": {
+      "mdd_points": 0.030637533190239246,
+      "pairs": {
+        "cond1 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.6557050323866468,
+                0.6846038863976084
+              ],
+              "n": 4014,
+              "rate": 0.6711509715994021
+            },
+            "b": {
+              "ci95": [
+                0.3853948679621325,
+                0.415053562531141
+              ],
+              "n": 4014,
+              "rate": 0.40009965122072744
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 1176,
+              "b_only_correct": 88,
+              "discordant": 1264,
+              "method": "chi-square with continuity correction",
+              "p_value": 2.691575097726538e-205,
+              "paired_items": 4014
+            },
+            "mcnemar_p": 2.691575097726538e-205,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4014,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                0.7140009965122073,
+                0.7424015944195317
+              ],
+              "n": 4014,
+              "rate": 0.7282012954658694
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 1091,
+              "b_only_correct": 0,
+              "discordant": 1091,
+              "method": "chi-square with continuity correction",
+              "p_value": 8.118646241001565e-239,
+              "paired_items": 4014
+            },
+            "mcnemar_p": 8.118646241001565e-239,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          }
+        },
+        "cond1 vs cond2": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.6557050323866468,
+                0.6846038863976084
+              ],
+              "n": 4014,
+              "rate": 0.6711509715994021
+            },
+            "b": {
+              "ci95": [
+                0.6457399103139013,
+                0.6748878923766816
+              ],
+              "n": 4014,
+              "rate": 0.6609367214748381
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 107,
+              "b_only_correct": 66,
+              "discordant": 173,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.002356813318510857,
+              "paired_items": 4014
+            },
+            "mcnemar_p": 0.002356813318510857,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          },
+          "by_stratum": {
+            "high": "no difference detected",
+            "low": "no difference detected",
+            "zero": "no difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4014,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4014,
+              "rate": 1.0
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 0,
+              "b_only_correct": 0,
+              "discordant": 0,
+              "method": "no discordant pairs",
+              "p_value": 1.0,
+              "paired_items": 4014
+            },
+            "mcnemar_p": 1.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        },
+        "cond2 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.6457399103139013,
+                0.6748878923766816
+              ],
+              "n": 4014,
+              "rate": 0.6609367214748381
+            },
+            "b": {
+              "ci95": [
+                0.3853948679621325,
+                0.415053562531141
+              ],
+              "n": 4014,
+              "rate": 0.40009965122072744
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 1133,
+              "b_only_correct": 86,
+              "discordant": 1219,
+              "method": "chi-square with continuity correction",
+              "p_value": 3.3416991089691704e-197,
+              "paired_items": 4014
+            },
+            "mcnemar_p": 3.3416991089691704e-197,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4014,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                0.7140009965122073,
+                0.7424015944195317
+              ],
+              "n": 4014,
+              "rate": 0.7282012954658694
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 1091,
+              "b_only_correct": 0,
+              "discordant": 1091,
+              "method": "chi-square with continuity correction",
+              "p_value": 8.118646241001565e-239,
+              "paired_items": 4014
+            },
+            "mcnemar_p": 8.118646241001565e-239,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          }
+        }
+      },
+      "rates": {
+        "baseline": {
+          "ci95": [
+            0.3853948679621325,
+            0.415053562531141
+          ],
+          "k": 1606,
+          "n": 4014,
+          "n_boot": 1000,
+          "rate": 0.40009965122072744
+        },
+        "cond1": {
+          "ci95": [
+            0.6557050323866468,
+            0.6846038863976084
+          ],
+          "k": 2694,
+          "n": 4014,
+          "n_boot": 1000,
+          "rate": 0.6711509715994021
+        },
+        "cond2": {
+          "ci95": [
+            0.6457399103139013,
+            0.6748878923766816
+          ],
+          "k": 2653,
+          "n": 4014,
+          "n_boot": 1000,
+          "rate": 0.6609367214748381
+        }
+      },
+      "schema_valid": {
+        "baseline": {
+          "ci95": [
+            0.7140009965122073,
+            0.7424015944195317
+          ],
+          "k": 2923,
+          "n": 4014,
+          "n_boot": 1000,
+          "rate": 0.7282012954658694
+        },
+        "cond1": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 4014,
+          "n": 4014,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "cond2": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 4014,
+          "n": 4014,
+          "n_boot": 1000,
+          "rate": 1.0
+        }
+      }
+    },
+    "cvss_vector/eval_post_cutoff/constrained": {
+      "mdd_points": 0.02257050606574722,
+      "pairs": {
+        "cond1 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.23631567377445592,
+                0.2602824796658606
+              ],
+              "n": 4549,
+              "rate": 0.24818641459661464
+            },
+            "b": {
+              "ci95": [
+                0.16904264673554625,
+                0.19103649153660143
+              ],
+              "n": 4549,
+              "rate": 0.18003956913607386
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 619,
+              "b_only_correct": 309,
+              "discordant": 928,
+              "method": "chi-square with continuity correction",
+              "p_value": 3.544607750266673e-24,
+              "paired_items": 4549
+            },
+            "mcnemar_p": 3.544607750266673e-24,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "no difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4549,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4549,
+              "rate": 1.0
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 0,
+              "b_only_correct": 0,
+              "discordant": 0,
+              "method": "no discordant pairs",
+              "p_value": 1.0,
+              "paired_items": 4549
+            },
+            "mcnemar_p": 1.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        },
+        "cond1 vs cond2": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.23631567377445592,
+                0.2602824796658606
+              ],
+              "n": 4549,
+              "rate": 0.24818641459661464
+            },
+            "b": {
+              "ci95": [
+                0.24950538579907672,
+                0.27346669597713785
+              ],
+              "n": 4549,
+              "rate": 0.26137612662123544
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 190,
+              "b_only_correct": 250,
+              "discordant": 440,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.004912522549026054,
+              "paired_items": 4549
+            },
+            "mcnemar_p": 0.004912522549026054,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          },
+          "by_stratum": {
+            "high": "no difference detected",
+            "low": "no difference detected",
+            "zero": "no difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4549,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4549,
+              "rate": 1.0
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 0,
+              "b_only_correct": 0,
+              "discordant": 0,
+              "method": "no discordant pairs",
+              "p_value": 1.0,
+              "paired_items": 4549
+            },
+            "mcnemar_p": 1.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        },
+        "cond2 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.24950538579907672,
+                0.27346669597713785
+              ],
+              "n": 4549,
+              "rate": 0.26137612662123544
+            },
+            "b": {
+              "ci95": [
+                0.16904264673554625,
+                0.19103649153660143
+              ],
+              "n": 4549,
+              "rate": 0.18003956913607386
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 616,
+              "b_only_correct": 246,
+              "discordant": 862,
+              "method": "chi-square with continuity correction",
+              "p_value": 3.1587332284993066e-36,
+              "paired_items": 4549
+            },
+            "mcnemar_p": 3.1587332284993066e-36,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4549,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4549,
+              "rate": 1.0
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 0,
+              "b_only_correct": 0,
+              "discordant": 0,
+              "method": "no discordant pairs",
+              "p_value": 1.0,
+              "paired_items": 4549
+            },
+            "mcnemar_p": 1.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        }
+      },
+      "rates": {
+        "baseline": {
+          "ci95": [
+            0.16904264673554625,
+            0.19103649153660143
+          ],
+          "k": 819,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 0.18003956913607386
+        },
+        "cond1": {
+          "ci95": [
+            0.23631567377445592,
+            0.2602824796658606
+          ],
+          "k": 1129,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 0.24818641459661464
+        },
+        "cond2": {
+          "ci95": [
+            0.24950538579907672,
+            0.27346669597713785
+          ],
+          "k": 1189,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 0.26137612662123544
+        }
+      },
+      "schema_valid": {
+        "baseline": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 4549,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "cond1": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 4549,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "cond2": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 4549,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 1.0
+        }
+      }
+    },
+    "cvss_vector/eval_post_cutoff/free": {
+      "mdd_points": 0.0012314659408756347,
+      "pairs": {
+        "cond1 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.33611782809408663,
+                0.36425588041327767
+              ],
+              "n": 4549,
+              "rate": 0.3495273686524511
+            },
+            "b": {
+              "ci95": [
+                0.0,
+                0.0010991426687183997
+              ],
+              "n": 4549,
+              "rate": 0.00043965706748735987
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 1590,
+              "b_only_correct": 2,
+              "discordant": 1592,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.0,
+              "paired_items": 4549
+            },
+            "mcnemar_p": 0.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                0.9993405143987689,
+                1.0
+              ],
+              "n": 4549,
+              "rate": 0.9997801714662563
+            },
+            "b": {
+              "ci95": [
+                0.00043965706748735987,
+                0.002857770938667839
+              ],
+              "n": 4549,
+              "rate": 0.0015387997362057595
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 4541,
+              "b_only_correct": 0,
+              "discordant": 4541,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.0,
+              "paired_items": 4549
+            },
+            "mcnemar_p": 0.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          }
+        },
+        "cond1 vs cond2": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.33611782809408663,
+                0.36425588041327767
+              ],
+              "n": 4549,
+              "rate": 0.3495273686524511
+            },
+            "b": {
+              "ci95": [
+                0.3301769619696637,
+                0.3570070345130798
+              ],
+              "n": 4549,
+              "rate": 0.34337216970762807
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 147,
+              "b_only_correct": 119,
+              "discordant": 266,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.09782793691299035,
+              "paired_items": 4549
+            },
+            "mcnemar_p": 0.09782793691299035,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          },
+          "by_stratum": {
+            "high": "no difference detected",
+            "low": "no difference detected",
+            "zero": "no difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                0.9993405143987689,
+                1.0
+              ],
+              "n": 4549,
+              "rate": 0.9997801714662563
+            },
+            "b": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4549,
+              "rate": 1.0
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 0,
+              "b_only_correct": 1,
+              "discordant": 1,
+              "method": "exact binomial",
+              "p_value": 1.0,
+              "paired_items": 4549
+            },
+            "mcnemar_p": 1.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        },
+        "cond2 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.3301769619696637,
+                0.3570070345130798
+              ],
+              "n": 4549,
+              "rate": 0.34337216970762807
+            },
+            "b": {
+              "ci95": [
+                0.0,
+                0.0010991426687183997
+              ],
+              "n": 4549,
+              "rate": 0.00043965706748735987
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 1562,
+              "b_only_correct": 2,
+              "discordant": 1564,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.0,
+              "paired_items": 4549
+            },
+            "mcnemar_p": 0.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4549,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                0.00043965706748735987,
+                0.002857770938667839
+              ],
+              "n": 4549,
+              "rate": 0.0015387997362057595
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 4542,
+              "b_only_correct": 0,
+              "discordant": 4542,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.0,
+              "paired_items": 4549
+            },
+            "mcnemar_p": 0.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          }
+        }
+      },
+      "rates": {
+        "baseline": {
+          "ci95": [
+            0.0,
+            0.0010991426687183997
+          ],
+          "k": 2,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 0.00043965706748735987
+        },
+        "cond1": {
+          "ci95": [
+            0.33611782809408663,
+            0.36425588041327767
+          ],
+          "k": 1590,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 0.3495273686524511
+        },
+        "cond2": {
+          "ci95": [
+            0.3301769619696637,
+            0.3570070345130798
+          ],
+          "k": 1562,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 0.34337216970762807
+        }
+      },
+      "schema_valid": {
+        "baseline": {
+          "ci95": [
+            0.00043965706748735987,
+            0.002857770938667839
+          ],
+          "k": 7,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 0.0015387997362057595
+        },
+        "cond1": {
+          "ci95": [
+            0.9993405143987689,
+            1.0
+          ],
+          "k": 4548,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 0.9997801714662563
+        },
+        "cond2": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 4549,
+          "n": 4549,
+          "n_boot": 1000,
+          "rate": 1.0
+        }
+      }
+    },
+    "cvss_vector/eval_pre_cutoff/constrained": {
+      "mdd_points": 0.024219513060323286,
+      "pairs": {
+        "cond1 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.37010093800978794,
+                0.397038132137031
+              ],
+              "n": 4904,
+              "rate": 0.38356443719412725
+            },
+            "b": {
+              "ci95": [
+                0.2296033849918434,
+                0.2542822185970636
+              ],
+              "n": 4904,
+              "rate": 0.2416394779771615
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 1213,
+              "b_only_correct": 517,
+              "discordant": 1730,
+              "method": "chi-square with continuity correction",
+              "p_value": 1.1189152362614858e-62,
+              "paired_items": 4904
+            },
+            "mcnemar_p": 1.1189152362614858e-62,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4904,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4904,
+              "rate": 1.0
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 0,
+              "b_only_correct": 0,
+              "discordant": 0,
+              "method": "no discordant pairs",
+              "p_value": 1.0,
+              "paired_items": 4904
+            },
+            "mcnemar_p": 1.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        },
+        "cond1 vs cond2": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.37010093800978794,
+                0.397038132137031
+              ],
+              "n": 4904,
+              "rate": 0.38356443719412725
+            },
+            "b": {
+              "ci95": [
+                0.3696982055464927,
+                0.3957993474714519
+              ],
+              "n": 4904,
+              "rate": 0.3823409461663948
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 294,
+              "b_only_correct": 288,
+              "discordant": 582,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.8358094132222356,
+              "paired_items": 4904
+            },
+            "mcnemar_p": 0.8358094132222356,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          },
+          "by_stratum": {
+            "high": "no difference detected",
+            "low": "no difference detected",
+            "zero": "no difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4904,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4904,
+              "rate": 1.0
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 0,
+              "b_only_correct": 0,
+              "discordant": 0,
+              "method": "no discordant pairs",
+              "p_value": 1.0,
+              "paired_items": 4904
+            },
+            "mcnemar_p": 1.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        },
+        "cond2 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.3696982055464927,
+                0.3957993474714519
+              ],
+              "n": 4904,
+              "rate": 0.3823409461663948
+            },
+            "b": {
+              "ci95": [
+                0.2296033849918434,
+                0.2542822185970636
+              ],
+              "n": 4904,
+              "rate": 0.2416394779771615
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 1125,
+              "b_only_correct": 435,
+              "discordant": 1560,
+              "method": "chi-square with continuity correction",
+              "p_value": 3.794482400988534e-68,
+              "paired_items": 4904
+            },
+            "mcnemar_p": 3.794482400988534e-68,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4904,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4904,
+              "rate": 1.0
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 0,
+              "b_only_correct": 0,
+              "discordant": 0,
+              "method": "no discordant pairs",
+              "p_value": 1.0,
+              "paired_items": 4904
+            },
+            "mcnemar_p": 1.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        }
+      },
+      "rates": {
+        "baseline": {
+          "ci95": [
+            0.2296033849918434,
+            0.2542822185970636
+          ],
+          "k": 1185,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 0.2416394779771615
+        },
+        "cond1": {
+          "ci95": [
+            0.37010093800978794,
+            0.397038132137031
+          ],
+          "k": 1881,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 0.38356443719412725
+        },
+        "cond2": {
+          "ci95": [
+            0.3696982055464927,
+            0.3957993474714519
+          ],
+          "k": 1875,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 0.3823409461663948
+        }
+      },
+      "schema_valid": {
+        "baseline": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 4904,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "cond1": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 4904,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "cond2": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 4904,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 1.0
+        }
+      }
+    },
+    "cvss_vector/eval_pre_cutoff/free": {
+      "mdd_points": 4.000632020082593e-08,
+      "pairs": {
+        "cond1 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.5299755301794453,
+                0.5585287520391518
+              ],
+              "n": 4904,
+              "rate": 0.5436378466557912
+            },
+            "b": {
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "n": 4904,
+              "rate": 0.0
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 2666,
+              "b_only_correct": 0,
+              "discordant": 2666,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.0,
+              "paired_items": 4904
+            },
+            "mcnemar_p": 0.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4904,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                0.0004078303425774878,
+                0.0026508972267536707
+              ],
+              "n": 4904,
+              "rate": 0.0014274061990212073
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 4897,
+              "b_only_correct": 0,
+              "discordant": 4897,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.0,
+              "paired_items": 4904
+            },
+            "mcnemar_p": 0.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          }
+        },
+        "cond1 vs cond2": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.5299755301794453,
+                0.5585287520391518
+              ],
+              "n": 4904,
+              "rate": 0.5436378466557912
+            },
+            "b": {
+              "ci95": [
+                0.515696370309951,
+                0.5442495921696574
+              ],
+              "n": 4904,
+              "rate": 0.5293637846655791
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 237,
+              "b_only_correct": 167,
+              "discordant": 404,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.0005972100843562163,
+              "paired_items": 4904
+            },
+            "mcnemar_p": 0.0005972100843562163,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          },
+          "by_stratum": {
+            "high": "no difference detected",
+            "low": "no difference detected",
+            "zero": "no difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4904,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4904,
+              "rate": 1.0
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 0,
+              "b_only_correct": 0,
+              "discordant": 0,
+              "method": "no discordant pairs",
+              "p_value": 1.0,
+              "paired_items": 4904
+            },
+            "mcnemar_p": 1.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        },
+        "cond2 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.515696370309951,
+                0.5442495921696574
+              ],
+              "n": 4904,
+              "rate": 0.5293637846655791
+            },
+            "b": {
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "n": 4904,
+              "rate": 0.0
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 2596,
+              "b_only_correct": 0,
+              "discordant": 2596,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.0,
+              "paired_items": 4904
+            },
+            "mcnemar_p": 0.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                1.0,
+                1.0
+              ],
+              "n": 4904,
+              "rate": 1.0
+            },
+            "b": {
+              "ci95": [
+                0.0004078303425774878,
+                0.0026508972267536707
+              ],
+              "n": 4904,
+              "rate": 0.0014274061990212073
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 4897,
+              "b_only_correct": 0,
+              "discordant": 4897,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.0,
+              "paired_items": 4904
+            },
+            "mcnemar_p": 0.0,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          }
+        }
+      },
+      "rates": {
+        "baseline": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "k": 0,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 0.0
+        },
+        "cond1": {
+          "ci95": [
+            0.5299755301794453,
+            0.5585287520391518
+          ],
+          "k": 2666,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 0.5436378466557912
+        },
+        "cond2": {
+          "ci95": [
+            0.515696370309951,
+            0.5442495921696574
+          ],
+          "k": 2596,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 0.5293637846655791
+        }
+      },
+      "schema_valid": {
+        "baseline": {
+          "ci95": [
+            0.0004078303425774878,
+            0.0026508972267536707
+          ],
+          "k": 7,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 0.0014274061990212073
+        },
+        "cond1": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 4904,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 1.0
+        },
+        "cond2": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "k": 4904,
+          "n": 4904,
+          "n_boot": 1000,
+          "rate": 1.0
+        }
+      }
+    },
+    "structured_extract/eval_post_cutoff/constrained": {
+      "mdd_points": 0.019989950024788455,
+      "pairs": {
+        "cond1 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.18509615384615385,
+                0.2130408653846154
+              ],
+              "n": 3328,
+              "rate": 0.19831730769230768
+            },
+            "b": {
+              "ci95": [
+                0.08443509615384616,
+                0.10366586538461539
+              ],
+              "n": 3328,
+              "rate": 0.09344951923076923
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 370,
+              "b_only_correct": 21,
+              "discordant": 391,
+              "method": "chi-square with continuity correction",
+              "p_value": 2.501969597533563e-69,
+              "paired_items": 3328
+            },
+            "mcnemar_p": 2.501969597533563e-69,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                0.9939828725961538,
+                0.9978966346153846
+              ],
+              "n": 3328,
+              "rate": 0.99609375
+            },
+            "b": {
+              "ci95": [
+                0.99609375,
+                0.9991060697115385
+              ],
+              "n": 3328,
+              "rate": 0.9978966346153846
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 6,
+              "b_only_correct": 12,
+              "discordant": 18,
+              "method": "exact binomial",
+              "p_value": 0.237884521484375,
+              "paired_items": 3328
+            },
+            "mcnemar_p": 0.237884521484375,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        },
+        "cond1 vs cond2": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.18509615384615385,
+                0.2130408653846154
+              ],
+              "n": 3328,
+              "rate": 0.19831730769230768
+            },
+            "b": {
+              "ci95": [
+                0.1541466346153846,
+                0.17908653846153846
+              ],
+              "n": 3328,
+              "rate": 0.1658653846153846
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 154,
+              "b_only_correct": 46,
+              "discordant": 200,
+              "method": "chi-square with continuity correction",
+              "p_value": 3.847660404959334e-14,
+              "paired_items": 3328
+            },
+            "mcnemar_p": 3.847660404959334e-14,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "no difference detected",
+            "zero": "no difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                0.9939828725961538,
+                0.9978966346153846
+              ],
+              "n": 3328,
+              "rate": 0.99609375
+            },
+            "b": {
+              "ci95": [
+                0.9915865384615384,
+                0.9966947115384616
+              ],
+              "n": 3328,
+              "rate": 0.9942908653846154
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 8,
+              "b_only_correct": 2,
+              "discordant": 10,
+              "method": "exact binomial",
+              "p_value": 0.109375,
+              "paired_items": 3328
+            },
+            "mcnemar_p": 0.109375,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        },
+        "cond2 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.1541466346153846,
+                0.17908653846153846
+              ],
+              "n": 3328,
+              "rate": 0.1658653846153846
+            },
+            "b": {
+              "ci95": [
+                0.08443509615384616,
+                0.10366586538461539
+              ],
+              "n": 3328,
+              "rate": 0.09344951923076923
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 264,
+              "b_only_correct": 23,
+              "discordant": 287,
+              "method": "chi-square with continuity correction",
+              "p_value": 1.471505336224638e-45,
+              "paired_items": 3328
+            },
+            "mcnemar_p": 1.471505336224638e-45,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "no difference detected",
+            "low": "no difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                0.9915865384615384,
+                0.9966947115384616
+              ],
+              "n": 3328,
+              "rate": 0.9942908653846154
+            },
+            "b": {
+              "ci95": [
+                0.99609375,
+                0.9991060697115385
+              ],
+              "n": 3328,
+              "rate": 0.9978966346153846
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 6,
+              "b_only_correct": 18,
+              "discordant": 24,
+              "method": "exact binomial",
+              "p_value": 0.022655844688415527,
+              "paired_items": 3328
+            },
+            "mcnemar_p": 0.022655844688415527,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        }
+      },
+      "rates": {
+        "baseline": {
+          "ci95": [
+            0.08443509615384616,
+            0.10366586538461539
+          ],
+          "k": 311,
+          "n": 3328,
+          "n_boot": 1000,
+          "rate": 0.09344951923076923
+        },
+        "cond1": {
+          "ci95": [
+            0.18509615384615385,
+            0.2130408653846154
+          ],
+          "k": 660,
+          "n": 3328,
+          "n_boot": 1000,
+          "rate": 0.19831730769230768
+        },
+        "cond2": {
+          "ci95": [
+            0.1541466346153846,
+            0.17908653846153846
+          ],
+          "k": 552,
+          "n": 3328,
+          "n_boot": 1000,
+          "rate": 0.1658653846153846
+        }
+      },
+      "schema_valid": {
+        "baseline": {
+          "ci95": [
+            0.99609375,
+            0.9991060697115385
+          ],
+          "k": 3321,
+          "n": 3328,
+          "n_boot": 1000,
+          "rate": 0.9978966346153846
+        },
+        "cond1": {
+          "ci95": [
+            0.9939828725961538,
+            0.9978966346153846
+          ],
+          "k": 3315,
+          "n": 3328,
+          "n_boot": 1000,
+          "rate": 0.99609375
+        },
+        "cond2": {
+          "ci95": [
+            0.9915865384615384,
+            0.9966947115384616
+          ],
+          "k": 3309,
+          "n": 3328,
+          "n_boot": 1000,
+          "rate": 0.9942908653846154
+        }
+      }
+    },
+    "structured_extract/eval_post_cutoff/free": {
+      "mdd_points": 0.01969850726878225,
+      "pairs": {
+        "cond1 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.19080528846153846,
+                0.21905048076923078
+              ],
+              "n": 3328,
+              "rate": 0.20402644230769232
+            },
+            "b": {
+              "ci95": [
+                0.0811298076923077,
+                0.10066856971153845
+              ],
+              "n": 3328,
+              "rate": 0.09044471153846154
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 395,
+              "b_only_correct": 17,
+              "discordant": 412,
+              "method": "chi-square with continuity correction",
+              "p_value": 5.269833391434849e-77,
+              "paired_items": 3328
+            },
+            "mcnemar_p": 5.269833391434849e-77,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                0.96875,
+                0.9795673076923077
+              ],
+              "n": 3328,
+              "rate": 0.9741586538461539
+            },
+            "b": {
+              "ci95": [
+                0.8641751802884615,
+                0.8852163461538461
+              ],
+              "n": 3328,
+              "rate": 0.8746995192307693
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 386,
+              "b_only_correct": 55,
+              "discordant": 441,
+              "method": "chi-square with continuity correction",
+              "p_value": 1.2073421883470332e-55,
+              "paired_items": 3328
+            },
+            "mcnemar_p": 1.2073421883470332e-55,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          }
+        },
+        "cond1 vs cond2": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.19080528846153846,
+                0.21905048076923078
+              ],
+              "n": 3328,
+              "rate": 0.20402644230769232
+            },
+            "b": {
+              "ci95": [
+                0.15834585336538462,
+                0.18540414663461538
+              ],
+              "n": 3328,
+              "rate": 0.17157451923076922
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 162,
+              "b_only_correct": 54,
+              "discordant": 216,
+              "method": "chi-square with continuity correction",
+              "p_value": 3.327631261232517e-13,
+              "paired_items": 3328
+            },
+            "mcnemar_p": 3.327631261232517e-13,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "no difference detected",
+            "zero": "no difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                0.96875,
+                0.9795673076923077
+              ],
+              "n": 3328,
+              "rate": 0.9741586538461539
+            },
+            "b": {
+              "ci95": [
+                0.9819711538461539,
+                0.9897836538461539
+              ],
+              "n": 3328,
+              "rate": 0.9858774038461539
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 19,
+              "b_only_correct": 58,
+              "discordant": 77,
+              "method": "chi-square with continuity correction",
+              "p_value": 1.4876985866944018e-05,
+              "paired_items": 3328
+            },
+            "mcnemar_p": 1.4876985866944018e-05,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          }
+        },
+        "cond2 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.15834585336538462,
+                0.18540414663461538
+              ],
+              "n": 3328,
+              "rate": 0.17157451923076922
+            },
+            "b": {
+              "ci95": [
+                0.0811298076923077,
+                0.10066856971153845
+              ],
+              "n": 3328,
+              "rate": 0.09044471153846154
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 297,
+              "b_only_correct": 27,
+              "discordant": 324,
+              "method": "chi-square with continuity correction",
+              "p_value": 1.6929715471169118e-50,
+              "paired_items": 3328
+            },
+            "mcnemar_p": 1.6929715471169118e-50,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "no difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                0.9819711538461539,
+                0.9897836538461539
+              ],
+              "n": 3328,
+              "rate": 0.9858774038461539
+            },
+            "b": {
+              "ci95": [
+                0.8641751802884615,
+                0.8852163461538461
+              ],
+              "n": 3328,
+              "rate": 0.8746995192307693
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 393,
+              "b_only_correct": 23,
+              "discordant": 416,
+              "method": "chi-square with continuity correction",
+              "p_value": 3.703899300997603e-73,
+              "paired_items": 3328
+            },
+            "mcnemar_p": 3.703899300997603e-73,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          }
+        }
+      },
+      "rates": {
+        "baseline": {
+          "ci95": [
+            0.0811298076923077,
+            0.10066856971153845
+          ],
+          "k": 301,
+          "n": 3328,
+          "n_boot": 1000,
+          "rate": 0.09044471153846154
+        },
+        "cond1": {
+          "ci95": [
+            0.19080528846153846,
+            0.21905048076923078
+          ],
+          "k": 679,
+          "n": 3328,
+          "n_boot": 1000,
+          "rate": 0.20402644230769232
+        },
+        "cond2": {
+          "ci95": [
+            0.15834585336538462,
+            0.18540414663461538
+          ],
+          "k": 571,
+          "n": 3328,
+          "n_boot": 1000,
+          "rate": 0.17157451923076922
+        }
+      },
+      "schema_valid": {
+        "baseline": {
+          "ci95": [
+            0.8641751802884615,
+            0.8852163461538461
+          ],
+          "k": 2911,
+          "n": 3328,
+          "n_boot": 1000,
+          "rate": 0.8746995192307693
+        },
+        "cond1": {
+          "ci95": [
+            0.96875,
+            0.9795673076923077
+          ],
+          "k": 3242,
+          "n": 3328,
+          "n_boot": 1000,
+          "rate": 0.9741586538461539
+        },
+        "cond2": {
+          "ci95": [
+            0.9819711538461539,
+            0.9897836538461539
+          ],
+          "k": 3281,
+          "n": 3328,
+          "n_boot": 1000,
+          "rate": 0.9858774038461539
+        }
+      }
+    },
+    "structured_extract/eval_pre_cutoff/constrained": {
+      "mdd_points": 0.022946249213235015,
+      "pairs": {
+        "cond1 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.23667100130039012,
+                0.2726592977893368
+              ],
+              "n": 2307,
+              "rate": 0.25487646293888166
+            },
+            "b": {
+              "ci95": [
+                0.07368877329865627,
+                0.09622886866059818
+              ],
+              "n": 2307,
+              "rate": 0.08452535760728218
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 413,
+              "b_only_correct": 20,
+              "discordant": 433,
+              "method": "chi-square with continuity correction",
+              "p_value": 3.6642776314671876e-79,
+              "paired_items": 2307
+            },
+            "mcnemar_p": 3.6642776314671876e-79,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                0.9674902470741222,
+                0.9809276116168184
+              ],
+              "n": 2307,
+              "rate": 0.9744256610316429
+            },
+            "b": {
+              "ci95": [
+                0.9965322930212397,
+                0.9995665366276549
+              ],
+              "n": 2307,
+              "rate": 0.9982661465106198
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 4,
+              "b_only_correct": 59,
+              "discordant": 63,
+              "method": "chi-square with continuity correction",
+              "p_value": 1.0220644786435996e-11,
+              "paired_items": 2307
+            },
+            "mcnemar_p": 1.0220644786435996e-11,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          }
+        },
+        "cond1 vs cond2": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.23667100130039012,
+                0.2726592977893368
+              ],
+              "n": 2307,
+              "rate": 0.25487646293888166
+            },
+            "b": {
+              "ci95": [
+                0.2223667100130039,
+                0.2566103164282618
+              ],
+              "n": 2307,
+              "rate": 0.23970524490680536
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 115,
+              "b_only_correct": 80,
+              "discordant": 195,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.0149004109711748,
+              "paired_items": 2307
+            },
+            "mcnemar_p": 0.0149004109711748,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          },
+          "by_stratum": {
+            "high": "no difference detected",
+            "low": "no difference detected",
+            "zero": "no difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                0.9674902470741222,
+                0.9809276116168184
+              ],
+              "n": 2307,
+              "rate": 0.9744256610316429
+            },
+            "b": {
+              "ci95": [
+                0.9705244906805375,
+                0.9822280017338535
+              ],
+              "n": 2307,
+              "rate": 0.976592977893368
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 13,
+              "b_only_correct": 18,
+              "discordant": 31,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.4724976140006885,
+              "paired_items": 2307
+            },
+            "mcnemar_p": 0.4724976140006885,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        },
+        "cond2 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.2223667100130039,
+                0.2566103164282618
+              ],
+              "n": 2307,
+              "rate": 0.23970524490680536
+            },
+            "b": {
+              "ci95": [
+                0.07368877329865627,
+                0.09622886866059818
+              ],
+              "n": 2307,
+              "rate": 0.08452535760728218
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 377,
+              "b_only_correct": 19,
+              "discordant": 396,
+              "method": "chi-square with continuity correction",
+              "p_value": 5.753272191443986e-72,
+              "paired_items": 2307
+            },
+            "mcnemar_p": 5.753272191443986e-72,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                0.9705244906805375,
+                0.9822280017338535
+              ],
+              "n": 2307,
+              "rate": 0.976592977893368
+            },
+            "b": {
+              "ci95": [
+                0.9965322930212397,
+                0.9995665366276549
+              ],
+              "n": 2307,
+              "rate": 0.9982661465106198
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 4,
+              "b_only_correct": 54,
+              "discordant": 58,
+              "method": "chi-square with continuity correction",
+              "p_value": 1.2427641505946468e-10,
+              "paired_items": 2307
+            },
+            "mcnemar_p": 1.2427641505946468e-10,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          }
+        }
+      },
+      "rates": {
+        "baseline": {
+          "ci95": [
+            0.07368877329865627,
+            0.09622886866059818
+          ],
+          "k": 195,
+          "n": 2307,
+          "n_boot": 1000,
+          "rate": 0.08452535760728218
+        },
+        "cond1": {
+          "ci95": [
+            0.23667100130039012,
+            0.2726592977893368
+          ],
+          "k": 588,
+          "n": 2307,
+          "n_boot": 1000,
+          "rate": 0.25487646293888166
+        },
+        "cond2": {
+          "ci95": [
+            0.2223667100130039,
+            0.2566103164282618
+          ],
+          "k": 553,
+          "n": 2307,
+          "n_boot": 1000,
+          "rate": 0.23970524490680536
+        }
+      },
+      "schema_valid": {
+        "baseline": {
+          "ci95": [
+            0.9965322930212397,
+            0.9995665366276549
+          ],
+          "k": 2303,
+          "n": 2307,
+          "n_boot": 1000,
+          "rate": 0.9982661465106198
+        },
+        "cond1": {
+          "ci95": [
+            0.9674902470741222,
+            0.9809276116168184
+          ],
+          "k": 2248,
+          "n": 2307,
+          "n_boot": 1000,
+          "rate": 0.9744256610316429
+        },
+        "cond2": {
+          "ci95": [
+            0.9705244906805375,
+            0.9822280017338535
+          ],
+          "k": 2253,
+          "n": 2307,
+          "n_boot": 1000,
+          "rate": 0.976592977893368
+        }
+      }
+    },
+    "structured_extract/eval_pre_cutoff/free": {
+      "mdd_points": 0.022622537844031405,
+      "pairs": {
+        "cond1 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.2730710879930646,
+                0.3103597745990464
+              ],
+              "n": 2307,
+              "rate": 0.2917208495882098
+            },
+            "b": {
+              "ci95": [
+                0.07151061985262246,
+                0.09363892501083658
+              ],
+              "n": 2307,
+              "rate": 0.08192457737321196
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 505,
+              "b_only_correct": 21,
+              "discordant": 526,
+              "method": "chi-square with continuity correction",
+              "p_value": 1.8595508997895048e-98,
+              "paired_items": 2307
+            },
+            "mcnemar_p": 1.8595508997895048e-98,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                0.9397485912440399,
+                0.9588209796272215
+              ],
+              "n": 2307,
+              "rate": 0.9492847854356307
+            },
+            "b": {
+              "ci95": [
+                0.8400520156046815,
+                0.8682271348071088
+              ],
+              "n": 2307,
+              "rate": 0.8556566970091027
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 280,
+              "b_only_correct": 64,
+              "discordant": 344,
+              "method": "chi-square with continuity correction",
+              "p_value": 4.523206268854793e-31,
+              "paired_items": 2307
+            },
+            "mcnemar_p": 4.523206268854793e-31,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          }
+        },
+        "cond1 vs cond2": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.2730710879930646,
+                0.3103597745990464
+              ],
+              "n": 2307,
+              "rate": 0.2917208495882098
+            },
+            "b": {
+              "ci95": [
+                0.2483745123537061,
+                0.2847854356306892
+              ],
+              "n": 2307,
+              "rate": 0.2665799739921977
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 133,
+              "b_only_correct": 75,
+              "discordant": 208,
+              "method": "chi-square with continuity correction",
+              "p_value": 7.74233878470577e-05,
+              "paired_items": 2307
+            },
+            "mcnemar_p": 7.74233878470577e-05,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          },
+          "by_stratum": {
+            "high": "no difference detected",
+            "low": "no difference detected",
+            "zero": "no difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                0.9397485912440399,
+                0.9588209796272215
+              ],
+              "n": 2307,
+              "rate": 0.9492847854356307
+            },
+            "b": {
+              "ci95": [
+                0.9479843953185956,
+                0.9649003034243606
+              ],
+              "n": 2307,
+              "rate": 0.9566536627654963
+            },
+            "intervals_overlap": true,
+            "mcnemar": {
+              "a_only_correct": 14,
+              "b_only_correct": 31,
+              "discordant": 45,
+              "method": "chi-square with continuity correction",
+              "p_value": 0.0170726610937884,
+              "paired_items": 2307
+            },
+            "mcnemar_p": 0.0170726610937884,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "no difference detected"
+          }
+        },
+        "cond2 vs baseline": {
+          "accuracy": {
+            "a": {
+              "ci95": [
+                0.2483745123537061,
+                0.2847854356306892
+              ],
+              "n": 2307,
+              "rate": 0.2665799739921977
+            },
+            "b": {
+              "ci95": [
+                0.07151061985262246,
+                0.09363892501083658
+              ],
+              "n": 2307,
+              "rate": 0.08192457737321196
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 448,
+              "b_only_correct": 22,
+              "discordant": 470,
+              "method": "chi-square with continuity correction",
+              "p_value": 1.4353059738303847e-85,
+              "paired_items": 2307
+            },
+            "mcnemar_p": 1.4353059738303847e-85,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          },
+          "by_stratum": {
+            "high": "difference detected",
+            "low": "difference detected",
+            "zero": "difference detected"
+          },
+          "schema_valid": {
+            "a": {
+              "ci95": [
+                0.9479843953185956,
+                0.9649003034243606
+              ],
+              "n": 2307,
+              "rate": 0.9566536627654963
+            },
+            "b": {
+              "ci95": [
+                0.8400520156046815,
+                0.8682271348071088
+              ],
+              "n": 2307,
+              "rate": 0.8556566970091027
+            },
+            "intervals_overlap": false,
+            "mcnemar": {
+              "a_only_correct": 283,
+              "b_only_correct": 50,
+              "discordant": 333,
+              "method": "chi-square with continuity correction",
+              "p_value": 4.9742778653180225e-37,
+              "paired_items": 2307
+            },
+            "mcnemar_p": 4.9742778653180225e-37,
+            "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+            "verdict": "difference detected"
+          }
+        }
+      },
+      "rates": {
+        "baseline": {
+          "ci95": [
+            0.07151061985262246,
+            0.09363892501083658
+          ],
+          "k": 189,
+          "n": 2307,
+          "n_boot": 1000,
+          "rate": 0.08192457737321196
+        },
+        "cond1": {
+          "ci95": [
+            0.2730710879930646,
+            0.3103597745990464
+          ],
+          "k": 673,
+          "n": 2307,
+          "n_boot": 1000,
+          "rate": 0.2917208495882098
+        },
+        "cond2": {
+          "ci95": [
+            0.2483745123537061,
+            0.2847854356306892
+          ],
+          "k": 615,
+          "n": 2307,
+          "n_boot": 1000,
+          "rate": 0.2665799739921977
+        }
+      },
+      "schema_valid": {
+        "baseline": {
+          "ci95": [
+            0.8400520156046815,
+            0.8682271348071088
+          ],
+          "k": 1974,
+          "n": 2307,
+          "n_boot": 1000,
+          "rate": 0.8556566970091027
+        },
+        "cond1": {
+          "ci95": [
+            0.9397485912440399,
+            0.9588209796272215
+          ],
+          "k": 2190,
+          "n": 2307,
+          "n_boot": 1000,
+          "rate": 0.9492847854356307
+        },
+        "cond2": {
+          "ci95": [
+            0.9479843953185956,
+            0.9649003034243606
+          ],
+          "k": 2207,
+          "n": 2307,
+          "n_boot": 1000,
+          "rate": 0.9566536627654963
+        }
+      }
+    }
+  },
+  "general": {
+    "hellaswag": {
+      "extracted": {
+        "baseline": 1.0,
+        "cond1": 1.0,
+        "cond2": 1.0
+      },
+      "mdd_points": 0.04627808361220871,
+      "pairs": {
+        "cond1 vs baseline": {
+          "a": {
+            "ci95": [
+              0.786975,
+              0.834
+            ],
+            "n": 1000,
+            "rate": 0.81
+          },
+          "b": {
+            "ci95": [
+              0.815,
+              0.858
+            ],
+            "n": 1000,
+            "rate": 0.837
+          },
+          "intervals_overlap": true,
+          "mcnemar": {
+            "a_only_correct": 43,
+            "b_only_correct": 70,
+            "discordant": 113,
+            "method": "chi-square with continuity correction",
+            "p_value": 0.014450138700340514,
+            "paired_items": 1000
+          },
+          "mcnemar_p": 0.014450138700340514,
+          "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+          "verdict": "no difference detected"
+        },
+        "cond1 vs cond2": {
+          "a": {
+            "ci95": [
+              0.786975,
+              0.834
+            ],
+            "n": 1000,
+            "rate": 0.81
+          },
+          "b": {
+            "ci95": [
+              0.824,
+              0.869
+            ],
+            "n": 1000,
+            "rate": 0.846
+          },
+          "intervals_overlap": true,
+          "mcnemar": {
+            "a_only_correct": 26,
+            "b_only_correct": 62,
+            "discordant": 88,
+            "method": "chi-square with continuity correction",
+            "p_value": 0.0001907117322819696,
+            "paired_items": 1000
+          },
+          "mcnemar_p": 0.0001907117322819696,
+          "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+          "verdict": "no difference detected"
+        },
+        "cond2 vs baseline": {
+          "a": {
+            "ci95": [
+              0.824,
+              0.869
+            ],
+            "n": 1000,
+            "rate": 0.846
+          },
+          "b": {
+            "ci95": [
+              0.815,
+              0.858
+            ],
+            "n": 1000,
+            "rate": 0.837
+          },
+          "intervals_overlap": true,
+          "mcnemar": {
+            "a_only_correct": 49,
+            "b_only_correct": 40,
+            "discordant": 89,
+            "method": "chi-square with continuity correction",
+            "p_value": 0.3964389152571208,
+            "paired_items": 1000
+          },
+          "mcnemar_p": 0.3964389152571208,
+          "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+          "verdict": "no difference detected"
+        }
+      },
+      "rates": {
+        "baseline": {
+          "ci95": [
+            0.815,
+            0.858
+          ],
+          "k": 837,
+          "n": 1000,
+          "n_boot": 1000,
+          "rate": 0.837
+        },
+        "cond1": {
+          "ci95": [
+            0.786975,
+            0.834
+          ],
+          "k": 810,
+          "n": 1000,
+          "n_boot": 1000,
+          "rate": 0.81
+        },
+        "cond2": {
+          "ci95": [
+            0.824,
+            0.869
+          ],
+          "k": 846,
+          "n": 1000,
+          "n_boot": 1000,
+          "rate": 0.846
+        }
+      }
+    },
+    "mmlu": {
+      "extracted": {
+        "baseline": 1.0,
+        "cond1": 1.0,
+        "cond2": 1.0
+      },
+      "mdd_points": 0.05673552473303244,
+      "pairs": {
+        "cond1 vs baseline": {
+          "a": {
+            "ci95": [
+              0.661,
+              0.717
+            ],
+            "n": 1000,
+            "rate": 0.69
+          },
+          "b": {
+            "ci95": [
+              0.683975,
+              0.743
+            ],
+            "n": 1000,
+            "rate": 0.712
+          },
+          "intervals_overlap": true,
+          "mcnemar": {
+            "a_only_correct": 33,
+            "b_only_correct": 55,
+            "discordant": 88,
+            "method": "chi-square with continuity correction",
+            "p_value": 0.02518146440445966,
+            "paired_items": 991
+          },
+          "mcnemar_p": 0.02518146440445966,
+          "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+          "verdict": "no difference detected"
+        },
+        "cond1 vs cond2": {
+          "a": {
+            "ci95": [
+              0.661,
+              0.717
+            ],
+            "n": 1000,
+            "rate": 0.69
+          },
+          "b": {
+            "ci95": [
+              0.646,
+              0.7050249999999999
+            ],
+            "n": 1000,
+            "rate": 0.676
+          },
+          "intervals_overlap": true,
+          "mcnemar": {
+            "a_only_correct": 42,
+            "b_only_correct": 30,
+            "discordant": 72,
+            "method": "chi-square with continuity correction",
+            "p_value": 0.1948506486088695,
+            "paired_items": 991
+          },
+          "mcnemar_p": 0.1948506486088695,
+          "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+          "verdict": "no difference detected"
+        },
+        "cond2 vs baseline": {
+          "a": {
+            "ci95": [
+              0.646,
+              0.7050249999999999
+            ],
+            "n": 1000,
+            "rate": 0.676
+          },
+          "b": {
+            "ci95": [
+              0.683975,
+              0.743
+            ],
+            "n": 1000,
+            "rate": 0.712
+          },
+          "intervals_overlap": true,
+          "mcnemar": {
+            "a_only_correct": 25,
+            "b_only_correct": 59,
+            "discordant": 84,
+            "method": "chi-square with continuity correction",
+            "p_value": 0.00031748956569319585,
+            "paired_items": 991
+          },
+          "mcnemar_p": 0.00031748956569319585,
+          "rule": "overlapping 95% bootstrap intervals -> 'no difference detected', regardless of point estimates",
+          "verdict": "no difference detected"
+        }
+      },
+      "rates": {
+        "baseline": {
+          "ci95": [
+            0.683975,
+            0.743
+          ],
+          "k": 712,
+          "n": 1000,
+          "n_boot": 1000,
+          "rate": 0.712
+        },
+        "cond1": {
+          "ci95": [
+            0.661,
+            0.717
+          ],
+          "k": 690,
+          "n": 1000,
+          "n_boot": 1000,
+          "rate": 0.69
+        },
+        "cond2": {
+          "ci95": [
+            0.646,
+            0.7050249999999999
+          ],
+          "k": 676,
+          "n": 1000,
+          "n_boot": 1000,
+          "rate": 0.676
+        }
+      }
+    }
+  },
+  "pairs": [
+    "cond1 vs cond2",
+    "cond1 vs baseline",
+    "cond2 vs baseline"
+  ],
+  "runs": [
+    "baseline",
+    "cond1",
+    "cond2"
+  ],
+  "schema": {},
+  "scoring_code_sha256": {
+    "baseline": "73c825f7a7798f5998cde095153215d2dd97e7cfbafeda101f7a09b21aeb986d",
+    "cond1": "73c825f7a7798f5998cde095153215d2dd97e7cfbafeda101f7a09b21aeb986d",
+    "cond2": "73c825f7a7798f5998cde095153215d2dd97e7cfbafeda101f7a09b21aeb986d"
+  }
+}
