@@ -46,7 +46,17 @@
     "seed": 5678,
     "status": "in_training",
     "as_of": "2026-09-20",
-    "note": "second-seed replication of Cond-1 and Cond-2 was launched on the DGX and had not finished when these documents were built; the findings state the single-seed limitation in the finding itself"
+    "note": "second-seed replication of Cond-1 and Cond-2 was launched on the DGX and had not finished when these documents were built; the findings state the single-seed limitation in the finding itself",
+    "interpretation_rule": {
+      "_comment": "Fixed and committed while seed 5678 was still training, before any of its scores existed. Deciding what agreement means after seeing the numbers is not interpretation, it is selection.",
+      "fixed_on": "2026-09-21",
+      "fixed_before_results": true,
+      "agreement": "For each general benchmark, the seed-5678 run agrees with seed-1234 when the Cond-1 vs Cond-2 paired difference carries the same sign AND the same Holm-adjusted verdict.",
+      "if_both_agree": "the finding stands on two independent draws and the single-seed caveat is replaced by what the two seeds showed.",
+      "if_either_disagrees": "the design does not separate a replay effect from seed variance, and that is the conclusion to publish -- not the seed that happened to agree.",
+      "also_measured": "cond1(1234) vs cond1(5678) and cond2(1234) vs cond2(5678), paired over the same evaluation items, so seed-to-seed movement is measured directly instead of inferred from two separate comparisons.",
+      "limit": "two seeds give one seed-to-seed difference per condition, not a variance estimate. A difference smaller than the paired MDD is not evidence of stability."
+    }
   },
   "engineering_rules": {
     "_comment": "rule numbers as they appear in docs/engineering-rules.md; cited by the generated documents so the citation itself is traceable",
