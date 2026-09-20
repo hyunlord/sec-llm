@@ -35,8 +35,8 @@ from eval import strata  # noqa: E402
 from eval.common import (  # noqa: E402
     DECODINGS, EVAL_SPLITS, GENERAL, OUT, REQUIRED_SAMPLING, SCHEMAS, SEED, TASKS, VLLM_ENGINE,
     MEMORY_CEILING, MODEL_REPO, HarnessError, checkpoint_digest, enforce_env, eval_file_keys,
-    host_facts, iter_jsonl, model_snapshot, pinned_model_commit, run_dir, sha256_text, versions,
-    verify_dataset, write_json, write_jsonl,
+    harness_code_sha, host_facts, iter_jsonl, model_snapshot, pinned_model_commit, run_dir,
+    sha256_text, versions, verify_dataset, write_json, write_jsonl,
 )
 from eval.scorers import general as general_scorer  # noqa: E402
 
