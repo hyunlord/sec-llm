@@ -1,0 +1,5075 @@
+{
+ "spdxVersion": "SPDX-2.3",
+ "dataLicense": "CC0-1.0",
+ "SPDXID": "SPDXRef-DOCUMENT",
+ "name": "sec-llm-sbom",
+ "documentNamespace": "https://github.com/hyunlord/sec-llm/spdx/e8160e4af6f311d2ee6b33dc368c71ad",
+ "creationInfo": {
+  "created": "2026-09-18T04:37:32Z",
+  "creators": [
+   "Tool: sec-llm-docs-build"
+  ],
+  "comment": "created is the newest source pin recorded in ingest/sources.lock.json, not the build clock: this document must reproduce byte for byte."
+ },
+ "packages": [
+  {
+   "SPDXID": "SPDXRef-Package-sec-llm",
+   "name": "sec-llm",
+   "versionInfo": "P7",
+   "downloadLocation": "https://github.com/hyunlord/sec-llm",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "comment": "the pipeline itself; its published artifacts are manifests, pins and reports, and it does not redistribute the raw corpora"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-accelerate",
+   "name": "accelerate",
+   "versionInfo": "1.15.0",
+   "downloadLocation": "https://pypi.org/project/accelerate/1.15.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/accelerate@1.15.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-agent-detector",
+   "name": "agent-detector",
+   "versionInfo": "2.0.0",
+   "downloadLocation": "https://pypi.org/project/agent-detector/2.0.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/agent-detector@2.0.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-aiohappyeyeballs",
+   "name": "aiohappyeyeballs",
+   "versionInfo": "2.7.1",
+   "downloadLocation": "https://pypi.org/project/aiohappyeyeballs/2.7.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/aiohappyeyeballs@2.7.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-aiohttp",
+   "name": "aiohttp",
+   "versionInfo": "3.14.3",
+   "downloadLocation": "https://pypi.org/project/aiohttp/3.14.3/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/aiohttp@3.14.3"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-aiosignal",
+   "name": "aiosignal",
+   "versionInfo": "1.4.0",
+   "downloadLocation": "https://pypi.org/project/aiosignal/1.4.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/aiosignal@1.4.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-annotated-doc",
+   "name": "annotated-doc",
+   "versionInfo": "0.0.5",
+   "downloadLocation": "https://pypi.org/project/annotated-doc/0.0.5/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/annotated-doc@0.0.5"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-annotated-types",
+   "name": "annotated-types",
+   "versionInfo": "0.8.0",
+   "downloadLocation": "https://pypi.org/project/annotated-types/0.8.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/annotated-types@0.8.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-anthropic",
+   "name": "anthropic",
+   "versionInfo": "1.6.0",
+   "downloadLocation": "https://pypi.org/project/anthropic/1.6.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/anthropic@1.6.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-anyio",
+   "name": "anyio",
+   "versionInfo": "4.15.1",
+   "downloadLocation": "https://pypi.org/project/anyio/4.15.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/anyio@4.15.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-apache-tvm-ffi",
+   "name": "apache-tvm-ffi",
+   "versionInfo": "0.1.11",
+   "downloadLocation": "https://pypi.org/project/apache-tvm-ffi/0.1.11/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/apache-tvm-ffi@0.1.11"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-astor",
+   "name": "astor",
+   "versionInfo": "0.8.1",
+   "downloadLocation": "https://pypi.org/project/astor/0.8.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/astor@0.8.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-attrs",
+   "name": "attrs",
+   "versionInfo": "26.1.0",
+   "downloadLocation": "https://pypi.org/project/attrs/26.1.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/attrs@26.1.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-blake3",
+   "name": "blake3",
+   "versionInfo": "1.0.9",
+   "downloadLocation": "https://pypi.org/project/blake3/1.0.9/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/blake3@1.0.9"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-cachetools",
+   "name": "cachetools",
+   "versionInfo": "7.2.0",
+   "downloadLocation": "https://pypi.org/project/cachetools/7.2.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/cachetools@7.2.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-cbor2",
+   "name": "cbor2",
+   "versionInfo": "6.1.4",
+   "downloadLocation": "https://pypi.org/project/cbor2/6.1.4/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/cbor2@6.1.4"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-certifi",
+   "name": "certifi",
+   "versionInfo": "2026.7.22",
+   "downloadLocation": "https://pypi.org/project/certifi/2026.7.22/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/certifi@2026.7.22"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-cffi",
+   "name": "cffi",
+   "versionInfo": "2.1.1",
+   "downloadLocation": "https://pypi.org/project/cffi/2.1.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/cffi@2.1.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-charset-normalizer",
+   "name": "charset-normalizer",
+   "versionInfo": "3.5.1",
+   "downloadLocation": "https://pypi.org/project/charset-normalizer/3.5.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/charset-normalizer@3.5.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-click",
+   "name": "click",
+   "versionInfo": "8.5.0",
+   "downloadLocation": "https://pypi.org/project/click/8.5.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/click@8.5.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-cloudpickle",
+   "name": "cloudpickle",
+   "versionInfo": "3.1.2",
+   "downloadLocation": "https://pypi.org/project/cloudpickle/3.1.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/cloudpickle@3.1.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-compressed-tensors",
+   "name": "compressed-tensors",
+   "versionInfo": "0.17.0",
+   "downloadLocation": "https://pypi.org/project/compressed-tensors/0.17.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/compressed-tensors@0.17.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-cryptography",
+   "name": "cryptography",
+   "versionInfo": "50.0.1",
+   "downloadLocation": "https://pypi.org/project/cryptography/50.0.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/cryptography@50.0.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-cuda-bindings",
+   "name": "cuda-bindings",
+   "versionInfo": "13.4.2",
+   "downloadLocation": "https://pypi.org/project/cuda-bindings/13.4.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/cuda-bindings@13.4.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-cuda-core",
+   "name": "cuda-core",
+   "versionInfo": "1.2.0",
+   "downloadLocation": "https://pypi.org/project/cuda-core/1.2.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/cuda-core@1.2.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-cuda-pathfinder",
+   "name": "cuda-pathfinder",
+   "versionInfo": "1.8.2",
+   "downloadLocation": "https://pypi.org/project/cuda-pathfinder/1.8.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/cuda-pathfinder@1.8.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-cuda-python",
+   "name": "cuda-python",
+   "versionInfo": "13.4.1",
+   "downloadLocation": "https://pypi.org/project/cuda-python/13.4.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/cuda-python@13.4.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-cuda-tile",
+   "name": "cuda-tile",
+   "versionInfo": "1.6.0",
+   "downloadLocation": "https://pypi.org/project/cuda-tile/1.6.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/cuda-tile@1.6.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-cuda-toolkit",
+   "name": "cuda-toolkit",
+   "versionInfo": "13.0.3.0",
+   "downloadLocation": "https://pypi.org/project/cuda-toolkit/13.0.3.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/cuda-toolkit@13.0.3.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-datasets",
+   "name": "datasets",
+   "versionInfo": "5.0.1",
+   "downloadLocation": "https://pypi.org/project/datasets/5.0.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/datasets@5.0.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-depyf",
+   "name": "depyf",
+   "versionInfo": "0.20.0",
+   "downloadLocation": "https://pypi.org/project/depyf/0.20.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/depyf@0.20.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-detect-installer",
+   "name": "detect-installer",
+   "versionInfo": "0.2.1",
+   "downloadLocation": "https://pypi.org/project/detect-installer/0.2.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/detect-installer@0.2.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-dill",
+   "name": "dill",
+   "versionInfo": "0.4.1",
+   "downloadLocation": "https://pypi.org/project/dill/0.4.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/dill@0.4.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-dnspython",
+   "name": "dnspython",
+   "versionInfo": "2.8.0",
+   "downloadLocation": "https://pypi.org/project/dnspython/2.8.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/dnspython@2.8.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-docstring-parser",
+   "name": "docstring-parser",
+   "versionInfo": "0.18.0",
+   "downloadLocation": "https://pypi.org/project/docstring-parser/0.18.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/docstring-parser@0.18.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-einops",
+   "name": "einops",
+   "versionInfo": "0.8.2",
+   "downloadLocation": "https://pypi.org/project/einops/0.8.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/einops@0.8.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-email-validator",
+   "name": "email-validator",
+   "versionInfo": "2.3.0",
+   "downloadLocation": "https://pypi.org/project/email-validator/2.3.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/email-validator@2.3.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-fastapi",
+   "name": "fastapi",
+   "versionInfo": "0.136.3",
+   "downloadLocation": "https://pypi.org/project/fastapi/0.136.3/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/fastapi@0.136.3"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-fastapi-cli",
+   "name": "fastapi-cli",
+   "versionInfo": "0.0.32",
+   "downloadLocation": "https://pypi.org/project/fastapi-cli/0.0.32/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/fastapi-cli@0.0.32"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-fastapi-cloud-cli",
+   "name": "fastapi-cloud-cli",
+   "versionInfo": "0.26.0",
+   "downloadLocation": "https://pypi.org/project/fastapi-cloud-cli/0.26.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/fastapi-cloud-cli@0.26.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-fastar",
+   "name": "fastar",
+   "versionInfo": "0.12.0",
+   "downloadLocation": "https://pypi.org/project/fastar/0.12.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/fastar@0.12.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-fastsafetensors",
+   "name": "fastsafetensors",
+   "versionInfo": "0.4.0",
+   "downloadLocation": "https://pypi.org/project/fastsafetensors/0.4.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/fastsafetensors@0.4.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-filelock",
+   "name": "filelock",
+   "versionInfo": "4.0.0",
+   "downloadLocation": "https://pypi.org/project/filelock/4.0.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/filelock@4.0.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-flashinfer-python",
+   "name": "flashinfer-python",
+   "versionInfo": "0.6.18",
+   "downloadLocation": "https://pypi.org/project/flashinfer-python/0.6.18/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/flashinfer-python@0.6.18"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-frozenlist",
+   "name": "frozenlist",
+   "versionInfo": "1.8.0",
+   "downloadLocation": "https://pypi.org/project/frozenlist/1.8.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/frozenlist@1.8.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-fsspec",
+   "name": "fsspec",
+   "versionInfo": "2026.6.0",
+   "downloadLocation": "https://pypi.org/project/fsspec/2026.6.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/fsspec@2026.6.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-googleapis-common-protos",
+   "name": "googleapis-common-protos",
+   "versionInfo": "1.75.3",
+   "downloadLocation": "https://pypi.org/project/googleapis-common-protos/1.75.3/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/googleapis-common-protos@1.75.3"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-grpcio",
+   "name": "grpcio",
+   "versionInfo": "1.84.0",
+   "downloadLocation": "https://pypi.org/project/grpcio/1.84.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/grpcio@1.84.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-h11",
+   "name": "h11",
+   "versionInfo": "0.16.0",
+   "downloadLocation": "https://pypi.org/project/h11/0.16.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/h11@0.16.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-hf-xet",
+   "name": "hf-xet",
+   "versionInfo": "1.6.0",
+   "downloadLocation": "https://pypi.org/project/hf-xet/1.6.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/hf-xet@1.6.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-httpcore",
+   "name": "httpcore",
+   "versionInfo": "1.0.9",
+   "downloadLocation": "https://pypi.org/project/httpcore/1.0.9/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/httpcore@1.0.9"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-httpcore2",
+   "name": "httpcore2",
+   "versionInfo": "2.13.0",
+   "downloadLocation": "https://pypi.org/project/httpcore2/2.13.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/httpcore2@2.13.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-httptools",
+   "name": "httptools",
+   "versionInfo": "0.8.0",
+   "downloadLocation": "https://pypi.org/project/httptools/0.8.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/httptools@0.8.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-httpx",
+   "name": "httpx",
+   "versionInfo": "0.28.1",
+   "downloadLocation": "https://pypi.org/project/httpx/0.28.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/httpx@0.28.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-httpx2",
+   "name": "httpx2",
+   "versionInfo": "2.13.0",
+   "downloadLocation": "https://pypi.org/project/httpx2/2.13.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/httpx2@2.13.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-huggingface-hub",
+   "name": "huggingface-hub",
+   "versionInfo": "1.32.0",
+   "downloadLocation": "https://pypi.org/project/huggingface-hub/1.32.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/huggingface-hub@1.32.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-humming-kernels",
+   "name": "humming-kernels",
+   "versionInfo": "0.1.12",
+   "downloadLocation": "https://pypi.org/project/humming-kernels/0.1.12/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/humming-kernels@0.1.12"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-idna",
+   "name": "idna",
+   "versionInfo": "3.20",
+   "downloadLocation": "https://pypi.org/project/idna/3.20/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/idna@3.20"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-ijson",
+   "name": "ijson",
+   "versionInfo": "3.5.1",
+   "downloadLocation": "https://pypi.org/project/ijson/3.5.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/ijson@3.5.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-instanttensor",
+   "name": "instanttensor",
+   "versionInfo": "0.2.0",
+   "downloadLocation": "https://pypi.org/project/instanttensor/0.2.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/instanttensor@0.2.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-interegular",
+   "name": "interegular",
+   "versionInfo": "0.3.3",
+   "downloadLocation": "https://pypi.org/project/interegular/0.3.3/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/interegular@0.3.3"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-jinja2",
+   "name": "jinja2",
+   "versionInfo": "3.1.6",
+   "downloadLocation": "https://pypi.org/project/jinja2/3.1.6/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/jinja2@3.1.6"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-jiter",
+   "name": "jiter",
+   "versionInfo": "0.17.0",
+   "downloadLocation": "https://pypi.org/project/jiter/0.17.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/jiter@0.17.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-jmespath",
+   "name": "jmespath",
+   "versionInfo": "1.1.0",
+   "downloadLocation": "https://pypi.org/project/jmespath/1.1.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/jmespath@1.1.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-jsonschema",
+   "name": "jsonschema",
+   "versionInfo": "4.26.0",
+   "downloadLocation": "https://pypi.org/project/jsonschema/4.26.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/jsonschema@4.26.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-jsonschema-specifications",
+   "name": "jsonschema-specifications",
+   "versionInfo": "2025.9.1",
+   "downloadLocation": "https://pypi.org/project/jsonschema-specifications/2025.9.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/jsonschema-specifications@2025.9.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-lark",
+   "name": "lark",
+   "versionInfo": "1.2.2",
+   "downloadLocation": "https://pypi.org/project/lark/1.2.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/lark@1.2.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-llguidance",
+   "name": "llguidance",
+   "versionInfo": "1.7.6",
+   "downloadLocation": "https://pypi.org/project/llguidance/1.7.6/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/llguidance@1.7.6"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-llvmlite",
+   "name": "llvmlite",
+   "versionInfo": "0.47.0",
+   "downloadLocation": "https://pypi.org/project/llvmlite/0.47.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/llvmlite@0.47.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-lm-format-enforcer",
+   "name": "lm-format-enforcer",
+   "versionInfo": "0.11.3",
+   "downloadLocation": "https://pypi.org/project/lm-format-enforcer/0.11.3/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/lm-format-enforcer@0.11.3"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-loguru",
+   "name": "loguru",
+   "versionInfo": "0.7.3",
+   "downloadLocation": "https://pypi.org/project/loguru/0.7.3/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/loguru@0.7.3"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-markdown-it-py",
+   "name": "markdown-it-py",
+   "versionInfo": "4.2.0",
+   "downloadLocation": "https://pypi.org/project/markdown-it-py/4.2.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/markdown-it-py@4.2.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-markupsafe",
+   "name": "markupsafe",
+   "versionInfo": "3.0.3",
+   "downloadLocation": "https://pypi.org/project/markupsafe/3.0.3/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/markupsafe@3.0.3"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-mcp",
+   "name": "mcp",
+   "versionInfo": "2.2.0",
+   "downloadLocation": "https://pypi.org/project/mcp/2.2.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/mcp@2.2.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-mcp-types",
+   "name": "mcp-types",
+   "versionInfo": "2.2.0",
+   "downloadLocation": "https://pypi.org/project/mcp-types/2.2.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/mcp-types@2.2.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-mdurl",
+   "name": "mdurl",
+   "versionInfo": "0.1.2",
+   "downloadLocation": "https://pypi.org/project/mdurl/0.1.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/mdurl@0.1.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-mistral-common",
+   "name": "mistral-common",
+   "versionInfo": "1.11.7",
+   "downloadLocation": "https://pypi.org/project/mistral-common/1.11.7/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/mistral-common@1.11.7"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-ml-dtypes",
+   "name": "ml-dtypes",
+   "versionInfo": "0.6.0",
+   "downloadLocation": "https://pypi.org/project/ml-dtypes/0.6.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/ml-dtypes@0.6.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-model-hosting-container-standards",
+   "name": "model-hosting-container-standards",
+   "versionInfo": "0.1.16",
+   "downloadLocation": "https://pypi.org/project/model-hosting-container-standards/0.1.16/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/model-hosting-container-standards@0.1.16"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-mpmath",
+   "name": "mpmath",
+   "versionInfo": "1.3.0",
+   "downloadLocation": "https://pypi.org/project/mpmath/1.3.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/mpmath@1.3.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-msgspec",
+   "name": "msgspec",
+   "versionInfo": "0.21.1",
+   "downloadLocation": "https://pypi.org/project/msgspec/0.21.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/msgspec@0.21.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-multidict",
+   "name": "multidict",
+   "versionInfo": "6.8.0",
+   "downloadLocation": "https://pypi.org/project/multidict/6.8.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/multidict@6.8.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-multiprocess",
+   "name": "multiprocess",
+   "versionInfo": "0.70.19",
+   "downloadLocation": "https://pypi.org/project/multiprocess/0.70.19/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/multiprocess@0.70.19"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nccl4py",
+   "name": "nccl4py",
+   "versionInfo": "0.5.0",
+   "downloadLocation": "https://pypi.org/project/nccl4py/0.5.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nccl4py@0.5.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-networkx",
+   "name": "networkx",
+   "versionInfo": "3.6.1",
+   "downloadLocation": "https://pypi.org/project/networkx/3.6.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/networkx@3.6.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-ninja",
+   "name": "ninja",
+   "versionInfo": "1.13.2",
+   "downloadLocation": "https://pypi.org/project/ninja/1.13.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/ninja@1.13.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-numba",
+   "name": "numba",
+   "versionInfo": "0.65.0",
+   "downloadLocation": "https://pypi.org/project/numba/0.65.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/numba@0.65.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-numpy",
+   "name": "numpy",
+   "versionInfo": "2.3.5",
+   "downloadLocation": "https://pypi.org/project/numpy/2.3.5/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/numpy@2.3.5"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cublas",
+   "name": "nvidia-cublas",
+   "versionInfo": "13.1.1.3",
+   "downloadLocation": "https://pypi.org/project/nvidia-cublas/13.1.1.3/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cublas@13.1.1.3"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cuda-cccl",
+   "name": "nvidia-cuda-cccl",
+   "versionInfo": "13.3.4.3.1",
+   "downloadLocation": "https://pypi.org/project/nvidia-cuda-cccl/13.3.4.3.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cuda-cccl@13.3.4.3.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cuda-crt",
+   "name": "nvidia-cuda-crt",
+   "versionInfo": "13.4.92",
+   "downloadLocation": "https://pypi.org/project/nvidia-cuda-crt/13.4.92/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cuda-crt@13.4.92"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cuda-cupti",
+   "name": "nvidia-cuda-cupti",
+   "versionInfo": "13.0.85",
+   "downloadLocation": "https://pypi.org/project/nvidia-cuda-cupti/13.0.85/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cuda-cupti@13.0.85"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cuda-nvcc",
+   "name": "nvidia-cuda-nvcc",
+   "versionInfo": "13.4.92",
+   "downloadLocation": "https://pypi.org/project/nvidia-cuda-nvcc/13.4.92/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cuda-nvcc@13.4.92"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cuda-nvdisasm",
+   "name": "nvidia-cuda-nvdisasm",
+   "versionInfo": "13.4.92",
+   "downloadLocation": "https://pypi.org/project/nvidia-cuda-nvdisasm/13.4.92/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cuda-nvdisasm@13.4.92"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cuda-nvrtc",
+   "name": "nvidia-cuda-nvrtc",
+   "versionInfo": "13.0.88",
+   "downloadLocation": "https://pypi.org/project/nvidia-cuda-nvrtc/13.0.88/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cuda-nvrtc@13.0.88"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cuda-runtime",
+   "name": "nvidia-cuda-runtime",
+   "versionInfo": "13.0.96",
+   "downloadLocation": "https://pypi.org/project/nvidia-cuda-runtime/13.0.96/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cuda-runtime@13.0.96"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cudnn-cu13",
+   "name": "nvidia-cudnn-cu13",
+   "versionInfo": "9.20.0.48",
+   "downloadLocation": "https://pypi.org/project/nvidia-cudnn-cu13/9.20.0.48/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cudnn-cu13@9.20.0.48"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cudnn-frontend",
+   "name": "nvidia-cudnn-frontend",
+   "versionInfo": "1.29.0",
+   "downloadLocation": "https://pypi.org/project/nvidia-cudnn-frontend/1.29.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cudnn-frontend@1.29.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cufft",
+   "name": "nvidia-cufft",
+   "versionInfo": "12.0.0.61",
+   "downloadLocation": "https://pypi.org/project/nvidia-cufft/12.0.0.61/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cufft@12.0.0.61"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cufile",
+   "name": "nvidia-cufile",
+   "versionInfo": "1.15.1.6",
+   "downloadLocation": "https://pypi.org/project/nvidia-cufile/1.15.1.6/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cufile@1.15.1.6"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-curand",
+   "name": "nvidia-curand",
+   "versionInfo": "10.4.0.35",
+   "downloadLocation": "https://pypi.org/project/nvidia-curand/10.4.0.35/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-curand@10.4.0.35"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cusolver",
+   "name": "nvidia-cusolver",
+   "versionInfo": "12.0.4.66",
+   "downloadLocation": "https://pypi.org/project/nvidia-cusolver/12.0.4.66/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cusolver@12.0.4.66"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cusparse",
+   "name": "nvidia-cusparse",
+   "versionInfo": "12.6.3.3",
+   "downloadLocation": "https://pypi.org/project/nvidia-cusparse/12.6.3.3/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cusparse@12.6.3.3"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cusparselt-cu13",
+   "name": "nvidia-cusparselt-cu13",
+   "versionInfo": "0.8.1",
+   "downloadLocation": "https://pypi.org/project/nvidia-cusparselt-cu13/0.8.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cusparselt-cu13@0.8.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cutlass-dsl",
+   "name": "nvidia-cutlass-dsl",
+   "versionInfo": "4.6.2",
+   "downloadLocation": "https://pypi.org/project/nvidia-cutlass-dsl/4.6.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cutlass-dsl@4.6.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cutlass-dsl-libs-base",
+   "name": "nvidia-cutlass-dsl-libs-base",
+   "versionInfo": "4.6.2",
+   "downloadLocation": "https://pypi.org/project/nvidia-cutlass-dsl-libs-base/4.6.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cutlass-dsl-libs-base@4.6.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cutlass-dsl-libs-core",
+   "name": "nvidia-cutlass-dsl-libs-core",
+   "versionInfo": "4.6.2",
+   "downloadLocation": "https://pypi.org/project/nvidia-cutlass-dsl-libs-core/4.6.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cutlass-dsl-libs-core@4.6.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cutlass-dsl-libs-cu12",
+   "name": "nvidia-cutlass-dsl-libs-cu12",
+   "versionInfo": "4.6.2",
+   "downloadLocation": "https://pypi.org/project/nvidia-cutlass-dsl-libs-cu12/4.6.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cutlass-dsl-libs-cu12@4.6.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-cutlass-dsl-libs-cu13",
+   "name": "nvidia-cutlass-dsl-libs-cu13",
+   "versionInfo": "4.6.2",
+   "downloadLocation": "https://pypi.org/project/nvidia-cutlass-dsl-libs-cu13/4.6.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-cutlass-dsl-libs-cu13@4.6.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-ml-py",
+   "name": "nvidia-ml-py",
+   "versionInfo": "13.610.43",
+   "downloadLocation": "https://pypi.org/project/nvidia-ml-py/13.610.43/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-ml-py@13.610.43"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-nccl-cu13",
+   "name": "nvidia-nccl-cu13",
+   "versionInfo": "2.29.7",
+   "downloadLocation": "https://pypi.org/project/nvidia-nccl-cu13/2.29.7/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-nccl-cu13@2.29.7"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-nvjitlink",
+   "name": "nvidia-nvjitlink",
+   "versionInfo": "13.4.92",
+   "downloadLocation": "https://pypi.org/project/nvidia-nvjitlink/13.4.92/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-nvjitlink@13.4.92"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-nvshmem-cu13",
+   "name": "nvidia-nvshmem-cu13",
+   "versionInfo": "3.4.5",
+   "downloadLocation": "https://pypi.org/project/nvidia-nvshmem-cu13/3.4.5/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-nvshmem-cu13@3.4.5"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-nvtx",
+   "name": "nvidia-nvtx",
+   "versionInfo": "13.0.85",
+   "downloadLocation": "https://pypi.org/project/nvidia-nvtx/13.0.85/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-nvtx@13.0.85"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvidia-nvvm",
+   "name": "nvidia-nvvm",
+   "versionInfo": "13.4.92",
+   "downloadLocation": "https://pypi.org/project/nvidia-nvvm/13.4.92/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvidia-nvvm@13.4.92"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-nvtx",
+   "name": "nvtx",
+   "versionInfo": "0.2.15",
+   "downloadLocation": "https://pypi.org/project/nvtx/0.2.15/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/nvtx@0.2.15"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-openai",
+   "name": "openai",
+   "versionInfo": "3.14.1",
+   "downloadLocation": "https://pypi.org/project/openai/3.14.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/openai@3.14.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-openai-harmony",
+   "name": "openai-harmony",
+   "versionInfo": "0.0.8",
+   "downloadLocation": "https://pypi.org/project/openai-harmony/0.0.8/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/openai-harmony@0.0.8"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-opencv-python-headless",
+   "name": "opencv-python-headless",
+   "versionInfo": "5.0.0.93",
+   "downloadLocation": "https://pypi.org/project/opencv-python-headless/5.0.0.93/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/opencv-python-headless@5.0.0.93"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-opentelemetry-api",
+   "name": "opentelemetry-api",
+   "versionInfo": "1.44.0",
+   "downloadLocation": "https://pypi.org/project/opentelemetry-api/1.44.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/opentelemetry-api@1.44.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-opentelemetry-exporter-otlp",
+   "name": "opentelemetry-exporter-otlp",
+   "versionInfo": "1.44.0",
+   "downloadLocation": "https://pypi.org/project/opentelemetry-exporter-otlp/1.44.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/opentelemetry-exporter-otlp@1.44.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-opentelemetry-exporter-otlp-proto-common",
+   "name": "opentelemetry-exporter-otlp-proto-common",
+   "versionInfo": "1.44.0",
+   "downloadLocation": "https://pypi.org/project/opentelemetry-exporter-otlp-proto-common/1.44.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/opentelemetry-exporter-otlp-proto-common@1.44.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-opentelemetry-exporter-otlp-proto-grpc",
+   "name": "opentelemetry-exporter-otlp-proto-grpc",
+   "versionInfo": "1.44.0",
+   "downloadLocation": "https://pypi.org/project/opentelemetry-exporter-otlp-proto-grpc/1.44.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/opentelemetry-exporter-otlp-proto-grpc@1.44.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-opentelemetry-exporter-otlp-proto-http",
+   "name": "opentelemetry-exporter-otlp-proto-http",
+   "versionInfo": "1.44.0",
+   "downloadLocation": "https://pypi.org/project/opentelemetry-exporter-otlp-proto-http/1.44.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/opentelemetry-exporter-otlp-proto-http@1.44.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-opentelemetry-proto",
+   "name": "opentelemetry-proto",
+   "versionInfo": "1.44.0",
+   "downloadLocation": "https://pypi.org/project/opentelemetry-proto/1.44.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/opentelemetry-proto@1.44.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-opentelemetry-sdk",
+   "name": "opentelemetry-sdk",
+   "versionInfo": "1.44.0",
+   "downloadLocation": "https://pypi.org/project/opentelemetry-sdk/1.44.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/opentelemetry-sdk@1.44.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-opentelemetry-semantic-conventions",
+   "name": "opentelemetry-semantic-conventions",
+   "versionInfo": "0.65b0",
+   "downloadLocation": "https://pypi.org/project/opentelemetry-semantic-conventions/0.65b0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/opentelemetry-semantic-conventions@0.65b0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-opentelemetry-semantic-conventions-ai",
+   "name": "opentelemetry-semantic-conventions-ai",
+   "versionInfo": "0.5.1",
+   "downloadLocation": "https://pypi.org/project/opentelemetry-semantic-conventions-ai/0.5.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/opentelemetry-semantic-conventions-ai@0.5.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-outlines-core",
+   "name": "outlines-core",
+   "versionInfo": "0.2.14",
+   "downloadLocation": "https://pypi.org/project/outlines-core/0.2.14/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/outlines-core@0.2.14"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-packaging",
+   "name": "packaging",
+   "versionInfo": "26.3",
+   "downloadLocation": "https://pypi.org/project/packaging/26.3/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/packaging@26.3"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-pandas",
+   "name": "pandas",
+   "versionInfo": "3.0.6",
+   "downloadLocation": "https://pypi.org/project/pandas/3.0.6/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/pandas@3.0.6"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-partial-json-parser",
+   "name": "partial-json-parser",
+   "versionInfo": "0.2.1.1.post7",
+   "downloadLocation": "https://pypi.org/project/partial-json-parser/0.2.1.1.post7/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/partial-json-parser@0.2.1.1.post7"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-peft",
+   "name": "peft",
+   "versionInfo": "0.21.0",
+   "downloadLocation": "https://pypi.org/project/peft/0.21.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/peft@0.21.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-pillow",
+   "name": "pillow",
+   "versionInfo": "12.3.0",
+   "downloadLocation": "https://pypi.org/project/pillow/12.3.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/pillow@12.3.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-pip",
+   "name": "pip",
+   "versionInfo": "26.2.1",
+   "downloadLocation": "https://pypi.org/project/pip/26.2.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/pip@26.2.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-prometheus-client",
+   "name": "prometheus-client",
+   "versionInfo": "0.26.0",
+   "downloadLocation": "https://pypi.org/project/prometheus-client/0.26.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/prometheus-client@0.26.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-prometheus-fastapi-instrumentator",
+   "name": "prometheus-fastapi-instrumentator",
+   "versionInfo": "8.1.0",
+   "downloadLocation": "https://pypi.org/project/prometheus-fastapi-instrumentator/8.1.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/prometheus-fastapi-instrumentator@8.1.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-propcache",
+   "name": "propcache",
+   "versionInfo": "0.5.4",
+   "downloadLocation": "https://pypi.org/project/propcache/0.5.4/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/propcache@0.5.4"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-protobuf",
+   "name": "protobuf",
+   "versionInfo": "6.33.6",
+   "downloadLocation": "https://pypi.org/project/protobuf/6.33.6/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/protobuf@6.33.6"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-psutil",
+   "name": "psutil",
+   "versionInfo": "7.2.2",
+   "downloadLocation": "https://pypi.org/project/psutil/7.2.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/psutil@7.2.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-py-cpuinfo",
+   "name": "py-cpuinfo",
+   "versionInfo": "9.0.0",
+   "downloadLocation": "https://pypi.org/project/py-cpuinfo/9.0.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/py-cpuinfo@9.0.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-pyarrow",
+   "name": "pyarrow",
+   "versionInfo": "25.0.1",
+   "downloadLocation": "https://pypi.org/project/pyarrow/25.0.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/pyarrow@25.0.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-pybase64",
+   "name": "pybase64",
+   "versionInfo": "1.5.0",
+   "downloadLocation": "https://pypi.org/project/pybase64/1.5.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/pybase64@1.5.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-pycountry",
+   "name": "pycountry",
+   "versionInfo": "26.2.16",
+   "downloadLocation": "https://pypi.org/project/pycountry/26.2.16/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/pycountry@26.2.16"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-pycparser",
+   "name": "pycparser",
+   "versionInfo": "3.0",
+   "downloadLocation": "https://pypi.org/project/pycparser/3.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/pycparser@3.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-pydantic",
+   "name": "pydantic",
+   "versionInfo": "2.13.5",
+   "downloadLocation": "https://pypi.org/project/pydantic/2.13.5/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/pydantic@2.13.5"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-pydantic-core",
+   "name": "pydantic-core",
+   "versionInfo": "2.46.5",
+   "downloadLocation": "https://pypi.org/project/pydantic-core/2.46.5/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/pydantic-core@2.46.5"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-pydantic-extra-types",
+   "name": "pydantic-extra-types",
+   "versionInfo": "2.11.1",
+   "downloadLocation": "https://pypi.org/project/pydantic-extra-types/2.11.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/pydantic-extra-types@2.11.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-pydantic-settings",
+   "name": "pydantic-settings",
+   "versionInfo": "2.15.0",
+   "downloadLocation": "https://pypi.org/project/pydantic-settings/2.15.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/pydantic-settings@2.15.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-pygments",
+   "name": "pygments",
+   "versionInfo": "2.21.0",
+   "downloadLocation": "https://pypi.org/project/pygments/2.21.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/pygments@2.21.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-pyjwt",
+   "name": "pyjwt",
+   "versionInfo": "2.14.0",
+   "downloadLocation": "https://pypi.org/project/pyjwt/2.14.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/pyjwt@2.14.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-pynvvideocodec",
+   "name": "pynvvideocodec",
+   "versionInfo": "2.0.4",
+   "downloadLocation": "https://pypi.org/project/pynvvideocodec/2.0.4/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/pynvvideocodec@2.0.4"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-python-dateutil",
+   "name": "python-dateutil",
+   "versionInfo": "2.9.0.post0",
+   "downloadLocation": "https://pypi.org/project/python-dateutil/2.9.0.post0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/python-dateutil@2.9.0.post0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-python-dotenv",
+   "name": "python-dotenv",
+   "versionInfo": "1.2.3",
+   "downloadLocation": "https://pypi.org/project/python-dotenv/1.2.3/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/python-dotenv@1.2.3"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-python-json-logger",
+   "name": "python-json-logger",
+   "versionInfo": "4.2.0",
+   "downloadLocation": "https://pypi.org/project/python-json-logger/4.2.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/python-json-logger@4.2.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-python-multipart",
+   "name": "python-multipart",
+   "versionInfo": "0.0.32",
+   "downloadLocation": "https://pypi.org/project/python-multipart/0.0.32/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/python-multipart@0.0.32"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-pyyaml",
+   "name": "pyyaml",
+   "versionInfo": "6.0.3",
+   "downloadLocation": "https://pypi.org/project/pyyaml/6.0.3/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/pyyaml@6.0.3"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-pyzmq",
+   "name": "pyzmq",
+   "versionInfo": "27.2.0",
+   "downloadLocation": "https://pypi.org/project/pyzmq/27.2.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/pyzmq@27.2.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-quack-kernels",
+   "name": "quack-kernels",
+   "versionInfo": "0.6.4",
+   "downloadLocation": "https://pypi.org/project/quack-kernels/0.6.4/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/quack-kernels@0.6.4"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-referencing",
+   "name": "referencing",
+   "versionInfo": "0.37.0",
+   "downloadLocation": "https://pypi.org/project/referencing/0.37.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/referencing@0.37.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-regex",
+   "name": "regex",
+   "versionInfo": "2026.9.10",
+   "downloadLocation": "https://pypi.org/project/regex/2026.9.10/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/regex@2026.9.10"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-requests",
+   "name": "requests",
+   "versionInfo": "2.34.2",
+   "downloadLocation": "https://pypi.org/project/requests/2.34.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/requests@2.34.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-rich",
+   "name": "rich",
+   "versionInfo": "15.0.0",
+   "downloadLocation": "https://pypi.org/project/rich/15.0.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/rich@15.0.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-rich-toolkit",
+   "name": "rich-toolkit",
+   "versionInfo": "0.20.5",
+   "downloadLocation": "https://pypi.org/project/rich-toolkit/0.20.5/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/rich-toolkit@0.20.5"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-rignore",
+   "name": "rignore",
+   "versionInfo": "0.8.1",
+   "downloadLocation": "https://pypi.org/project/rignore/0.8.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/rignore@0.8.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-rpds-py",
+   "name": "rpds-py",
+   "versionInfo": "2026.6.3",
+   "downloadLocation": "https://pypi.org/project/rpds-py/2026.6.3/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/rpds-py@2026.6.3"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-safetensors",
+   "name": "safetensors",
+   "versionInfo": "0.8.0",
+   "downloadLocation": "https://pypi.org/project/safetensors/0.8.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/safetensors@0.8.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-sentencepiece",
+   "name": "sentencepiece",
+   "versionInfo": "0.2.2",
+   "downloadLocation": "https://pypi.org/project/sentencepiece/0.2.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/sentencepiece@0.2.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-sentry-sdk",
+   "name": "sentry-sdk",
+   "versionInfo": "2.69.2",
+   "downloadLocation": "https://pypi.org/project/sentry-sdk/2.69.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/sentry-sdk@2.69.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-setproctitle",
+   "name": "setproctitle",
+   "versionInfo": "1.3.7",
+   "downloadLocation": "https://pypi.org/project/setproctitle/1.3.7/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/setproctitle@1.3.7"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-setuptools",
+   "name": "setuptools",
+   "versionInfo": "80.10.2",
+   "downloadLocation": "https://pypi.org/project/setuptools/80.10.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/setuptools@80.10.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-shellingham",
+   "name": "shellingham",
+   "versionInfo": "1.5.4",
+   "downloadLocation": "https://pypi.org/project/shellingham/1.5.4/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/shellingham@1.5.4"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-six",
+   "name": "six",
+   "versionInfo": "1.17.0",
+   "downloadLocation": "https://pypi.org/project/six/1.17.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/six@1.17.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-sniffio",
+   "name": "sniffio",
+   "versionInfo": "1.3.1",
+   "downloadLocation": "https://pypi.org/project/sniffio/1.3.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/sniffio@1.3.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-sse-starlette",
+   "name": "sse-starlette",
+   "versionInfo": "3.4.11",
+   "downloadLocation": "https://pypi.org/project/sse-starlette/3.4.11/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/sse-starlette@3.4.11"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-starlette",
+   "name": "starlette",
+   "versionInfo": "1.6.0",
+   "downloadLocation": "https://pypi.org/project/starlette/1.6.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/starlette@1.6.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-supervisor",
+   "name": "supervisor",
+   "versionInfo": "4.3.0",
+   "downloadLocation": "https://pypi.org/project/supervisor/4.3.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/supervisor@4.3.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-sympy",
+   "name": "sympy",
+   "versionInfo": "1.14.0",
+   "downloadLocation": "https://pypi.org/project/sympy/1.14.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/sympy@1.14.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-tabulate",
+   "name": "tabulate",
+   "versionInfo": "0.10.0",
+   "downloadLocation": "https://pypi.org/project/tabulate/0.10.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/tabulate@0.10.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-tiktoken",
+   "name": "tiktoken",
+   "versionInfo": "0.14.0",
+   "downloadLocation": "https://pypi.org/project/tiktoken/0.14.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/tiktoken@0.14.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-tilelang",
+   "name": "tilelang",
+   "versionInfo": "0.1.12",
+   "downloadLocation": "https://pypi.org/project/tilelang/0.1.12/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/tilelang@0.1.12"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-tokenizers",
+   "name": "tokenizers",
+   "versionInfo": "0.23.2",
+   "downloadLocation": "https://pypi.org/project/tokenizers/0.23.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/tokenizers@0.23.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-tokenspeed-mla",
+   "name": "tokenspeed-mla",
+   "versionInfo": "0.1.8",
+   "downloadLocation": "https://pypi.org/project/tokenspeed-mla/0.1.8/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/tokenspeed-mla@0.1.8"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-tokenspeed-triton",
+   "name": "tokenspeed-triton",
+   "versionInfo": "3.8.10.post20260906",
+   "downloadLocation": "https://pypi.org/project/tokenspeed-triton/3.8.10.post20260906/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/tokenspeed-triton@3.8.10.post20260906"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-torch",
+   "name": "torch",
+   "versionInfo": "2.13.0+cu130",
+   "downloadLocation": "https://pypi.org/project/torch/2.13.0+cu130/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/torch@2.13.0+cu130"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-torch-c-dlpack-ext",
+   "name": "torch-c-dlpack-ext",
+   "versionInfo": "0.1.5",
+   "downloadLocation": "https://pypi.org/project/torch-c-dlpack-ext/0.1.5/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/torch-c-dlpack-ext@0.1.5"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-torchaudio",
+   "name": "torchaudio",
+   "versionInfo": "2.11.0+cu130",
+   "downloadLocation": "https://pypi.org/project/torchaudio/2.11.0+cu130/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/torchaudio@2.11.0+cu130"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-torchcodec",
+   "name": "torchcodec",
+   "versionInfo": "0.16.0+cu130",
+   "downloadLocation": "https://pypi.org/project/torchcodec/0.16.0+cu130/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/torchcodec@0.16.0+cu130"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-torchvision",
+   "name": "torchvision",
+   "versionInfo": "0.28.0+cu130",
+   "downloadLocation": "https://pypi.org/project/torchvision/0.28.0+cu130/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/torchvision@0.28.0+cu130"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-tqdm",
+   "name": "tqdm",
+   "versionInfo": "4.70.1",
+   "downloadLocation": "https://pypi.org/project/tqdm/4.70.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/tqdm@4.70.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-transformers",
+   "name": "transformers",
+   "versionInfo": "5.17.0",
+   "downloadLocation": "https://pypi.org/project/transformers/5.17.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/transformers@5.17.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-triton",
+   "name": "triton",
+   "versionInfo": "3.7.1",
+   "downloadLocation": "https://pypi.org/project/triton/3.7.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/triton@3.7.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-trl",
+   "name": "trl",
+   "versionInfo": "1.13.0",
+   "downloadLocation": "https://pypi.org/project/trl/1.13.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/trl@1.13.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-truststore",
+   "name": "truststore",
+   "versionInfo": "0.10.4",
+   "downloadLocation": "https://pypi.org/project/truststore/0.10.4/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/truststore@0.10.4"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-typer",
+   "name": "typer",
+   "versionInfo": "0.27.2",
+   "downloadLocation": "https://pypi.org/project/typer/0.27.2/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/typer@0.27.2"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-typing-extensions",
+   "name": "typing-extensions",
+   "versionInfo": "4.16.0",
+   "downloadLocation": "https://pypi.org/project/typing-extensions/4.16.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/typing-extensions@4.16.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-typing-inspection",
+   "name": "typing-inspection",
+   "versionInfo": "0.4.4",
+   "downloadLocation": "https://pypi.org/project/typing-inspection/0.4.4/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/typing-inspection@0.4.4"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-urllib3",
+   "name": "urllib3",
+   "versionInfo": "2.8.0",
+   "downloadLocation": "https://pypi.org/project/urllib3/2.8.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/urllib3@2.8.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-uvicorn",
+   "name": "uvicorn",
+   "versionInfo": "0.53.0",
+   "downloadLocation": "https://pypi.org/project/uvicorn/0.53.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/uvicorn@0.53.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-uvloop",
+   "name": "uvloop",
+   "versionInfo": "0.22.1",
+   "downloadLocation": "https://pypi.org/project/uvloop/0.22.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/uvloop@0.22.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-vllm",
+   "name": "vllm",
+   "versionInfo": "0.29.0",
+   "downloadLocation": "https://pypi.org/project/vllm/0.29.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/vllm@0.29.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-watchfiles",
+   "name": "watchfiles",
+   "versionInfo": "1.2.0",
+   "downloadLocation": "https://pypi.org/project/watchfiles/1.2.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/watchfiles@1.2.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-websockets",
+   "name": "websockets",
+   "versionInfo": "17.1",
+   "downloadLocation": "https://pypi.org/project/websockets/17.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/websockets@17.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-wheel",
+   "name": "wheel",
+   "versionInfo": "0.48.0",
+   "downloadLocation": "https://pypi.org/project/wheel/0.48.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/wheel@0.48.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-xgrammar",
+   "name": "xgrammar",
+   "versionInfo": "0.2.7",
+   "downloadLocation": "https://pypi.org/project/xgrammar/0.2.7/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/xgrammar@0.2.7"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-xxhash",
+   "name": "xxhash",
+   "versionInfo": "4.0.1",
+   "downloadLocation": "https://pypi.org/project/xxhash/4.0.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/xxhash@4.0.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-yarl",
+   "name": "yarl",
+   "versionInfo": "1.25.1",
+   "downloadLocation": "https://pypi.org/project/yarl/1.25.1/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/yarl@1.25.1"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Pypi-z3-solver",
+   "name": "z3-solver",
+   "versionInfo": "4.15.4.0",
+   "downloadLocation": "https://pypi.org/project/z3-solver/4.15.4.0/",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:pypi/z3-solver@4.15.4.0"
+    }
+   ],
+   "comment": "license not asserted: the pinned environment lives on the training host and was not available to this build; see docs/SBOM.md"
+  },
+  {
+   "SPDXID": "SPDXRef-Data-cve-list",
+   "name": "cve_list",
+   "versionInfo": "9d4f632aa6e148754e1f27bdfb69f4635792f69a",
+   "downloadLocation": "git+https://github.com/CVEProject/cvelistV5.git@9d4f632aa6e148754e1f27bdfb69f4635792f69a",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "CVE Program Terms of Use (The MITRE Corporation)",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "primaryPackagePurpose": "SOURCE",
+   "comment": "data source. redistribution=permitted_with_attribution; commercial=not_addressed; model_publication=not_addressed. Evidence and verification date in docs/LICENSES.md. licenseConcluded is NOASSERTION because these are terms-of-use documents, not SPDX-listed licenses."
+  },
+  {
+   "SPDXID": "SPDXRef-Data-nvd",
+   "name": "nvd",
+   "versionInfo": "NOASSERTION",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "US Government work, public domain under 17 U.S.C. (NIST publication); NVD requests a source-attribution notice",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "primaryPackagePurpose": "SOURCE",
+   "comment": "data source. redistribution=permitted_with_attribution; commercial=permitted_with_attribution; model_publication=not_addressed. Evidence and verification date in docs/LICENSES.md. licenseConcluded is NOASSERTION because these are terms-of-use documents, not SPDX-listed licenses."
+  },
+  {
+   "SPDXID": "SPDXRef-Data-cwe",
+   "name": "cwe",
+   "versionInfo": "4.20",
+   "downloadLocation": "https://cwe.mitre.org/data/xml/cwec_v4.20.xml.zip",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "CWE Terms of Use (The MITRE Corporation)",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "primaryPackagePurpose": "SOURCE",
+   "comment": "data source. redistribution=permitted_with_attribution; commercial=permitted_with_attribution; model_publication=not_addressed. Evidence and verification date in docs/LICENSES.md. licenseConcluded is NOASSERTION because these are terms-of-use documents, not SPDX-listed licenses."
+  },
+  {
+   "SPDXID": "SPDXRef-Data-attack",
+   "name": "attack",
+   "versionInfo": "19.2",
+   "downloadLocation": "git+https://github.com/mitre-attack/attack-stix-data.git@6cda5ad8462c79e14fbb872f4e09059b18e0cfc4",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "MITRE ATT&CK License (LICENSE.txt in attack-stix-data)",
+   "copyrightText": "NOASSERTION",
+   "supplier": "NOASSERTION",
+   "primaryPackagePurpose": "SOURCE",
+   "comment": "data source. redistribution=permitted_with_attribution; commercial=permitted_with_attribution; model_publication=not_addressed. Evidence and verification date in docs/LICENSES.md. licenseConcluded is NOASSERTION because these are terms-of-use documents, not SPDX-listed licenses."
+  }
+ ],
+ "relationships": [
+  {
+   "spdxElementId": "SPDXRef-DOCUMENT",
+   "relationshipType": "DESCRIBES",
+   "relatedSpdxElement": "SPDXRef-Package-sec-llm"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-accelerate"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-agent-detector"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-aiohappyeyeballs"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-aiohttp"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-aiosignal"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-annotated-doc"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-annotated-types"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-anthropic"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-anyio"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-apache-tvm-ffi"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-astor"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-attrs"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-blake3"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-cachetools"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-cbor2"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-certifi"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-cffi"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-charset-normalizer"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-click"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-cloudpickle"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-compressed-tensors"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-cryptography"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-cuda-bindings"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-cuda-core"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-cuda-pathfinder"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-cuda-python"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-cuda-tile"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-cuda-toolkit"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-datasets"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-depyf"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-detect-installer"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-dill"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-dnspython"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-docstring-parser"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-einops"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-email-validator"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-fastapi"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-fastapi-cli"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-fastapi-cloud-cli"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-fastar"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-fastsafetensors"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-filelock"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-flashinfer-python"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-frozenlist"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-fsspec"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-googleapis-common-protos"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-grpcio"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-h11"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-hf-xet"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-httpcore"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-httpcore2"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-httptools"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-httpx"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-httpx2"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-huggingface-hub"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-humming-kernels"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-idna"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-ijson"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-instanttensor"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-interegular"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-jinja2"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-jiter"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-jmespath"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-jsonschema"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-jsonschema-specifications"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-lark"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-llguidance"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-llvmlite"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-lm-format-enforcer"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-loguru"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-markdown-it-py"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-markupsafe"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-mcp"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-mcp-types"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-mdurl"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-mistral-common"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-ml-dtypes"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-model-hosting-container-standards"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-mpmath"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-msgspec"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-multidict"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-multiprocess"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nccl4py"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-networkx"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-ninja"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-numba"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-numpy"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cublas"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cuda-cccl"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cuda-crt"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cuda-cupti"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cuda-nvcc"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cuda-nvdisasm"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cuda-nvrtc"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cuda-runtime"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cudnn-cu13"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cudnn-frontend"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cufft"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cufile"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-curand"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cusolver"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cusparse"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cusparselt-cu13"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cutlass-dsl"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cutlass-dsl-libs-base"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cutlass-dsl-libs-core"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cutlass-dsl-libs-cu12"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-cutlass-dsl-libs-cu13"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-ml-py"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-nccl-cu13"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-nvjitlink"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-nvshmem-cu13"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-nvtx"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvidia-nvvm"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-nvtx"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-openai"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-openai-harmony"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-opencv-python-headless"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-opentelemetry-api"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-opentelemetry-exporter-otlp"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-opentelemetry-exporter-otlp-proto-common"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-opentelemetry-exporter-otlp-proto-grpc"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-opentelemetry-exporter-otlp-proto-http"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-opentelemetry-proto"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-opentelemetry-sdk"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-opentelemetry-semantic-conventions"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-opentelemetry-semantic-conventions-ai"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-outlines-core"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-packaging"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-pandas"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-partial-json-parser"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-peft"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-pillow"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-pip"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-prometheus-client"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-prometheus-fastapi-instrumentator"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-propcache"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-protobuf"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-psutil"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-py-cpuinfo"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-pyarrow"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-pybase64"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-pycountry"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-pycparser"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-pydantic"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-pydantic-core"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-pydantic-extra-types"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-pydantic-settings"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-pygments"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-pyjwt"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-pynvvideocodec"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-python-dateutil"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-python-dotenv"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-python-json-logger"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-python-multipart"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-pyyaml"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-pyzmq"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-quack-kernels"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-referencing"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-regex"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-requests"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-rich"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-rich-toolkit"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-rignore"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-rpds-py"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-safetensors"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-sentencepiece"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-sentry-sdk"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-setproctitle"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-setuptools"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-shellingham"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-six"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-sniffio"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-sse-starlette"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-starlette"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-supervisor"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-sympy"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-tabulate"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-tiktoken"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-tilelang"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-tokenizers"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-tokenspeed-mla"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-tokenspeed-triton"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-torch"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-torch-c-dlpack-ext"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-torchaudio"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-torchcodec"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-torchvision"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-tqdm"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-transformers"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-triton"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-trl"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-truststore"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-typer"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-typing-extensions"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-typing-inspection"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-urllib3"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-uvicorn"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-uvloop"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-vllm"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-watchfiles"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-websockets"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-wheel"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-xgrammar"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-xxhash"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-yarl"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Pypi-z3-solver"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Data-cve-list"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Data-nvd"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Data-cwe"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-sec-llm",
+   "relationshipType": "DEPENDS_ON",
+   "relatedSpdxElement": "SPDXRef-Data-attack"
+  }
+ ]
+}
