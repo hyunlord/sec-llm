@@ -16,6 +16,7 @@ instead. `docs.common._r_mdd` holds the rule.
 
 from __future__ import annotations
 
+from docs import seed2 as seed2_doc
 from docs.common import DEC_KO, SPLIT_KO, TASK_KO, Fmt, at_boundary, cell, gen_note
 
 SCORED = ("cve_to_cwe", "cvss_vector", "structured_extract")
@@ -310,14 +311,17 @@ def render(F: Fmt) -> str:
              "지식 질의응답에는 그렇지 않다는 설명은 그럴듯하지만 **검정하지 않았다**. "
              "하나를 고르면 그것은 측정이 아니라 선택이다.")
     L.append("")
-    L.append("**이 결과는 시드 하나에서 나왔다.** "
-             f"시드 `{F.plain('cond1_train', 'config', 'seed')}` 단일 실행이며, 두 번째 시드 "
-             f"`{F.plain('refs', 'seed2', 'seed')}`는 이 문서를 만드는 시점에 학습 중이었다"
-             f"(`{F.s('refs', 'seed2', 'status')}`). 위 판정들은 리플레이 효과와 시드 분산을 "
-             "분리하지 못한다 — 이것은 한계 절의 항목이 아니라 **결과 문장 자체의 일부다.** "
-             "두 번째 시드가 같은 방향이면 결론이 단단해지고, 뒤집히면 이 설계가 둘을 분리하지 "
-             "못한다는 것이 정직한 결론이 된다.")
+    if seed2_doc.have(F):
+        L.append(seed2_doc.finding_clause(F))
+    else:
+        L.append("**이 결과는 시드 하나에서 나왔다.** "
+                 f"시드 `{F.plain('cond1_train', 'config', 'seed')}` 단일 실행이며, 두 번째 시드 "
+                 f"`{F.plain('refs', 'seed2', 'seed')}`는 이 문서를 만드는 시점에 학습 중이었다"
+                 f"(`{F.s('refs', 'seed2', 'status')}`). 위 판정들은 리플레이 효과와 시드 분산을 "
+                 "분리하지 못한다 — 이것은 한계 절의 항목이 아니라 **결과 문장 자체의 일부다.** "
+                 f"판단 기준은 이미 고정되어 있다: {F.s('refs', 'seed2', 'interpretation_rule', 'agreement')}")
     L.append("")
+    L.extend(seed2_doc.general_block(F))
 
     # ---------------------------------------------------- 오염 계층
     L.append("### 오염 계층별 점수")
@@ -385,7 +389,11 @@ def render(F: Fmt) -> str:
              f"임계값 {F.d('datasets', 'contamination', 'index', 'near_threshold', nd=2)}는 "
              "P2 보정에서 채택되었으나, 그 실험의 재현율 열은 표본 설계를 다시 진술한 것에 지나지 않는다는 "
              "사실이 뒤에 드러났다. 재보정은 수행되지 않았고, **평가 세트는 그 임계값 위에 서 있다.**")
-    L.append("- **시드 하나.** 위 결과 절에 적은 그대로다. 리플레이 효과와 시드 분산이 분리되지 않는다.")
+    if seed2_doc.have(F):
+        L.append(f"- **시드 두 개.** {F.s('refs', 'seed2', 'interpretation_rule', 'limit')} "
+                 "결론은 위 결과 절에 있다.")
+    else:
+        L.append("- **시드 하나.** 위 결과 절에 적은 그대로다. 리플레이 효과와 시드 분산이 분리되지 않는다.")
     L.append(f"- **한 에폭이 아니다.** 데이터의 {F.pct('cond1_train', 'epoch_fraction', nd=1)}만 본다. "
              "더 오래 학습했을 때 무엇이 달라지는지는 측정되지 않았다.")
     L.append("- **비트 단위 재학습 재현성은 검증되지 않았다.** 시드·데이터 순서 해시·패킹 시드는 "

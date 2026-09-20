@@ -13,6 +13,7 @@ unavailable are cited by number.
 
 from __future__ import annotations
 
+from docs import seed2 as seed2_doc
 from docs.common import Fmt, cell, gen_note
 
 THESIS_EN = (
@@ -91,7 +92,7 @@ def render(F: Fmt) -> str:
              f"{F.abspp(*mm, 'paired_difference', 'diff', nd=1)} 낮고 "
              f"Holm p={F.p(*mm, 'mcnemar_p_holm')}로 검출된다. "
              "**하나를 고르지 않는다.** 쓸 수 있는 결론은 리플레이의 효과가 무엇을 일반 능력으로 "
-             "정의하느냐에 달렸다는 것뿐이다. 그리고 이 결과는 시드 하나에서 나왔다.")
+             f"정의하느냐에 달렸다는 것뿐이다. {seed2_doc.readme_clause(F)}")
     L.append("")
     L.append(f"**암기는 검출되지 않았다 — 결론이 아니라 상한이다.** 각 조건이 실제로 학습한 텍스트에 대해 "
              f"다시 계산한 탐침 {F.n('probe', 'conditions', 'cond1', 'n_with_matched_control')}쌍과 "

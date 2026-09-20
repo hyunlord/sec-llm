@@ -5129,6 +5129,18 @@
    "text": "in_training"
   },
   {
+   "kind": "s",
+   "args": {
+    "ref": [
+     "refs",
+     "seed2",
+     "interpretation_rule",
+     "agreement"
+    ]
+   },
+   "text": "For each general benchmark, the seed-5678 run agrees with seed-1234 when the Cond-1 vs Cond-2 paired difference carries the same sign AND the same Holm-adjusted verdict."
+  },
+  {
    "kind": "plain",
    "args": {
     "ref": [

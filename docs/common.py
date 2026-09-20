@@ -67,6 +67,30 @@ JSON_SOURCES = {
 }
 LOCKFILE = ENV / "versions.lock"
 
+# Seed-5678 replication. Absent until that run lands, so these are loaded when
+# present and the documents render a single-seed finding when they are not.
+# Every one of them must be there before the two-seed branch turns on: a
+# document that reports one seed's replication and silently drops the other's
+# would be worse than one that reports neither.
+OPTIONAL_JSON_SOURCES = {
+    "compare_s2": RUNS / "compare_seed2.json",
+    "seedvar_cond1": RUNS / "compare_seedvar_cond1.json",
+    "seedvar_cond2": RUNS / "compare_seedvar_cond2.json",
+    "cond1_s2": RUNS / "cond1_s2" / "scores.json",
+    "cond2_s2": RUNS / "cond2_s2" / "scores.json",
+    "cond1_s2_run": RUNS / "cond1_s2" / "manifest.json",
+    "cond2_s2_run": RUNS / "cond2_s2" / "manifest.json",
+    "cond1_s2_train": RUNS / "cond1_s2" / "train_manifest.json",
+    "cond2_s2_train": RUNS / "cond2_s2" / "train_manifest.json",
+    "probe_s2": RUNS / "probe" / "rebuilt_scores_seed2.json",
+}
+
+# The pair keys compare_multi produces for each of those records, given the
+# run order the finalizer passes. Named here so a renderer never guesses one.
+S2_PAIR = "cond1_s2 vs cond2_s2"
+S1_PAIR = "cond1 vs cond2"
+SEEDVAR_PAIR = {"cond1": "cond1 vs cond1_s2", "cond2": "cond2 vs cond2_s2"}
+
 TASKS = ("cve_to_cwe", "cvss_vector", "structured_extract", "attack_technique")
 SCORED_TASKS = ("cve_to_cwe", "cvss_vector", "structured_extract")
 SPLITS = ("eval_post_cutoff", "eval_pre_cutoff")
@@ -121,6 +145,13 @@ class Resolver:
         from ingest.sources import DOC_ORDER, LICENSE_CHECK_DATE, SOURCES  # noqa: E402
         self.data["licenses"] = SOURCES
         self.data["license_meta"] = {"order": DOC_ORDER, "checked_on": LICENSE_CHECK_DATE}
+        # All or nothing: a partial seed-2 landing renders as no seed 2.
+        present = {k: p for k, p in OPTIONAL_JSON_SOURCES.items() if p.exists()}
+        self.seed2 = len(present) == len(OPTIONAL_JSON_SOURCES)
+        self.seed2_missing = sorted(set(OPTIONAL_JSON_SOURCES) - set(present))
+        if self.seed2:
+            for name, path in present.items():
+                self.data[name] = json.loads(path.read_text())
 
     def ref(self, path):
         if not path:
