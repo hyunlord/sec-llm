@@ -704,13 +704,12 @@ def main() -> int:
             sys.stdout.write(out.read_text(encoding="utf-8"))
         else:
             print(f"\n<!-- also wrote {out} -->", file=sys.stderr)
-    if not any([a.score, a.render, a.render_harness, a.compare, a.self_compare]):
+    if not any([a.score, a.render, a.render_harness, a.compare, a.self_compare,
+                a.analyses, a.render_training]):
         ap.print_help()
     return 0
 
 
-if __name__ == "__main__":
-    sys.exit(main())
 
 
 # ================================================================== P5 analyses
@@ -1028,6 +1027,15 @@ def render_results(runs) -> Path:
             if pk == main_pair:
                 continue
             L.append(f"| `{g}` | {pk} | {_vmark(pr['verdict'])} | {pr['mcnemar']['p_value']:.3g} | {100*(pr['a']['rate']-pr['b']['rate']):+.1f}pp |")
+    tension = [(g, rec["pairs"][main_pair]) for g, rec in gen.items()
+               if rec["pairs"][main_pair]["verdict"] == "no difference detected"
+               and (rec["pairs"][main_pair].get("mcnemar_p") or 1) < 0.05]
+    if tension:
+        L.append("\n> **판정 규칙과 짝검정이 갈리는 경우가 있다.** " +
+                 ", ".join(f"`{g}`(McNemar p={pr['mcnemar_p']:.3g})" for g, pr in tension) +
+                 "에서 95% 구간은 겹치지만 짝지은 McNemar 검정은 0.05 미만이다. 작업지시서가 정한 규칙은 "
+                 "**구간이 겹치면 '차이 검출되지 않음'**이고, 그 규칙을 그대로 적용했다. 짝검정이 구간 겹침 규칙보다 "
+                 "민감하다는 사실과 그 p값을 함께 기록하며, 판정을 이보다 강하게 쓰지 않는다.\n")
     L.append("\n글자 추출률: " + "; ".join(f"`{r}` " + ", ".join(f"{g} {100*rec['extracted'][r]:.1f}%" for g, rec in C["general"].items()) for r in runs) + ".\n")
 
     L.append("## 도메인 정확도 (제약 생성, 전체 항목 분모)\n")
@@ -1146,3 +1154,7 @@ def render_results(runs) -> Path:
     out = REPORTS / "results.md"
     out.write_text("\n".join(L) + "\n", encoding="utf-8")
     return out
+
+
+if __name__ == "__main__":
+    sys.exit(main())
