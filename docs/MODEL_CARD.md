@@ -34,6 +34,8 @@
 
 `attack_technique` 과제는 데이터셋에 있지만 **채점하지 않는다**: 738 training examples and 72 / 44 evaluation items; confidence intervals exceed +/-10 percentage points and the task is recall of ~800 fixed items. Kept in the datasets and manifest, reported descriptively by P4/P5, excluded from any comparison between conditions.
 
+인용한 문장의 "72 / 44 evaluation items"는 기록된 결함이다 — 그 두 수는 평가 항목 수가 아니라 커버리지 0 항목 수이고, 실제 평가 항목은 79건과 79건이다. 자세한 사정은 `docs/DATASET.md`에 있다. 채점하지 않는다는 결론은 그대로다.
+
 ## 학습 데이터와 그 출처
 
 네 개 공개 보안 출처, 정규화 이전 823,285건에서 만들어진다. 모든 출처는 불변 참조로 고정되어 있고, 모든 레코드는 계통 필드를 달고 다닌다. 전체는 `docs/DATASET.md`에 있다.

@@ -91,6 +91,8 @@ P2가 자기 한계를 매니페스트에 적어 두었고(`stages.calibration.l
 
 > 738 training examples and 72 / 44 evaluation items; confidence intervals exceed +/-10 percentage points and the task is recall of ~800 fixed items. Kept in the datasets and manifest, reported descriptively by P4/P5, excluded from any comparison between conditions.
 
+**이 문장 자체에 결함이 있다.** 인용문의 "72 / 44 evaluation items"는 평가 항목 수가 아니라 두 세트의 **커버리지 0 항목 수**(72 / 44)다. 실제 평가 항목은 각각 79건과 79건이다. 이 문장은 `datasets/build.py`에 **손으로 적힌 문자열 리터럴**이며 — 기록을 렌더링하지 않고 기록하려는 사실을 다시 적은 것, 즉 규칙 1이 막으려던 바로 그 형태다. P7은 `datasets/`를 수정하지 않는다(작업 범위 밖). 기록된 문장을 그대로 인용하고 옆에 실제 수치를 매니페스트에서 생성해 붙인다. 결론 자체는 바뀌지 않는다 — 평가 항목이 79건이어도 조건 간 비교를 지탱하기에는 여전히 너무 적다.
+
 데이터셋과 매니페스트에는 남아 있고 서술적으로 보고되지만, **조건 간 비교에는 들어가지 않는다.** 신뢰구간이 신뢰구간이 매우 넓은 수치로 두 조건의 차이를 주장할 수 없기 때문이다. 지우지 않고 표시만 한다.
 
 ## 분할 정책

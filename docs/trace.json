@@ -645,6 +645,32 @@
    "kind": "n",
    "args": {
     "ref": [
+     "datasets",
+     "tasks",
+     "attack_technique",
+     "by_split",
+     "eval_post_cutoff"
+    ]
+   },
+   "text": "79"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "datasets",
+     "tasks",
+     "attack_technique",
+     "by_split",
+     "eval_pre_cutoff"
+    ]
+   },
+   "text": "79"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
      "process",
      "summary",
      "records_in"
@@ -7576,6 +7602,69 @@
     ]
    },
    "text": "738 training examples and 72 / 44 evaluation items; confidence intervals exceed +/-10 percentage points and the task is recall of ~800 fixed items. Kept in the datasets and manifest, reported descriptively by P4/P5, excluded from any comparison between conditions."
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "datasets",
+     "contamination",
+     "eval_sets",
+     "attack_technique/eval_post_cutoff",
+     "coverage_zero"
+    ]
+   },
+   "text": "72"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "datasets",
+     "contamination",
+     "eval_sets",
+     "attack_technique/eval_pre_cutoff",
+     "coverage_zero"
+    ]
+   },
+   "text": "44"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "datasets",
+     "tasks",
+     "attack_technique",
+     "by_split",
+     "eval_post_cutoff"
+    ]
+   },
+   "text": "79"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "datasets",
+     "tasks",
+     "attack_technique",
+     "by_split",
+     "eval_pre_cutoff"
+    ]
+   },
+   "text": "79"
+  },
+  {
+   "kind": "plain",
+   "args": {
+    "ref": [
+     "refs",
+     "engineering_rules",
+     "report_renders_the_record"
+    ]
+   },
+   "text": "1"
   },
   {
    "kind": "s",

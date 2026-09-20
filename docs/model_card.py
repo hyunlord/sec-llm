@@ -100,6 +100,12 @@ def render(F: Fmt) -> str:
     L.append(f"`attack_technique` 과제는 데이터셋에 있지만 **채점하지 않는다**: "
              f"{F.s('datasets', 'not_scored_reason', 'attack_technique')}")
     L.append("")
+    L.append(f"인용한 문장의 \"72 / 44 evaluation items\"는 기록된 결함이다 — 그 두 수는 평가 항목 수가 "
+             f"아니라 커버리지 0 항목 수이고, 실제 평가 항목은 "
+             f"{F.n('datasets', 'tasks', 'attack_technique', 'by_split', 'eval_post_cutoff')}건과 "
+             f"{F.n('datasets', 'tasks', 'attack_technique', 'by_split', 'eval_pre_cutoff')}건이다. "
+             "자세한 사정은 `docs/DATASET.md`에 있다. 채점하지 않는다는 결론은 그대로다.")
+    L.append("")
 
     # ============================================================ 학습 데이터
     L.append("## 학습 데이터와 그 출처")
