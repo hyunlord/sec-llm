@@ -16,6 +16,7 @@ instead. `docs.common._r_mdd` holds the rule.
 
 from __future__ import annotations
 
+from docs import rlvr as rlvr_doc
 from docs import seed2 as seed2_doc
 from docs.common import DEC_KO, SPLIT_KO, TASK_KO, Fmt, at_boundary, cell, gen_note
 
@@ -322,6 +323,8 @@ def render(F: Fmt) -> str:
                  f"판단 기준은 이미 고정되어 있다: {F.s('refs', 'seed2', 'interpretation_rule', 'agreement')}")
     L.append("")
     L.extend(seed2_doc.general_block(F))
+
+    L.extend(rlvr_doc.block(F))
 
     # ---------------------------------------------------- 오염 계층
     L.append("### 오염 계층별 점수")

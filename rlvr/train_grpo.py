@@ -264,8 +264,13 @@ def main() -> int:
         "claim": ("this run demonstrates that the RLVR structure executes end to end. "
                   "It does not claim a performance improvement; see reports/rlvr.md."),
         "base_checkpoint": cfg["base_checkpoint"],
-        "base_checkpoint_sha256": sha256_file(base / "model.safetensors.index.json")
-        if (base / "model.safetensors.index.json").exists() else None,
+        # The authoritative digest of the starting weights already exists: the
+        # P5 trainer recorded it when it merged them. Re-hashing 15 GB here to
+        # produce the same number is waste, and producing a different one would
+        # be worse.
+        "base_checkpoint_sha256": json.loads(
+            (REPO / "runs" / "cond2" / "train_manifest.json").read_text()
+        )["merged_checkpoint_sha256"],
         "merged_path": str(merged),
         "config": cfg,
         "config_sha256": hashlib.sha256((REPO / a.config).read_bytes()).hexdigest(),
