@@ -14,9 +14,13 @@ import json
 import statistics
 from pathlib import Path
 
+import os
+
 REPO = Path(__file__).resolve().parents[1]
-RUN = REPO / "runs" / "rlvr"
-OUT = REPO / "reports" / "rlvr.md"
+# Overridable so the renderer can be exercised against fixtures before the run
+# it renders exists. Defaults are the real paths; nothing else reads these.
+RUN = Path(os.environ.get("RLVR_RUN_DIR") or (REPO / "runs" / "rlvr"))
+OUT = Path(os.environ.get("RLVR_REPORT_OUT") or (REPO / "reports" / "rlvr.md"))
 
 
 def pct(x) -> str:
@@ -24,11 +28,11 @@ def pct(x) -> str:
 
 
 def load():
-    m = json.loads((RUN / "manifest.json").read_text())
+    m = json.loads((RUN / "train_manifest.json").read_text())
     rows = [json.loads(x) for x in (RUN / "reward_log.jsonl").read_text().splitlines() if x.strip()]
     insp = json.loads((RUN / "reward_inspection.json").read_text()) \
         if (RUN / "reward_inspection.json").exists() else None
-    cmp_path = REPO / "runs" / "compare_rlvr.json"
+    cmp_path = Path(os.environ.get("RLVR_COMPARE") or (REPO / "runs" / "compare_rlvr.json"))
     cmp_rec = json.loads(cmp_path.read_text()) if cmp_path.exists() else None
     prov = json.loads((RUN / "pool_provenance.json").read_text()) \
         if (RUN / "pool_provenance.json").exists() else None
@@ -61,9 +65,11 @@ def spark(values, width=50) -> str:
 
 
 def axis(values, label, unit="") -> list:
+    """First value to last, not min to max: a falling series must not be
+    labelled as if it rose."""
     if not values:
         return []
-    return [f"  {label:<22} {spark(values)}  {min(values):.3f} \u2192 {max(values):.3f}{unit}"]
+    return [f"  {label:<22} {spark(values)}  {values[0]:.3f} \u2192 {values[-1]:.3f}{unit}"]
 
 
 def verdict_ko(v: str) -> str:
@@ -165,7 +171,8 @@ def render() -> str:
     L.append(f"| 생성 길이 상한 | {m['max_completion_length']} — {m['max_completion_length_derivation']} |")
     L.append(f"| 프롬프트 풀 | {m['prompt_pool']['selected']:,} / {m['prompt_pool']['records_in_file']:,}건, "
              f"시드 `{m['prompt_pool']['selection_seed']}` |")
-    L.append(f"| 소요 | {m['wall_sec'] / 3600:.2f}시간 |")
+    L.append(f"| 소요 | {m['wall_sec'] / 3600:.2f}시간"
+             + (f" ({m['wall_sec_note']})" if m.get("wall_sec_note") else "") + " |")
     L.append("")
 
     # ---- verifier
@@ -227,7 +234,8 @@ def render() -> str:
                f"| {statistics.fmean(x['group_reward_std_mean'] for x in b):.3f} |")
         if ent:
             e = ent[i: i + band]
-            row = row[:-1] + f" {statistics.fmean(e):.4f} |" if e else row
+            if e:
+                row += f" {statistics.fmean(e):.4f} |"
         L.append(row)
     L.append("")
     # peak of the exact-match reward, and what the collapse was doing there
@@ -393,26 +401,61 @@ def render() -> str:
         L.append("")
 
     # ---- the attempt that did not produce this checkpoint
-    if att and att.get("attempt_1"):
-        a1 = att["attempt_1"]
+    if att and (att.get("attempt_1") or att.get("attempt_2")):
         L.append("## 이 체크포인트를 만들지 못한 시도")
         L.append("")
-        L.append(f"**1차 시도는 학습 {a1['steps_logged']}스텝을 모두 마친 뒤 저장 단계에서 죽었다.** "
-                 f"종료 코드 {a1['exit_code']}"
-                 + (f"(시그널 {a1['signal']}, SIGKILL)" if a1.get("signal") else "")
-                 + f", 학습 자체는 {a1['train_runtime_sec'] / 3600:.2f}시간 동안 정상적으로 끝났고, "
-                 f"죽은 지점은 **{a1['died_at']}**이다.")
+        L.append("위 수치는 세 번째 실행의 것이다. 앞의 두 번은 지우지 않고 남겼다.")
         L.append("")
-        L.append(f"원인: {a1['cause']}")
-        L.append("")
-        L.append(f"고친 방식: {a1['fix']}")
-        L.append("")
-        L.append("**메모리 상한을 올리지 않았다.** 올려서 통과시키는 것은 결함을 가리는 것이고, "
-                 "결함은 상한이 낮다는 것이 아니라 **값비싼 산출물을 값싼 것보다 늦게 저장했다**는 "
-                 "것이다. 두 시간이 저장 단계에서 사라졌다.")
-        L.append("")
-        L.append("1차의 보상 로그와 학습 로그는 지우지 않고 `runs/rlvr_attempt1/`에 남겼다. "
-                 "아래 곡선과 수치는 모두 2차 실행의 것이다.")
+        a1 = att.get("attempt_1")
+        if a1:
+            L.append(f"### 1차 — 학습 {a1['steps_logged']}스텝을 마친 뒤 저장 단계에서 죽었다")
+            L.append("")
+            L.append(f"종료 코드 {a1['exit_code']}"
+                     + (f"(시그널 {a1['signal']}, SIGKILL)" if a1.get("signal") else "")
+                     + f". 학습 자체는 {a1['train_runtime_sec'] / 3600:.2f}시간 동안 정상적으로 "
+                     f"끝났고, 죽은 지점은 **{a1['died_at']}**이다.")
+            L.append("")
+            L.append("**원인**: `merge_and_unload()`가 살아 있는 트레이너 위에 — 가중치, "
+                     "옵티마이저 상태, 생성 버퍼가 모두 상주한 채로 — 모델 전체 사본을 하나 더 "
+                     "만들고, 샤드를 쓰는 도중 메모리 상한에 걸렸다. 모든 학습 스텝이 끝난 "
+                     "**뒤**였다.")
+            L.append("")
+            L.append("**고친 방식**: 학습 직후 어댑터와 매니페스트를 먼저 쓰고, 그 사이에 실패할 "
+                     "수 있는 작업을 두지 않는다. 병합은 학습 상태가 사라진 별도 프로세스에서 "
+                     "하고, 어댑터 체크포인트를 50스텝마다 남긴다. "
+                     "(영문 원문은 `runs/rlvr/attempts.json`의 `cause`·`fix` 필드에 있다.)")
+            L.append("")
+            L.append("**메모리 상한을 올리지 않았다.** 올려서 통과시키는 것은 결함을 가리는 것이고, "
+                     "결함은 상한이 낮다는 것이 아니라 **값비싼 산출물을 값싼 것보다 늦게 "
+                     "저장했다**는 것이다. 두 시간이 저장 단계에서 사라졌다. "
+                     "`docs/engineering-rules.md` 규칙 7이 이 사건에서 나왔다.")
+            L.append("")
+        a2 = att.get("attempt_2")
+        if a2:
+            L.append(f"### 2차 — {a2['steps_logged']}스텝에서 호스트가 재부팅됐다")
+            L.append("")
+            L.append("**이쪽은 이 코드의 결함이 아니다.** 전원 또는 호스트 수준의 사건이었고, "
+                     "같은 사이트의 리눅스 두 대가 동시에 테일넷에서 사라졌다. 종료 표식은 "
+                     "기록되지 않았다. 근거는 보상 로그가 중간에서 멈춘 것, 아래 부팅 시각이 "
+                     "실행 시작보다 몇 시간 뒤라는 것, 그리고 학습 로그가 있던 `/tmp`가 그 뒤 "
+                     "비어 있었다는 것이다. **로그 파일의 mtime은 근거가 아니다** — 보존하지 않고 "
+                     "복사했으므로, 뒷받침할 수 없는 주장은 하지 않는다.")
+            L.append("")
+            L.append("**복구**: 1차 이후 추가한 50스텝 간격 어댑터 체크포인트에서 재개했다. "
+                     "옵티마이저·스케줄러·RNG 상태가 복원되었고, 텍스트 로그가 사라진 뒤의 "
+                     "앞 절반 엔트로피 계열은 체크포인트의 `trainer_state.json`에서 복구했다. "
+                     f"재개에 사용한 체크포인트는 `{m.get('resumed_from')}`이고"
+                     f"(학습 매니페스트의 `resumed_from`에 기록), 호스트 부팅 시각은 "
+                     f"`{a2['host_booted_at']}`이다. 현재 디스크에 남아 있는 체크포인트는 "
+                     + ", ".join(f"`{c}`" for c in a2.get("checkpoints_present_now", []))
+                     + "이며, 이는 재개 이후 새로 쓰이고 오래된 것이 정리된 결과다 — "
+                     "복구 시점의 목록이 아니다.")
+            L.append("")
+            L.append("**1차의 수정이 2차를 구했다.** 50스텝 간격 어댑터 체크포인트는 저장 순서 "
+                     "결함을 고치며 넣은 보험이었고, 그것이 없었다면 정전으로 두 번째 실행도 "
+                     "통째로 사라졌을 것이다.")
+            L.append("")
+        L.append("두 시도의 보상 로그는 `runs/rlvr_attempt1/`과 `runs/rlvr_attempt2_partial/`에 있다.")
         L.append("")
 
     # ---- what this did not show

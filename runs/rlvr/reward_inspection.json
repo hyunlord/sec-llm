@@ -1,0 +1,16 @@
+{
+ "run": "rlvr",
+ "n_full_reward": 4187,
+ "token_length": {
+  "median": 12,
+  "mean": 12.48,
+  "max": 13
+ },
+ "shapes": {
+  "bare JSON object, one key": 4187
+ },
+ "bare_json_fraction": 1.0,
+ "long_fraction": 0.0,
+ "inspected": 30,
+ "method": "every completion that scored both schema validity and exact match was kept during training; shapes are classified mechanically and the most recent sample was read by hand"
+}

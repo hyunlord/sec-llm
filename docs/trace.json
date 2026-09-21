@@ -7173,6 +7173,550 @@
    "text": "시드 두 개는 조건당 차이 한 번을 줄 뿐 분산을 추정하지 못한다. 짝지은 MDD보다 작은 차이는 안정성의 증거가 아니다."
   },
   {
+   "kind": "s",
+   "args": {
+    "ref": [
+     "rlvr_run",
+     "base_checkpoint"
+    ]
+   },
+   "text": "checkpoints/cond2/merged"
+  },
+  {
+   "kind": "s",
+   "args": {
+    "ref": [
+     "rlvr_run",
+     "task"
+    ]
+   },
+   "text": "cve_to_cwe"
+  },
+  {
+   "kind": "plain",
+   "args": {
+    "ref": [
+     "rlvr_run",
+     "steps_completed"
+    ]
+   },
+   "text": "200"
+  },
+  {
+   "kind": "d",
+   "args": {
+    "ref": [
+     "rlvr_run",
+     "summary",
+     "reward_schema_first_decile"
+    ],
+    "nd": 3
+   },
+   "text": "0.999"
+  },
+  {
+   "kind": "d",
+   "args": {
+    "ref": [
+     "rlvr_run",
+     "summary",
+     "reward_schema_last_decile"
+    ],
+    "nd": 3
+   },
+   "text": "1.000"
+  },
+  {
+   "kind": "d",
+   "args": {
+    "ref": [
+     "rlvr_run",
+     "summary",
+     "reward_exact_first_decile"
+    ],
+    "nd": 3
+   },
+   "text": "0.562"
+  },
+  {
+   "kind": "d",
+   "args": {
+    "ref": [
+     "rlvr_run",
+     "summary",
+     "reward_exact_last_decile"
+    ],
+    "nd": 3
+   },
+   "text": "0.654"
+  },
+  {
+   "kind": "d",
+   "args": {
+    "ref": [
+     "rlvr_run",
+     "summary",
+     "completion_tokens_first_decile"
+    ],
+    "nd": 1
+   },
+   "text": "12.6"
+  },
+  {
+   "kind": "d",
+   "args": {
+    "ref": [
+     "rlvr_run",
+     "summary",
+     "completion_tokens_last_decile"
+    ],
+    "nd": 1
+   },
+   "text": "12.6"
+  },
+  {
+   "kind": "pct",
+   "args": {
+    "ref": [
+     "rlvr_run",
+     "summary",
+     "group_collapse_fraction_mean"
+    ],
+    "nd": 1
+   },
+   "text": "79.6%"
+  },
+  {
+   "kind": "pct",
+   "args": {
+    "ref": [
+     "rlvr_run",
+     "summary",
+     "group_collapse_fraction_last_decile"
+    ],
+    "nd": 1
+   },
+   "text": "88.1%"
+  },
+  {
+   "kind": "pct",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/constrained",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "marginal_a",
+     "rate"
+    ],
+    "nd": 1
+   },
+   "text": "57.8%"
+  },
+  {
+   "kind": "pct",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/constrained",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "marginal_b",
+     "rate"
+    ],
+    "nd": 1
+   },
+   "text": "58.0%"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/constrained",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "-0.3pp"
+  },
+  {
+   "kind": "ci",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/constrained",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "paired_difference",
+     "ci95"
+    ],
+    "nd": 1,
+    "scale": 100,
+    "unit": "pp"
+   },
+   "text": "[-0.9, +0.4]pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/constrained",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.48"
+  },
+  {
+   "kind": "abspp",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/constrained",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "paired_difference",
+     "mdd_points_paired"
+    ],
+    "nd": 1
+   },
+   "text": "0.9pp"
+  },
+  {
+   "kind": "pct",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/free",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "marginal_a",
+     "rate"
+    ],
+    "nd": 1
+   },
+   "text": "57.8%"
+  },
+  {
+   "kind": "pct",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/free",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "marginal_b",
+     "rate"
+    ],
+    "nd": 1
+   },
+   "text": "58.0%"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/free",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "-0.3pp"
+  },
+  {
+   "kind": "ci",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/free",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "paired_difference",
+     "ci95"
+    ],
+    "nd": 1,
+    "scale": 100,
+    "unit": "pp"
+   },
+   "text": "[-0.9, +0.4]pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/free",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.48"
+  },
+  {
+   "kind": "abspp",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/free",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "paired_difference",
+     "mdd_points_paired"
+    ],
+    "nd": 1
+   },
+   "text": "0.9pp"
+  },
+  {
+   "kind": "pct",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "marginal_a",
+     "rate"
+    ],
+    "nd": 1
+   },
+   "text": "66.1%"
+  },
+  {
+   "kind": "pct",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "marginal_b",
+     "rate"
+    ],
+    "nd": 1
+   },
+   "text": "66.6%"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "-0.5pp"
+  },
+  {
+   "kind": "ci",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "paired_difference",
+     "ci95"
+    ],
+    "nd": 1,
+    "scale": 100,
+    "unit": "pp"
+   },
+   "text": "[-1.2, +0.1]pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.21"
+  },
+  {
+   "kind": "abspp",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "paired_difference",
+     "mdd_points_paired"
+    ],
+    "nd": 1
+   },
+   "text": "0.9pp"
+  },
+  {
+   "kind": "pct",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/free",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "marginal_a",
+     "rate"
+    ],
+    "nd": 1
+   },
+   "text": "66.1%"
+  },
+  {
+   "kind": "pct",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/free",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "marginal_b",
+     "rate"
+    ],
+    "nd": 1
+   },
+   "text": "66.6%"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/free",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "-0.5pp"
+  },
+  {
+   "kind": "ci",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/free",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "paired_difference",
+     "ci95"
+    ],
+    "nd": 1,
+    "scale": 100,
+    "unit": "pp"
+   },
+   "text": "[-1.2, +0.1]pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/free",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.21"
+  },
+  {
+   "kind": "abspp",
+   "args": {
+    "ref": [
+     "rlvr_compare",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/free",
+     "pairs",
+     "cond2 vs rlvr",
+     "accuracy",
+     "paired_difference",
+     "mdd_points_paired"
+    ],
+    "nd": 1
+   },
+   "text": "0.9pp"
+  },
+  {
+   "kind": "plain",
+   "args": {
+    "ref": [
+     "rlvr_run",
+     "steps_completed"
+    ]
+   },
+   "text": "200"
+  },
+  {
    "kind": "plain",
    "args": {
     "ref": [

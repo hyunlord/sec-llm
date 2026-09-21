@@ -183,6 +183,8 @@ def main() -> int:
     ap.add_argument("--config", default="rlvr/config.yaml")
     ap.add_argument("--steps", type=int, default=None, help="override, for smoke runs")
     ap.add_argument("--out", default=None)
+    ap.add_argument("--resume", default=None,
+                    help="trainer checkpoint to resume from; the reward log is appended, not reset")
     a = ap.parse_args()
 
     cfg = yaml.safe_load((REPO / a.config).read_text())
@@ -190,7 +192,18 @@ def main() -> int:
     run_dir = Path(a.out) if a.out else RUNS
     run_dir.mkdir(parents=True, exist_ok=True)
     log_path = run_dir / "reward_log.jsonl"
-    log_path.write_text("")
+    resume_step = 0
+    if a.resume:
+        # The host rebooted at step 102 of this run. checkpoint-100 carries the
+        # optimizer, scheduler and RNG state, so the trajectory continues rather
+        # than restarting -- but the reward log must line up with it: rows past
+        # the checkpoint describe steps that are about to be re-run.
+        resume_step = int(str(a.resume).rstrip("/").rsplit("-", 1)[-1])
+        kept = [l for l in log_path.read_text().splitlines() if l.strip()][:resume_step]
+        log_path.write_text("".join(l + "\n" for l in kept))
+        print(f"resuming from step {resume_step}; reward log trimmed to {len(kept)} rows")
+    else:
+        log_path.write_text("")
 
     transformers.set_seed(cfg["seed"])
     pool, pool_meta = load_pool(cfg)
@@ -201,6 +214,7 @@ def main() -> int:
     verifier = Verifier()
     rec = Recorder(verifier, tok, cfg["num_generations"], log_path)
     rec.max_completion_length = cap
+    rec.step = resume_step
 
     ds = hf_datasets.Dataset.from_list([
         {"prompt": [{"role": "user", "content": r["prompt"]}],
@@ -246,7 +260,7 @@ def main() -> int:
         processing_class=tok, peft_config=peft_cfg, callbacks=[clock])
 
     t0 = time.time()
-    trainer.train()
+    trainer.train(resume_from_checkpoint=str(REPO / a.resume) if a.resume else None)
     wall = time.time() - t0
 
     # The adapter first, and only the adapter. The first attempt at this run
@@ -284,6 +298,7 @@ def main() -> int:
         "config_sha256": hashlib.sha256((REPO / a.config).read_bytes()).hexdigest(),
         "steps_planned": steps,
         "steps_completed": clock.steps,
+        "resumed_from": a.resume,
         "reward_batches_logged": len(rows),
         "max_completion_length": cap,
         "max_completion_length_derivation":
@@ -312,8 +327,14 @@ def main() -> int:
             "gpu_name": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
         },
     }
-    (run_dir / "manifest.json").write_text(json.dumps(manifest, indent=1, ensure_ascii=False) + "\n")
-    print(f"manifest written to {run_dir / 'manifest.json'}")
+    # train_manifest.json, not manifest.json: the evaluation runner writes
+    # runs/<run-id>/manifest.json for the same run id, and it overwrote the
+    # training record once before this name was fixed. P5 already separates the
+    # two this way -- runs/cond1/train_manifest.json beside runs/cond1/manifest.json
+    # -- and not following that convention is what caused the collision.
+    (run_dir / "train_manifest.json").write_text(
+        json.dumps(manifest, indent=1, ensure_ascii=False) + "\n")
+    print(f"manifest written to {run_dir / 'train_manifest.json'}")
     (run_dir / "high_reward_samples.jsonl").write_text(
         "".join(json.dumps(s, ensure_ascii=False) + "\n" for s in rec.samples))
 

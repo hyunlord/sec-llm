@@ -1,0 +1,35 @@
+{
+ "attempt_1": {
+  "exit_code": 137,
+  "signal": 9,
+  "steps_logged": 200,
+  "train_runtime_sec": 7453.0,
+  "died_at": "writing model shards during the inline merge",
+  "last_lines": [
+   "{'train_runtime': '7453', 'train_samples_per_second': '1.717', 'train_steps_per_second': '0.027', 'train_loss': '1.151e-05', 'epoch': '0.3906'}",
+   "Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]/tmp/rlvr.sh: 줄 6: 3068602 죽었음               $S $E .venv/bin/python -m rlvr.train_grpo --config rlvr/config.yaml",
+   "=== grpo exit=137 2026-09-21T13:06:25+09:00 ==="
+  ],
+  "artifacts_left": {
+   "adapter": false,
+   "merged_checkpoint": false,
+   "manifest": false
+  },
+  "cause": "merge_and_unload() materialises a second full copy of the model on top of a live trainer -- weights, optimizer state, generation buffers -- and the run was killed by its memory ceiling while writing shards, after every training step had completed.",
+  "fix": "the adapter and the manifest are now written immediately after training, before anything that can fail; the merge runs in a separate process (rlvr.merge_adapter) where the training state is gone; adapter checkpoints are saved every 50 steps. The ceiling was NOT raised -- raising it would have hidden the defect, which is that the cheap artifact was not persisted before the expensive one."
+ },
+ "attempt_2": {
+  "exit_code": null,
+  "steps_logged": 102,
+  "host_booted_at": "2026-09-21T22:52:46",
+  "died_at": "host reboot mid-run; no exit marker was written",
+  "evidence": "the reward log stops at this many steps with no exit marker written; the host's boot time below is hours after the run started; and /tmp, where the training log lived, was empty afterwards. The log file's own mtime is NOT evidence here -- it was copied without preserving it, and a claim that cannot be supported is not made.",
+  "cause": "a power or host-level event, not a defect in this code. The tailnet showed two machines at the same site going offline together.",
+  "recovered_by": "resuming from the step-50 adapter checkpoints added after attempt 1. The optimizer, scheduler and RNG state were restored, and the entropy series for the first half was recovered from the checkpoint's trainer_state.json after the text log was lost.",
+  "checkpoints_present_now": [
+   "checkpoint-150",
+   "checkpoint-200"
+  ]
+ },
+ "_comment": "attempts that did not produce the published checkpoint, read from what they left behind rather than described from memory"
+}

@@ -1,0 +1,996 @@
+{
+  "domain": {
+    "cve_to_cwe/eval_post_cutoff/constrained": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.5640031031807603,
+          0.595293509180243
+        ],
+        "k": 2244,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 0.5802948021722265
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.5640031031807603,
+          0.595293509180243
+        ],
+        "k": 2244,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 0.5802948021722265
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.6318897637795275,
+              0.7086614173228346
+            ],
+            "k": 340,
+            "n": 508,
+            "n_boot": 1000,
+            "rate": 0.6692913385826772
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.6318897637795275,
+              0.7086614173228346
+            ],
+            "k": 340,
+            "n": 508,
+            "n_boot": 1000,
+            "rate": 0.6692913385826772
+          },
+          "mdd_points_over_all": 0.08270225781115355,
+          "n_items": 508,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 508,
+            "n": 508,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.5808823529411765,
+              0.6636029411764706
+            ],
+            "k": 340,
+            "n": 544,
+            "n_boot": 1000,
+            "rate": 0.625
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.5808823529411765,
+              0.6636029411764706
+            ],
+            "k": 340,
+            "n": 544,
+            "n_boot": 1000,
+            "rate": 0.625
+          },
+          "mdd_points_over_all": 0.08223847112964461,
+          "n_items": 544,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 544,
+            "n": 544,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.5381793960923623,
+              0.5737122557726465
+            ],
+            "k": 1564,
+            "n": 2815,
+            "n_boot": 1000,
+            "rate": 0.555595026642984
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.5381793960923623,
+              0.5737122557726465
+            ],
+            "k": 1564,
+            "n": 2815,
+            "n_boot": 1000,
+            "rate": 0.555595026642984
+          },
+          "mdd_points_over_all": 0.03710635247386176,
+          "n_items": 2815,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 2815,
+            "n": 2815,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        }
+      },
+      "decoding": "constrained",
+      "denominators": {
+        "all_items": 3867,
+        "schema_valid": 3867
+      },
+      "fence_stripped": 0,
+      "mdd_points_over_all": 0.031443310424203605,
+      "n_items": 3867,
+      "output_length": {
+        "max": 15,
+        "median": 14,
+        "n": 3867,
+        "p99": 14,
+        "top_1pct_share_of_tokens": 0.0107,
+        "total_tokens": 52695
+      },
+      "parse_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 3867,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 3867,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "scored": true,
+      "split": "eval_post_cutoff",
+      "task": "cve_to_cwe",
+      "truncated": 0
+    },
+    "cve_to_cwe/eval_post_cutoff/free": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.5640031031807603,
+          0.595293509180243
+        ],
+        "k": 2244,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 0.5802948021722265
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.5640031031807603,
+          0.595293509180243
+        ],
+        "k": 2244,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 0.5802948021722265
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.6318897637795275,
+              0.7086614173228346
+            ],
+            "k": 340,
+            "n": 508,
+            "n_boot": 1000,
+            "rate": 0.6692913385826772
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.6318897637795275,
+              0.7086614173228346
+            ],
+            "k": 340,
+            "n": 508,
+            "n_boot": 1000,
+            "rate": 0.6692913385826772
+          },
+          "mdd_points_over_all": 0.08270225781115355,
+          "n_items": 508,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 508,
+            "n": 508,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.5808823529411765,
+              0.6636029411764706
+            ],
+            "k": 340,
+            "n": 544,
+            "n_boot": 1000,
+            "rate": 0.625
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.5808823529411765,
+              0.6636029411764706
+            ],
+            "k": 340,
+            "n": 544,
+            "n_boot": 1000,
+            "rate": 0.625
+          },
+          "mdd_points_over_all": 0.08223847112964461,
+          "n_items": 544,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 544,
+            "n": 544,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.5381793960923623,
+              0.5737122557726465
+            ],
+            "k": 1564,
+            "n": 2815,
+            "n_boot": 1000,
+            "rate": 0.555595026642984
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.5381793960923623,
+              0.5737122557726465
+            ],
+            "k": 1564,
+            "n": 2815,
+            "n_boot": 1000,
+            "rate": 0.555595026642984
+          },
+          "mdd_points_over_all": 0.03710635247386176,
+          "n_items": 2815,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 2815,
+            "n": 2815,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        }
+      },
+      "decoding": "free",
+      "denominators": {
+        "all_items": 3867,
+        "schema_valid": 3867
+      },
+      "fence_stripped": 0,
+      "mdd_points_over_all": 0.031443310424203605,
+      "n_items": 3867,
+      "output_length": {
+        "max": 15,
+        "median": 14,
+        "n": 3867,
+        "p99": 14,
+        "top_1pct_share_of_tokens": 0.0107,
+        "total_tokens": 52695
+      },
+      "parse_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 3867,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 3867,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "scored": true,
+      "split": "eval_post_cutoff",
+      "task": "cve_to_cwe",
+      "truncated": 0
+    },
+    "cve_to_cwe/eval_pre_cutoff/constrained": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.65146985550573,
+          0.6798704534130543
+        ],
+        "k": 2675,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 0.666417538614848
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.65146985550573,
+          0.6798704534130543
+        ],
+        "k": 2675,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 0.666417538614848
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.7091273821464393,
+              0.765295887662989
+            ],
+            "k": 735,
+            "n": 997,
+            "n_boot": 1000,
+            "rate": 0.7372116349047142
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.7091273821464393,
+              0.765295887662989
+            ],
+            "k": 735,
+            "n": 997,
+            "n_boot": 1000,
+            "rate": 0.7372116349047142
+          },
+          "mdd_points_over_all": 0.055229411161436454,
+          "n_items": 997,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 997,
+            "n": 997,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.6486236236236237,
+              0.7037287287287287
+            ],
+            "k": 676,
+            "n": 999,
+            "n_boot": 1000,
+            "rate": 0.6766766766766766
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.6486236236236237,
+              0.7037287287287287
+            ],
+            "k": 676,
+            "n": 999,
+            "n_boot": 1000,
+            "rate": 0.6766766766766766
+          },
+          "mdd_points_over_all": 0.058633418019023505,
+          "n_items": 999,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 999,
+            "n": 999,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.6060455896927651,
+              0.6461967294350842
+            ],
+            "k": 1264,
+            "n": 2018,
+            "n_boot": 1000,
+            "rate": 0.626362735381566
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.6060455896927651,
+              0.6461967294350842
+            ],
+            "k": 1264,
+            "n": 2018,
+            "n_boot": 1000,
+            "rate": 0.626362735381566
+          },
+          "mdd_points_over_all": 0.04266741208018144,
+          "n_items": 2018,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 2018,
+            "n": 2018,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        }
+      },
+      "decoding": "constrained",
+      "denominators": {
+        "all_items": 4014,
+        "schema_valid": 4014
+      },
+      "fence_stripped": 0,
+      "mdd_points_over_all": 0.029485260199339686,
+      "n_items": 4014,
+      "output_length": {
+        "max": 15,
+        "median": 14,
+        "n": 4014,
+        "p99": 14,
+        "top_1pct_share_of_tokens": 0.011,
+        "total_tokens": 54556
+      },
+      "parse_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 4014,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 4014,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "scored": true,
+      "split": "eval_pre_cutoff",
+      "task": "cve_to_cwe",
+      "truncated": 0
+    },
+    "cve_to_cwe/eval_pre_cutoff/free": {
+      "accuracy_over_all_items": {
+        "ci95": [
+          0.65146985550573,
+          0.6798704534130543
+        ],
+        "k": 2675,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 0.666417538614848
+      },
+      "accuracy_over_schema_valid": {
+        "ci95": [
+          0.65146985550573,
+          0.6798704534130543
+        ],
+        "k": 2675,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 0.666417538614848
+      },
+      "by_stratum": {
+        "high": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.7091273821464393,
+              0.765295887662989
+            ],
+            "k": 735,
+            "n": 997,
+            "n_boot": 1000,
+            "rate": 0.7372116349047142
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.7091273821464393,
+              0.765295887662989
+            ],
+            "k": 735,
+            "n": 997,
+            "n_boot": 1000,
+            "rate": 0.7372116349047142
+          },
+          "mdd_points_over_all": 0.055229411161436454,
+          "n_items": 997,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 997,
+            "n": 997,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "low": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.6486236236236237,
+              0.7037287287287287
+            ],
+            "k": 676,
+            "n": 999,
+            "n_boot": 1000,
+            "rate": 0.6766766766766766
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.6486236236236237,
+              0.7037287287287287
+            ],
+            "k": 676,
+            "n": 999,
+            "n_boot": 1000,
+            "rate": 0.6766766766766766
+          },
+          "mdd_points_over_all": 0.058633418019023505,
+          "n_items": 999,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 999,
+            "n": 999,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        },
+        "zero": {
+          "accuracy_over_all_items": {
+            "ci95": [
+              0.6060455896927651,
+              0.6461967294350842
+            ],
+            "k": 1264,
+            "n": 2018,
+            "n_boot": 1000,
+            "rate": 0.626362735381566
+          },
+          "accuracy_over_schema_valid": {
+            "ci95": [
+              0.6060455896927651,
+              0.6461967294350842
+            ],
+            "k": 1264,
+            "n": 2018,
+            "n_boot": 1000,
+            "rate": 0.626362735381566
+          },
+          "mdd_points_over_all": 0.04266741208018144,
+          "n_items": 2018,
+          "schema_valid_rate": {
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "k": 2018,
+            "n": 2018,
+            "n_boot": 1000,
+            "rate": 1.0
+          }
+        }
+      },
+      "decoding": "free",
+      "denominators": {
+        "all_items": 4014,
+        "schema_valid": 4014
+      },
+      "fence_stripped": 0,
+      "mdd_points_over_all": 0.029485260199339686,
+      "n_items": 4014,
+      "output_length": {
+        "max": 15,
+        "median": 14,
+        "n": 4014,
+        "p99": 14,
+        "top_1pct_share_of_tokens": 0.011,
+        "total_tokens": 54556
+      },
+      "parse_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 4014,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "schema_valid_rate": {
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "k": 4014,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 1.0
+      },
+      "scored": true,
+      "split": "eval_pre_cutoff",
+      "task": "cve_to_cwe",
+      "truncated": 0
+    }
+  },
+  "flags_file": "flags.json",
+  "flags_sha256": null,
+  "gaps": {
+    "decoding/cve_to_cwe/eval_post_cutoff": {
+      "accuracy": {
+        "alpha": 0.05,
+        "decided_by": "McNemar p",
+        "design": "paired",
+        "family_size": null,
+        "marginal_a": {
+          "ci95": [
+            0.5640031031807603,
+            0.595293509180243
+          ],
+          "n": 3867,
+          "note": "descriptive, not the verdict",
+          "rate": 0.5802948021722265
+        },
+        "marginal_b": {
+          "ci95": [
+            0.5640031031807603,
+            0.595293509180243
+          ],
+          "n": 3867,
+          "note": "descriptive, not the verdict",
+          "rate": 0.5802948021722265
+        },
+        "marginal_intervals_overlap": true,
+        "mcnemar_p": 1.0,
+        "mcnemar_p_holm": null,
+        "paired_difference": {
+          "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "diff": 0.0,
+          "discordant_rate": 0.0,
+          "mdd_points_paired": 4.505227758749312e-08,
+          "n_pairs": 3867,
+          "se": 0.0
+        },
+        "rule": "paired comparison: the verdict follows the McNemar test (Holm-adjusted within its family). Marginal interval overlap is recorded but decides nothing -- see docs/engineering-rules.md rule 6.",
+        "verdict": "no difference detected"
+      },
+      "accuracy_over_all_gap": 0.0,
+      "constrained_schema_valid": 1.0,
+      "free_schema_valid": 1.0,
+      "mcnemar_accuracy": {
+        "a_only_correct": 0,
+        "b_only_correct": 0,
+        "discordant": 0,
+        "method": "no discordant pairs",
+        "p_value": 1.0,
+        "paired_items": 3867
+      },
+      "mcnemar_schema_valid": {
+        "a_only_correct": 0,
+        "b_only_correct": 0,
+        "discordant": 0,
+        "method": "no discordant pairs",
+        "p_value": 1.0,
+        "paired_items": 3867
+      },
+      "means": "how much schema compliance comes from the decoder rather than the model; an accuracy gap shows constraint changing content, not just form",
+      "paired": true,
+      "schema_valid": {
+        "alpha": 0.05,
+        "decided_by": "McNemar p",
+        "design": "paired",
+        "family_size": null,
+        "marginal_a": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 3867,
+          "note": "descriptive, not the verdict",
+          "rate": 1.0
+        },
+        "marginal_b": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 3867,
+          "note": "descriptive, not the verdict",
+          "rate": 1.0
+        },
+        "marginal_intervals_overlap": true,
+        "mcnemar_p": 1.0,
+        "mcnemar_p_holm": null,
+        "paired_difference": {
+          "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "diff": 0.0,
+          "discordant_rate": 0.0,
+          "mdd_points_paired": 4.505227758749312e-08,
+          "n_pairs": 3867,
+          "se": 0.0
+        },
+        "rule": "paired comparison: the verdict follows the McNemar test (Holm-adjusted within its family). Marginal interval overlap is recorded but decides nothing -- see docs/engineering-rules.md rule 6.",
+        "verdict": "no difference detected"
+      },
+      "schema_valid_gap": 0.0
+    },
+    "decoding/cve_to_cwe/eval_pre_cutoff": {
+      "accuracy": {
+        "alpha": 0.05,
+        "decided_by": "McNemar p",
+        "design": "paired",
+        "family_size": null,
+        "marginal_a": {
+          "ci95": [
+            0.65146985550573,
+            0.6798704534130543
+          ],
+          "n": 4014,
+          "note": "descriptive, not the verdict",
+          "rate": 0.666417538614848
+        },
+        "marginal_b": {
+          "ci95": [
+            0.65146985550573,
+            0.6798704534130543
+          ],
+          "n": 4014,
+          "note": "descriptive, not the verdict",
+          "rate": 0.666417538614848
+        },
+        "marginal_intervals_overlap": true,
+        "mcnemar_p": 1.0,
+        "mcnemar_p_holm": null,
+        "paired_difference": {
+          "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "diff": 0.0,
+          "discordant_rate": 0.0,
+          "mdd_points_paired": 4.4219634981046626e-08,
+          "n_pairs": 4014,
+          "se": 0.0
+        },
+        "rule": "paired comparison: the verdict follows the McNemar test (Holm-adjusted within its family). Marginal interval overlap is recorded but decides nothing -- see docs/engineering-rules.md rule 6.",
+        "verdict": "no difference detected"
+      },
+      "accuracy_over_all_gap": 0.0,
+      "constrained_schema_valid": 1.0,
+      "free_schema_valid": 1.0,
+      "mcnemar_accuracy": {
+        "a_only_correct": 0,
+        "b_only_correct": 0,
+        "discordant": 0,
+        "method": "no discordant pairs",
+        "p_value": 1.0,
+        "paired_items": 4014
+      },
+      "mcnemar_schema_valid": {
+        "a_only_correct": 0,
+        "b_only_correct": 0,
+        "discordant": 0,
+        "method": "no discordant pairs",
+        "p_value": 1.0,
+        "paired_items": 4014
+      },
+      "means": "how much schema compliance comes from the decoder rather than the model; an accuracy gap shows constraint changing content, not just form",
+      "paired": true,
+      "schema_valid": {
+        "alpha": 0.05,
+        "decided_by": "McNemar p",
+        "design": "paired",
+        "family_size": null,
+        "marginal_a": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 4014,
+          "note": "descriptive, not the verdict",
+          "rate": 1.0
+        },
+        "marginal_b": {
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 4014,
+          "note": "descriptive, not the verdict",
+          "rate": 1.0
+        },
+        "marginal_intervals_overlap": true,
+        "mcnemar_p": 1.0,
+        "mcnemar_p_holm": null,
+        "paired_difference": {
+          "basis": "per-item paired difference (+1/0/-1), 1,000 resamples, fixed seed",
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "diff": 0.0,
+          "discordant_rate": 0.0,
+          "mdd_points_paired": 4.4219634981046626e-08,
+          "n_pairs": 4014,
+          "se": 0.0
+        },
+        "rule": "paired comparison: the verdict follows the McNemar test (Holm-adjusted within its family). Marginal interval overlap is recorded but decides nothing -- see docs/engineering-rules.md rule 6.",
+        "verdict": "no difference detected"
+      },
+      "schema_valid_gap": 0.0
+    },
+    "temporal/cve_to_cwe/constrained": {
+      "by_stratum_gap": {
+        "high": 0.067920296322037,
+        "low": 0.051676676676676636,
+        "zero": 0.07076770873858196
+      },
+      "design": "unpaired: post-cutoff and pre-cutoff are different CVEs, so there is no pairing",
+      "gap": 0.08612273644262147,
+      "means": "this pipeline's own estimate of pretraining contamination. If the gap persists inside the zero stratum, the contamination is not lexical.",
+      "post_cutoff": {
+        "ci95": [
+          0.5640031031807603,
+          0.595293509180243
+        ],
+        "k": 2244,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 0.5802948021722265
+      },
+      "pre_cutoff": {
+        "ci95": [
+          0.65146985550573,
+          0.6798704534130543
+        ],
+        "k": 2675,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 0.666417538614848
+      },
+      "verdict": "difference detected"
+    },
+    "temporal/cve_to_cwe/free": {
+      "by_stratum_gap": {
+        "high": 0.067920296322037,
+        "low": 0.051676676676676636,
+        "zero": 0.07076770873858196
+      },
+      "design": "unpaired: post-cutoff and pre-cutoff are different CVEs, so there is no pairing",
+      "gap": 0.08612273644262147,
+      "means": "this pipeline's own estimate of pretraining contamination. If the gap persists inside the zero stratum, the contamination is not lexical.",
+      "post_cutoff": {
+        "ci95": [
+          0.5640031031807603,
+          0.595293509180243
+        ],
+        "k": 2244,
+        "n": 3867,
+        "n_boot": 1000,
+        "rate": 0.5802948021722265
+      },
+      "pre_cutoff": {
+        "ci95": [
+          0.65146985550573,
+          0.6798704534130543
+        ],
+        "k": 2675,
+        "n": 4014,
+        "n_boot": 1000,
+        "rate": 0.666417538614848
+      },
+      "verdict": "difference detected"
+    }
+  },
+  "general": {},
+  "manifest_sha_fields": {
+    "dataset_manifest_sha256": "61c060f77d28f95482abc816664f1970c9ae5b30a18e51adca45c34cf25ff149",
+    "model_checkpoint_sha256": "9b7194cfa68bec8ac44d5935448b2d7305e76ba7db4fb5b97020d3f8dc5ed7b6",
+    "outputs_jsonl_sha256": "7a620ae4d0c752b0f48ef36b4c83191f4b29cd6bbb73e25659c66842f8ec2f78"
+  },
+  "not_scored_reason": {
+    "attack_technique": "738 training examples and 72 / 44 evaluation items; confidence intervals exceed +/-10 percentage points and the task is recall of ~800 fixed items. Kept in the datasets and manifest, reported descriptively by P4/P5, excluded from any comparison between conditions."
+  },
+  "primary_metric": {
+    "attack_technique": "exact match (technique_id)",
+    "cve_to_cwe": "exact match (cwe_id)",
+    "cvss_vector": "whole-vector exact match (8 metrics + vector string)",
+    "structured_extract": "all fields exact (versions set equal; impact when non-null)"
+  },
+  "run_id": "rlvr",
+  "sandbox": {},
+  "scored": {
+    "attack_technique": false,
+    "cve_to_cwe": true,
+    "cvss_vector": true,
+    "structured_extract": true
+  },
+  "scoring_code_sha256": "73c825f7a7798f5998cde095153215d2dd97e7cfbafeda101f7a09b21aeb986d",
+  "strata": {
+    "cve_to_cwe/eval_post_cutoff": {
+      "counts": {
+        "high": 508,
+        "low": 544,
+        "zero": 2815
+      },
+      "definition": "zero: coverage==0; low: 0<coverage<=median(positive); high: coverage>median(positive)",
+      "field": "train_ngram_coverage",
+      "n": 3867,
+      "note": "recorded quartiles are deliberately not used: coverage is zero-inflated and quartile boundaries collapse, which makes quartile strata incomparable across evaluation sets",
+      "positive_median": 0.2
+    },
+    "cve_to_cwe/eval_pre_cutoff": {
+      "counts": {
+        "high": 997,
+        "low": 999,
+        "zero": 2018
+      },
+      "definition": "zero: coverage==0; low: 0<coverage<=median(positive); high: coverage>median(positive)",
+      "field": "train_ngram_coverage",
+      "n": 4014,
+      "note": "recorded quartiles are deliberately not used: coverage is zero-inflated and quartile boundaries collapse, which makes quartile strata incomparable across evaluation sets",
+      "positive_median": 0.3514
+    }
+  }
+}

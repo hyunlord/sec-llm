@@ -1,0 +1,33 @@
+{
+ "_comment": "Where the GRPO prompts came from, counted rather than asserted. The pool is drawn from the file the starting checkpoint was trained on, so the reward curve is measured on seen data and is not a held-out measurement of anything.",
+ "pool_file": "data/out/cve_to_cwe/train_cond2_domain.jsonl",
+ "pool_file_sha256": "0baccbe9bc1418801ffa4be007b345d91107cf96899c5c069019933e02353bd8",
+ "selection_seed": "sec-llm-p6-rlvr-v1",
+ "pool_size": 4096,
+ "file_size": 22776,
+ "overlap": {
+  "cond2_training_file": 4096,
+  "cond1_training_file": 4096,
+  "eval_post_cutoff": 0,
+  "eval_pre_cutoff": 0
+ },
+ "starting_checkpoint": {
+  "name": "cond2",
+  "epoch_fraction": 0.8489,
+  "note": "Cond-2 consumed this fraction of its data, so most but not all pool prompts were seen during supervised training; which ones cannot be recovered from the packing order."
+ },
+ "task_selection_reference": {
+  "accuracy": {
+   "baseline": {
+    "cve_to_cwe/eval_post_cutoff/constrained": 0.3904835790018102,
+    "cve_to_cwe/eval_pre_cutoff/constrained": 0.5114598903836572
+   },
+   "cond2": {
+    "cve_to_cwe/eval_post_cutoff/constrained": 0.5777088182053272,
+    "cve_to_cwe/eval_pre_cutoff/constrained": 0.6609367214748381
+   }
+  },
+  "criterion_used_by_work_order": "baseline (Cond-0) accuracy",
+  "criterion_that_applies": "the accuracy of the checkpoint GRPO actually starts from, on the prompts it actually rolls out"
+ }
+}

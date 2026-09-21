@@ -31,7 +31,8 @@ def block(F: Fmt) -> list:
     if not have(F):
         return []
     L = ["### RLVR 시연 (검증 가능한 보상 기반 강화학습)", ""]
-    L.append(f"**{F.s('rlvr_run', 'claim')}**")
+    L.append("**이 실행은 RLVR 구조가 처음부터 끝까지 돈다는 것을 시연한다. 성능 향상을 "
+             "주장하지 않는다.** 같은 문장이 실행 매니페스트의 `claim` 필드에 기록되어 있다.")
     L.append("")
     L.append(f"`{F.s('rlvr_run', 'base_checkpoint')}`에서 출발해 `{F.s('rlvr_run', 'task')}` 과제에 "
              f"GRPO를 {F.plain('rlvr_run', 'steps_completed')}스텝 적용했다. 보상은 결정론적 검사 "
@@ -59,7 +60,10 @@ def block(F: Fmt) -> list:
     if pair:
         L.append("출발 체크포인트와의 비교는 P4 하니스를 **수정 없이** 돌려 짝지은 검정으로 했다.")
         L.append("")
-        L.append("| 세트 | 차이 | 95% 구간 | Holm p | 판정 | 짝지은 MDD |")
+        L.append(f"쌍의 방향은 `{pair}` — 차이는 앞쪽에서 뒤쪽을 뺀 값이므로, "
+                 "음수는 RLVR 체크포인트가 더 높다는 뜻이다.")
+        L.append("")
+        L.append("| 세트 | Cond-2 | RLVR | 차이 | 95% 구간 | Holm p | 판정 | 짝지은 MDD |")
         L.append("|---|---|---|---|---|---|")
         cells = F.get("rlvr_compare", "domain")
         for k in sorted(cells):
@@ -67,7 +71,10 @@ def block(F: Fmt) -> list:
                 continue
             base = ("rlvr_compare", "domain", k, "pairs", pair, "accuracy")
             pd = base + ("paired_difference",)
-            L.append(f"| `{k}` | {F.pp(*pd, 'diff', nd=1)} "
+            L.append(f"| `{k}` "
+                     f"| {F.pct(*base, 'marginal_a', 'rate', nd=1)} "
+                     f"| {F.pct(*base, 'marginal_b', 'rate', nd=1)} "
+                     f"| {F.pp(*pd, 'diff', nd=1)} "
                      f"| {F.ci(*pd, 'ci95', nd=1, scale=100, unit='pp')} "
                      f"| {F.p(*base, 'mcnemar_p_holm')} "
                      f"| {VERDICT_KO[F.get(*base, 'verdict')]} "

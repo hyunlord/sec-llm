@@ -1,0 +1,91 @@
+{
+ "_rebuilt": "this record was rebuilt by rlvr.postrun after the evaluation runner overwrote runs/rlvr/manifest.json, which the trainer had written to the same path. Every field below is recomputed from reward_log.jsonl, rlvr/config.yaml, the checkpoint's trainer_state.json and the verifier. The trainer now writes train_manifest.json, following the P5 convention it should have followed.",
+ "name": "rlvr",
+ "task": "cve_to_cwe",
+ "claim": "this run demonstrates that the RLVR structure executes end to end. It does not claim a performance improvement; see reports/rlvr.md.",
+ "base_checkpoint": "checkpoints/cond2/merged",
+ "base_checkpoint_sha256": "fdc162c71839efb9df7277640750f3d07cc64f6b7396ee641ed3c7eda56f4bd0",
+ "adapter_path": "runs/rlvr/adapter",
+ "merged_path": "checkpoints/rlvr",
+ "config": {
+  "name": "rlvr",
+  "task": "cve_to_cwe",
+  "base_checkpoint": "checkpoints/cond2/merged",
+  "train_file": "data/out/cve_to_cwe/train_cond2_domain.jsonl",
+  "n_prompts": 4096,
+  "selection_seed": "sec-llm-p6-rlvr-v1",
+  "seed": 1234,
+  "steps": 200,
+  "num_generations": 8,
+  "per_device_train_batch_size": 8,
+  "gradient_accumulation_steps": 8,
+  "learning_rate": 1e-05,
+  "beta": 0.0,
+  "loss_type": "dr_grpo",
+  "scale_rewards": false,
+  "temperature": 1.0,
+  "top_p": 1.0,
+  "max_completion_length_headroom": 8,
+  "lora": {
+   "r": 32,
+   "alpha": 64,
+   "dropout": 0.0,
+   "target_modules": [
+    "q_proj",
+    "k_proj",
+    "v_proj",
+    "o_proj",
+    "gate_proj",
+    "up_proj",
+    "down_proj"
+   ]
+  },
+  "memory_max": "90G"
+ },
+ "config_sha256": "b48a86ffffc07dd2abba90c8ce154b6dcdb62f53278a560867e75b6b54c159e3",
+ "steps_planned": 200,
+ "steps_completed": 200,
+ "resumed_from": "runs/rlvr/trainer/checkpoint-100",
+ "reward_batches_logged": 200,
+ "max_completion_length": 112,
+ "max_completion_length_derivation": "8x the longest target in the pool (14 tokens)",
+ "prompt_pool": {
+  "selected": 4096,
+  "records_in_file": 22776,
+  "selection_seed": "sec-llm-p6-rlvr-v1",
+  "file_sha256": "0baccbe9bc1418801ffa4be007b345d91107cf96899c5c069019933e02353bd8"
+ },
+ "verifier": {
+  "task": "cve_to_cwe",
+  "schema_path": "datasets/schemas/cve_to_cwe.json",
+  "schema_sha256": "2c6e30ee81e108344e0d63d068cf7b765c1f6b032ac1095131057ff9c8e22a7b",
+  "scorer_path": "eval/scorers/schema.py",
+  "scorer_sha256": "eb6bef66f9b37550b2f41fc8550b76510e224fef02eefdcb4f9afee1dd95097e",
+  "components": [
+   "schema_valid",
+   "exact_match"
+  ],
+  "range_per_component": [
+   0.0,
+   1.0
+  ],
+  "in_process": true,
+  "subprocess_used": false
+ },
+ "wall_sec": 3657.0,
+ "wall_sec_note": "the resumed segment only, from the chain's own markers. The first 100 steps ran in an attempt the host rebooted, and their elapsed time was not recorded anywhere that survived.",
+ "num_input_tokens_seen": 1899721,
+ "summary": {
+  "reward_total_first_decile": 1.5609,
+  "reward_total_last_decile": 1.6539,
+  "reward_schema_first_decile": 0.9992,
+  "reward_schema_last_decile": 1.0,
+  "reward_exact_first_decile": 0.5617,
+  "reward_exact_last_decile": 0.6539,
+  "completion_tokens_first_decile": 12.624,
+  "completion_tokens_last_decile": 12.6235,
+  "truncated_fraction_max": 0.0,
+  "group_collapse_fraction_mean": 0.7963,
+  "group_collapse_fraction_last_decile": 0.8812
+ }
+}

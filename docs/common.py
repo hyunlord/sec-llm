@@ -91,7 +91,7 @@ OPTIONAL_JSON_SOURCES = {
 # The RLVR demonstration, gated separately from the seed-2 records: one landing
 # must not switch on a section that depends on the other.
 RLVR_SOURCES = {
-    "rlvr_run": RUNS / "rlvr" / "manifest.json",
+    "rlvr_run": RUNS / "rlvr" / "train_manifest.json",
     "rlvr_inspect": RUNS / "rlvr" / "reward_inspection.json",
     "rlvr_compare": RUNS / "compare_rlvr.json",
 }
