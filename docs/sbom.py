@@ -9,11 +9,12 @@ Two deliberate choices, both recorded in the markdown note:
 
 * `created` is taken from the newest source pin, not from the clock. A document
   that stamps the build time is not byte-reproducible, and this one has to be.
-* Every Python package carries `NOASSERTION` for its license. The pinned
-  environment lives on the training host; this build runs on a laptop where a
-  different set of packages at different versions happens to be importable.
-  Reading a license off *those* and attributing it to the pinned version would
-  be a fabricated attribution, which is worse than an honest absence.
+* Package licenses are read from the pinned interpreter on the training host
+  (`tools/extract_licenses.py` -> `env/package_licenses.json`), never from
+  whatever happens to be importable where this builds. P7 left them all at
+  NOASSERTION for exactly that reason; P6 reads the right machine instead of
+  guessing better. A package that declares nothing still reads NOASSERTION,
+  and those are counted rather than quietly filled in.
 """
 
 from __future__ import annotations
@@ -69,15 +70,29 @@ def spdx_json(F: Fmt) -> str:
                     "reports, and it does not redistribute the raw corpora"),
     }]
 
+    pkg_lic = F.get("pkglic", "packages")
+    # The extractor runs on the training host, where the checkout predates the
+    # docs package, so it carries its own copy of the lock parser. If the two
+    # ever drift, the package sets differ and the build stops here rather than
+    # publishing an SBOM keyed to a different lock than the one it names.
+    if set(pkg_lic) != set(versions):
+        raise SystemExit(
+            "env/package_licenses.json does not cover env/versions.lock: "
+            f"{len(set(versions) - set(pkg_lic))} locked packages missing, "
+            f"{len(set(pkg_lic) - set(versions))} extra. Re-run tools/extract_licenses.py "
+            "on the pinned interpreter.")
+
     for name in sorted(versions):
+        rec = pkg_lic[name]
+        concluded = rec["spdx"] or "NOASSERTION"
         packages.append({
             "SPDXID": _spdxid("Pypi", name),
             "name": name,
             "versionInfo": versions[name],
             "downloadLocation": f"https://pypi.org/project/{name}/{versions[name]}/",
             "filesAnalyzed": False,
-            "licenseConcluded": "NOASSERTION",
-            "licenseDeclared": "NOASSERTION",
+            "licenseConcluded": concluded,
+            "licenseDeclared": rec["declared"] or "NOASSERTION",
             "copyrightText": "NOASSERTION",
             "supplier": "NOASSERTION",
             "externalRefs": [{
@@ -85,8 +100,12 @@ def spdx_json(F: Fmt) -> str:
                 "referenceType": "purl",
                 "referenceLocator": f"pkg:pypi/{name}@{versions[name]}",
             }],
-            "comment": ("license not asserted: the pinned environment lives on the training "
-                        "host and was not available to this build; see docs/SBOM.md"),
+            "comment": (f"licence read from the pinned interpreter on "
+                        f"{F.get('pkglic', 'read_from', 'host')} "
+                        f"({F.get('pkglic', 'read_from', 'interpreter')}) on "
+                        f"{F.get('pkglic', 'read_on')}, field "
+                        f"{rec.get('source_field') or 'none'}"
+                        + (f"; {rec['note']}" if rec.get("note") else "")),
         })
 
     for sid in SOURCES4:
@@ -153,11 +172,41 @@ def render(F: Fmt) -> str:
              "빌드 시각을 찍으면 문서가 바이트 단위로 재현되지 않고, 재현되지 않는 SBOM은 "
              "이 저장소의 나머지 주장과 어긋난다.")
     L.append("")
-    L.append("**파이썬 패키지의 라이선스는 `NOASSERTION`이다.** 고정된 환경은 학습 호스트에 있고 "
-             "이 문서는 로컬에서 만들어진다. 로컬에 우연히 설치된 **다른 버전**의 패키지에서 "
-             "라이선스를 읽어 고정된 버전에 붙이면 그것은 확인이 아니라 **날조된 귀속**이다. "
-             "비어 있는 편이 낫다. 실제 확인이 필요해지면 학습 호스트에서 "
-             "설치된 배포판 메타데이터로 다시 생성해야 하며, 그때 이 칸이 채워진다.")
+    L.append("**패키지 라이선스는 고정된 인터프리터에서 읽는다.** 이 문서를 만드는 기계가 아니라 "
+             f"`env/versions.lock`을 만든 기계에서 읽는다 — 호스트 `{F.s('pkglic', 'read_from', 'host')}`"
+             f"(`{F.s('pkglic', 'read_from', 'machine')}`), 인터프리터 "
+             f"`{F.s('pkglic', 'read_from', 'interpreter')}` (Python "
+             f"{F.s('pkglic', 'read_from', 'python_version')}), 읽은 날짜 "
+             f"{F.s('pkglic', 'read_on')}. 로컬에 우연히 설치된 **다른 버전**에서 라이선스를 읽어 "
+             "고정된 버전에 붙이는 것은 확인이 아니라 날조된 귀속이므로, 그 방법은 쓰지 않는다.")
+    L.append("")
+    L.append(f"읽는 대상은 배포판이 **스스로 선언한 것**뿐이다 — "
+             f"{', '.join(chr(96) + x + chr(96) for x in F.get('pkglic', 'method', 'fields_consulted'))} 필드. 패키지 이름이나 이웃 패키지에서 추정하지 않는다. "
+             "설치된 버전이 고정 버전과 다르면 귀속하지 않고 그 사실을 기록한다.")
+    L.append("")
+
+    L.append("### 읽은 결과")
+    L.append("")
+    L.append(f"고정 패키지 {F.n('pkglic', 'counts', 'locked')}개 중 "
+             f"**{F.n('pkglic', 'counts', 'resolved')}개**에서 SPDX 식별자를 확정했고, "
+             f"**{F.n('pkglic', 'counts', 'unresolved')}개**는 `NOASSERTION`으로 남았다. "
+             "남은 것들은 채우지 못한 것이지 빠뜨린 것이 아니며, 사유별로 아래에 적는다.")
+    L.append("")
+    L.append("| `NOASSERTION`으로 남은 사유 | 개수 |")
+    L.append("|---|---|")
+    reasons = {}
+    for n, rec in F.get("pkglic", "packages").items():
+        if not rec["spdx"]:
+            reasons.setdefault(rec.get("note", "unknown"), []).append(n)
+    for r in sorted(reasons):
+        names = ", ".join(f"`{x}`" for x in sorted(reasons[r])[:4])
+        more = f" 외 {len(reasons[r]) - 4}개" if len(reasons[r]) > 4 else ""
+        L.append(f"| {r}<br>{names}{more} | {len(reasons[r])} |")
+    L.append("")
+    L.append("가장 큰 덩어리는 NVIDIA CUDA 배포판들로, 분류자가 "
+             "`License :: Other/Proprietary License`라서 **SPDX 식별자로 번역할 대상이 없다.** "
+             "독점 라이선스라는 사실 자체는 선언되어 있고 그대로 `licenseDeclared`에 들어간다. "
+             "번역표에 없는 분류자를 임의로 식별자에 밀어 넣지 않는 것이 이 표가 비어 있는 이유다.")
     L.append("")
 
     L.append("## 데이터 라이선스와 의존성 라이선스의 교차 확인")
@@ -171,8 +220,9 @@ def render(F: Fmt) -> str:
              "| **없음.** 채택된 다섯 출처는 모두 귀속 조건부 허용이다 |")
     L.append("| 데이터 → 가중치 | 가중치 공개를 허용하거나 금지하는 조항이 있는가 "
              "| **어느 출처도 언급하지 않는다.** 침묵이지 허가가 아니다 |")
-    L.append("| 의존성 → 산출물 | 파이썬 패키지의 라이선스가 산출물(매니페스트·보고서·가중치)에 "
-             "의무를 부과하는가 | **확인하지 못했다** — 위 `NOASSERTION` 사유 |")
+    L.append(f"| 의존성 → 산출물 | 파이썬 패키지 중 상호주의(copyleft) 조항을 가진 것이 있고, "
+             f"그것이 어댑터 가중치 배포에 의무를 부과하는가 "
+             f"| **{F.n('pkglic', 'counts', 'copyleft')}개 발견, 가중치 배포에는 영향 없음** — 아래 |")
     L.append("")
     L.append("첫 번째 줄이 중요한 이유는 기각된 후보들에서 드러난다. "
              "리플레이 후보 중 카피레프트 조항을 가진 것들"
@@ -181,9 +231,31 @@ def render(F: Fmt) -> str:
              "따라서 어떤 카피레프트 의무도 산출물에 도달하지 않는다. "
              "기각 사유 전체는 `docs/LICENSES.md`에 있다.")
     L.append("")
-    L.append("세 번째 줄은 미결이며 그렇게 표시된다. 이 프로젝트가 배포하는 것은 코드·매니페스트·"
-             "보고서이고 파이썬 패키지를 재배포하지 않으므로 실무적 위험은 낮지만, "
-             "**낮다는 것과 확인했다는 것은 다른 진술이다.**")
+    L.append("### 상호주의 의존성 검사")
+    L.append("")
+    L.append(f"확정된 식별자에 `{'`, `'.join(F.get('pkglic', 'method', 'copyleft_markers')[:6])}` 등이 "
+             f"포함된 패키지를 찾았다. 이름이 아니라 **확정된 식별자**를 기준으로 매칭한다.")
+    L.append("")
+    L.append("| 패키지 | 라이선스 | 읽은 필드 |")
+    L.append("|---|---|---|")
+    for n in F.get("pkglic", "copyleft_packages"):
+        L.append(f"| `{n}` | {F.s('pkglic', 'packages', n, 'spdx')} "
+                 f"| `{F.s('pkglic', 'packages', n, 'source_field')}` |")
+    L.append("")
+    L.append("**어댑터 가중치 배포에는 의무가 도달하지 않는다.** 근거는 두 가지이고, 둘 다 "
+             "법률 자문이 아니라 이 저장소가 무엇을 하고 무엇을 하지 않는지에 대한 진술이다.")
+    L.append("")
+    L.append("- **이 패키지들을 재배포하지 않는다.** MPL-2.0의 의무는 해당 라이선스가 붙은 "
+             "**파일을 수정해 배포할 때** 발생하는 파일 단위 상호주의이고, LGPL의 의무는 "
+             "**라이브러리나 그 파생물을 배포할 때** 발생한다. 이 저장소가 배포하는 것은 코드·"
+             "매니페스트·보고서이며 의존성 자체는 배포하지 않는다.")
+    L.append("- **가중치는 이 패키지들의 코드에서 파생되지 않는다.** 어댑터 가중치는 학습 "
+             "데이터에서 파생되며, 이 패키지들은 그 과정을 실행한 도구다. 컴파일러의 "
+             "라이선스가 컴파일 결과물을 구속하지 않는 것과 같은 구분이다.")
+    L.append("")
+    L.append("**미결로 남는 것은 따로 있다.** 학습된 가중치가 **학습 데이터**의 이차적 저작물인가 — "
+             "이것은 의존성이 아니라 데이터 쪽 질문이고, 다섯 데이터 출처 중 어느 문서도 답하지 "
+             "않는다(`docs/LICENSES.md`). 의존성 방향이 정리되었다고 해서 그 질문이 닫히지 않는다.")
     L.append("")
 
     L.append("## 데이터 출처 항목")

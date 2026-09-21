@@ -64,6 +64,7 @@ JSON_SOURCES = {
     "probe_sets": RUNS / "probe" / "rebuilt_sets.json",
     "probe_p5": RUNS / "probe" / "scores.json",
     "refs": DOCS / "refs.json",
+    "pkglic": ENV / "package_licenses.json",
 }
 LOCKFILE = ENV / "versions.lock"
 

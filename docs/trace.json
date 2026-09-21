@@ -25,7 +25,8 @@
   "probe": "runs/probe/rebuilt_scores.json",
   "probe_sets": "runs/probe/rebuilt_sets.json",
   "probe_p5": "runs/probe/scores.json",
-  "refs": "docs/refs.json"
+  "refs": "docs/refs.json",
+  "pkglic": "env/package_licenses.json"
  },
  "lockfile": "env/versions.lock",
  "entries": [
@@ -11897,6 +11898,176 @@
     ]
    },
    "text": "207"
+  },
+  {
+   "kind": "s",
+   "args": {
+    "ref": [
+     "pkglic",
+     "read_from",
+     "host"
+    ]
+   },
+   "text": "aitopatom-d6bb"
+  },
+  {
+   "kind": "s",
+   "args": {
+    "ref": [
+     "pkglic",
+     "read_from",
+     "machine"
+    ]
+   },
+   "text": "aarch64"
+  },
+  {
+   "kind": "s",
+   "args": {
+    "ref": [
+     "pkglic",
+     "read_from",
+     "interpreter"
+    ]
+   },
+   "text": "/home/hyunlord/sec-llm/.venv/bin/python"
+  },
+  {
+   "kind": "s",
+   "args": {
+    "ref": [
+     "pkglic",
+     "read_from",
+     "python_version"
+    ]
+   },
+   "text": "3.12.3"
+  },
+  {
+   "kind": "s",
+   "args": {
+    "ref": [
+     "pkglic",
+     "read_on"
+    ]
+   },
+   "text": "2026-09-21"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "pkglic",
+     "counts",
+     "locked"
+    ]
+   },
+   "text": "207"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "pkglic",
+     "counts",
+     "resolved"
+    ]
+   },
+   "text": "185"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "pkglic",
+     "counts",
+     "unresolved"
+    ]
+   },
+   "text": "22"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "pkglic",
+     "counts",
+     "copyleft"
+    ]
+   },
+   "text": "3"
+  },
+  {
+   "kind": "s",
+   "args": {
+    "ref": [
+     "pkglic",
+     "packages",
+     "certifi",
+     "spdx"
+    ]
+   },
+   "text": "MPL-2.0"
+  },
+  {
+   "kind": "s",
+   "args": {
+    "ref": [
+     "pkglic",
+     "packages",
+     "certifi",
+     "source_field"
+    ]
+   },
+   "text": "Classifier"
+  },
+  {
+   "kind": "s",
+   "args": {
+    "ref": [
+     "pkglic",
+     "packages",
+     "pycountry",
+     "spdx"
+    ]
+   },
+   "text": "LGPL-2.1-only"
+  },
+  {
+   "kind": "s",
+   "args": {
+    "ref": [
+     "pkglic",
+     "packages",
+     "pycountry",
+     "source_field"
+    ]
+   },
+   "text": "License-Expression"
+  },
+  {
+   "kind": "s",
+   "args": {
+    "ref": [
+     "pkglic",
+     "packages",
+     "tqdm",
+     "spdx"
+    ]
+   },
+   "text": "MPL-2.0 AND MIT"
+  },
+  {
+   "kind": "s",
+   "args": {
+    "ref": [
+     "pkglic",
+     "packages",
+     "tqdm",
+     "source_field"
+    ]
+   },
+   "text": "License"
   },
   {
    "kind": "s",

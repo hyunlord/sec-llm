@@ -1,0 +1,2108 @@
+{
+ "_comment": "Dependency licences read from the interpreter that produced env/versions.lock. Nothing here is inferred from a package name; every value comes from the distribution's own metadata, and the field it came from is recorded.",
+ "read_on": "2026-09-21",
+ "read_from": {
+  "host": "aitopatom-d6bb",
+  "machine": "aarch64",
+  "interpreter": "/home/hyunlord/sec-llm/.venv/bin/python",
+  "python_version": "3.12.3"
+ },
+ "method": {
+  "fields_consulted": [
+   "License-Expression",
+   "Classifier",
+   "License"
+  ],
+  "version_check": "a package whose installed version differs from the locked version is left unattributed",
+  "classifier_table": "fixed Trove -> SPDX translation; a classifier outside it is published verbatim, not forced",
+  "copyleft_markers": [
+   "GPL",
+   "AGPL",
+   "LGPL",
+   "MPL",
+   "EPL",
+   "CDDL",
+   "CPL",
+   "OSL",
+   "EUPL",
+   "SSPL"
+  ]
+ },
+ "counts": {
+  "locked": 207,
+  "resolved": 185,
+  "unresolved": 22,
+  "copyleft": 3
+ },
+ "copyleft_packages": [
+  "certifi",
+  "pycountry",
+  "tqdm"
+ ],
+ "unresolved_reasons": [
+  "classifier present but outside the translation table; not forced into an identifier",
+  "legacy field contains licence text, not an identifier; not attributed",
+  "the distribution declares no licence metadata"
+ ],
+ "packages": {
+  "accelerate": {
+   "name": "accelerate",
+   "locked_version": "1.15.0",
+   "spdx": "Apache-2.0",
+   "declared": "License :: OSI Approved :: Apache Software License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: Apache Software License"
+   ],
+   "installed_version": "1.15.0"
+  },
+  "agent-detector": {
+   "name": "agent-detector",
+   "locked_version": "2.0.0",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "2.0.0"
+  },
+  "aiohappyeyeballs": {
+   "name": "aiohappyeyeballs",
+   "locked_version": "2.7.1",
+   "spdx": "PSF-2.0",
+   "declared": "License :: OSI Approved :: Python Software Foundation License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: Python Software Foundation License"
+   ],
+   "installed_version": "2.7.1"
+  },
+  "aiohttp": {
+   "name": "aiohttp",
+   "locked_version": "3.14.3",
+   "spdx": "Apache-2.0 AND MIT",
+   "declared": "Apache-2.0 AND MIT",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "3.14.3"
+  },
+  "aiosignal": {
+   "name": "aiosignal",
+   "locked_version": "1.4.0",
+   "spdx": "Apache-2.0",
+   "declared": "License :: OSI Approved :: Apache Software License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: Apache Software License"
+   ],
+   "installed_version": "1.4.0"
+  },
+  "annotated-doc": {
+   "name": "annotated-doc",
+   "locked_version": "0.0.5",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.0.5"
+  },
+  "annotated-types": {
+   "name": "annotated-types",
+   "locked_version": "0.8.0",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "0.8.0"
+  },
+  "anthropic": {
+   "name": "anthropic",
+   "locked_version": "1.6.0",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "1.6.0"
+  },
+  "anyio": {
+   "name": "anyio",
+   "locked_version": "4.15.1",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "4.15.1"
+  },
+  "apache-tvm-ffi": {
+   "name": "apache-tvm-ffi",
+   "locked_version": "0.1.11",
+   "spdx": "Apache-2.0",
+   "declared": "License :: OSI Approved :: Apache Software License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: Apache Software License"
+   ],
+   "installed_version": "0.1.11"
+  },
+  "astor": {
+   "name": "astor",
+   "locked_version": "0.8.1",
+   "spdx": "BSD-3-Clause",
+   "declared": "License :: OSI Approved :: BSD License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: BSD License"
+   ],
+   "installed_version": "0.8.1"
+  },
+  "attrs": {
+   "name": "attrs",
+   "locked_version": "26.1.0",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "26.1.0"
+  },
+  "blake3": {
+   "name": "blake3",
+   "locked_version": "1.0.9",
+   "spdx": "CC0-1.0 OR Apache-2.0",
+   "declared": "CC0-1.0 OR Apache-2.0",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "1.0.9"
+  },
+  "cachetools": {
+   "name": "cachetools",
+   "locked_version": "7.2.0",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "7.2.0"
+  },
+  "cbor2": {
+   "name": "cbor2",
+   "locked_version": "6.1.4",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "6.1.4"
+  },
+  "certifi": {
+   "name": "certifi",
+   "locked_version": "2026.7.22",
+   "spdx": "MPL-2.0",
+   "declared": "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)"
+   ],
+   "installed_version": "2026.7.22"
+  },
+  "cffi": {
+   "name": "cffi",
+   "locked_version": "2.1.1",
+   "spdx": "MIT-0",
+   "declared": "MIT-0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "2.1.1"
+  },
+  "charset-normalizer": {
+   "name": "charset-normalizer",
+   "locked_version": "3.5.1",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "3.5.1"
+  },
+  "click": {
+   "name": "click",
+   "locked_version": "8.5.0",
+   "spdx": "BSD-3-Clause",
+   "declared": "BSD-3-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "8.5.0"
+  },
+  "cloudpickle": {
+   "name": "cloudpickle",
+   "locked_version": "3.1.2",
+   "spdx": "BSD-3-Clause",
+   "declared": "License :: OSI Approved :: BSD License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: BSD License"
+   ],
+   "installed_version": "3.1.2"
+  },
+  "compressed-tensors": {
+   "name": "compressed-tensors",
+   "locked_version": "0.17.0",
+   "spdx": "Apache 2.0",
+   "declared": "Apache 2.0",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "0.17.0"
+  },
+  "cryptography": {
+   "name": "cryptography",
+   "locked_version": "50.0.1",
+   "spdx": "Apache-2.0 OR BSD-3-Clause",
+   "declared": "Apache-2.0 OR BSD-3-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "50.0.1"
+  },
+  "cuda-bindings": {
+   "name": "cuda-bindings",
+   "locked_version": "13.4.2",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "13.4.2"
+  },
+  "cuda-core": {
+   "name": "cuda-core",
+   "locked_version": "1.2.0",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "1.2.0"
+  },
+  "cuda-pathfinder": {
+   "name": "cuda-pathfinder",
+   "locked_version": "1.8.2",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "1.8.2"
+  },
+  "cuda-python": {
+   "name": "cuda-python",
+   "locked_version": "13.4.1",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "13.4.1"
+  },
+  "cuda-tile": {
+   "name": "cuda-tile",
+   "locked_version": "1.6.0",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "1.6.0"
+  },
+  "cuda-toolkit": {
+   "name": "cuda-toolkit",
+   "locked_version": "13.0.3.0",
+   "spdx": null,
+   "declared": null,
+   "source_field": null,
+   "classifiers": [],
+   "installed_version": "13.0.3.0",
+   "note": "the distribution declares no licence metadata"
+  },
+  "datasets": {
+   "name": "datasets",
+   "locked_version": "5.0.1",
+   "spdx": "Apache-2.0",
+   "declared": "License :: OSI Approved :: Apache Software License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: Apache Software License"
+   ],
+   "installed_version": "5.0.1"
+  },
+  "depyf": {
+   "name": "depyf",
+   "locked_version": "0.20.0",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "0.20.0"
+  },
+  "detect-installer": {
+   "name": "detect-installer",
+   "locked_version": "0.2.1",
+   "spdx": "0BSD",
+   "declared": "0BSD",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.2.1"
+  },
+  "dill": {
+   "name": "dill",
+   "locked_version": "0.4.1",
+   "spdx": "BSD-3-Clause",
+   "declared": "License :: OSI Approved :: BSD License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: BSD License"
+   ],
+   "installed_version": "0.4.1"
+  },
+  "dnspython": {
+   "name": "dnspython",
+   "locked_version": "2.8.0",
+   "spdx": "ISC",
+   "declared": "License :: OSI Approved :: ISC License (ISCL)",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: ISC License (ISCL)"
+   ],
+   "installed_version": "2.8.0"
+  },
+  "docstring-parser": {
+   "name": "docstring-parser",
+   "locked_version": "0.18.0",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "0.18.0"
+  },
+  "einops": {
+   "name": "einops",
+   "locked_version": "0.8.2",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "0.8.2"
+  },
+  "email-validator": {
+   "name": "email-validator",
+   "locked_version": "2.3.0",
+   "spdx": "Unlicense",
+   "declared": "License :: OSI Approved :: The Unlicense (Unlicense)",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: The Unlicense (Unlicense)"
+   ],
+   "installed_version": "2.3.0"
+  },
+  "fastapi": {
+   "name": "fastapi",
+   "locked_version": "0.136.3",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.136.3"
+  },
+  "fastapi-cli": {
+   "name": "fastapi-cli",
+   "locked_version": "0.0.32",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.0.32"
+  },
+  "fastapi-cloud-cli": {
+   "name": "fastapi-cloud-cli",
+   "locked_version": "0.26.0",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "0.26.0"
+  },
+  "fastar": {
+   "name": "fastar",
+   "locked_version": "0.12.0",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "0.12.0"
+  },
+  "fastsafetensors": {
+   "name": "fastsafetensors",
+   "locked_version": "0.4.0",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "0.4.0"
+  },
+  "filelock": {
+   "name": "filelock",
+   "locked_version": "4.0.0",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "4.0.0"
+  },
+  "flashinfer-python": {
+   "name": "flashinfer-python",
+   "locked_version": "0.6.18",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.6.18"
+  },
+  "frozenlist": {
+   "name": "frozenlist",
+   "locked_version": "1.8.0",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "1.8.0"
+  },
+  "fsspec": {
+   "name": "fsspec",
+   "locked_version": "2026.6.0",
+   "spdx": "BSD-3-Clause",
+   "declared": "BSD-3-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "2026.6.0"
+  },
+  "googleapis-common-protos": {
+   "name": "googleapis-common-protos",
+   "locked_version": "1.75.3",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "1.75.3"
+  },
+  "grpcio": {
+   "name": "grpcio",
+   "locked_version": "1.84.0",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "1.84.0"
+  },
+  "h11": {
+   "name": "h11",
+   "locked_version": "0.16.0",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "0.16.0"
+  },
+  "hf-xet": {
+   "name": "hf-xet",
+   "locked_version": "1.6.0",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [
+    "License :: OSI Approved :: Apache Software License"
+   ],
+   "installed_version": "1.6.0"
+  },
+  "httpcore": {
+   "name": "httpcore",
+   "locked_version": "1.0.9",
+   "spdx": "BSD-3-Clause",
+   "declared": "BSD-3-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [
+    "License :: OSI Approved :: BSD License"
+   ],
+   "installed_version": "1.0.9"
+  },
+  "httpcore2": {
+   "name": "httpcore2",
+   "locked_version": "2.13.0",
+   "spdx": "BSD-3-Clause",
+   "declared": "BSD-3-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [
+    "License :: OSI Approved :: BSD License"
+   ],
+   "installed_version": "2.13.0"
+  },
+  "httptools": {
+   "name": "httptools",
+   "locked_version": "0.8.0",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.8.0"
+  },
+  "httpx": {
+   "name": "httpx",
+   "locked_version": "0.28.1",
+   "spdx": "BSD-3-Clause",
+   "declared": "License :: OSI Approved :: BSD License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: BSD License"
+   ],
+   "installed_version": "0.28.1"
+  },
+  "httpx2": {
+   "name": "httpx2",
+   "locked_version": "2.13.0",
+   "spdx": "BSD-3-Clause",
+   "declared": "BSD-3-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [
+    "License :: OSI Approved :: BSD License"
+   ],
+   "installed_version": "2.13.0"
+  },
+  "huggingface-hub": {
+   "name": "huggingface-hub",
+   "locked_version": "1.32.0",
+   "spdx": "Apache-2.0",
+   "declared": "License :: OSI Approved :: Apache Software License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: Apache Software License"
+   ],
+   "installed_version": "1.32.0"
+  },
+  "humming-kernels": {
+   "name": "humming-kernels",
+   "locked_version": "0.1.12",
+   "spdx": null,
+   "declared": null,
+   "source_field": null,
+   "classifiers": [],
+   "installed_version": "0.1.12",
+   "note": "the distribution declares no licence metadata"
+  },
+  "idna": {
+   "name": "idna",
+   "locked_version": "3.20",
+   "spdx": "BSD-3-Clause",
+   "declared": "BSD-3-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "3.20"
+  },
+  "ijson": {
+   "name": "ijson",
+   "locked_version": "3.5.1",
+   "spdx": "BSD-3-Clause AND ISC",
+   "declared": "BSD-3-Clause AND ISC",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "3.5.1"
+  },
+  "instanttensor": {
+   "name": "instanttensor",
+   "locked_version": "0.2.0",
+   "spdx": null,
+   "declared": "full licence text in the legacy License field",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "0.2.0",
+   "note": "legacy field contains licence text, not an identifier; not attributed"
+  },
+  "interegular": {
+   "name": "interegular",
+   "locked_version": "0.3.3",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "0.3.3"
+  },
+  "jinja2": {
+   "name": "jinja2",
+   "locked_version": "3.1.6",
+   "spdx": "BSD-3-Clause",
+   "declared": "License :: OSI Approved :: BSD License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: BSD License"
+   ],
+   "installed_version": "3.1.6"
+  },
+  "jiter": {
+   "name": "jiter",
+   "locked_version": "0.17.0",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.17.0"
+  },
+  "jmespath": {
+   "name": "jmespath",
+   "locked_version": "1.1.0",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "1.1.0"
+  },
+  "jsonschema": {
+   "name": "jsonschema",
+   "locked_version": "4.26.0",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "4.26.0"
+  },
+  "jsonschema-specifications": {
+   "name": "jsonschema-specifications",
+   "locked_version": "2025.9.1",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "2025.9.1"
+  },
+  "lark": {
+   "name": "lark",
+   "locked_version": "1.2.2",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "1.2.2"
+  },
+  "llguidance": {
+   "name": "llguidance",
+   "locked_version": "1.7.6",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "1.7.6"
+  },
+  "llvmlite": {
+   "name": "llvmlite",
+   "locked_version": "0.47.0",
+   "spdx": "BSD-2-Clause AND Apache-2.0 WITH LLVM-exception",
+   "declared": "BSD-2-Clause AND Apache-2.0 WITH LLVM-exception",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.47.0"
+  },
+  "lm-format-enforcer": {
+   "name": "lm-format-enforcer",
+   "locked_version": "0.11.3",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "0.11.3"
+  },
+  "loguru": {
+   "name": "loguru",
+   "locked_version": "0.7.3",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "0.7.3"
+  },
+  "markdown-it-py": {
+   "name": "markdown-it-py",
+   "locked_version": "4.2.0",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "4.2.0"
+  },
+  "markupsafe": {
+   "name": "markupsafe",
+   "locked_version": "3.0.3",
+   "spdx": "BSD-3-Clause",
+   "declared": "BSD-3-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "3.0.3"
+  },
+  "mcp": {
+   "name": "mcp",
+   "locked_version": "2.2.0",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "2.2.0"
+  },
+  "mcp-types": {
+   "name": "mcp-types",
+   "locked_version": "2.2.0",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "2.2.0"
+  },
+  "mdurl": {
+   "name": "mdurl",
+   "locked_version": "0.1.2",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "0.1.2"
+  },
+  "mistral-common": {
+   "name": "mistral-common",
+   "locked_version": "1.11.7",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "1.11.7"
+  },
+  "ml-dtypes": {
+   "name": "ml-dtypes",
+   "locked_version": "0.6.0",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.6.0"
+  },
+  "model-hosting-container-standards": {
+   "name": "model-hosting-container-standards",
+   "locked_version": "0.1.16",
+   "spdx": "Apache-2.0",
+   "declared": "License :: OSI Approved :: Apache Software License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: Apache Software License"
+   ],
+   "installed_version": "0.1.16"
+  },
+  "mpmath": {
+   "name": "mpmath",
+   "locked_version": "1.3.0",
+   "spdx": "BSD-3-Clause",
+   "declared": "License :: OSI Approved :: BSD License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: BSD License"
+   ],
+   "installed_version": "1.3.0"
+  },
+  "msgspec": {
+   "name": "msgspec",
+   "locked_version": "0.21.1",
+   "spdx": "BSD-3-Clause",
+   "declared": "BSD-3-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.21.1"
+  },
+  "multidict": {
+   "name": "multidict",
+   "locked_version": "6.8.0",
+   "spdx": "Apache License 2.0",
+   "declared": "Apache License 2.0",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "6.8.0"
+  },
+  "multiprocess": {
+   "name": "multiprocess",
+   "locked_version": "0.70.19",
+   "spdx": "BSD-3-Clause",
+   "declared": "License :: OSI Approved :: BSD License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: BSD License"
+   ],
+   "installed_version": "0.70.19"
+  },
+  "nccl4py": {
+   "name": "nccl4py",
+   "locked_version": "0.5.0",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.5.0"
+  },
+  "networkx": {
+   "name": "networkx",
+   "locked_version": "3.6.1",
+   "spdx": "BSD-3-Clause",
+   "declared": "BSD-3-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "3.6.1"
+  },
+  "ninja": {
+   "name": "ninja",
+   "locked_version": "1.13.2",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "1.13.2"
+  },
+  "numba": {
+   "name": "numba",
+   "locked_version": "0.65.0",
+   "spdx": "BSD-3-Clause",
+   "declared": "License :: OSI Approved :: BSD License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: BSD License"
+   ],
+   "installed_version": "0.65.0"
+  },
+  "numpy": {
+   "name": "numpy",
+   "locked_version": "2.3.5",
+   "spdx": "BSD-3-Clause",
+   "declared": "License :: OSI Approved :: BSD License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: BSD License"
+   ],
+   "installed_version": "2.3.5"
+  },
+  "nvidia-cublas": {
+   "name": "nvidia-cublas",
+   "locked_version": "13.1.1.3",
+   "spdx": "LicenseRef-NVIDIA-Proprietary",
+   "declared": "LicenseRef-NVIDIA-Proprietary",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "13.1.1.3"
+  },
+  "nvidia-cuda-cccl": {
+   "name": "nvidia-cuda-cccl",
+   "locked_version": "13.3.4.3.1",
+   "spdx": "LicenseRef-NVIDIA-Proprietary",
+   "declared": "LicenseRef-NVIDIA-Proprietary",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "13.3.4.3.1"
+  },
+  "nvidia-cuda-crt": {
+   "name": "nvidia-cuda-crt",
+   "locked_version": "13.4.92",
+   "spdx": "LicenseRef-NVIDIA-Proprietary",
+   "declared": "LicenseRef-NVIDIA-Proprietary",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "13.4.92"
+  },
+  "nvidia-cuda-cupti": {
+   "name": "nvidia-cuda-cupti",
+   "locked_version": "13.0.85",
+   "spdx": null,
+   "declared": "License :: Other/Proprietary License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: Other/Proprietary License"
+   ],
+   "installed_version": "13.0.85",
+   "note": "classifier present but outside the translation table; not forced into an identifier"
+  },
+  "nvidia-cuda-nvcc": {
+   "name": "nvidia-cuda-nvcc",
+   "locked_version": "13.4.92",
+   "spdx": "LicenseRef-NVIDIA-Proprietary",
+   "declared": "LicenseRef-NVIDIA-Proprietary",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "13.4.92"
+  },
+  "nvidia-cuda-nvdisasm": {
+   "name": "nvidia-cuda-nvdisasm",
+   "locked_version": "13.4.92",
+   "spdx": "LicenseRef-NVIDIA-Proprietary",
+   "declared": "LicenseRef-NVIDIA-Proprietary",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "13.4.92"
+  },
+  "nvidia-cuda-nvrtc": {
+   "name": "nvidia-cuda-nvrtc",
+   "locked_version": "13.0.88",
+   "spdx": null,
+   "declared": "License :: Other/Proprietary License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: Other/Proprietary License"
+   ],
+   "installed_version": "13.0.88",
+   "note": "classifier present but outside the translation table; not forced into an identifier"
+  },
+  "nvidia-cuda-runtime": {
+   "name": "nvidia-cuda-runtime",
+   "locked_version": "13.0.96",
+   "spdx": "LicenseRef-NVIDIA-Proprietary",
+   "declared": "LicenseRef-NVIDIA-Proprietary",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "13.0.96"
+  },
+  "nvidia-cudnn-cu13": {
+   "name": "nvidia-cudnn-cu13",
+   "locked_version": "9.20.0.48",
+   "spdx": "LicenseRef-NVIDIA-Proprietary",
+   "declared": "LicenseRef-NVIDIA-Proprietary",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "9.20.0.48"
+  },
+  "nvidia-cudnn-frontend": {
+   "name": "nvidia-cudnn-frontend",
+   "locked_version": "1.29.0",
+   "spdx": "Apache-2.0 AND MIT",
+   "declared": "License :: OSI Approved :: Apache Software License; License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: Apache Software License",
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "1.29.0"
+  },
+  "nvidia-cufft": {
+   "name": "nvidia-cufft",
+   "locked_version": "12.0.0.61",
+   "spdx": null,
+   "declared": "License :: Other/Proprietary License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: Other/Proprietary License"
+   ],
+   "installed_version": "12.0.0.61",
+   "note": "classifier present but outside the translation table; not forced into an identifier"
+  },
+  "nvidia-cufile": {
+   "name": "nvidia-cufile",
+   "locked_version": "1.15.1.6",
+   "spdx": null,
+   "declared": "License :: Other/Proprietary License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: Other/Proprietary License"
+   ],
+   "installed_version": "1.15.1.6",
+   "note": "classifier present but outside the translation table; not forced into an identifier"
+  },
+  "nvidia-curand": {
+   "name": "nvidia-curand",
+   "locked_version": "10.4.0.35",
+   "spdx": null,
+   "declared": "License :: Other/Proprietary License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: Other/Proprietary License"
+   ],
+   "installed_version": "10.4.0.35",
+   "note": "classifier present but outside the translation table; not forced into an identifier"
+  },
+  "nvidia-cusolver": {
+   "name": "nvidia-cusolver",
+   "locked_version": "12.0.4.66",
+   "spdx": null,
+   "declared": "License :: Other/Proprietary License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: Other/Proprietary License"
+   ],
+   "installed_version": "12.0.4.66",
+   "note": "classifier present but outside the translation table; not forced into an identifier"
+  },
+  "nvidia-cusparse": {
+   "name": "nvidia-cusparse",
+   "locked_version": "12.6.3.3",
+   "spdx": null,
+   "declared": "License :: Other/Proprietary License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: Other/Proprietary License"
+   ],
+   "installed_version": "12.6.3.3",
+   "note": "classifier present but outside the translation table; not forced into an identifier"
+  },
+  "nvidia-cusparselt-cu13": {
+   "name": "nvidia-cusparselt-cu13",
+   "locked_version": "0.8.1",
+   "spdx": "NVIDIA Proprietary Software",
+   "declared": "NVIDIA Proprietary Software",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "0.8.1"
+  },
+  "nvidia-cutlass-dsl": {
+   "name": "nvidia-cutlass-dsl",
+   "locked_version": "4.6.2",
+   "spdx": null,
+   "declared": "License :: Other/Proprietary License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: Other/Proprietary License"
+   ],
+   "installed_version": "4.6.2",
+   "note": "classifier present but outside the translation table; not forced into an identifier"
+  },
+  "nvidia-cutlass-dsl-libs-base": {
+   "name": "nvidia-cutlass-dsl-libs-base",
+   "locked_version": "4.6.2",
+   "spdx": null,
+   "declared": "License :: Other/Proprietary License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: Other/Proprietary License"
+   ],
+   "installed_version": "4.6.2",
+   "note": "classifier present but outside the translation table; not forced into an identifier"
+  },
+  "nvidia-cutlass-dsl-libs-core": {
+   "name": "nvidia-cutlass-dsl-libs-core",
+   "locked_version": "4.6.2",
+   "spdx": null,
+   "declared": "License :: Other/Proprietary License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: Other/Proprietary License"
+   ],
+   "installed_version": "4.6.2",
+   "note": "classifier present but outside the translation table; not forced into an identifier"
+  },
+  "nvidia-cutlass-dsl-libs-cu12": {
+   "name": "nvidia-cutlass-dsl-libs-cu12",
+   "locked_version": "4.6.2",
+   "spdx": null,
+   "declared": "License :: Other/Proprietary License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: Other/Proprietary License"
+   ],
+   "installed_version": "4.6.2",
+   "note": "classifier present but outside the translation table; not forced into an identifier"
+  },
+  "nvidia-cutlass-dsl-libs-cu13": {
+   "name": "nvidia-cutlass-dsl-libs-cu13",
+   "locked_version": "4.6.2",
+   "spdx": null,
+   "declared": "License :: Other/Proprietary License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: Other/Proprietary License"
+   ],
+   "installed_version": "4.6.2",
+   "note": "classifier present but outside the translation table; not forced into an identifier"
+  },
+  "nvidia-ml-py": {
+   "name": "nvidia-ml-py",
+   "locked_version": "13.610.43",
+   "spdx": "BSD-3-Clause",
+   "declared": "License :: OSI Approved :: BSD License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: BSD License"
+   ],
+   "installed_version": "13.610.43"
+  },
+  "nvidia-nccl-cu13": {
+   "name": "nvidia-nccl-cu13",
+   "locked_version": "2.29.7",
+   "spdx": "LicenseRef-NVIDIA-Proprietary",
+   "declared": "LicenseRef-NVIDIA-Proprietary",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "2.29.7"
+  },
+  "nvidia-nvjitlink": {
+   "name": "nvidia-nvjitlink",
+   "locked_version": "13.4.92",
+   "spdx": "LicenseRef-NVIDIA-Proprietary",
+   "declared": "LicenseRef-NVIDIA-Proprietary",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "13.4.92"
+  },
+  "nvidia-nvshmem-cu13": {
+   "name": "nvidia-nvshmem-cu13",
+   "locked_version": "3.4.5",
+   "spdx": "LicenseRef-NVIDIA-Proprietary",
+   "declared": "LicenseRef-NVIDIA-Proprietary",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "3.4.5"
+  },
+  "nvidia-nvtx": {
+   "name": "nvidia-nvtx",
+   "locked_version": "13.0.85",
+   "spdx": null,
+   "declared": "License :: Other/Proprietary License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: Other/Proprietary License"
+   ],
+   "installed_version": "13.0.85",
+   "note": "classifier present but outside the translation table; not forced into an identifier"
+  },
+  "nvidia-nvvm": {
+   "name": "nvidia-nvvm",
+   "locked_version": "13.4.92",
+   "spdx": "LicenseRef-NVIDIA-Proprietary",
+   "declared": "LicenseRef-NVIDIA-Proprietary",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "13.4.92"
+  },
+  "nvtx": {
+   "name": "nvtx",
+   "locked_version": "0.2.15",
+   "spdx": "Apache-2.0 WITH LLVM-exception",
+   "declared": "Apache-2.0 WITH LLVM-exception",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.2.15"
+  },
+  "openai": {
+   "name": "openai",
+   "locked_version": "3.14.1",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [
+    "License :: OSI Approved :: Apache Software License"
+   ],
+   "installed_version": "3.14.1"
+  },
+  "openai-harmony": {
+   "name": "openai-harmony",
+   "locked_version": "0.0.8",
+   "spdx": null,
+   "declared": null,
+   "source_field": null,
+   "classifiers": [],
+   "installed_version": "0.0.8",
+   "note": "the distribution declares no licence metadata"
+  },
+  "opencv-python-headless": {
+   "name": "opencv-python-headless",
+   "locked_version": "5.0.0.93",
+   "spdx": "Apache-2.0",
+   "declared": "License :: OSI Approved :: Apache Software License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: Apache Software License"
+   ],
+   "installed_version": "5.0.0.93"
+  },
+  "opentelemetry-api": {
+   "name": "opentelemetry-api",
+   "locked_version": "1.44.0",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "1.44.0"
+  },
+  "opentelemetry-exporter-otlp": {
+   "name": "opentelemetry-exporter-otlp",
+   "locked_version": "1.44.0",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "1.44.0"
+  },
+  "opentelemetry-exporter-otlp-proto-common": {
+   "name": "opentelemetry-exporter-otlp-proto-common",
+   "locked_version": "1.44.0",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "1.44.0"
+  },
+  "opentelemetry-exporter-otlp-proto-grpc": {
+   "name": "opentelemetry-exporter-otlp-proto-grpc",
+   "locked_version": "1.44.0",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "1.44.0"
+  },
+  "opentelemetry-exporter-otlp-proto-http": {
+   "name": "opentelemetry-exporter-otlp-proto-http",
+   "locked_version": "1.44.0",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "1.44.0"
+  },
+  "opentelemetry-proto": {
+   "name": "opentelemetry-proto",
+   "locked_version": "1.44.0",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "1.44.0"
+  },
+  "opentelemetry-sdk": {
+   "name": "opentelemetry-sdk",
+   "locked_version": "1.44.0",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "1.44.0"
+  },
+  "opentelemetry-semantic-conventions": {
+   "name": "opentelemetry-semantic-conventions",
+   "locked_version": "0.65b0",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.65b0"
+  },
+  "opentelemetry-semantic-conventions-ai": {
+   "name": "opentelemetry-semantic-conventions-ai",
+   "locked_version": "0.5.1",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.5.1"
+  },
+  "outlines-core": {
+   "name": "outlines-core",
+   "locked_version": "0.2.14",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "0.2.14"
+  },
+  "packaging": {
+   "name": "packaging",
+   "locked_version": "26.3",
+   "spdx": "Apache-2.0 OR BSD-2-Clause",
+   "declared": "Apache-2.0 OR BSD-2-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "26.3"
+  },
+  "pandas": {
+   "name": "pandas",
+   "locked_version": "3.0.6",
+   "spdx": "BSD-3-Clause",
+   "declared": "License :: OSI Approved :: BSD License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: BSD License"
+   ],
+   "installed_version": "3.0.6"
+  },
+  "partial-json-parser": {
+   "name": "partial-json-parser",
+   "locked_version": "0.2.1.1.post7",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "0.2.1.1.post7"
+  },
+  "peft": {
+   "name": "peft",
+   "locked_version": "0.21.0",
+   "spdx": "Apache-2.0",
+   "declared": "License :: OSI Approved :: Apache Software License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: Apache Software License"
+   ],
+   "installed_version": "0.21.0"
+  },
+  "pillow": {
+   "name": "pillow",
+   "locked_version": "12.3.0",
+   "spdx": "MIT-CMU",
+   "declared": "MIT-CMU",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "12.3.0"
+  },
+  "pip": {
+   "name": "pip",
+   "locked_version": "26.2.1",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "26.2.1"
+  },
+  "prometheus-client": {
+   "name": "prometheus-client",
+   "locked_version": "0.26.0",
+   "spdx": "Apache-2.0 AND BSD-2-Clause",
+   "declared": "Apache-2.0 AND BSD-2-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.26.0"
+  },
+  "prometheus-fastapi-instrumentator": {
+   "name": "prometheus-fastapi-instrumentator",
+   "locked_version": "8.1.0",
+   "spdx": null,
+   "declared": "License :: OSI Approved",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved"
+   ],
+   "installed_version": "8.1.0",
+   "note": "classifier present but outside the translation table; not forced into an identifier"
+  },
+  "propcache": {
+   "name": "propcache",
+   "locked_version": "0.5.4",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "0.5.4"
+  },
+  "protobuf": {
+   "name": "protobuf",
+   "locked_version": "6.33.6",
+   "spdx": "3-Clause BSD License",
+   "declared": "3-Clause BSD License",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "6.33.6"
+  },
+  "psutil": {
+   "name": "psutil",
+   "locked_version": "7.2.2",
+   "spdx": "BSD-3-Clause",
+   "declared": "BSD-3-Clause",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "7.2.2"
+  },
+  "py-cpuinfo": {
+   "name": "py-cpuinfo",
+   "locked_version": "9.0.0",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "9.0.0"
+  },
+  "pyarrow": {
+   "name": "pyarrow",
+   "locked_version": "25.0.1",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "25.0.1"
+  },
+  "pybase64": {
+   "name": "pybase64",
+   "locked_version": "1.5.0",
+   "spdx": "BSD-2-Clause",
+   "declared": "BSD-2-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "1.5.0"
+  },
+  "pycountry": {
+   "name": "pycountry",
+   "locked_version": "26.2.16",
+   "spdx": "LGPL-2.1-only",
+   "declared": "LGPL-2.1-only",
+   "source_field": "License-Expression",
+   "classifiers": [
+    "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)"
+   ],
+   "installed_version": "26.2.16"
+  },
+  "pycparser": {
+   "name": "pycparser",
+   "locked_version": "3.0",
+   "spdx": "BSD-3-Clause",
+   "declared": "BSD-3-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "3.0"
+  },
+  "pydantic": {
+   "name": "pydantic",
+   "locked_version": "2.13.5",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "2.13.5"
+  },
+  "pydantic-core": {
+   "name": "pydantic-core",
+   "locked_version": "2.46.5",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "2.46.5"
+  },
+  "pydantic-extra-types": {
+   "name": "pydantic-extra-types",
+   "locked_version": "2.11.1",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "2.11.1"
+  },
+  "pydantic-settings": {
+   "name": "pydantic-settings",
+   "locked_version": "2.15.0",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "2.15.0"
+  },
+  "pygments": {
+   "name": "pygments",
+   "locked_version": "2.21.0",
+   "spdx": "BSD-2-Clause",
+   "declared": "BSD-2-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "2.21.0"
+  },
+  "pyjwt": {
+   "name": "pyjwt",
+   "locked_version": "2.14.0",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "2.14.0"
+  },
+  "pynvvideocodec": {
+   "name": "pynvvideocodec",
+   "locked_version": "2.0.4",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "2.0.4"
+  },
+  "python-dateutil": {
+   "name": "python-dateutil",
+   "locked_version": "2.9.0.post0",
+   "spdx": "Apache-2.0 AND BSD-3-Clause",
+   "declared": "License :: OSI Approved :: BSD License; License :: OSI Approved :: Apache Software License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: BSD License",
+    "License :: OSI Approved :: Apache Software License"
+   ],
+   "installed_version": "2.9.0.post0"
+  },
+  "python-dotenv": {
+   "name": "python-dotenv",
+   "locked_version": "1.2.3",
+   "spdx": "BSD-3-Clause",
+   "declared": "BSD-3-Clause",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "1.2.3"
+  },
+  "python-json-logger": {
+   "name": "python-json-logger",
+   "locked_version": "4.2.0",
+   "spdx": "BSD-2-Clause",
+   "declared": "BSD-2-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "4.2.0"
+  },
+  "python-multipart": {
+   "name": "python-multipart",
+   "locked_version": "0.0.32",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [
+    "License :: OSI Approved :: Apache Software License"
+   ],
+   "installed_version": "0.0.32"
+  },
+  "pyyaml": {
+   "name": "pyyaml",
+   "locked_version": "6.0.3",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "6.0.3"
+  },
+  "pyzmq": {
+   "name": "pyzmq",
+   "locked_version": "27.2.0",
+   "spdx": "BSD-3-Clause",
+   "declared": "BSD-3-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "27.2.0"
+  },
+  "quack-kernels": {
+   "name": "quack-kernels",
+   "locked_version": "0.6.4",
+   "spdx": null,
+   "declared": null,
+   "source_field": null,
+   "classifiers": [],
+   "installed_version": "0.6.4",
+   "note": "the distribution declares no licence metadata"
+  },
+  "referencing": {
+   "name": "referencing",
+   "locked_version": "0.37.0",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.37.0"
+  },
+  "regex": {
+   "name": "regex",
+   "locked_version": "2026.9.10",
+   "spdx": "Apache-2.0 AND CNRI-Python",
+   "declared": "Apache-2.0 AND CNRI-Python",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "2026.9.10"
+  },
+  "requests": {
+   "name": "requests",
+   "locked_version": "2.34.2",
+   "spdx": "Apache-2.0",
+   "declared": "License :: OSI Approved :: Apache Software License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: Apache Software License"
+   ],
+   "installed_version": "2.34.2"
+  },
+  "rich": {
+   "name": "rich",
+   "locked_version": "15.0.0",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "15.0.0"
+  },
+  "rich-toolkit": {
+   "name": "rich-toolkit",
+   "locked_version": "0.20.5",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "0.20.5"
+  },
+  "rignore": {
+   "name": "rignore",
+   "locked_version": "0.8.1",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "0.8.1"
+  },
+  "rpds-py": {
+   "name": "rpds-py",
+   "locked_version": "2026.6.3",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "2026.6.3"
+  },
+  "safetensors": {
+   "name": "safetensors",
+   "locked_version": "0.8.0",
+   "spdx": "Apache-2.0",
+   "declared": "License :: OSI Approved :: Apache Software License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: Apache Software License"
+   ],
+   "installed_version": "0.8.0"
+  },
+  "sentencepiece": {
+   "name": "sentencepiece",
+   "locked_version": "0.2.2",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.2.2"
+  },
+  "sentry-sdk": {
+   "name": "sentry-sdk",
+   "locked_version": "2.69.2",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "2.69.2"
+  },
+  "setproctitle": {
+   "name": "setproctitle",
+   "locked_version": "1.3.7",
+   "spdx": "BSD-3-Clause",
+   "declared": "License :: OSI Approved :: BSD License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: BSD License"
+   ],
+   "installed_version": "1.3.7"
+  },
+  "setuptools": {
+   "name": "setuptools",
+   "locked_version": "80.10.2",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "80.10.2"
+  },
+  "shellingham": {
+   "name": "shellingham",
+   "locked_version": "1.5.4",
+   "spdx": "ISC",
+   "declared": "License :: OSI Approved :: ISC License (ISCL)",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: ISC License (ISCL)"
+   ],
+   "installed_version": "1.5.4"
+  },
+  "six": {
+   "name": "six",
+   "locked_version": "1.17.0",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "1.17.0"
+  },
+  "sniffio": {
+   "name": "sniffio",
+   "locked_version": "1.3.1",
+   "spdx": "Apache-2.0 AND MIT",
+   "declared": "License :: OSI Approved :: MIT License; License :: OSI Approved :: Apache Software License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: Apache Software License"
+   ],
+   "installed_version": "1.3.1"
+  },
+  "sse-starlette": {
+   "name": "sse-starlette",
+   "locked_version": "3.4.11",
+   "spdx": "BSD-3-Clause",
+   "declared": "BSD-3-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "3.4.11"
+  },
+  "starlette": {
+   "name": "starlette",
+   "locked_version": "1.6.0",
+   "spdx": "BSD-3-Clause",
+   "declared": "BSD-3-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "1.6.0"
+  },
+  "supervisor": {
+   "name": "supervisor",
+   "locked_version": "4.3.0",
+   "spdx": "BSD-derived (http://www.repoze.org/LICENSE.txt)",
+   "declared": "BSD-derived (http://www.repoze.org/LICENSE.txt)",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "4.3.0"
+  },
+  "sympy": {
+   "name": "sympy",
+   "locked_version": "1.14.0",
+   "spdx": "BSD-3-Clause",
+   "declared": "License :: OSI Approved :: BSD License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: BSD License"
+   ],
+   "installed_version": "1.14.0"
+  },
+  "tabulate": {
+   "name": "tabulate",
+   "locked_version": "0.10.0",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.10.0"
+  },
+  "tiktoken": {
+   "name": "tiktoken",
+   "locked_version": "0.14.0",
+   "spdx": null,
+   "declared": "full licence text in the legacy License field",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "0.14.0",
+   "note": "legacy field contains licence text, not an identifier; not attributed"
+  },
+  "tilelang": {
+   "name": "tilelang",
+   "locked_version": "0.1.12",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.1.12"
+  },
+  "tokenizers": {
+   "name": "tokenizers",
+   "locked_version": "0.23.2",
+   "spdx": "Apache-2.0",
+   "declared": "License :: OSI Approved :: Apache Software License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: Apache Software License"
+   ],
+   "installed_version": "0.23.2"
+  },
+  "tokenspeed-mla": {
+   "name": "tokenspeed-mla",
+   "locked_version": "0.1.8",
+   "spdx": null,
+   "declared": "full licence text in the legacy License field",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "0.1.8",
+   "note": "legacy field contains licence text, not an identifier; not attributed"
+  },
+  "tokenspeed-triton": {
+   "name": "tokenspeed-triton",
+   "locked_version": "3.8.10.post20260906",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "3.8.10.post20260906"
+  },
+  "torch": {
+   "name": "torch",
+   "locked_version": "2.13.0+cu130",
+   "spdx": "Apache-2.0 AND Apache-2.0 WITH LLVM-exception AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT",
+   "declared": "Apache-2.0 AND Apache-2.0 WITH LLVM-exception AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "2.13.0+cu130"
+  },
+  "torch-c-dlpack-ext": {
+   "name": "torch-c-dlpack-ext",
+   "locked_version": "0.1.5",
+   "spdx": "Apache-2.0",
+   "declared": "License :: OSI Approved :: Apache Software License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: Apache Software License"
+   ],
+   "installed_version": "0.1.5"
+  },
+  "torchaudio": {
+   "name": "torchaudio",
+   "locked_version": "2.11.0+cu130",
+   "spdx": "BSD-3-Clause",
+   "declared": "License :: OSI Approved :: BSD License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: BSD License"
+   ],
+   "installed_version": "2.11.0+cu130"
+  },
+  "torchcodec": {
+   "name": "torchcodec",
+   "locked_version": "0.16.0+cu130",
+   "spdx": null,
+   "declared": null,
+   "source_field": null,
+   "classifiers": [],
+   "installed_version": "0.16.0+cu130",
+   "note": "the distribution declares no licence metadata"
+  },
+  "torchvision": {
+   "name": "torchvision",
+   "locked_version": "0.28.0+cu130",
+   "spdx": "BSD",
+   "declared": "BSD",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "0.28.0+cu130"
+  },
+  "tqdm": {
+   "name": "tqdm",
+   "locked_version": "4.70.1",
+   "spdx": "MPL-2.0 AND MIT",
+   "declared": "MPL-2.0 AND MIT",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "4.70.1"
+  },
+  "transformers": {
+   "name": "transformers",
+   "locked_version": "5.17.0",
+   "spdx": "Apache 2.0 License",
+   "declared": "Apache 2.0 License",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "5.17.0"
+  },
+  "triton": {
+   "name": "triton",
+   "locked_version": "3.7.1",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "3.7.1"
+  },
+  "trl": {
+   "name": "trl",
+   "locked_version": "1.13.0",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "1.13.0"
+  },
+  "truststore": {
+   "name": "truststore",
+   "locked_version": "0.10.4",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.10.4"
+  },
+  "typer": {
+   "name": "typer",
+   "locked_version": "0.27.2",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.27.2"
+  },
+  "typing-extensions": {
+   "name": "typing-extensions",
+   "locked_version": "4.16.0",
+   "spdx": "PSF-2.0",
+   "declared": "PSF-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "4.16.0"
+  },
+  "typing-inspection": {
+   "name": "typing-inspection",
+   "locked_version": "0.4.4",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.4.4"
+  },
+  "urllib3": {
+   "name": "urllib3",
+   "locked_version": "2.8.0",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "2.8.0"
+  },
+  "uvicorn": {
+   "name": "uvicorn",
+   "locked_version": "0.53.0",
+   "spdx": "BSD-3-Clause",
+   "declared": "BSD-3-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.53.0"
+  },
+  "uvloop": {
+   "name": "uvloop",
+   "locked_version": "0.22.1",
+   "spdx": "Apache-2.0 AND MIT",
+   "declared": "License :: OSI Approved :: Apache Software License; License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: Apache Software License",
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "0.22.1"
+  },
+  "vllm": {
+   "name": "vllm",
+   "locked_version": "0.29.0",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.29.0"
+  },
+  "watchfiles": {
+   "name": "watchfiles",
+   "locked_version": "1.2.0",
+   "spdx": "MIT",
+   "declared": "License :: OSI Approved :: MIT License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: MIT License"
+   ],
+   "installed_version": "1.2.0"
+  },
+  "websockets": {
+   "name": "websockets",
+   "locked_version": "17.1",
+   "spdx": "BSD-3-Clause",
+   "declared": "BSD-3-Clause",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "17.1"
+  },
+  "wheel": {
+   "name": "wheel",
+   "locked_version": "0.48.0",
+   "spdx": "MIT",
+   "declared": "MIT",
+   "source_field": "License-Expression",
+   "classifiers": [],
+   "installed_version": "0.48.0"
+  },
+  "xgrammar": {
+   "name": "xgrammar",
+   "locked_version": "0.2.7",
+   "spdx": "Apache-2.0",
+   "declared": "License :: OSI Approved :: Apache Software License",
+   "source_field": "Classifier",
+   "classifiers": [
+    "License :: OSI Approved :: Apache Software License"
+   ],
+   "installed_version": "0.2.7"
+  },
+  "xxhash": {
+   "name": "xxhash",
+   "locked_version": "4.0.1",
+   "spdx": "BSD-2-Clause",
+   "declared": "BSD-2-Clause",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "4.0.1"
+  },
+  "yarl": {
+   "name": "yarl",
+   "locked_version": "1.25.1",
+   "spdx": "Apache-2.0",
+   "declared": "Apache-2.0",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "1.25.1"
+  },
+  "z3-solver": {
+   "name": "z3-solver",
+   "locked_version": "4.15.4.0",
+   "spdx": "MIT License",
+   "declared": "MIT License",
+   "source_field": "License",
+   "classifiers": [],
+   "installed_version": "4.15.4.0"
+  }
+ }
+}
