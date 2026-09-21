@@ -30,7 +30,40 @@ def load():
         if (RUN / "reward_inspection.json").exists() else None
     cmp_path = REPO / "runs" / "compare_rlvr.json"
     cmp_rec = json.loads(cmp_path.read_text()) if cmp_path.exists() else None
-    return m, rows, insp, cmp_rec
+    prov = json.loads((RUN / "pool_provenance.json").read_text()) \
+        if (RUN / "pool_provenance.json").exists() else None
+    att = json.loads((RUN / "attempts.json").read_text()) \
+        if (RUN / "attempts.json").exists() else None
+    ent = [json.loads(x)["entropy"] for x in (RUN / "entropy.jsonl").read_text().splitlines()
+           if x.strip()] if (RUN / "entropy.jsonl").exists() else []
+    return m, rows, insp, cmp_rec, prov, ent, att
+
+
+BLOCKS = "\u2581\u2582\u2583\u2584\u2585\u2586\u2587\u2588"
+
+
+def spark(values, width=50) -> str:
+    """A curve, binned to `width` columns. Shape is the point; the table below
+    carries the numbers."""
+    if not values:
+        return ""
+    step = max(1, len(values) / width)
+    binned = []
+    i = 0.0
+    while int(i) < len(values):
+        chunk = values[int(i): max(int(i) + 1, int(i + step))]
+        binned.append(statistics.fmean(chunk))
+        i += step
+    lo, hi = min(binned), max(binned)
+    if hi - lo < 1e-12:
+        return BLOCKS[0] * len(binned)
+    return "".join(BLOCKS[min(7, int(8 * (v - lo) / (hi - lo)))] for v in binned)
+
+
+def axis(values, label, unit="") -> list:
+    if not values:
+        return []
+    return [f"  {label:<22} {spark(values)}  {min(values):.3f} \u2192 {max(values):.3f}{unit}"]
 
 
 def verdict_ko(v: str) -> str:
@@ -38,8 +71,8 @@ def verdict_ko(v: str) -> str:
 
 
 def render() -> str:
-    m, rows, insp, cmp_rec = load()
-    s = m["summary"]
+    m, rows, insp, cmp_rec, prov, ent, att = load()
+    s_ = m["summary"]
     L = ["# RLVR 시연 — 구조가 도는지에 대한 기록", ""]
     L.append("> `runs/rlvr/manifest.json`, `reward_log.jsonl`, `reward_inspection.json`, "
              "`runs/compare_rlvr.json`에서 **자동 생성**된다. `python -m rlvr.render_report`로 다시 만든다.")
@@ -54,6 +87,66 @@ def render() -> str:
              "나빠 보이는 경우도 마찬가지로 그대로 적는다 — 구조가 도는 것을 보이는 일에는 "
              "**잘 돌지 않을 때 그것을 보고하는 것**이 포함된다.")
     L.append("")
+
+    # ---- (1) where the prompts came from
+    if prov:
+        o = prov["overlap"]
+        L.append("## 프롬프트 풀의 출처")
+        L.append("")
+        L.append(f"롤아웃 프롬프트는 `{prov['pool_file']}`에서 뽑았다. 이 파일은 "
+                 f"**출발 체크포인트 Cond-2가 학습한 바로 그 파일**이다. "
+                 f"시드 `{prov['selection_seed']}`로 {prov['pool_size']:,}건을 "
+                 f"{prov['file_size']:,}건 중에서 골랐다.")
+        L.append("")
+        L.append("| 겹침 | 건수 |")
+        L.append("|---|---|")
+        L.append(f"| Cond-2 학습 파일 안에 있는 풀 프롬프트 | **{o['cond2_training_file']:,} / {prov['pool_size']:,}** |")
+        L.append(f"| Cond-1 학습 파일 안에 있는 풀 프롬프트 | {o['cond1_training_file']:,} / {prov['pool_size']:,} |")
+        L.append(f"| 평가 세트(컷오프 이후)와 겹침 | {o['eval_post_cutoff']:,} |")
+        L.append(f"| 평가 세트(컷오프 이전)와 겹침 | {o['eval_pre_cutoff']:,} |")
+        L.append("")
+        L.append("두 가지가 따라 나온다.")
+        L.append("")
+        L.append("- **아래 보상 곡선은 학습 데이터 위에서 측정된 것이다.** 출발 체크포인트가 이미 본 "
+                 "프롬프트이므로, 보상이 오르는 것은 일반화의 증거가 아니라 본 것에 더 확실해졌다는 "
+                 f"관측이다. Cond-2는 자기 데이터의 {prov['starting_checkpoint']['epoch_fraction']:.0%}를 "
+                 "소비했으므로 풀의 대부분은 실제로 본 것이지만, 어느 항목이었는지는 패킹 순서에서 "
+                 "복원되지 않는다.")
+        L.append(f"- **평가 세트와는 한 건도 겹치지 않는다**({o['eval_post_cutoff']}건, "
+                 f"{o['eval_pre_cutoff']}건). 뒤의 평가 비교는 이 프롬프트들로 오염되지 않았다. "
+                 "이것은 설계가 아니라 확인이며, 확인했기 때문에 적는다.")
+        L.append("")
+
+        # ---- (2) the task-selection criterion was the wrong one
+        ts = prov["task_selection_reference"]
+        acc = ts["accuracy"]
+        key_post = f"{m['task']}/eval_post_cutoff/constrained"
+        key_pre = f"{m['task']}/eval_pre_cutoff/constrained"
+        first = rows[: max(1, len(rows) // 10)]
+        start_exact = statistics.fmean(r["reward_exact_mean"] for r in first)
+        L.append("## 과제 선택 — 작업지시서가 든 근거는 틀렸다")
+        L.append("")
+        L.append(f"P6 작업지시서는 `{m['task']}`를 고른 근거로 **Cond-0의 정확도**를 들었다. "
+                 "GRPO는 그룹이 전부 맞거나 전부 틀리면 어드밴티지가 0이 되므로 중간쯤의 정확도가 "
+                 "필요하고, Cond-0 기준으로는 이 과제만 그 조건을 만족한다. 근거 자체는 맞다 — "
+                 "**다만 잘못된 체크포인트의 정확도다.**")
+        L.append("")
+        L.append("| | 컷오프 이후 | 컷오프 이전 |")
+        L.append("|---|---|---|")
+        L.append(f"| Cond-0 (작업지시서가 본 수치) | {pct(acc['baseline'][key_post])} | {pct(acc['baseline'][key_pre])} |")
+        L.append(f"| **Cond-2 (GRPO가 실제로 출발한 곳)** | **{pct(acc['cond2'][key_post])}** | **{pct(acc['cond2'][key_pre])}** |")
+        L.append("")
+        L.append(f"판단 기준이 되었어야 하는 것은 **출발 체크포인트가 실제로 롤아웃할 프롬프트에서 "
+                 f"내는 정확도**다. 그 값은 이 실행의 처음 {len(first)}스텝 롤아웃에서 "
+                 f"**{start_exact:.3f}**로 측정되었다(온도 {m['config']['temperature']}의 표본추출 기준). "
+                 "Cond-0의 수치보다 높고, 학습 데이터라는 점까지 더하면 "
+                 "그룹이 전부-정답으로 붕괴할 여지가 그만큼 크다.")
+        L.append("")
+        L.append("**이 오류는 작업지시서에서 왔고, 구현은 그대로 따랐다.** "
+                 "`docs/engineering-rules.md` 규칙 6이 기록한 것과 같은 형태다 — "
+                 "지시서에서 온 결함도 결함이며, 지시서를 따랐다는 것은 변명이 되지 않는다. "
+                 "아래 그룹 붕괴 수치는 이 선택의 직접적 귀결이다.")
+        L.append("")
 
     # ---- setup
     L.append("## 설정")
@@ -73,10 +166,6 @@ def render() -> str:
     L.append(f"| 프롬프트 풀 | {m['prompt_pool']['selected']:,} / {m['prompt_pool']['records_in_file']:,}건, "
              f"시드 `{m['prompt_pool']['selection_seed']}` |")
     L.append(f"| 소요 | {m['wall_sec'] / 3600:.2f}시간 |")
-    L.append("")
-    L.append("**과제 선택은 취향이 아니라 Cond-0 측정이 강제했다.** GRPO는 그룹 안의 표본이 전부 맞거나 "
-             "전부 틀리면 어드밴티지가 0이 되어 기울기를 만들지 못한다. 따라서 베이스 정확도가 중간쯤인 "
-             "과제가 필요하고, `cve_to_cwe`만이 그 조건을 만족한다.")
     L.append("")
 
     # ---- verifier
@@ -106,53 +195,129 @@ def render() -> str:
     L.append("| 지표 | 처음 | 마지막 | 변화 |")
     L.append("|---|---|---|---|")
     for label, a, b in (
-        ("보상 합계", s["reward_total_first_decile"], s["reward_total_last_decile"]),
-        ("보상 — 스키마", s["reward_schema_first_decile"], s["reward_schema_last_decile"]),
-        ("보상 — 완전 일치", s["reward_exact_first_decile"], s["reward_exact_last_decile"]),
-        ("생성 길이 (토큰)", s["completion_tokens_first_decile"], s["completion_tokens_last_decile"]),
+        ("보상 합계", s_["reward_total_first_decile"], s_["reward_total_last_decile"]),
+        ("보상 — 스키마", s_["reward_schema_first_decile"], s_["reward_schema_last_decile"]),
+        ("보상 — 완전 일치", s_["reward_exact_first_decile"], s_["reward_exact_last_decile"]),
+        ("생성 길이 (토큰)", s_["completion_tokens_first_decile"], s_["completion_tokens_last_decile"]),
     ):
         L.append(f"| {label} | {a:.3f} | {b:.3f} | {b - a:+.3f} |")
+    L.append("")
+
+    # ---- (4) the curves
+    L.append("### 스텝별 곡선")
+    L.append("")
+    L.append("```")
+    L.extend(axis([r["reward_exact_mean"] for r in rows], "보상 — 완전 일치"))
+    L.extend(axis([r["group_collapse_fraction"] for r in rows], "그룹 붕괴 비율"))
+    L.extend(axis([r["group_reward_std_mean"] for r in rows], "그룹 내 보상 편차"))
+    if ent:
+        L.extend(axis(ent, "정책 엔트로피"))
+    L.extend(axis([r["completion_tokens_mean"] for r in rows], "생성 길이(토큰)"))
+    L.append("```")
+    L.append("")
+    band = max(1, len(rows) // 10)
+    L.append("| 스텝 | 완전 일치 | 그룹 붕괴 | 그룹 내 편차 |"
+             + (" 엔트로피 |" if ent else ""))
+    L.append("|---|---|---|---|" + ("---|" if ent else ""))
+    for i in range(0, len(rows), band):
+        b = rows[i: i + band]
+        row = (f"| {i + 1}–{i + len(b)} "
+               f"| {statistics.fmean(x['reward_exact_mean'] for x in b):.3f} "
+               f"| {statistics.fmean(x['group_collapse_fraction'] for x in b):.3f} "
+               f"| {statistics.fmean(x['group_reward_std_mean'] for x in b):.3f} |")
+        if ent:
+            e = ent[i: i + band]
+            row = row[:-1] + f" {statistics.fmean(e):.4f} |" if e else row
+        L.append(row)
+    L.append("")
+    # peak of the exact-match reward, and what the collapse was doing there
+    peaks = [(statistics.fmean(rows[i:i + band][j]["reward_exact_mean"]
+                               for j in range(len(rows[i:i + band]))), i)
+             for i in range(0, len(rows), band) if rows[i:i + band]]
+    best, at = max(peaks)
+    blk = rows[at: at + band]
+    L.append(f"**보상은 {at + 1}–{at + len(blk)}스텝 구간에서 {best:.3f}로 정점을 찍는다.** "
+             f"그 구간의 그룹 붕괴는 "
+             f"{statistics.fmean(x['group_collapse_fraction'] for x in blk):.3f}, "
+             f"마지막 구간에서는 "
+             f"{statistics.fmean(x['group_collapse_fraction'] for x in rows[-band:]):.3f}이다. "
+             "보상이 정점을 지나 내려오는 것과 붕괴가 올라가는 것은 같은 현상의 두 얼굴이다 — "
+             "그룹이 만장일치가 되면 어드밴티지가 0이 되어 그 스텝은 아무것도 가르치지 않고, "
+             "남은 기울기는 이미 확신한 방향을 더 뾰족하게 만드는 데만 쓰인다.")
     L.append("")
 
     # ---- length drift, stated either way
     L.append("### 길이 드리프트")
     L.append("")
-    d = s["completion_tokens_last_decile"] - s["completion_tokens_first_decile"]
-    rel = d / s["completion_tokens_first_decile"] if s["completion_tokens_first_decile"] else 0.0
+    d = s_["completion_tokens_last_decile"] - s_["completion_tokens_first_decile"]
+    rel = d / s_["completion_tokens_first_decile"] if s_["completion_tokens_first_decile"] else 0.0
     if abs(rel) < 0.10:
-        L.append(f"**드리프트 없음.** 평균 생성 길이가 {s['completion_tokens_first_decile']:.1f}토큰에서 "
-                 f"{s['completion_tokens_last_decile']:.1f}토큰으로 {d:+.1f}토큰({rel:+.1%}) 움직였다. "
+        L.append(f"**드리프트 없음.** 평균 생성 길이가 {s_['completion_tokens_first_decile']:.1f}토큰에서 "
+                 f"{s_['completion_tokens_last_decile']:.1f}토큰으로 {d:+.1f}토큰({rel:+.1%}) 움직였다. "
                  "장황해지는 방식의 보상 해킹은 이 실행에서 관측되지 않았다.")
     else:
-        L.append(f"**드리프트가 있다.** 평균 생성 길이가 {s['completion_tokens_first_decile']:.1f}토큰에서 "
-                 f"{s['completion_tokens_last_decile']:.1f}토큰으로 {d:+.1f}토큰({rel:+.1%}) 움직였다. "
+        L.append(f"**드리프트가 있다.** 평균 생성 길이가 {s_['completion_tokens_first_decile']:.1f}토큰에서 "
+                 f"{s_['completion_tokens_last_decile']:.1f}토큰으로 {d:+.1f}토큰({rel:+.1%}) 움직였다. "
                  "장황해지는 방식의 보상 해킹이 가장 먼저 나타나는 자리가 여기이며, "
                  "아래 고보상 표본 검사와 함께 읽어야 한다.")
     L.append("")
-    L.append(f"상한에 닿은 생성의 최대 비율은 **{pct(s['truncated_fraction_max'])}**이다. "
+    L.append(f"상한에 닿은 생성의 최대 비율은 **{pct(s_['truncated_fraction_max'])}**이다. "
              + ("상한이 길이 측정을 구속하지 않았으므로 위 수치는 드리프트 자체를 읽은 것이다."
-                if s["truncated_fraction_max"] < 0.02 else
+                if s_["truncated_fraction_max"] < 0.02 else
                 "**상한이 구속하고 있다** — 위 길이 수치는 드리프트를 과소평가하며, 그만큼 신뢰할 수 없다."))
     L.append("")
 
-    # ---- group collapse
-    L.append("### 그룹 붕괴")
+    # ---- (3) group collapse, three layers, not one
+    L.append("### 그룹 붕괴 — 원인은 세 층이다")
     L.append("")
-    gc = s["group_collapse_fraction_mean"]
-    L.append(f"그룹 안의 모든 롤아웃이 같은 점수를 받아 어드밴티지가 0이 된 비율은 "
-             f"전체 평균 **{pct(gc)}**, 마지막 10% 구간 **{pct(s['group_collapse_fraction_last_decile'])}**이다.")
+    gc = s_["group_collapse_fraction_mean"]
+    band = max(1, len(rows) // 10)
+    first_gc = statistics.fmean(x["group_collapse_fraction"] for x in rows[:band])
+    last_gc = statistics.fmean(x["group_collapse_fraction"] for x in rows[-band:])
+    L.append(f"그룹 안의 롤아웃 여덟 개가 모두 같은 점수를 받아 어드밴티지가 0이 된 비율은 "
+             f"전체 평균 **{pct(gc)}**, 처음 구간 {pct(first_gc)}에서 마지막 구간 "
+             f"**{pct(last_gc)}**까지 올라갔다. 그만큼의 스텝이 기울기를 만들지 못했다는 뜻이고, "
+             "이 실행의 유효 스텝 수는 명목 스텝 수보다 상당히 작다.")
+    L.append("")
+    L.append("**원인을 하나로 돌리지 않는다.** 세 가지가 같은 방향으로 겹쳐 있고, "
+             "이 실행만으로는 각각의 기여를 분리할 수 없다.")
+    L.append("")
+    L.append("**(a) 프롬프트가 출발 체크포인트에게 쉽다.** 풀은 Cond-2가 학습한 파일 그 자체이고"
+             "(위 출처 절), 처음 구간의 완전 일치 보상이 이미 "
+             f"{statistics.fmean(x['reward_exact_mean'] for x in rows[:band]):.3f}이다. "
+             "이미 아는 문제에 여덟 번 답하면 여덟 개가 같은 답이 되기 쉽다. "
+             "이것이 과제 선택 오류가 실제로 나타난 자리다.")
+    L.append("")
+    if ent:
+        L.append(f"**(b) 과제의 출력 엔트로피가 원래 낮다.** 생성물은 "
+                 f"`{{\"cwe_id\": \"CWE-NNN\"}}` 형태로 고정되어 있어 실제로 선택이 일어나는 "
+                 f"토큰은 사실상 하나다. 정책 엔트로피는 **1스텝에서 이미 {ent[0]:.4f}**이며, "
+                 "학습이 시작되기 전부터 낮다. 단일 결정 분류 과제에서 표본 여덟 개가 갈리려면 "
+                 "모델이 그 하나의 결정에서 실제로 망설여야 하는데, 그런 항목은 많지 않다.")
+        L.append("")
+        L.append(f"**(c) KL 항이 없다(`beta: {m['config']['beta']}`).** 정책을 기준 모델 근처에 "
+                 f"붙들어 두는 힘이 없으므로 분포는 계속 뾰족해진다. 엔트로피가 "
+                 f"{ent[0]:.4f}에서 {statistics.fmean(ent[-band:]):.4f}로 "
+                 f"{ent[0] / max(statistics.fmean(ent[-band:]), 1e-9):.1f}배 줄어든 것이 그 궤적이다. "
+                 "이 설정은 내가 골랐고, 대가는 여기 나타났다.")
+    else:
+        L.append(f"**(b) 과제의 출력 엔트로피가 원래 낮다.** 생성물이 고정된 JSON 형태여서 "
+                 "실제 선택이 일어나는 토큰이 사실상 하나다.")
+        L.append("")
+        L.append(f"**(c) KL 항이 없다(`beta: {m['config']['beta']}`).** 정책을 기준 근처에 "
+                 "붙들어 두는 힘이 없어 분포가 계속 뾰족해진다.")
+    L.append("")
+    L.append("**(c)만으로 귀속하는 것은 틀린 설명이다.** KL 항을 켰다면 엔트로피 감소는 느려졌겠지만, "
+             "(a)와 (b)는 그대로 남는다 — 이미 학습한 쉬운 프롬프트에서 단일 결정 과제의 "
+             "여덟 표본이 갈리게 만들지는 못한다. 반대로 (a)만 고쳤어도 (c)는 남는다. "
+             "**세 층을 분리하려면 각각을 바꾼 실행이 필요하고, 이 시연은 그것을 하지 않았다.**")
     L.append("")
     if gc > 0.5:
-        L.append("**절반 이상의 그룹이 붕괴했다.** 스텝의 상당수가 아무것도 가르치지 않았다는 뜻이고, "
-                 "이는 과제 선택이 여전히 적절하지 않았다는 신호다. 베이스 정확도가 중간이어도 "
-                 "**항목별로는** 쉬운 것과 불가능한 것으로 갈려 있으면 그룹은 붕괴한다. "
-                 "이 실행의 유효 스텝 수는 명목 스텝 수보다 작다.")
-    elif gc > 0.25:
-        L.append("붕괴율이 무시할 수준은 아니다. 명목 스텝 수의 일부는 기울기를 만들지 못했고, "
-                 "유효 스텝 수는 그만큼 적다.")
+        L.append(f"결론적으로 **과제 선택은 이 출발점에 대해 적절하지 않았다.** "
+                 f"Cond-0 기준으로는 중간 난이도였지만 Cond-2 기준으로는 아니었고, "
+                 f"붕괴율 {pct(gc)}는 그 사실의 직접적 측정이다.")
     else:
-        L.append("대부분의 그룹이 어드밴티지를 만들었다. 과제 선택의 전제 — 베이스 정확도가 중간일 것 — "
-                 "가 실제로 성립했다.")
+        L.append("붕괴율이 절반을 넘지는 않았다. 대부분의 스텝은 어드밴티지를 만들었다.")
     L.append("")
 
     # ---- manual inspection
@@ -225,6 +390,29 @@ def render() -> str:
             L.append("**어느 세트에서도 차이가 검출되지 않았다.** 사전에 예상한 결과이며, "
                      f"스텝 {m['steps_completed']}회와 시드 하나로는 짝지은 MDD보다 작은 변화만 "
                      "만들 수 있다. 점 추정값이 양수인 칸이 있더라도 **효과로 제시하지 않는다.**")
+        L.append("")
+
+    # ---- the attempt that did not produce this checkpoint
+    if att and att.get("attempt_1"):
+        a1 = att["attempt_1"]
+        L.append("## 이 체크포인트를 만들지 못한 시도")
+        L.append("")
+        L.append(f"**1차 시도는 학습 {a1['steps_logged']}스텝을 모두 마친 뒤 저장 단계에서 죽었다.** "
+                 f"종료 코드 {a1['exit_code']}"
+                 + (f"(시그널 {a1['signal']}, SIGKILL)" if a1.get("signal") else "")
+                 + f", 학습 자체는 {a1['train_runtime_sec'] / 3600:.2f}시간 동안 정상적으로 끝났고, "
+                 f"죽은 지점은 **{a1['died_at']}**이다.")
+        L.append("")
+        L.append(f"원인: {a1['cause']}")
+        L.append("")
+        L.append(f"고친 방식: {a1['fix']}")
+        L.append("")
+        L.append("**메모리 상한을 올리지 않았다.** 올려서 통과시키는 것은 결함을 가리는 것이고, "
+                 "결함은 상한이 낮다는 것이 아니라 **값비싼 산출물을 값싼 것보다 늦게 저장했다**는 "
+                 "것이다. 두 시간이 저장 단계에서 사라졌다.")
+        L.append("")
+        L.append("1차의 보상 로그와 학습 로그는 지우지 않고 `runs/rlvr_attempt1/`에 남겼다. "
+                 "아래 곡선과 수치는 모두 2차 실행의 것이다.")
         L.append("")
 
     # ---- what this did not show

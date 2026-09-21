@@ -70,7 +70,8 @@
     "no_source_compilation_on_the_training_host": 3,
     "machine_field_claims_no_more_than_its_evidence": 4,
     "no_unevidenced_threshold_deletes_data": 5,
-    "the_test_must_match_the_design": 6
+    "the_test_must_match_the_design": 6,
+    "persist_the_cheap_artifact_first": 7
   },
   "gates": {
     "_comment": "gate numbers as used across the phase reports; cited by the generated documents",

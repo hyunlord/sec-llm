@@ -225,7 +225,9 @@ def main() -> int:
         bf16=True,
         gradient_checkpointing=True,
         logging_steps=1,
-        save_strategy="no",
+        save_strategy="steps",
+        save_steps=50,
+        save_total_limit=2,
         report_to=[],
         use_vllm=False,
         log_completions=False,
@@ -247,10 +249,15 @@ def main() -> int:
     trainer.train()
     wall = time.time() - t0
 
-    # Merge so the P4 harness can load it the same way it loads Cond-1 and Cond-2.
-    merged = REPO / "checkpoints" / "rlvr"
-    trainer.model.merge_and_unload().save_pretrained(merged, safe_serialization=True)
-    tok.save_pretrained(merged)
+    # The adapter first, and only the adapter. The first attempt at this run
+    # merged straight into a full 7B copy and was killed by the memory ceiling
+    # while writing shards -- after all 200 steps had completed. Two hours of
+    # training died at the save step because the cheap artifact was never
+    # written. So: persist what cost the most, while nothing else is at risk.
+    adapter = run_dir / "adapter"
+    trainer.save_model(str(adapter))
+    tok.save_pretrained(adapter)
+    print(f"adapter saved to {adapter}")
 
     rows = [json.loads(x) for x in log_path.read_text().splitlines() if x.strip()]
     first, last = rows[: max(1, len(rows) // 10)], rows[-max(1, len(rows) // 10):]
@@ -271,7 +278,8 @@ def main() -> int:
         "base_checkpoint_sha256": json.loads(
             (REPO / "runs" / "cond2" / "train_manifest.json").read_text()
         )["merged_checkpoint_sha256"],
-        "merged_path": str(merged),
+        "adapter_path": str(adapter.relative_to(REPO)),
+        "merged_path": "checkpoints/rlvr (written by rlvr.merge_adapter, a separate process)",
         "config": cfg,
         "config_sha256": hashlib.sha256((REPO / a.config).read_bytes()).hexdigest(),
         "steps_planned": steps,
@@ -305,6 +313,7 @@ def main() -> int:
         },
     }
     (run_dir / "manifest.json").write_text(json.dumps(manifest, indent=1, ensure_ascii=False) + "\n")
+    print(f"manifest written to {run_dir / 'manifest.json'}")
     (run_dir / "high_reward_samples.jsonl").write_text(
         "".join(json.dumps(s, ensure_ascii=False) + "\n" for s in rec.samples))
 
