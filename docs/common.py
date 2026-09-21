@@ -88,6 +88,15 @@ OPTIONAL_JSON_SOURCES = {
 
 # The pair keys compare_multi produces for each of those records, given the
 # run order the finalizer passes. Named here so a renderer never guesses one.
+# The RLVR demonstration, gated separately from the seed-2 records: one landing
+# must not switch on a section that depends on the other.
+RLVR_SOURCES = {
+    "rlvr_run": RUNS / "rlvr" / "manifest.json",
+    "rlvr_inspect": RUNS / "rlvr" / "reward_inspection.json",
+    "rlvr_compare": RUNS / "compare_rlvr.json",
+}
+RLVR_PAIR = "rlvr vs cond2"
+
 S2_PAIR = "cond1_s2 vs cond2_s2"
 S1_PAIR = "cond1 vs cond2"
 SEEDVAR_PAIR = {"cond1": "cond1 vs cond1_s2", "cond2": "cond2 vs cond2_s2"}
@@ -152,6 +161,12 @@ class Resolver:
         self.seed2_missing = sorted(set(OPTIONAL_JSON_SOURCES) - set(present))
         if self.seed2:
             for name, path in present.items():
+                self.data[name] = json.loads(path.read_text())
+        rl = {k: p for k, p in RLVR_SOURCES.items() if p.exists()}
+        self.rlvr = len(rl) == len(RLVR_SOURCES)
+        self.rlvr_missing = sorted(set(RLVR_SOURCES) - set(rl))
+        if self.rlvr:
+            for name, path in rl.items():
                 self.data[name] = json.loads(path.read_text())
 
     def ref(self, path):

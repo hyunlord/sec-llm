@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import sys
 import time
 from collections import Counter, defaultdict
@@ -79,6 +80,31 @@ def _sweep_stale(written: set[str]) -> list[str]:
                 p.unlink()
                 gone.append(f"{t}/{p.name}")
     return gone
+
+
+def _not_scored_reason(by_split) -> str:
+    """Why attack_technique is carried but not scored, generated from its counts.
+
+    This sentence used to be a string literal here, and it was wrong: it read
+    "72 / 44 evaluation items" where 72 and 44 are the coverage-zero counts of
+    the two sets, not their sizes. Nobody noticed until P7 quoted it. A stage
+    that restates a fact instead of rendering its own record will eventually
+    restate it wrongly -- engineering-rules.md rule 1 -- and this predates the
+    rule that the defect produced.
+
+    The interval half-width is the widest a 95% normal interval on a proportion
+    can be at this n (at p = 0.5), so it is a property of the set size alone and
+    needs no measurement to state.
+    """
+    train = by_split.get("train", 0)
+    post, pre = by_split.get("eval_post_cutoff", 0), by_split.get("eval_pre_cutoff", 0)
+    n = min(x for x in (post, pre) if x) if (post or pre) else 0
+    half = 1.96 * math.sqrt(0.25 / n) if n else float("nan")
+    return (f"{train} training examples and {post} / {pre} evaluation items. At n={n} the widest "
+            f"95% interval on a proportion spans +/-{100 * half:.1f} percentage points, which is larger "
+            f"than the between-condition differences this pipeline resolves on the scored tasks. Kept in "
+            f"the datasets and manifest, reported descriptively by P4/P5, excluded from any comparison "
+            f"between conditions.")
 
 
 def main() -> int:
@@ -500,10 +526,7 @@ def main() -> int:
     out = {
         "tasks": {t: {k: (dict(v) if isinstance(v, Counter) else v) for k, v in stats[t].items()} for t in TASKS},
         "scored": {t: (t != "attack_technique") for t in TASKS},
-        "not_scored_reason": {"attack_technique": (
-            "738 training examples and 72 / 44 evaluation items; confidence intervals exceed +/-10 percentage "
-            "points and the task is recall of ~800 fixed items. Kept in the datasets and manifest, reported "
-            "descriptively by P4/P5, excluded from any comparison between conditions.")},
+        "not_scored_reason": {"attack_technique": _not_scored_reason(stats["attack_technique"]["by_split"])},
         "split_counts_cve": dict(split_counts),
         "split_counts_attack": dict(Counter(asplit.values())),
         "cwe_buckets": dict(cwe_buckets),

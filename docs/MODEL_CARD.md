@@ -32,7 +32,7 @@
 - 추론·논증 능력 — 벤치마크가 없다
 - 운영 환경에서의 자동 판정 — 아래 정확도 수치를 보면 그 용도로는 어느 조건도 충분하지 않다
 
-`attack_technique` 과제는 데이터셋에 있지만 **채점하지 않는다**: 738 training examples and 72 / 44 evaluation items; confidence intervals exceed +/-10 percentage points and the task is recall of ~800 fixed items. Kept in the datasets and manifest, reported descriptively by P4/P5, excluded from any comparison between conditions.
+`attack_technique` 과제는 데이터셋에 있지만 **채점하지 않는다**: 738 training examples and 79 / 79 evaluation items. At n=79 the widest 95% interval on a proportion spans +/-11.0 percentage points, which is larger than the between-condition differences this pipeline resolves on the scored tasks. Kept in the datasets and manifest, reported descriptively by P4/P5, excluded from any comparison between conditions.
 
 인용한 문장의 "72 / 44 evaluation items"는 기록된 결함이다 — 그 두 수는 평가 항목 수가 아니라 커버리지 0 항목 수이고, 실제 평가 항목은 79건과 79건이다. 자세한 사정은 `docs/DATASET.md`에 있다. 채점하지 않는다는 결론은 그대로다.
 

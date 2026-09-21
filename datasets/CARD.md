@@ -25,7 +25,7 @@
 
 ### `scored: false` — 채점하지 않는 과제
 
-- **`attack_technique`**: 738 training examples and 72 / 44 evaluation items; confidence intervals exceed +/-10 percentage points and the task is recall of ~800 fixed items. Kept in the datasets and manifest, reported descriptively by P4/P5, excluded from any comparison between conditions.
+- **`attack_technique`**: 738 training examples and 79 / 79 evaluation items. At n=79 the widest 95% interval on a proportion spans +/-11.0 percentage points, which is larger than the between-condition differences this pipeline resolves on the scored tasks. Kept in the datasets and manifest, reported descriptively by P4/P5, excluded from any comparison between conditions.
 
 ### 라벨 출처가 시간에 따라 달라진다
 

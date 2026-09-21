@@ -1,0 +1,52 @@
+# P6 Part B -- RLVR demonstration on cve_to_cwe.
+#
+# Task choice is forced by the Cond-0 measurements, not by preference. GRPO
+# produces no gradient when every sample in a group is right or every sample is
+# wrong, so the task needs a baseline somewhere in the middle:
+#
+#   cve_to_cwe          39.0%  usable
+#   cvss_vector         18.0%  marginal
+#   structured_extract   9.3%  mostly all-wrong groups
+#
+# Starting point is Cond-2 at seed 1234 -- the checkpoint the P5 chain already
+# evaluated, so the comparison afterwards is against a measured reference.
+
+name: rlvr
+task: cve_to_cwe
+base_checkpoint: checkpoints/cond2/merged
+train_file: data/out/cve_to_cwe/train_cond2_domain.jsonl
+
+# Prompt pool. Drawn once, by a named seed, from the file Cond-2 trained on.
+n_prompts: 4096
+selection_seed: sec-llm-p6-rlvr-v1
+seed: 1234
+
+steps: 200
+num_generations: 8                 # group size
+per_device_train_batch_size: 8     # counted in completions, not prompts
+gradient_accumulation_steps: 8     # -> 64 completions = 8 prompts per step
+learning_rate: 1.0e-5
+beta: 0.0                          # no KL term; the reference model is the start point
+loss_type: dr_grpo
+scale_rewards: false
+
+# Rollouts need temperature above zero or every group is identical and the
+# advantage is zero by construction. Recorded rather than left to a default.
+temperature: 1.0
+top_p: 1.0
+
+# The one number here chosen by hand, and it is chosen so that the thing it
+# might hide stays visible. Targets in this pool are ~13 tokens; a cap at 8x the
+# longest target leaves enough headroom that verbosity drift shows up as drift
+# rather than as truncation. The fraction of completions that actually hit the
+# cap is logged every step -- if that fraction is not near zero, the cap is
+# confounding the length measurement and the report has to say so.
+max_completion_length_headroom: 8
+
+lora:
+  r: 32
+  alpha: 64
+  dropout: 0.0
+  target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+
+memory_max: 90G

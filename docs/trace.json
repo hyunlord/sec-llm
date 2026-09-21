@@ -734,7 +734,7 @@
      "attack_technique"
     ]
    },
-   "text": "738 training examples and 72 / 44 evaluation items; confidence intervals exceed +/-10 percentage points and the task is recall of ~800 fixed items. Kept in the datasets and manifest, reported descriptively by P4/P5, excluded from any comparison between conditions."
+   "text": "738 training examples and 79 / 79 evaluation items. At n=79 the widest 95% interval on a proportion spans +/-11.0 percentage points, which is larger than the between-condition differences this pipeline resolves on the scored tasks. Kept in the datasets and manifest, reported descriptively by P4/P5, excluded from any comparison between conditions."
   },
   {
    "kind": "n",
@@ -9657,7 +9657,7 @@
      "attack_technique"
     ]
    },
-   "text": "738 training examples and 72 / 44 evaluation items; confidence intervals exceed +/-10 percentage points and the task is recall of ~800 fixed items. Kept in the datasets and manifest, reported descriptively by P4/P5, excluded from any comparison between conditions."
+   "text": "738 training examples and 79 / 79 evaluation items. At n=79 the widest 95% interval on a proportion spans +/-11.0 percentage points, which is larger than the between-condition differences this pipeline resolves on the scored tasks. Kept in the datasets and manifest, reported descriptively by P4/P5, excluded from any comparison between conditions."
   },
   {
    "kind": "n",
