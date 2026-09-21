@@ -200,6 +200,7 @@ OPS = {
     "minutes": lambda vs: sum(vs) / 60.0,
     "gib": lambda vs: sum(vs) / (1024.0 ** 3),
     "count": lambda vs: float(len(vs[0])),
+    "pct_ratio": lambda vs: 100.0 * vs[0] / vs[1],
 }
 
 
@@ -272,6 +273,26 @@ def _r_ci_abs(R, a):
 @renderer("count")
 def _r_count(R, a):
     return _group(len(R.ref(a["ref"])))
+
+
+@renderer("verdict_count")
+def _r_verdict_count(R, a):
+    """How many cells in a comparison record carry a given verdict.
+
+    A pure function of committed data, so the checker recomputes it rather
+    than trusting the number the builder wrote. Used for statements of the
+    form "seed sensitivity appears in N of M domain sets", which have no
+    single path to point at.
+    """
+    cells = R.ref(a["ref"])
+    n = 0
+    for k in sorted(cells):
+        rec = cells[k]["pairs"][a["pair"]]
+        if a.get("sub"):
+            rec = rec[a["sub"]]
+        if rec["verdict"] == a["verdict"]:
+            n += 1
+    return str(n)
 
 
 @renderer("calc")
@@ -396,6 +417,9 @@ class Fmt:
 
     def count(self, *ref):
         return self._emit("count", ref=list(ref))
+
+    def verdict_count(self, ref, pair, verdict="difference detected", sub=None):
+        return self._emit("verdict_count", ref=list(ref), pair=pair, verdict=verdict, sub=sub)
 
     def calc(self, op, refs, nd=0, group=True):
         return self._emit("calc", op=op, refs=[list(r) for r in refs], nd=nd, group=group)

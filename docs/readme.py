@@ -108,6 +108,8 @@ def render(F: Fmt) -> str:
                      "조건 간 우열은 시드에 종속된다 — 시드 하나로 주장할 수 없는 종류의 결과이고, "
                      "두 번째 시드를 돌리지 않았다면 반대 결론을 자신 있게 적었을 것이다. "
                      + seed2_doc.base_clause(F))
+            L.append("")
+            L.append(seed2_doc.readme_variance(F))
     L.append("")
     L.append("표 전체와 판정 규칙은 `docs/MODEL_CARD.md`에 있다.")
     L.append("")

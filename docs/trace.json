@@ -306,6 +306,100 @@
    "text": "185"
   },
   {
+   "kind": "verdict_count",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "domain"
+    ],
+    "pair": "cond1 vs cond1_s2",
+    "verdict": "difference detected",
+    "sub": "accuracy"
+   },
+   "text": "1"
+  },
+  {
+   "kind": "verdict_count",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "domain"
+    ],
+    "pair": "cond2 vs cond2_s2",
+    "verdict": "difference detected",
+    "sub": "accuracy"
+   },
+   "text": "8"
+  },
+  {
+   "kind": "count",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "domain"
+    ]
+   },
+   "text": "12"
+  },
+  {
+   "kind": "calc",
+   "args": {
+    "op": "pct_ratio",
+    "refs": [
+     [
+      "seedvar_cond1",
+      "general",
+      "hellaswag",
+      "pairs",
+      "cond1 vs cond1_s2",
+      "mcnemar",
+      "discordant"
+     ],
+     [
+      "seedvar_cond1",
+      "general",
+      "hellaswag",
+      "pairs",
+      "cond1 vs cond1_s2",
+      "mcnemar",
+      "paired_items"
+     ]
+    ],
+    "nd": 1,
+    "group": true
+   },
+   "text": "1.9"
+  },
+  {
+   "kind": "calc",
+   "args": {
+    "op": "pct_ratio",
+    "refs": [
+     [
+      "compare",
+      "general",
+      "hellaswag",
+      "pairs",
+      "cond1 vs baseline",
+      "mcnemar",
+      "discordant"
+     ],
+     [
+      "compare",
+      "general",
+      "hellaswag",
+      "pairs",
+      "cond1 vs baseline",
+      "mcnemar",
+      "paired_items"
+     ]
+    ],
+    "nd": 1,
+    "group": true
+   },
+   "text": "11.3"
+  },
+  {
    "kind": "n",
    "args": {
     "ref": [
@@ -5538,6 +5632,1026 @@
     "nd": 1
    },
    "text": "1.2pp"
+  },
+  {
+   "kind": "calc",
+   "args": {
+    "op": "pct_ratio",
+    "refs": [
+     [
+      "seedvar_cond1",
+      "general",
+      "hellaswag",
+      "pairs",
+      "cond1 vs cond1_s2",
+      "mcnemar",
+      "discordant"
+     ],
+     [
+      "seedvar_cond1",
+      "general",
+      "hellaswag",
+      "pairs",
+      "cond1 vs cond1_s2",
+      "mcnemar",
+      "paired_items"
+     ]
+    ],
+    "nd": 1,
+    "group": true
+   },
+   "text": "1.9"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "mcnemar",
+     "discordant"
+    ]
+   },
+   "text": "19"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "mcnemar",
+     "paired_items"
+    ]
+   },
+   "text": "1,000"
+  },
+  {
+   "kind": "calc",
+   "args": {
+    "op": "pct_ratio",
+    "refs": [
+     [
+      "seedvar_cond1",
+      "general",
+      "mmlu",
+      "pairs",
+      "cond1 vs cond1_s2",
+      "mcnemar",
+      "discordant"
+     ],
+     [
+      "seedvar_cond1",
+      "general",
+      "mmlu",
+      "pairs",
+      "cond1 vs cond1_s2",
+      "mcnemar",
+      "paired_items"
+     ]
+    ],
+    "nd": 1,
+    "group": true
+   },
+   "text": "1.8"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "mcnemar",
+     "discordant"
+    ]
+   },
+   "text": "18"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "mcnemar",
+     "paired_items"
+    ]
+   },
+   "text": "991"
+  },
+  {
+   "kind": "calc",
+   "args": {
+    "op": "pct_ratio",
+    "refs": [
+     [
+      "seedvar_cond2",
+      "general",
+      "hellaswag",
+      "pairs",
+      "cond2 vs cond2_s2",
+      "mcnemar",
+      "discordant"
+     ],
+     [
+      "seedvar_cond2",
+      "general",
+      "hellaswag",
+      "pairs",
+      "cond2 vs cond2_s2",
+      "mcnemar",
+      "paired_items"
+     ]
+    ],
+    "nd": 1,
+    "group": true
+   },
+   "text": "1.9"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "mcnemar",
+     "discordant"
+    ]
+   },
+   "text": "19"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "mcnemar",
+     "paired_items"
+    ]
+   },
+   "text": "1,000"
+  },
+  {
+   "kind": "calc",
+   "args": {
+    "op": "pct_ratio",
+    "refs": [
+     [
+      "seedvar_cond2",
+      "general",
+      "mmlu",
+      "pairs",
+      "cond2 vs cond2_s2",
+      "mcnemar",
+      "discordant"
+     ],
+     [
+      "seedvar_cond2",
+      "general",
+      "mmlu",
+      "pairs",
+      "cond2 vs cond2_s2",
+      "mcnemar",
+      "paired_items"
+     ]
+    ],
+    "nd": 1,
+    "group": true
+   },
+   "text": "1.8"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "mcnemar",
+     "discordant"
+    ]
+   },
+   "text": "18"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "mcnemar",
+     "paired_items"
+    ]
+   },
+   "text": "991"
+  },
+  {
+   "kind": "calc",
+   "args": {
+    "op": "pct_ratio",
+    "refs": [
+     [
+      "compare",
+      "general",
+      "hellaswag",
+      "pairs",
+      "cond1 vs baseline",
+      "mcnemar",
+      "discordant"
+     ],
+     [
+      "compare",
+      "general",
+      "hellaswag",
+      "pairs",
+      "cond1 vs baseline",
+      "mcnemar",
+      "paired_items"
+     ]
+    ],
+    "nd": 1,
+    "group": true
+   },
+   "text": "11.3"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "compare",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond1 vs baseline",
+     "mcnemar",
+     "discordant"
+    ]
+   },
+   "text": "113"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "compare",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond1 vs baseline",
+     "mcnemar",
+     "paired_items"
+    ]
+   },
+   "text": "1,000"
+  },
+  {
+   "kind": "calc",
+   "args": {
+    "op": "pct_ratio",
+    "refs": [
+     [
+      "compare",
+      "general",
+      "mmlu",
+      "pairs",
+      "cond1 vs baseline",
+      "mcnemar",
+      "discordant"
+     ],
+     [
+      "compare",
+      "general",
+      "mmlu",
+      "pairs",
+      "cond1 vs baseline",
+      "mcnemar",
+      "paired_items"
+     ]
+    ],
+    "nd": 1,
+    "group": true
+   },
+   "text": "8.9"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "compare",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond1 vs baseline",
+     "mcnemar",
+     "discordant"
+    ]
+   },
+   "text": "88"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "compare",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond1 vs baseline",
+     "mcnemar",
+     "paired_items"
+    ]
+   },
+   "text": "991"
+  },
+  {
+   "kind": "calc",
+   "args": {
+    "op": "pct_ratio",
+    "refs": [
+     [
+      "compare",
+      "general",
+      "hellaswag",
+      "pairs",
+      "cond2 vs baseline",
+      "mcnemar",
+      "discordant"
+     ],
+     [
+      "compare",
+      "general",
+      "hellaswag",
+      "pairs",
+      "cond2 vs baseline",
+      "mcnemar",
+      "paired_items"
+     ]
+    ],
+    "nd": 1,
+    "group": true
+   },
+   "text": "8.9"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "compare",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond2 vs baseline",
+     "mcnemar",
+     "discordant"
+    ]
+   },
+   "text": "89"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "compare",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond2 vs baseline",
+     "mcnemar",
+     "paired_items"
+    ]
+   },
+   "text": "1,000"
+  },
+  {
+   "kind": "calc",
+   "args": {
+    "op": "pct_ratio",
+    "refs": [
+     [
+      "compare",
+      "general",
+      "mmlu",
+      "pairs",
+      "cond2 vs baseline",
+      "mcnemar",
+      "discordant"
+     ],
+     [
+      "compare",
+      "general",
+      "mmlu",
+      "pairs",
+      "cond2 vs baseline",
+      "mcnemar",
+      "paired_items"
+     ]
+    ],
+    "nd": 1,
+    "group": true
+   },
+   "text": "8.5"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "compare",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond2 vs baseline",
+     "mcnemar",
+     "discordant"
+    ]
+   },
+   "text": "84"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "compare",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond2 vs baseline",
+     "mcnemar",
+     "paired_items"
+    ]
+   },
+   "text": "991"
+  },
+  {
+   "kind": "verdict_count",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "domain"
+    ],
+    "pair": "cond1 vs cond1_s2",
+    "verdict": "difference detected",
+    "sub": "accuracy"
+   },
+   "text": "1"
+  },
+  {
+   "kind": "verdict_count",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "domain"
+    ],
+    "pair": "cond2 vs cond2_s2",
+    "verdict": "difference detected",
+    "sub": "accuracy"
+   },
+   "text": "8"
+  },
+  {
+   "kind": "count",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "domain"
+    ]
+   },
+   "text": "12"
+  },
+  {
+   "kind": "verdict_count",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "general"
+    ],
+    "pair": "cond1 vs cond1_s2",
+    "verdict": "difference detected",
+    "sub": null
+   },
+   "text": "0"
+  },
+  {
+   "kind": "verdict_count",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "general"
+    ],
+    "pair": "cond2 vs cond2_s2",
+    "verdict": "difference detected",
+    "sub": null
+   },
+   "text": "0"
+  },
+  {
+   "kind": "count",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "general"
+    ]
+   },
+   "text": "2"
+  },
+  {
+   "kind": "count",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "general"
+    ]
+   },
+   "text": "2"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "-0.1pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "1"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/constrained",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+1.0pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/constrained",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.011"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "-0.6pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.19"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+0.7pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.046"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "domain",
+     "cvss_vector/eval_post_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "-0.3pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "domain",
+     "cvss_vector/eval_post_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "1"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "domain",
+     "cvss_vector/eval_post_cutoff/constrained",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+2.9pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "domain",
+     "cvss_vector/eval_post_cutoff/constrained",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "3.2e-12"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "domain",
+     "cvss_vector/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "-0.4pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "domain",
+     "cvss_vector/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "1"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "domain",
+     "cvss_vector/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+4.6pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "domain",
+     "cvss_vector/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "8.5e-22"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "domain",
+     "structured_extract/eval_post_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+1.0pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "domain",
+     "structured_extract/eval_post_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.13"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "domain",
+     "structured_extract/eval_post_cutoff/constrained",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "-0.7pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "domain",
+     "structured_extract/eval_post_cutoff/constrained",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.046"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "domain",
+     "structured_extract/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "-0.9pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "domain",
+     "structured_extract/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.34"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "domain",
+     "structured_extract/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+1.0pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "domain",
+     "structured_extract/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.046"
+  },
+  {
+   "kind": "plain",
+   "args": {
+    "ref": [
+     "cond1_train",
+     "config",
+     "seed"
+    ]
+   },
+   "text": "1234"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "compare",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond1 vs baseline",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "-2.2pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "compare",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond1 vs baseline",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.076"
+  },
+  {
+   "kind": "plain",
+   "args": {
+    "ref": [
+     "cond1_s2_train",
+     "config",
+     "seed"
+    ]
+   },
+   "text": "5678"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "compare_s2",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond1_s2 vs baseline",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "-2.6pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "compare_s2",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond1_s2 vs baseline",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.028"
   },
   {
    "kind": "pp",

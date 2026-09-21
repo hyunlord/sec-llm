@@ -85,19 +85,7 @@ def general_block(F: Fmt) -> list:
     L.append("부호는 Cond-1에서 Cond-2를 뺀 값의 부호다. 음수는 Cond-2가 앞선다는 뜻이다.")
     L.append("")
 
-    # ---------------------------------------------- 시드 간 변동
-    L.append("#### 시드 간 변동 — 추론이 아니라 측정")
-    L.append("")
-    L.append("같은 조건을 시드만 바꿔 학습한 두 체크포인트를 **같은 평가 항목 위에서 짝지어** 비교했다. "
-             "두 조건의 차이를 시드 하나의 차이와 나란히 놓고 읽으라고 있는 표다.")
-    L.append("")
-    L.append("| 비교 | 차이 | 95% 구간 | Holm p | 판정 | 짝지은 MDD |")
-    L.append("|---|---|---|---|---|---|")
-    for g in GENERAL:
-        for c, src in (("cond1", "seedvar_cond1"), ("cond2", "seedvar_cond2")):
-            base = (src, "general", g, "pairs", SEEDVAR_PAIR[c])
-            L.append(_cmp_row(F, f"`{g}` — {c} 시드 간", *base))
-    L.append("")
+    L.extend(asymmetry_block(F))
 
     # ---------------------------------------------- 도메인
     L.append("#### 도메인 과제에서도 재현되는가")
@@ -159,6 +147,115 @@ def general_block(F: Fmt) -> list:
     L.append("")
 
     L.extend(conclusion(F))
+    return L
+
+
+def _disc(F: Fmt, *base) -> str:
+    """Discordance as a percentage, computed from the McNemar counts."""
+    return F.calc("pct_ratio", [(*base, "mcnemar", "discordant"),
+                                (*base, "mcnemar", "paired_items")], nd=1)
+
+
+def asymmetry_block(F: Fmt) -> list:
+    """What the seed-variance records say beyond 'the finding replicated'.
+
+    Two facts live in these records that the net differences hide. First, the
+    general-ability conclusion does not rest on small net movements cancelling
+    out -- item-level churn between seeds is several times smaller than churn
+    between conditions. Second, the two conditions are not equally stable, and
+    that asymmetry is the mechanism behind the domain sign reversal.
+    """
+    if not have(F):
+        return []
+    L = ["#### 시드 간 변동 — 추론이 아니라 측정", ""]
+    L.append("같은 조건을 시드만 바꿔 학습한 두 체크포인트를 **같은 평가 항목 위에서 짝지어** 비교했다. "
+             "순 차이뿐 아니라 **항목 단위로 몇 개가 뒤집혔는지**(불일치 쌍)를 함께 적는다. "
+             "순 차이가 작은 것은 큰 움직임이 상쇄된 결과일 수도 있고, 애초에 움직이지 않은 "
+             "것일 수도 있어서다.")
+    L.append("")
+    L.append("| 비교 | 차이 | 95% 구간 | Holm p | 판정 | 짝지은 MDD |")
+    L.append("|---|---|---|---|---|---|")
+    for g in GENERAL:
+        for c, src in (("cond1", "seedvar_cond1"), ("cond2", "seedvar_cond2")):
+            base = (src, "general", g, "pairs", SEEDVAR_PAIR[c])
+            L.append(_cmp_row(F, f"`{g}` — {c} 시드 간", *base))
+    L.append("")
+    L.append("| 무엇을 바꿨나 | `hellaswag` 불일치 | `mmlu` 불일치 |")
+    L.append("|---|---|---|")
+    for c, src in (("cond1", "seedvar_cond1"), ("cond2", "seedvar_cond2")):
+        L.append(f"| 시드만 ({c}) "
+                 + "".join(f"| {_disc(F, src, 'general', g, 'pairs', SEEDVAR_PAIR[c])}% "
+                           f"({F.n(src, 'general', g, 'pairs', SEEDVAR_PAIR[c], 'mcnemar', 'discordant')}"
+                           f"/{F.n(src, 'general', g, 'pairs', SEEDVAR_PAIR[c], 'mcnemar', 'paired_items')}) "
+                           for g in GENERAL) + "|")
+    for c in ("cond1", "cond2"):
+        L.append(f"| **조건** ({c} vs 베이스) "
+                 + "".join(f"| {_disc(F, 'compare', 'general', g, 'pairs', f'{c} vs baseline')}% "
+                           f"({F.n('compare', 'general', g, 'pairs', f'{c} vs baseline', 'mcnemar', 'discordant')}"
+                           f"/{F.n('compare', 'general', g, 'pairs', f'{c} vs baseline', 'mcnemar', 'paired_items')}) "
+                           for g in GENERAL) + "|")
+    L.append("")
+    L.append("**시드를 바꾸면 항목의 2% 미만이 뒤집히고, 조건을 바꾸면 8~12%가 뒤집힌다.** "
+             "일반 능력에서 시드가 문제되지 않았던 것은 큰 움직임이 상쇄되어서가 아니라 "
+             "애초에 다섯 배 적게 움직였기 때문이다.")
+    L.append("")
+
+    # ------------------------------------------------ the asymmetry
+    L.append("#### 리플레이는 도메인 성능을 낮추기만 한 것이 아니라 흔들었다")
+    L.append("")
+    n1 = F.verdict_count(("seedvar_cond1", "domain"), SEEDVAR_PAIR["cond1"], sub="accuracy")
+    n2 = F.verdict_count(("seedvar_cond2", "domain"), SEEDVAR_PAIR["cond2"], sub="accuracy")
+    tot = F.count("seedvar_cond1", "domain")
+    g1 = F.verdict_count(("seedvar_cond1", "general"), SEEDVAR_PAIR["cond1"])
+    g2 = F.verdict_count(("seedvar_cond2", "general"), SEEDVAR_PAIR["cond2"])
+    L.append("| 조건 | 시드에 민감한 도메인 세트 | 시드에 민감한 일반 벤치마크 |")
+    L.append("|---|---|---|")
+    L.append(f"| Cond-1 (도메인만) | {n1} / {tot} | {g1} / {F.count('seedvar_cond1', 'general')} |")
+    L.append(f"| Cond-2 (도메인+리플레이) | **{n2} / {tot}** | {g2} / {F.count('seedvar_cond2', 'general')} |")
+    L.append("")
+    L.append("\"시드에 민감하다\"는 것은 같은 조건을 시드만 바꿔 학습한 두 체크포인트가 그 세트에서 "
+             "**Holm 보정 뒤에도 서로 다르다고 판정된다**는 뜻이다.")
+    L.append("")
+    L.append("| 세트 (제약 디코딩) | Cond-1 시드 간 | Cond-2 시드 간 |")
+    L.append("|---|---|---|")
+    for t in SCORED:
+        for sp in SPLITS:
+            k = cell(t, sp, "constrained")
+            a = ("seedvar_cond1", "domain", k, "pairs", SEEDVAR_PAIR["cond1"], "accuracy")
+            b = ("seedvar_cond2", "domain", k, "pairs", SEEDVAR_PAIR["cond2"], "accuracy")
+            L.append(f"| `{t}` / {SPLIT_KO[sp]} "
+                     f"| {F.pp(*a, 'paired_difference', 'diff', nd=1)} "
+                     f"(Holm {F.p(*a, 'mcnemar_p_holm')}) {_v(F, *a)} "
+                     f"| {F.pp(*b, 'paired_difference', 'diff', nd=1)} "
+                     f"(Holm {F.p(*b, 'mcnemar_p_holm')}) {_v(F, *b)} |")
+    L.append("")
+    L.append("**동일 토큰 예산에서 리플레이는 도메인 정확도를 낮추기만 한 것이 아니라, "
+             "도메인 과제의 실행 간 분산을 넓혔다.** 일반 능력 벤치마크에서는 두 조건 모두 "
+             "시드에 둔감했다. 이것이 앞서 본 `cvss_vector` 부호 역전의 **메커니즘**이다 — "
+             "Cond-2의 도메인 성능이 실행마다 충분히 크게 움직이므로, 어느 조건이 앞서는지가 "
+             "시드에 따라 달라진다.")
+    L.append("")
+    L.append("*왜 그런지는 검정하지 않았다.* oasst2의 대화체는 도메인 JSON보다 길이와 형식이 "
+             "훨씬 이질적이어서 시퀀스 패킹 구성이 시드마다 크게 달라진다는 설명이 그럴듯하지만, "
+             "**측정하지 않은 가설이다.** 이 문서는 그것을 원인으로 적지 않는다.")
+    L.append("")
+
+    # ------------------------------------------------ the boundary flip
+    a = ("compare", "general", "mmlu", "pairs", "cond1 vs baseline")
+    b = ("compare_s2", "general", "mmlu", "pairs", "cond1_s2 vs baseline")
+    if F.get(*a, "verdict") != F.get(*b, "verdict"):
+        L.append("#### 경계 판정 하나가 시드에서 뒤집혔다")
+        L.append("")
+        L.append(f"`mmlu`의 Cond-1 vs 베이스는 시드 `{F.plain('cond1_train', 'config', 'seed')}`에서 "
+                 f"{F.pp(*a, 'paired_difference', 'diff', nd=1)}, Holm {F.p(*a, 'mcnemar_p_holm')}로 "
+                 f"{_v(F, *a)}이고, 시드 `{F.plain('cond1_s2_train', 'config', 'seed')}`에서 "
+                 f"{F.pp(*b, 'paired_difference', 'diff', nd=1)}, Holm {F.p(*b, 'mcnemar_p_holm')}로 "
+                 f"{_v(F, *b)}이다. **부호도 크기도 사실상 같은데 판정만 반대다.**")
+        L.append("")
+        L.append("사전에 고정한 규칙은 Cond-1 vs Cond-2만을 판정 대상으로 하므로 위 결론은 "
+                 "영향을 받지 않는다. 그러나 이것은 **유의수준 경계에 놓인 판정이 시드 하나로 "
+                 "뒤집히는 구체적 사례**이며, 경계값을 굵게 적지 않는 이유 그 자체다.")
+        L.append("")
     return L
 
 
@@ -257,6 +354,20 @@ def finding_clause(F: Fmt) -> str:
             "끝나기 전에 고정되어 있었으므로 일치한 쪽을 골라 결론으로 삼을 수 없다. "
             "**이 설계는 리플레이 효과와 시드 분산을 분리하지 못한다** — 효과가 없다는 뜻이 아니라, "
             "두 번의 학습으로는 있다고 말할 수 없다는 뜻이다.")
+
+
+def readme_variance(F: Fmt) -> str:
+    """The asymmetry, in one sentence, for the README."""
+    n1 = F.verdict_count(("seedvar_cond1", "domain"), SEEDVAR_PAIR["cond1"], sub="accuracy")
+    n2 = F.verdict_count(("seedvar_cond2", "domain"), SEEDVAR_PAIR["cond2"], sub="accuracy")
+    tot = F.count("seedvar_cond1", "domain")
+    hs = _disc(F, "seedvar_cond1", "general", "hellaswag", "pairs", SEEDVAR_PAIR["cond1"])
+    cb = _disc(F, "compare", "general", "hellaswag", "pairs", "cond1 vs baseline")
+    return (f"**메커니즘은 분산이다.** 같은 조건을 시드만 바꿔 다시 학습했을 때 도메인 세트가 "
+            f"흔들린 정도는 Cond-1이 {n1}/{tot}, Cond-2가 **{n2}/{tot}**이다 — 동일 예산에서 "
+            f"리플레이는 도메인 정확도를 낮추기만 한 것이 아니라 **실행 간 분산을 넓혔다.** "
+            f"일반 능력에서는 두 조건 모두 시드에 둔감했다(항목 불일치 {hs}%, 조건을 바꾸면 {cb}%). "
+            f"왜 그런지는 검정하지 않았다.")
 
 
 def readme_clause(F: Fmt) -> str:
