@@ -55,7 +55,12 @@
       "if_both_agree": "the finding stands on two independent draws and the single-seed caveat is replaced by what the two seeds showed.",
       "if_either_disagrees": "the design does not separate a replay effect from seed variance, and that is the conclusion to publish -- not the seed that happened to agree.",
       "also_measured": "cond1(1234) vs cond1(5678) and cond2(1234) vs cond2(5678), paired over the same evaluation items, so seed-to-seed movement is measured directly instead of inferred from two separate comparisons.",
-      "limit": "two seeds give one seed-to-seed difference per condition, not a variance estimate. A difference smaller than the paired MDD is not evidence of stability."
+      "limit": "two seeds give one seed-to-seed difference per condition, not a variance estimate. A difference smaller than the paired MDD is not evidence of stability.",
+      "_translation_note": "Korean renderings added after the run finished, for the Korean documents. The English fields are the committed pre-registration (commit b32688c) and are byte-unchanged; the diff shows only additions.",
+      "agreement_ko": "벤치마크별로, 시드 5678의 Cond-1 vs Cond-2 쌍 차이가 시드 1234와 부호가 같고 Holm 보정 판정도 같을 때 일치로 본다.",
+      "if_both_agree_ko": "결론은 독립적인 두 번의 추출 위에 서고, 단일 시드 단서는 두 시드가 보여준 것으로 대체된다.",
+      "if_either_disagrees_ko": "이 설계는 리플레이 효과와 시드 분산을 분리하지 못하며, 일치한 쪽이 아니라 그 사실이 결론이 된다.",
+      "limit_ko": "시드 두 개는 조건당 차이 한 번을 줄 뿐 분산을 추정하지 못한다. 짝지은 MDD보다 작은 차이는 안정성의 증거가 아니다."
     }
   },
   "engineering_rules": {

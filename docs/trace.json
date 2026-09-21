@@ -5110,8 +5110,30 @@
    "kind": "plain",
    "args": {
     "ref": [
-     "refs",
-     "seed2",
+     "cond1_s2_train",
+     "config",
+     "seed"
+    ]
+   },
+   "text": "5678"
+  },
+  {
+   "kind": "plain",
+   "args": {
+    "ref": [
+     "cond1_train",
+     "config",
+     "seed"
+    ]
+   },
+   "text": "1234"
+  },
+  {
+   "kind": "plain",
+   "args": {
+    "ref": [
+     "cond1_s2_train",
+     "config",
      "seed"
     ]
    },
@@ -5123,10 +5145,11 @@
     "ref": [
      "refs",
      "seed2",
-     "status"
+     "interpretation_rule",
+     "fixed_on"
     ]
    },
-   "text": "in_training"
+   "text": "2026-09-21"
   },
   {
    "kind": "s",
@@ -5135,10 +5158,904 @@
      "refs",
      "seed2",
      "interpretation_rule",
-     "agreement"
+     "agreement_ko"
     ]
    },
-   "text": "For each general benchmark, the seed-5678 run agrees with seed-1234 when the Cond-1 vs Cond-2 paired difference carries the same sign AND the same Holm-adjusted verdict."
+   "text": "벤치마크별로, 시드 5678의 Cond-1 vs Cond-2 쌍 차이가 시드 1234와 부호가 같고 Holm 보정 판정도 같을 때 일치로 본다."
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "compare",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond1 vs cond2",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "-3.6pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "compare",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond1 vs cond2",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.0011"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "compare_s2",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond1_s2 vs cond2_s2",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "-3.0pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "compare_s2",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond1_s2 vs cond2_s2",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.0068"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "compare",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond1 vs cond2",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+1.2pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "compare",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond1 vs cond2",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.39"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "compare_s2",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond1_s2 vs cond2_s2",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+1.4pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "compare_s2",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond1_s2 vs cond2_s2",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.23"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "-0.1pp"
+  },
+  {
+   "kind": "ci",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "paired_difference",
+     "ci95"
+    ],
+    "nd": 1,
+    "scale": 100,
+    "unit": "pp"
+   },
+   "text": "[-0.9, +0.8]pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "1"
+  },
+  {
+   "kind": "abspp",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "paired_difference",
+     "mdd_points_paired"
+    ],
+    "nd": 1
+   },
+   "text": "1.2pp"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+0.5pp"
+  },
+  {
+   "kind": "ci",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "paired_difference",
+     "ci95"
+    ],
+    "nd": 1,
+    "scale": 100,
+    "unit": "pp"
+   },
+   "text": "[-0.4, +1.4]pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "1"
+  },
+  {
+   "kind": "abspp",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "general",
+     "hellaswag",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "paired_difference",
+     "mdd_points_paired"
+    ],
+    "nd": 1
+   },
+   "text": "1.2pp"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+0.4pp"
+  },
+  {
+   "kind": "ci",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "paired_difference",
+     "ci95"
+    ],
+    "nd": 1,
+    "scale": 100,
+    "unit": "pp"
+   },
+   "text": "[-0.4, +1.2]pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.96"
+  },
+  {
+   "kind": "abspp",
+   "args": {
+    "ref": [
+     "seedvar_cond1",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond1 vs cond1_s2",
+     "paired_difference",
+     "mdd_points_paired"
+    ],
+    "nd": 1
+   },
+   "text": "1.2pp"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+0.6pp"
+  },
+  {
+   "kind": "ci",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "paired_difference",
+     "ci95"
+    ],
+    "nd": 1,
+    "scale": 100,
+    "unit": "pp"
+   },
+   "text": "[-0.2, +1.4]pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.95"
+  },
+  {
+   "kind": "abspp",
+   "args": {
+    "ref": [
+     "seedvar_cond2",
+     "general",
+     "mmlu",
+     "pairs",
+     "cond2 vs cond2_s2",
+     "paired_difference",
+     "mdd_points_paired"
+    ],
+    "nd": 1
+   },
+   "text": "1.2pp"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "compare",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+0.8pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "compare",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.045"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "compare_s2",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/constrained",
+     "pairs",
+     "cond1_s2 vs cond2_s2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+1.9pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "compare_s2",
+     "domain",
+     "cve_to_cwe/eval_post_cutoff/constrained",
+     "pairs",
+     "cond1_s2 vs cond2_s2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "5.9e-7"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "compare",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+1.0pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "compare",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.012"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "compare_s2",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond1_s2 vs cond2_s2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+2.4pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "compare_s2",
+     "domain",
+     "cve_to_cwe/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond1_s2 vs cond2_s2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "2.8e-11"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "compare",
+     "domain",
+     "cvss_vector/eval_post_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "-1.3pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "compare",
+     "domain",
+     "cvss_vector/eval_post_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.02"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "compare_s2",
+     "domain",
+     "cvss_vector/eval_post_cutoff/constrained",
+     "pairs",
+     "cond1_s2 vs cond2_s2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+2.0pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "compare_s2",
+     "domain",
+     "cvss_vector/eval_post_cutoff/constrained",
+     "pairs",
+     "cond1_s2 vs cond2_s2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "9.7e-5"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "compare",
+     "domain",
+     "cvss_vector/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+0.1pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "compare",
+     "domain",
+     "cvss_vector/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.84"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "compare_s2",
+     "domain",
+     "cvss_vector/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond1_s2 vs cond2_s2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+5.1pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "compare_s2",
+     "domain",
+     "cvss_vector/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond1_s2 vs cond2_s2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "4.4e-20"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "compare",
+     "domain",
+     "structured_extract/eval_post_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+3.2pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "compare",
+     "domain",
+     "structured_extract/eval_post_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "2.3e-13"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "compare_s2",
+     "domain",
+     "structured_extract/eval_post_cutoff/constrained",
+     "pairs",
+     "cond1_s2 vs cond2_s2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+1.6pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "compare_s2",
+     "domain",
+     "structured_extract/eval_post_cutoff/constrained",
+     "pairs",
+     "cond1_s2 vs cond2_s2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.00027"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "compare",
+     "domain",
+     "structured_extract/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+1.5pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "compare",
+     "domain",
+     "structured_extract/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond1 vs cond2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "0.045"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "compare_s2",
+     "domain",
+     "structured_extract/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond1_s2 vs cond2_s2",
+     "accuracy",
+     "paired_difference",
+     "diff"
+    ],
+    "nd": 1
+   },
+   "text": "+3.3pp"
+  },
+  {
+   "kind": "p",
+   "args": {
+    "ref": [
+     "compare_s2",
+     "domain",
+     "structured_extract/eval_pre_cutoff/constrained",
+     "pairs",
+     "cond1_s2 vs cond2_s2",
+     "accuracy",
+     "mcnemar_p_holm"
+    ]
+   },
+   "text": "5.9e-7"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "probe_s2",
+     "conditions",
+     "cond1_s2",
+     "n_probe_in_training"
+    ]
+   },
+   "text": "223"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "probe_s2",
+     "conditions",
+     "cond1_s2",
+     "n_with_matched_control"
+    ]
+   },
+   "text": "204"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "probe_s2",
+     "conditions",
+     "cond1_s2",
+     "modes",
+     "constrained",
+     "above_floor"
+    ],
+    "nd": 1
+   },
+   "text": "-3.9pp"
+  },
+  {
+   "kind": "abspp",
+   "args": {
+    "ref": [
+     "probe_s2",
+     "conditions",
+     "cond1_s2",
+     "modes",
+     "constrained",
+     "condition",
+     "mdd_points"
+    ],
+    "nd": 1
+   },
+   "text": "9.6pp"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "probe_s2",
+     "conditions",
+     "cond2_s2",
+     "n_probe_in_training"
+    ]
+   },
+   "text": "201"
+  },
+  {
+   "kind": "n",
+   "args": {
+    "ref": [
+     "probe_s2",
+     "conditions",
+     "cond2_s2",
+     "n_with_matched_control"
+    ]
+   },
+   "text": "185"
+  },
+  {
+   "kind": "pp",
+   "args": {
+    "ref": [
+     "probe_s2",
+     "conditions",
+     "cond2_s2",
+     "modes",
+     "constrained",
+     "above_floor"
+    ],
+    "nd": 1
+   },
+   "text": "-0.5pp"
+  },
+  {
+   "kind": "abspp",
+   "args": {
+    "ref": [
+     "probe_s2",
+     "conditions",
+     "cond2_s2",
+     "modes",
+     "constrained",
+     "condition",
+     "mdd_points"
+    ],
+    "nd": 1
+   },
+   "text": "10.0pp"
+  },
+  {
+   "kind": "s",
+   "args": {
+    "ref": [
+     "refs",
+     "seed2",
+     "interpretation_rule",
+     "if_both_agree_ko"
+    ]
+   },
+   "text": "결론은 독립적인 두 번의 추출 위에 서고, 단일 시드 단서는 두 시드가 보여준 것으로 대체된다."
+  },
+  {
+   "kind": "s",
+   "args": {
+    "ref": [
+     "refs",
+     "seed2",
+     "interpretation_rule",
+     "limit_ko"
+    ]
+   },
+   "text": "시드 두 개는 조건당 차이 한 번을 줄 뿐 분산을 추정하지 못한다. 짝지은 MDD보다 작은 차이는 안정성의 증거가 아니다."
   },
   {
    "kind": "plain",
@@ -6470,6 +7387,18 @@
     "nd": 2
    },
    "text": "0.75"
+  },
+  {
+   "kind": "s",
+   "args": {
+    "ref": [
+     "refs",
+     "seed2",
+     "interpretation_rule",
+     "limit_ko"
+    ]
+   },
+   "text": "시드 두 개는 조건당 차이 한 번을 줄 뿐 분산을 추정하지 못한다. 짝지은 MDD보다 작은 차이는 안정성의 증거가 아니다."
   },
   {
    "kind": "pct",

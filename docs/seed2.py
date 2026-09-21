@@ -64,7 +64,7 @@ def general_block(F: Fmt) -> list:
     L.append("")
     L.append(f"**해석 규칙은 이 실행이 끝나기 전에 고정해 커밋했다**"
              f"(`docs/refs.json`, {F.s('refs', 'seed2', 'interpretation_rule', 'fixed_on')}). "
-             f"{F.s('refs', 'seed2', 'interpretation_rule', 'agreement')}")
+             f"{F.s('refs', 'seed2', 'interpretation_rule', 'agreement_ko')}")
     L.append("")
 
     # ---------------------------------------------- 재현되는가
@@ -102,21 +102,45 @@ def general_block(F: Fmt) -> list:
     # ---------------------------------------------- 도메인
     L.append("#### 도메인 과제에서도 재현되는가")
     L.append("")
-    L.append("| 과제 / 세트 | 시드 1234 Cond-1 vs Cond-2 | 시드 5678 | 판정 일치 |")
-    L.append("|---|---|---|---|")
+    L.append("| 과제 / 세트 | 시드 1234 | Holm p | 시드 5678 | Holm p | 결과 |")
+    L.append("|---|---|---|---|---|---|")
+    contradictions, flips = [], []
     for t in SCORED:
         for sp in SPLITS:
             k = cell(t, sp, "constrained")
             a = ("compare", "domain", k, "pairs", S1_PAIR, "accuracy")
             b = ("compare_s2", "domain", k, "pairs", S2_PAIR, "accuracy")
-            same = (F.get(*a, "verdict") == F.get(*b, "verdict")
-                    and _sign(F.get(*a, "paired_difference", "diff"))
-                    == _sign(F.get(*b, "paired_difference", "diff")))
+            da, db = F.get(*a, "paired_difference", "diff"), F.get(*b, "paired_difference", "diff")
+            va, vb = F.get(*a, "verdict"), F.get(*b, "verdict")
+            both_detected = va == vb == "difference detected"
+            if both_detected and _sign(da) != _sign(db):
+                mark, label = "**서로 반대**", f"`{t}`/{SPLIT_KO[sp]}"
+                contradictions.append(label)
+            elif va != vb:
+                mark, label = "**판정 뒤집힘**", f"`{t}`/{SPLIT_KO[sp]}"
+                flips.append(label)
+            else:
+                mark = "일치"
             L.append(f"| `{t}` / {SPLIT_KO[sp]} "
-                     f"| {F.pp(*a, 'paired_difference', 'diff', nd=1)} "
-                     f"| {F.pp(*b, 'paired_difference', 'diff', nd=1)} "
-                     f"| {'일치' if same else '**불일치**'} |")
+                     f"| {F.pp(*a, 'paired_difference', 'diff', nd=1)} | {F.p(*a, 'mcnemar_p_holm')} "
+                     f"| {F.pp(*b, 'paired_difference', 'diff', nd=1)} | {F.p(*b, 'mcnemar_p_holm')} "
+                     f"| {mark} |")
     L.append("")
+    if contradictions:
+        L.append("**" + ", ".join(contradictions) + "에서 두 시드가 서로 반대 방향을 가리키며, "
+                 "양쪽 모두 자기 시드 안에서는 차이를 검출한다.** 큰 값과 작은 값의 차이가 아니라 "
+                 "**어느 조건이 낫느냐에 대한 모순**이다. 한 시드만 돌렸다면 그 시드가 말하는 쪽을 "
+                 "결과로 적었을 것이고, 그 수치는 Holm 보정 뒤에도 살아남았을 것이다.")
+        L.append("")
+    if flips:
+        L.append("**" + ", ".join(flips) + "에서는 한 시드가 검출한 차이를 다른 시드가 검출하지 못했다.**")
+        L.append("")
+    if contradictions or flips:
+        L.append("사전에 고정한 규칙은 일반 능력 벤치마크만을 대상으로 한다. 도메인 과제의 이 결과는 "
+                 "규칙이 판정하는 대상이 아니라 **함께 측정된 별도의 사실**이며, 그 사실은 "
+                 "**동일 예산에서 도메인 과제의 조건 간 우열은 시드에 따라 달라진다**는 것이다. "
+                 "도메인 쪽 조건 비교는 시드 하나로 주장할 수 없다.")
+        L.append("")
 
     # ---------------------------------------------- 암기
     L.append("#### 암기 탐침")
@@ -145,9 +169,8 @@ def conclusion(F: Fmt) -> list:
     agree = {g: _agrees(F, g) for g in GENERAL}
     L = ["#### 규칙이 내린 결론", ""]
     if all(agree.values()):
-        L.append("**두 벤치마크 모두 부호와 판정이 일치했다.** 사전에 고정한 규칙에 따라, "
-                 "일반 능력에 대한 결론은 이제 독립적인 두 번의 추출 위에 선다 — "
-                 f"{F.s('refs', 'seed2', 'interpretation_rule', 'if_both_agree')}")
+        L.append("**두 벤치마크 모두 부호와 판정이 일치했다.** 사전에 고정한 규칙이 정한 대로, "
+                 f"{F.s('refs', 'seed2', 'interpretation_rule', 'if_both_agree_ko')}")
         L.append("")
         L.append("다만 **벤치마크 사이의 불일치는 그대로 남는다.** 두 시드가 일치했다는 것은 "
                  "`hellaswag`와 `mmlu`가 서로 다른 답을 준다는 사실이 시드 운이 아니었다는 뜻이지, "
@@ -156,15 +179,63 @@ def conclusion(F: Fmt) -> list:
         disagreeing = [g for g in GENERAL if not agree[g]]
         L.append("**" + ", ".join(f"`{g}`" for g in disagreeing) + "에서 두 시드가 어긋났다.** "
                  "사전에 고정한 규칙에 따라, 일치한 쪽을 골라 결론으로 삼지 않는다 — "
-                 f"{F.s('refs', 'seed2', 'interpretation_rule', 'if_either_disagrees')}")
+                 f"{F.s('refs', 'seed2', 'interpretation_rule', 'if_either_disagrees_ko')}")
         L.append("")
         L.append("즉 P5.1이 검출한 리플레이 효과는 **이 설계로는 시드 분산과 분리되지 않는다.** "
                  "효과가 없다는 뜻이 아니라, 두 번의 학습으로는 있다고 말할 수 없다는 뜻이다. "
                  "분리하려면 조건당 시드 여러 개가 필요하고, 그것은 이 실험이 치르지 않은 비용이다.")
     L.append("")
-    L.append(f"**두 시드는 분산을 추정하지 못한다.** {F.s('refs', 'seed2', 'interpretation_rule', 'limit')}")
+    hard = _domain_conflicts(F)
+    if hard:
+        L.append("**같은 실험의 도메인 쪽은 그렇지 않았다.** " + ", ".join(hard) +
+                 "에서 두 시드가 서로 반대 방향을 각각 검출했다. 일반 능력의 결론이 두 추출에서 "
+                 "버텼다는 것이 도메인 쪽 조건 비교도 버텼다는 뜻이 아니며, 오히려 그 반대다 — "
+                 "**도메인 과제의 조건 간 우열은 이 예산에서 시드에 종속된다.**")
+        L.append("")
+    L.append(f"**두 시드는 분산을 추정하지 못한다.** {F.s('refs', 'seed2', 'interpretation_rule', 'limit_ko')}")
     L.append("")
     return L
+
+
+def baseline_agrees(F: Fmt) -> bool:
+    """Do both seeds put every condition on the same side of the base model?
+
+    Checked rather than asserted: the sentence about base-model improvement
+    being seed-stable is emitted only when this is true, and the opposite
+    sentence when it is not.
+    """
+    for t in SCORED:
+        for sp in SPLITS:
+            k = cell(t, sp, "constrained")
+            for c in ("cond1", "cond2"):
+                a = F.get("compare", "domain", k, "pairs", f"{c} vs baseline", "accuracy")
+                b = F.get("compare_s2", "domain", k, "pairs", f"{c}_s2 vs baseline", "accuracy")
+                if (a["verdict"] != b["verdict"]
+                        or _sign(a["paired_difference"]["diff"]) != _sign(b["paired_difference"]["diff"])):
+                    return False
+    return True
+
+
+def base_clause(F: Fmt) -> str:
+    if baseline_agrees(F):
+        return ("베이스 대비 향상은 이 문제를 겪지 않는다 — 도메인 여섯 세트와 두 조건의 "
+                "**모든 조합에서** 두 시드가 같은 부호, 같은 판정을 냈다.")
+    return ("**베이스 대비 향상도 두 시드에서 일치하지 않는다.** 어느 조건이 베이스를 넘어섰는지조차 "
+            "시드에 따라 달라진다는 뜻이며, 이 경우 도메인 결과는 어떤 형태로도 주장할 수 없다.")
+
+
+def _domain_conflicts(F: Fmt) -> list:
+    """Cells where both seeds detected a difference and pointed opposite ways."""
+    out = []
+    for t in SCORED:
+        for sp in SPLITS:
+            k = cell(t, sp, "constrained")
+            a = F.get("compare", "domain", k, "pairs", S1_PAIR, "accuracy")
+            b = F.get("compare_s2", "domain", k, "pairs", S2_PAIR, "accuracy")
+            if (a["verdict"] == b["verdict"] == "difference detected"
+                    and _sign(a["paired_difference"]["diff"]) != _sign(b["paired_difference"]["diff"])):
+                out.append(f"`{t}`/{SPLIT_KO[sp]}")
+    return out
 
 
 def finding_clause(F: Fmt) -> str:

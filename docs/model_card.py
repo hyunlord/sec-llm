@@ -390,8 +390,14 @@ def render(F: Fmt) -> str:
              "P2 보정에서 채택되었으나, 그 실험의 재현율 열은 표본 설계를 다시 진술한 것에 지나지 않는다는 "
              "사실이 뒤에 드러났다. 재보정은 수행되지 않았고, **평가 세트는 그 임계값 위에 서 있다.**")
     if seed2_doc.have(F):
-        L.append(f"- **시드 두 개.** {F.s('refs', 'seed2', 'interpretation_rule', 'limit')} "
-                 "결론은 위 결과 절에 있다.")
+        L.append(f"- **시드 두 개.** {F.s('refs', 'seed2', 'interpretation_rule', 'limit_ko')}")
+        conflicts = seed2_doc._domain_conflicts(F)
+        if conflicts:
+            L.append("- **도메인 과제의 조건 간 우열은 시드에 종속된다.** "
+                     + ", ".join(conflicts) +
+                     "에서 두 시드가 서로 반대 방향을 각각 검출했다. 이 카드의 도메인 조건 비교 표는 "
+                     "시드 하나의 결과이며, 그 표만 보고 어느 조건이 낫다고 읽어서는 안 된다. "
+                     + seed2_doc.base_clause(F))
     else:
         L.append("- **시드 하나.** 위 결과 절에 적은 그대로다. 리플레이 효과와 시드 분산이 분리되지 않는다.")
     L.append(f"- **한 에폭이 아니다.** 데이터의 {F.pct('cond1_train', 'epoch_fraction', nd=1)}만 본다. "

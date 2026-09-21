@@ -1,0 +1,133 @@
+{
+  "adapter_files": 3,
+  "adapter_sha256": "f758c31d6871f75337456cf82a9a92cf4fc22836bf200619626cd894b3c7c9db",
+  "base_checkpoint_sha256": "2564ff2127caa0a9f79cfaf96f569e407dec51c264566735efc5ff4e2c68a234",
+  "config": {
+    "files": [
+      "cve_to_cwe/train_cond2_domain.jsonl",
+      "cvss_vector/train_cond2_domain.jsonl",
+      "structured_extract/train_cond2_domain.jsonl",
+      "replay/train_cond2.jsonl"
+    ],
+    "grad_accum": 4,
+    "grad_clip": 1.0,
+    "lora": {
+      "alpha": 128,
+      "dropout": 0.0,
+      "r": 64,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ]
+    },
+    "lr": 0.0001,
+    "name": "cond2_s2",
+    "per_device_batch": 4,
+    "seed": 5678,
+    "seq_len": 4096,
+    "steps": 157,
+    "warmup_steps": 8
+  },
+  "config_sha256": "d1a26261f502d9d827935e558b476c62ac36b6b94983b681434d711363256d3b",
+  "data_order_sha256": "27207a002b5072eb63b62262df9238e6c2f8c637068d26280f40279fc9cae8b1",
+  "driver_version": "580.126.09",
+  "epoch_fraction": 0.8412,
+  "examples": 56956,
+  "examples_by_task": {
+    "cve_to_cwe": 22776,
+    "cvss_vector": 16472,
+    "replay": 9043,
+    "structured_extract": 8665
+  },
+  "examples_seen": 47912,
+  "examples_seen_by_task": {
+    "cve_to_cwe": 19231,
+    "cvss_vector": 13862,
+    "replay": 7603,
+    "structured_extract": 7216
+  },
+  "files_consumed": {
+    "cve_to_cwe/train_cond2_domain.jsonl": {
+      "count": 22776,
+      "sha256": "0baccbe9bc1418801ffa4be007b345d91107cf96899c5c069019933e02353bd8"
+    },
+    "cvss_vector/train_cond2_domain.jsonl": {
+      "count": 16472,
+      "sha256": "6f7e5d08516877855cb80bc0a12b703db77fed621c49634e3130cb4bc816fedc"
+    },
+    "replay/train_cond2.jsonl": {
+      "count": 9043,
+      "sha256": "588b7c01d368cc5ba63814e3986b886aeffe06fddfba6a9096e79e0b0631b3e2"
+    },
+    "structured_extract/train_cond2_domain.jsonl": {
+      "count": 8665,
+      "sha256": "ed92f0d680e2ebc1e9c295518fa0d54480fceb7b956fdcdd3c0bc60b3d7964ce"
+    }
+  },
+  "gpu_name": "NVIDIA GB10",
+  "jsonschema_version": "4.26.0",
+  "loss_first": 1.20134,
+  "loss_last": 0.60628,
+  "machine": "aarch64",
+  "mean_sec_per_step_after_first": 129.45,
+  "merged_checkpoint_sha256": "9e62515e53af4708743af9a263179f9db8ede3312d7538b9549b974ed78bbd3b",
+  "merged_files": 6,
+  "merged_path": "/home/hyunlord/sec-llm/checkpoints/cond2_s2/merged",
+  "misaligned_prefixes": 0,
+  "model_repo_commit": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "name": "cond2_s2",
+  "numpy_version": "2.3.5",
+  "packed_sequences": 2977,
+  "packing_isolation_check": {
+    "argmax_agreement_masked_vs_alone": 1.0,
+    "max_abs_logit_diff_masked_vs_alone": 1.8125,
+    "max_abs_logit_diff_naive_vs_alone": 15.5469
+  },
+  "packing_seed": 5678,
+  "partial": false,
+  "peak_mem_gib": 61.83,
+  "python": "3.12.3",
+  "reproducibility_claim": "seed, data order hash and packing seed are recorded; bit-identical re-training was NOT re-run and is therefore untested",
+  "schedule_note": "P3.2 counted prompt+target tokens only (9,960,190 for Cond-1). The chat template adds a system prompt and role markers per example, so the same examples pack into more 4096-token sequences than the schedule assumed. Steps stay at 157 as specified; both conditions therefore see the same token budget and the same fraction of their data, and neither sees a full epoch. epoch_fraction is the measured value.",
+  "seed": 5678,
+  "sequences_left_over": 465,
+  "sequences_used": 2512,
+  "status": "completed",
+  "steps_completed": 157,
+  "steps_planned": 157,
+  "subset_check": {
+    "cond1_ids": 60000,
+    "cond1_ids_sha256": "9bde7c7fae751696750e3beff2b0c4231c6786b1c7f94717c6bd2b367b6e23f7",
+    "cond2_domain_ids": 47913,
+    "cond2_domain_ids_sha256": "027b90d579592cb083446a7def04310316055ad6f873bad4a17deab8073caba9",
+    "cond2_not_in_cond1": 0,
+    "intersection_sha256": "027b90d579592cb083446a7def04310316055ad6f873bad4a17deab8073caba9",
+    "matches_manifest_record": true,
+    "source": "recomputed from data/out/*/train_subsample.jsonl and train_cond2_domain.jsonl on this host",
+    "subset_holds": true
+  },
+  "supervised_tokens": 3563020,
+  "tokens_in_all_packed_sequences": 11724970,
+  "tokens_in_used_sequences": 9889061,
+  "torch_version": "2.13.0+cu130",
+  "total_params": 7777097216,
+  "trainable_params": 161480704,
+  "transformers_version": "5.17.0",
+  "truncated_over_seq_len": 1,
+  "vllm_version": "0.29.0",
+  "wall_sec": 20535.4,
+  "warmup_check": {
+    "abort_factor": 2.0,
+    "gate0_prediction_sec_per_step": 129.5,
+    "mean_sec_per_step": 129.91,
+    "projected_hours_for_run": 5.67,
+    "ratio_observed_over_predicted": 1.003,
+    "steps_measured": 19
+  },
+  "xgrammar_version": "0.2.7"
+}

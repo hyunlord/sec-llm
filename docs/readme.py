@@ -99,6 +99,16 @@ def render(F: Fmt) -> str:
              f"{F.n('probe', 'conditions', 'cond2', 'n_with_matched_control')}쌍에서, "
              "바닥선 대비 초과분은 검출 가능 최소차 안에 있다.")
     L.append("")
+    if seed2_doc.have(F):
+        conflicts = seed2_doc._domain_conflicts(F)
+        if conflicts:
+            L.append("")
+            L.append("**도메인 쪽은 그만큼 버티지 못했다.** " + ", ".join(conflicts) +
+                     "에서 두 시드가 **서로 반대 조건을 각각 검출했다.** 동일 예산에서 도메인 과제의 "
+                     "조건 간 우열은 시드에 종속된다 — 시드 하나로 주장할 수 없는 종류의 결과이고, "
+                     "두 번째 시드를 돌리지 않았다면 반대 결론을 자신 있게 적었을 것이다. "
+                     + seed2_doc.base_clause(F))
+    L.append("")
     L.append("표 전체와 판정 규칙은 `docs/MODEL_CARD.md`에 있다.")
     L.append("")
 
